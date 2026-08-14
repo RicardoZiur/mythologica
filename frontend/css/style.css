@@ -1,0 +1,445 @@
+/* ============================================================
+   style.css
+   ------------------------------------------------------------
+   Estilos del visor de libro (flipbook). Editorial oscuro moderno:
+   una sola paleta oscura (nada de pergamino/sepia), un acento
+   dorado usado con moderacion, tipografia serif (Fraunces) para
+   titulos y sans-serif (IBM Plex Sans) para el cuerpo de texto,
+   con IBM Plex Mono para etiquetas/metadatos.
+   ============================================================ */
+
+:root{
+  --bg:#131217;          /* fondo detras del libro */
+  --surface:#1c1b21;      /* superficie de cada hoja del libro */
+  --surface-2:#232229;    /* superficies elevadas: modal, controles */
+  --surface-3:#2a2932;    /* hover sobre superficies elevadas */
+  --text:#ece8e0;         /* texto principal, blanco calido */
+  --text-dim:#a6a196;     /* texto secundario */
+  --text-faint:#726d63;   /* texto terciario (footer, placeholders) */
+  --gold:#c9a24c;         /* acento principal: precio, links activos, CTA */
+  --gold-soft:#8d723c;    /* version atenuada del dorado, para bordes/iconos */
+  --wine:#a8503f;         /* acento secundario: alertas, bloqueado, errores */
+  --sage:#7a9186;         /* acento terciario, para chips/etiquetas de datos */
+  --line:rgba(255,255,255,0.09);
+  --line-strong:rgba(255,255,255,0.16);
+  --bg-glow:#1a1920; /* centro del resplandor radial detras del libro (ver "body" mas abajo) */
+}
+
+/* Modo claro: mismos colores que ya usa el PDF "para imprimir"
+   (PALETAS.claro en backend/routes/pdf.js), para que el sitio en modo
+   claro y esa version del PDF se sientan como la misma familia de
+   color. Se activa con el atributo data-theme="claro" en <html> (ver
+   js/tema.js), que un script inline en el <head> aplica ANTES de que
+   se pinte la pagina, para que no haya un parpadeo del tema oscuro
+   por defecto antes de cambiar al claro guardado. */
+:root[data-theme="claro"]{
+  --bg:#fbf9f4;
+  --surface:#ffffff;
+  --surface-2:#ede8dc;
+  --surface-3:#e3ddc9;
+  --text:#241f18;
+  --text-dim:#4a4436;
+  --text-faint:#8a8272;
+  --gold:#8d723c;
+  --gold-soft:#6b5730;
+  --wine:#8f4030;
+  --sage:#4f6a60;
+  --line:rgba(36,31,24,0.14);
+  --line-strong:rgba(36,31,24,0.22);
+  --bg-glow:#ffffff;
+}
+
+*{ box-sizing:border-box; }
+
+/* El efecto de "esquina que se curva" de StPageFlip agrega elementos
+   de sombra que sobresalen unos pixeles del contenedor del libro al
+   pasar el mouse cerca del borde, y eso puede hacer crecer el ancho
+   del documento (por eso bloqueamos el overflow horizontal, que
+   nunca hace falta: el layout esta centrado y no tiene contenido
+   ancho). Pero el overflow VERTICAL si puede ser real y necesario:
+   en ventanas mas bajas, el topbar + el libro + los controles de
+   abajo no entran completos en la pantalla, y si bloqueamos el
+   scroll ahi tambien, los botones de avanzar/retroceder quedan
+   cortados sin ninguna forma de llegar a ellos. Por eso permitimos
+   scroll vertical normal, pero con "scrollbar-gutter: stable" le
+   reservamos el espacio a la barra de scroll de entrada, para que
+   aparecer/desaparecer no corra el layout ni parpadee. */
+html{
+  overflow-x:hidden;
+  scrollbar-gutter:stable;
+  scrollbar-width:thin; /* Firefox */
+  scrollbar-color:var(--line-strong) transparent; /* Firefox */
+}
+/* Sin esto, la barra de scroll de toda la pagina usa el estilo por
+   defecto del sistema operativo (gris, gruesa), que desentona fuerte
+   con el tema oscuro. La hacemos fina y del mismo tono que el resto
+   de las lineas divisorias. */
+html::-webkit-scrollbar{ width:8px; }
+html::-webkit-scrollbar-track{ background:transparent; }
+html::-webkit-scrollbar-thumb{ background:var(--line-strong); border-radius:4px; }
+html::-webkit-scrollbar-thumb:hover{ background:var(--gold-soft); }
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(ellipse at 50% 0%, var(--bg-glow) 0%, var(--bg) 65%);
+  color:var(--text);
+  font-family:'IBM Plex Sans', sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:32px 20px 46px;
+}
+
+.topbar{
+  width:100%;
+  max-width:1000px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:30px;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.brand{ font-family:'Fraunces', serif; font-weight:700; font-size:17px; letter-spacing:0.2px; color:var(--text); text-decoration:none; }
+.brand span{ color:var(--text-faint); font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1px; margin-left:10px; }
+
+.toc-select{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim);
+  background:var(--surface-2); border:1px solid var(--line); padding:9px 12px; border-radius:6px;
+}
+
+.topbar-actions{ display:flex; align-items:center; gap:10px; }
+.pdf-btn{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.3px;
+  color:#1a1610; background:var(--gold); text-decoration:none;
+  padding:9px 16px; border-radius:6px; white-space:nowrap;
+  border:none; cursor:pointer; transition:background 0.15s;
+}
+.pdf-btn:hover{ background:#dcb662; }
+
+/* Boton al panel de admin (ver pintarAuthStatus en auth.js) -- solo lo
+   ve un usuario logueado con rol admin. Bordeado en vez de solido como
+   ".pdf-btn" a proposito: tiene que notarse como un boton de verdad
+   (antes era un link de texto chico, dificil de encontrar), pero sin
+   competir visualmente con el CTA de compra/descarga. */
+.admin-link{
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.3px;
+  color:var(--gold); background:none; text-decoration:none;
+  padding:8px 14px; border-radius:6px; white-space:nowrap;
+  border:1px solid var(--gold-soft); transition:background 0.15s;
+}
+.admin-link:hover{ background:var(--surface-2); }
+
+/* Ancho del libro: StPageFlip esta en modo "stretch" (ver app.js), asi
+   que se ajusta al ancho de este contenedor -- "width"/minWidth/maxWidth
+   en la config de la libreria son POR PAGINA, y como el libro siempre
+   muestra dos paginas abiertas (usePortrait:false), el ancho real
+   renderizado es el doble de eso. El max-width normal (860px) deja
+   mas o menos el mismo tamaño de lectura de siempre (antes en modo
+   "fixed" con width:420 por pagina, osea ~840 de spread); en pantalla
+   completa (".is-fullscreen" en <body>, ver iniciarBotonFullscreen) lo
+   dejamos crecer bastante mas, limitado tambien por alto via vh para
+   no terminar mas alto que la pantalla y tapar los controles de abajo. */
+.stage-wrap{ position:relative; width:100%; max-width:860px; margin:0 auto; }
+/* StPageFlip en modo "stretch" solo mide el ANCHO de este contenedor
+   para decidir el tamaño del libro (la altura la calcula el solo,
+   segun la proporcion de la pagina) -- un max-height aca no le hace
+   nada, el libro se saldria igual de alto si el limite fuera solo por
+   ancho. Por eso el limite en pantalla completa esta expresado TAMBIEN
+   en ancho, convertido a partir de la proporcion real del libro
+   abierto (paginas de 420x600 x2 lado a lado = proporcion 1.4:1 ancho
+   alto): "109vh" es el ancho que corresponde a una altura de 78vh. */
+body.is-fullscreen .stage-wrap{ max-width:min(92vw, 109vh, 1500px); }
+.stage-shadow{
+  position:absolute; left:6%; right:6%; bottom:-22px; height:38px;
+  background:radial-gradient(ellipse at center, rgba(0,0,0,0.6), transparent 72%);
+  filter:blur(2px);
+}
+
+/* "overflow:hidden" es lo que evita que, durante la animacion de vuelta
+   de pagina, la esquina que se curva se salga del rectangulo del libro
+   y quede flotando por debajo (se veia como un "reflejo" o una copia
+   duplicada del texto asomando bajo el libro, sobre todo en hojas con
+   listas largas como los indices). StPageFlip le pone su propio alto
+   por JS a este mismo div (ver el estilo inline que inyecta) para que
+   calce con el tamaño real de la pagina, asi que recortar lo que se
+   sale de ese alto solo afecta al sobrante de la curva durante la
+   animacion, nunca al contenido normal en reposo. */
+#book{ margin:0 auto; overflow:hidden; }
+
+/* ---- Contenido de cada pagina (ficha densa: todo en un solo lugar) ---- */
+/* StPageFlip inyecta su propio CSS en tiempo de ejecucion para la
+   clase ".stf__item" (que termina compartiendo el mismo div que
+   ".p-face"), y esa regla llega despues que la nuestra en el
+   documento: con la misma especificidad, la de StPageFlip gana y le
+   pone "display:block" a la hoja, rompiendo el layout flex y con eso
+   el scroll interno de ".page-scroll" (ver mas abajo). Forzamos
+   "!important" aca a proposito, es el caso correcto para pisar el
+   CSS de una libreria externa inyectado en un momento que no podemos
+   controlar desde nuestro <link> del <head>.
+   OJO: el "!important" tiene que ir en un selector que EXCLUYA las
+   hojas que la libreria oculta a proposito con "display:none" inline
+   (todas menos la 1 o 2 que se estan mostrando en cada momento --
+   recordar que StPageFlip monta TODAS las hojas en el DOM a la vez).
+   Sin el ":not(...)", nuestro !important pisaba tambien ese
+   "display:none" y la hoja siguiente quedaba visible "asomada" al
+   lado de la portada/contraportada (ahi se nota porque esas van
+   solas, sin una segunda hoja real tapando el hueco de al lado). */
+.p-face:not([style*="display: none"]){
+  width:100%; height:100%;
+  background:var(--surface);
+  position:relative;
+  padding:32px 28px 20px;
+  display:flex !important; flex-direction:column !important;
+  overflow:hidden;
+}
+.p-face.hard{ background:linear-gradient(180deg, var(--surface-2), var(--bg)); }
+
+.eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.6px; text-transform:uppercase; color:var(--gold); text-align:center; margin-bottom:6px; }
+.title{ font-family:'Fraunces', serif; font-weight:700; font-size:26px; text-align:center; letter-spacing:-0.2px; color:var(--text); margin:0 0 4px; }
+.subtitle{ text-align:center; font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:13px; color:var(--text-dim); margin-bottom:14px; }
+
+/* Retrato del personaje: flota a la derecha DENTRO de ".page-scroll",
+   pegado al texto (el mismo tratamiento que el PDF impreso, ver
+   ".retrato" en backend/routes/pdf.js), en vez de ir aparte como un
+   avatar circular chico arriba de todo. Mas grande y rectangular, para
+   que se note bien de entrada quien es el personaje. */
+.portrait{
+  float:right; width:175px; height:245px; margin:0 0 10px 16px;
+  border:1px solid var(--gold-soft); border-radius:8px;
+  object-fit:cover; background:var(--surface-2);
+}
+
+/* Banner de la historia: a diferencia del retrato de personaje, va a
+   todo el ancho y ARRIBA del texto (no flotando al costado) -- se
+   busca mostrar la escena completa antes de leer, como la portada de
+   un capitulo. Mismo criterio que ".historia-banner" en el PDF. */
+.historia-banner{ display:block; width:100%; height:210px; object-fit:cover; border-radius:8px; border:1px solid var(--gold-soft); margin-bottom:12px; }
+
+.body-txt{ font-size:13.5px; line-height:1.7; color:var(--text-dim); text-align:left; margin-bottom:8px; }
+.body-txt .drop{ float:left; font-family:'Fraunces',serif; font-weight:700; font-size:30px; line-height:0.8; color:var(--gold); padding:2px 6px 0 0; }
+
+/* Tanto las fichas de personajes como las de historias pueden traer
+   mas contenido del que cabe en una hoja de tamaño fijo (descripcion
+   larga + info + simbolos + familia + historias relacionadas). En vez
+   de arriesgarnos a que algo se corte sin avisar (overflow:hidden en
+   .p-face), envolvemos ese bloque de contenido variable en un
+   contenedor con scroll interno: el usuario se desplaza dentro de la
+   misma hoja del libro sin que se pierda nada. "min-height:0" es lo
+   que permite que un hijo flex pueda encogerse y activar el scroll
+   en vez de forzar a la pagina a crecer.
+   "flex:1" hace que ocupe el espacio restante entre el encabezado
+   (titulo/retrato) y el footer, que queda siempre visible abajo. */
+.page-scroll{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  padding-right:6px;
+  margin-bottom:8px;
+  scrollbar-width:thin; /* Firefox */
+  scrollbar-color:var(--line-strong) transparent; /* Firefox */
+}
+.page-scroll::-webkit-scrollbar{ width:5px; }
+.page-scroll::-webkit-scrollbar-thumb{ background:var(--line-strong); border-radius:3px; }
+.page-scroll .body-txt{ column-count:1; }
+.page-scroll .body-txt p{ margin:0 0 10px; }
+
+/* Franja de datos adicionales: origen, dominio, guarida, amenaza.
+   "clear:both" asegura que arranque debajo del retrato flotante (ver
+   ".portrait" mas arriba) aunque el texto de la biografia sea corto y
+   no "baje" tanto como la imagen. */
+.info-strip{ clear:both; display:flex; flex-wrap:wrap; gap:8px 18px; justify-content:center; margin-bottom:10px; padding:10px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.info-item{ display:flex; flex-direction:column; align-items:center; max-width:150px; gap:2px; }
+.info-label{ font-family:'IBM Plex Mono',monospace; font-size:7px; letter-spacing:0.8px; text-transform:uppercase; color:var(--sage); }
+.info-value{ font-size:10px; color:var(--text-dim); text-align:center; line-height:1.35; }
+
+/* Chips clickeables: historias relacionadas en personajes, y
+   personajes relacionados en historias */
+.chip-row{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:6px; }
+.chip-link{
+  font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:0.2px;
+  padding:5px 10px; border:1px solid var(--line-strong); border-radius:11px;
+  color:var(--text-dim); cursor:pointer; transition:border-color 0.15s, color 0.15s;
+}
+.chip-link:hover{ border-color:var(--gold-soft); color:var(--gold); }
+.chip-link i{ color:var(--text-faint); font-style:italic; }
+
+/* Mismo "clear:both" que .info-strip, por la misma razon -- ".divider"
+   se reutiliza antes de simbolos/poderes, familia e historias
+   relacionadas, y cualquiera de esas puede terminar siendo la primera
+   seccion despues del retrato flotante si el personaje no tiene los
+   otros campos. */
+.divider{ clear:both; display:flex; align-items:center; gap:8px; margin:10px 0 8px; color:var(--text-faint); }
+.divider::before, .divider::after{ content:""; flex:1; height:1px; background:var(--line); }
+.divider span{ font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:1.6px; text-transform:uppercase; }
+
+.seals{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
+.seal{ display:flex; flex-direction:column; align-items:center; gap:4px; width:56px; }
+.seal-icon{ width:30px; height:30px; border-radius:9px; background:var(--surface-2); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:12px; font-family:'Fraunces',serif; }
+.seal-label{ font-family:'IBM Plex Mono',monospace; font-size:6.5px; letter-spacing:0.3px; text-align:center; color:var(--text-faint); line-height:1.2; }
+
+.family-strip{ display:flex; flex-wrap:wrap; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--text-dim); text-align:center; }
+.family-item{ padding:0 10px; border-right:1px solid var(--line); margin-bottom:4px; }
+.family-item:last-child{ border-right:none; }
+.family-item b{ display:block; font-family:'IBM Plex Sans',sans-serif; font-size:10.5px; color:var(--text); font-weight:600; margin-bottom:1px; }
+
+.footer{ text-align:center; margin-top:auto; padding-top:10px; font-family:'IBM Plex Mono',monospace; font-size:8px; letter-spacing:1px; color:var(--text-faint); }
+
+.idx-list{ list-style:none; margin:8px 0 0; padding:0; font-size:12.5px; }
+.idx-list li{ display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--line); color:var(--text-dim); }
+.idx-list li[data-page]{ cursor:pointer; transition:padding-left 0.15s, color 0.15s; }
+.idx-list li[data-page]:hover{ padding-left:6px; color:var(--gold); }
+.idx-list li[data-page]:hover b{ color:var(--gold); }
+.idx-list li b{ font-weight:500; color:var(--text); }
+.idx-list li span{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text-faint); }
+.idx-chapter{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:1.3px; color:var(--sage); text-transform:uppercase; margin:14px 0 4px; }
+
+.cover-inner{ align-items:center; justify-content:center; text-align:center; height:100%; display:flex; flex-direction:column; }
+/* Bajan el bloque de texto a mitad de camino entre el centro y el
+   borde inferior de la hoja: dos espaciadores flexibles con distinta
+   proporcion (3 partes arriba del texto, 1 abajo) en vez de un numero
+   fijo en px, para que se acomode solo sin importar el alto real de
+   la hoja (que cambia entre el modo normal y pantalla completa). */
+.cover-spacer-top{ flex:3; }
+.cover-spacer-bottom{ flex:1; }
+/* Fondo de la portada: degrade + imagen del libro, armados en JS
+   dentro de "construirPortada()" (app.js) porque dependen de que
+   libro se este sirviendo (window.LIBRO_ACTUAL). Va como hijo aparte,
+   no como estilo del "p-face" (ver el comentario en app.js), ocupando
+   TODA la hoja por detras del texto sin robarle espacio al layout de
+   flex (position:absolute lo saca del flujo). El texto necesita
+   "position:relative + z-index" para pintarse encima -- sin eso, un
+   descendiente position:absolute puede terminar tapando a sus
+   hermanos en flujo normal aunque estos vengan despues en el HTML. */
+.cover-fondo{ position:absolute; inset:0; background-size:cover; background-position:center; z-index:0; }
+.cover-title{ position:relative; z-index:1; font-family:'Fraunces',serif; font-weight:700; font-size:32px; letter-spacing:0.5px; color:var(--text); margin:0; text-shadow:0 2px 12px rgba(0,0,0,0.6); }
+.cover-mitologia{ position:relative; z-index:1; font-family:'Fraunces',serif; font-style:italic; font-weight:500; font-size:15px; color:var(--gold); margin-top:10px; text-shadow:0 2px 10px rgba(0,0,0,0.6); }
+.cover-sub{ position:relative; z-index:1; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--text-faint); margin-top:14px; text-transform:uppercase; text-shadow:0 1px 8px rgba(0,0,0,0.6); }
+/* Emblema de la contraportada (ver construirContraportada en app.js).
+   Tamaño fijo + border-radius:50% para que se vea como un sello/medallon
+   circular; si el libro todavia no tiene su propio "portada-emblema.png"
+   el background-image simplemente no pinta nada, sin icono roto. */
+.cover-emblem{ width:150px; height:150px; border-radius:50%; border:1px solid var(--gold-soft); background-size:cover; background-position:center; }
+
+.controls{ display:flex; align-items:center; gap:20px; margin-top:44px; }
+.nav-btn{ width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:var(--surface-2); color:var(--text-dim); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color 0.15s, color 0.15s; }
+.nav-btn:hover{ border-color:var(--gold-soft); color:var(--gold); }
+.page-indicator{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; color:var(--text-faint); min-width:130px; text-align:center; }
+
+.loading-msg{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-faint); text-align:center; padding:60px 20px; }
+
+/* ---- Estado de sesion en la topbar ---- */
+.auth-status{ display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:11px; }
+.auth-link{ color:var(--text-dim); background:var(--surface-2); border:1px solid var(--line); padding:9px 13px; border-radius:6px; cursor:pointer; font-family:inherit; font-size:11px; white-space:nowrap; transition:border-color 0.15s, color 0.15s; }
+.auth-link:hover{ border-color:var(--gold-soft); color:var(--gold); }
+.auth-user{ display:flex; align-items:center; gap:10px; }
+.auth-user .nombre{ color:var(--text); }
+.auth-user .nivel-tag{ font-size:9px; letter-spacing:0.5px; text-transform:uppercase; color:var(--sage); border:1px solid var(--sage); padding:3px 8px; border-radius:9px; }
+.auth-user .salir{ color:var(--wine); background:none; border:none; cursor:pointer; font-family:inherit; font-size:11px; text-decoration:underline; padding:0; }
+.auth-user .auth-link.verificar{ color:var(--gold); background:none; border:1px solid var(--gold-soft); padding:3px 9px; font-size:9.5px; border-radius:9px; }
+.auth-user .auth-link.verificar:hover{ background:var(--surface-2); }
+.pdf-btn[disabled]{ opacity:0.5; cursor:not-allowed; pointer-events:none; }
+.pdf-btn.locked{ background:var(--surface-2); color:var(--text-dim); border:1px solid var(--line); }
+.pdf-btn.locked:hover{ background:var(--surface-3); }
+
+/* ---- Modal de login / registro ---- */
+.auth-modal-backdrop{
+  display:none; position:fixed; inset:0; background:rgba(6,5,4,0.72);
+  align-items:center; justify-content:center; z-index:50; padding:20px;
+}
+.auth-modal-backdrop.open{ display:flex; }
+.auth-modal{
+  position:relative; width:100%; max-width:340px; background:var(--surface-2);
+  border:1px solid var(--line); border-radius:10px; padding:30px 26px 26px; box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.auth-close{
+  position:absolute; top:10px; right:12px; background:none; border:none;
+  font-size:20px; line-height:1; color:var(--text-faint); cursor:pointer;
+}
+.auth-tabs{ display:flex; gap:4px; margin-bottom:18px; border-bottom:1px solid var(--line); }
+.auth-tab{
+  flex:1; background:none; border:none; padding:8px 4px; cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.5px; text-transform:uppercase;
+  color:var(--text-faint); border-bottom:2px solid transparent;
+}
+.auth-tab.active{ color:var(--gold); border-bottom-color:var(--gold); }
+.auth-form{ display:flex; flex-direction:column; gap:12px; }
+.auth-form[hidden]{ display:none; }
+.auth-form label{ display:flex; flex-direction:column; gap:4px; font-size:11px; color:var(--text-dim); }
+.auth-form input{
+  font-family:'IBM Plex Sans',sans-serif; font-size:13px; padding:9px 10px; border:1px solid var(--line-strong);
+  border-radius:6px; background:var(--bg); color:var(--text);
+}
+.auth-form input:focus{ outline:none; border-color:var(--gold-soft); }
+.auth-hint{ font-size:10px; color:var(--text-faint); line-height:1.4; margin:0; }
+.auth-error{ font-size:10.5px; color:var(--wine); margin:0; min-height:13px; }
+.auth-submit{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.5px;
+  background:var(--gold); color:#1a1610; border:none; padding:11px; border-radius:6px; cursor:pointer; transition:background 0.15s;
+}
+.auth-submit:hover{ background:#dcb662; }
+
+/* ---- Hoja "bloqueada" cuando falta nivel de acceso ---- */
+.locked-face{ align-items:center; justify-content:center; text-align:center; }
+.locked-icon{ font-size:26px; color:var(--gold); margin-bottom:12px; }
+.locked-face .title{ font-size:22px; }
+.locked-msg{ font-size:12px; color:var(--text-dim); max-width:260px; margin:10px 0 18px; line-height:1.55; }
+.locked-cta{
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.5px;
+  background:var(--gold); color:#1a1610; border:none; padding:10px 18px; border-radius:6px; cursor:pointer; transition:background 0.15s;
+}
+.locked-cta:hover{ background:#dcb662; }
+.locked-actions{ display:flex; flex-direction:column; gap:10px; align-items:stretch; width:100%; max-width:260px; }
+.locked-actions .locked-cta{ white-space:normal; line-height:1.4; }
+.locked-cta.secundario{ background:var(--surface-2); color:var(--text-dim); border:1px solid var(--line-strong); }
+.locked-cta.secundario:hover{ background:var(--surface-3); }
+.locked-cta s{ opacity:0.6; margin-right:4px; }
+
+/* Mini-formulario de "tengo un codigo de descuento" (ver
+   construirAccionesBloqueadas en app.js) -- debajo de los botones de
+   compra, discreto hasta que alguien lo abre. */
+.codigo-wrap{ margin-top:14px; width:100%; max-width:260px; }
+.codigo-toggle{
+  background:none; border:none; padding:0; cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text-faint);
+  text-decoration:underline; text-underline-offset:2px;
+}
+.codigo-toggle:hover{ color:var(--gold); }
+.codigo-form{ display:flex; gap:6px; margin-top:8px; }
+.codigo-input{
+  flex:1; min-width:0; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.5px;
+  text-transform:uppercase; padding:9px 10px; border:1px solid var(--line-strong);
+  border-radius:6px; background:var(--bg); color:var(--text);
+}
+.codigo-input:focus{ outline:none; border-color:var(--gold-soft); }
+.codigo-form .locked-cta{ padding:9px 14px; }
+.codigo-msg{ font-size:10.5px; color:var(--text-faint); margin:6px 0 0; }
+
+/* ---- Overlay de "generando PDF" (ver descargarPdf() en auth.js) ---- */
+.pdf-loading-overlay{
+  position:fixed; inset:0; background:rgba(6,5,4,0.75); z-index:80;
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.pdf-loading-overlay[hidden]{ display:none; }
+.pdf-loading-box{
+  background:var(--surface-2); border:1px solid var(--line-strong); border-radius:12px;
+  padding:36px 40px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.5); max-width:320px;
+}
+.pdf-loading-box p{ margin:0; font-family:'IBM Plex Mono',monospace; color:var(--text); font-size:13px; }
+.pdf-loading-sub{ margin-top:8px !important; font-size:10.5px !important; color:var(--text-faint) !important; line-height:1.5; }
+.pdf-spinner{
+  width:36px; height:36px; margin:0 auto 18px; border-radius:50%;
+  border:3px solid var(--line-strong); border-top-color:var(--gold);
+  animation:pdf-spin 0.8s linear infinite;
+}
+@keyframes pdf-spin{ to{ transform:rotate(360deg); } }
+
+/* ---- Aviso flotante de confirmacion de pago (pagos.js) ---- */
+.pago-aviso{
+  position:fixed; top:20px; left:50%; transform:translateX(-50%);
+  background:var(--surface-2); border:1px solid var(--gold-soft); color:var(--text);
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.3px;
+  padding:12px 20px; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  z-index:100; text-align:center; max-width:90vw;
+}

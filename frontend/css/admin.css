@@ -1,0 +1,166 @@
+/* ============================================================
+   admin.css
+   ------------------------------------------------------------
+   Estilos propios del panel de admin (frontend/admin/*.html).
+   Se carga DESPUES de css/style.css y reusa sus variables de color
+   (--bg, --surface, --gold, etc.) — a diferencia del landing, esta
+   pagina si puede depender de style.css directamente porque no
+   necesita nada del layout del flipbook (StPageFlip, .p-face, etc.),
+   asi que no hay conflicto en compartir el archivo.
+   ============================================================ */
+
+.admin-body{
+  align-items:stretch;
+  padding:32px 20px 60px;
+}
+
+.admin-wrap{
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+.admin-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.admin-header-right{ display:flex; align-items:center; gap:10px; }
+
+.admin-nav{
+  display:flex;
+  gap:6px;
+  margin-bottom:30px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:12px;
+}
+.admin-nav-item{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.3px;
+  color:var(--text-dim);
+  text-decoration:none;
+  padding:7px 14px;
+  border-radius:6px;
+  border:1px solid transparent;
+}
+.admin-nav-item:hover{ color:var(--gold); }
+.admin-nav-item.activo{ color:var(--gold); background:var(--surface-2); border-color:var(--line-strong); }
+
+.admin-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+  gap:16px;
+  margin-bottom:32px;
+}
+.admin-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:20px;
+}
+.admin-card b{
+  display:block;
+  font-family:'Fraunces',serif;
+  font-size:26px;
+  color:var(--gold);
+  margin-bottom:4px;
+}
+.admin-card span{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;
+  letter-spacing:0.8px;
+  text-transform:uppercase;
+  color:var(--text-faint);
+}
+
+.admin-cargando, .admin-vacio, .admin-denegado{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  color:var(--text-faint);
+  padding:40px 0;
+  text-align:center;
+}
+
+.admin-table-wrap{
+  overflow-x:auto;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--surface);
+}
+
+.admin-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12.5px;
+  white-space:nowrap;
+}
+
+.admin-table th{
+  text-align:left;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--sage);
+  padding:12px 16px;
+  border-bottom:1px solid var(--line-strong);
+}
+
+.admin-table td{
+  padding:12px 16px;
+  border-bottom:1px solid var(--line);
+  color:var(--text-dim);
+}
+
+.admin-table tr:last-child td{ border-bottom:none; }
+.admin-email-secundario{ color:var(--text-faint); font-size:10.5px; }
+
+.admin-estado{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  padding:3px 9px;
+  border-radius:9px;
+  border:1px solid var(--line-strong);
+}
+.admin-estado.aprobado{ color:var(--sage); border-color:var(--sage); }
+.admin-estado.pendiente{ color:var(--gold); border-color:var(--gold-soft); }
+.admin-estado.rechazado{ color:var(--wine); border-color:var(--wine); }
+
+.admin-resumen{
+  display:flex;
+  gap:28px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--text-dim);
+}
+.admin-resumen b{ color:var(--gold); font-size:15px; display:block; font-family:'Fraunces',serif; }
+
+/* Tarjeta con el formulario de "crear descuento" (frontend/admin/descuentos.html).
+   Reusa ".admin-card" (mismo fondo/borde que las tarjetas del dashboard) y ".auth-form"
+   (mismo look que el modal de login) en vez de inventar estilos nuevos -- solo le
+   agrega el "select", que ".auth-form input" no cubre. */
+.admin-form-card{ max-width:420px; margin-bottom:32px; }
+.admin-form-card h2{ font-family:'Fraunces',serif; font-size:16px; margin:0 0 16px; color:var(--text); }
+.auth-form select{
+  font-family:'IBM Plex Sans',sans-serif; font-size:13px; padding:9px 10px; border:1px solid var(--line-strong);
+  border-radius:6px; background:var(--bg); color:var(--text);
+}
+.auth-form select:focus{ outline:none; border-color:var(--gold-soft); }
+
+/* Boton chico de activar/desactivar dentro de una fila de tabla (ver
+   admin-descuentos.js) -- mismo tratamiento que ".auth-link" pero mas
+   compacto, para que quepa comodo en una celda. */
+.admin-toggle{
+  font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.3px;
+  color:var(--text-dim); background:var(--surface-2); border:1px solid var(--line);
+  padding:5px 10px; border-radius:6px; cursor:pointer; transition:border-color 0.15s, color 0.15s;
+}
+.admin-toggle:hover{ border-color:var(--gold-soft); color:var(--gold); }

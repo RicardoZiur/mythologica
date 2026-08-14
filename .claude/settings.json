@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(48\\).toString\\('hex'\\)\\)\")",
+      "Bash(node scripts/crear-admin.js \"Ricardo Ruiz\" ricardoruiz19@gmail.com PruebaSegura123)",
+      "Bash(node --check js/app.js)",
+      "Bash(node --check js/auth.js)",
+      "Bash(node \"C:\\\\Users\\\\Ricardo\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--Proyectos-Documentos-digitales-Libro-mitologia-griega-mythologica\\\\7c231d4f-82a7-4e76-985f-536b66fb1380\\\\scratchpad\\\\static-server.js\" \"/d/Proyectos/Documentos digitales/Libro mitologia griega/mythologica/frontend\" 5500)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:5500/index.html)",
+      "Bash(node \"C:\\\\Users\\\\Ricardo\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--Proyectos-Documentos-digitales-Libro-mitologia-griega-mythologica\\\\7c231d4f-82a7-4e76-985f-536b66fb1380\\\\scratchpad\\\\test-frontend.js\")",
+      "Bash(cp \"C:\\\\Users\\\\Ricardo\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--Proyectos-Documentos-digitales-Libro-mitologia-griega-mythologica\\\\7c231d4f-82a7-4e76-985f-536b66fb1380\\\\scratchpad\\\\test-frontend.js\" \"/d/Proyectos/Documentos digitales/Libro mitologia griega/mythologica/backend/_temp-test-frontend.js\")",
+      "Bash(node _temp-test-frontend.js)",
+      "Bash(npm uninstall *)",
+      "Bash(curl -s http://localhost:3001/api/auth/yo)",
+      "Read(//tmp/**)",
+      "Bash(grep -E \"authStatus|pdfBtn|Contenido|Texto\" /tmp/test-output.txt)",
+      "Bash(rm -f \"/d/Proyectos/Documentos digitales/Libro mitologia griega/mythologica/backend/_temp-test-frontend.js\" *)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill //F //PID 20844)"
+    ],
+    "additionalDirectories": [
+      "D:\\Proyectos\\Documentos digitales\\Libro mitologia griega\\mythologica\\backend"
+    ]
+  }
+}

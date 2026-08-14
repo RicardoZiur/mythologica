@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mythologica — Mitologías del mundo, ilustradas</title>
+<meta name="description" content="Libros digitales ilustrados con los dioses, héroes y monstruos de las mitologías del mundo. Empieza con la mitología griega, ya disponible para leer.">
+<!-- Aplica el tema guardado ANTES de pintar la pagina, para que no
+     haya un parpadeo del oscuro por defecto antes de pasar al claro
+     guardado (ver js/tema.js). -->
+<script>(function(){ if(localStorage.getItem('mythologica_tema')==='claro') document.documentElement.setAttribute('data-theme','claro'); })();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+  <div class="lp-wrap">
+    <header class="lp-header">
+      <a class="lp-brand" href="index.html">MYTHOLOGICA</a>
+      <div class="lp-header-actions">
+        <button class="lp-header-cta secundario" id="btnTema" type="button">☀ Modo claro</button>
+        <a class="lp-header-cta secundario" id="linkPanelAdmin" href="/admin/index.html" hidden>Panel de admin</a>
+        <a class="lp-header-cta" href="#catalogo">Ver los libros</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="lp-hero">
+    <div class="lp-wrap">
+      <div class="lp-hero-emblems" id="lpHeroEmblems"></div>
+      <div class="lp-hero-eyebrow">Cosmogonía · Dioses · Héroes · Monstruos</div>
+      <h1>Los grandes mitos,<br><em>página por página.</em></h1>
+      <p class="lp-hero-sub">
+        Libros digitales ilustrados con los dioses, héroes y monstruos de las
+        mitologías del mundo, con cada historia respaldada por sus fuentes
+        clásicas. Se leen como un libro de verdad, hoja por hoja, directo
+        desde el navegador.
+      </p>
+      <div class="lp-hero-actions">
+        <a class="lp-cta-primary" href="#catalogo">Elegir un libro →</a>
+        <p class="lp-hero-note">
+          Cada mitología del catálogo es su propio libro, con su propia
+          muestra gratis. Sin tarjeta, sin registro obligatorio para leerla.
+          El acceso completo y la descarga en PDF se compran desde adentro
+          de cada libro, por separado.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" id="catalogo">
+    <div class="lp-wrap">
+      <div class="lp-section-head">
+        <div class="lp-section-eyebrow">Catálogo</div>
+        <h2>Un universo por volumen</h2>
+        <p>Cada mitología es su propio libro, con su propia muestra gratis y su propio acceso. Elige por cuál empezar.</p>
+      </div>
+      <div class="lp-books" id="lpBooks">
+        <!-- Tarjetas generadas por js/landing.js a partir de GET /api/libros -->
+        <p class="lp-books-cargando">Cargando catálogo…</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <div class="lp-wrap">
+      <div class="lp-section-head">
+        <div class="lp-section-eyebrow">Así se ve</div>
+        <h2>El mismo diseño, mitología por mitología</h2>
+        <p>Diseño editorial oscuro (o claro, si prefieres) en las fichas de personajes, las historias y el índice — igual en cada libro del catálogo. Con el nivel completo, además, se descarga en PDF con el mismo diseño, listo para imprimir.</p>
+      </div>
+      <div class="lp-gallery">
+        <div class="lp-gallery-item">
+          <img src="img/landing/personaje-egipcio.png" alt="Ficha del dios Ra en el flipbook de Mitología Egipcia" loading="lazy">
+          <div class="lp-gallery-caption">Personaje — Ra, Mitología Egipcia</div>
+        </div>
+        <div class="lp-gallery-item">
+          <img src="img/landing/historia-nordica.png" alt="Página de la historia El Ragnarök en el flipbook de Mitología Nórdica" loading="lazy">
+          <div class="lp-gallery-caption">Historia — El Ragnarök, Mitología Nórdica</div>
+        </div>
+        <div class="lp-gallery-item">
+          <img src="img/landing/personaje-griego.png" alt="Ficha de personaje de Afrodita en el flipbook de Mitología Griega" loading="lazy">
+          <div class="lp-gallery-caption">Personaje — Afrodita, Mitología Griega</div>
+        </div>
+        <div class="lp-gallery-item">
+          <img src="img/landing/indice-hindu.png" alt="Índice de historias del libro de Mitología Hindú" loading="lazy">
+          <div class="lp-gallery-caption">Índice navegable — Mitología Hindú</div>
+        </div>
+        <div class="lp-gallery-item">
+          <img src="img/landing/pdf-personaje.png" alt="Página de Zeus en el PDF descargable de Mitología Griega" loading="lazy">
+          <div class="lp-gallery-caption">Versión para imprimir — Zeus, en PDF</div>
+        </div>
+        <div class="lp-gallery-item">
+          <img src="img/landing/pdf-historia.png" alt="Página de la cosmogonía heliopolitana en el PDF descargable de Mitología Egipcia" loading="lazy">
+          <div class="lp-gallery-caption">Versión para imprimir — historia, en PDF</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <div class="lp-wrap">
+      <div class="lp-section-head">
+        <div class="lp-section-eyebrow">Cómo funciona</div>
+        <h2>Empieza a leer hoy mismo</h2>
+      </div>
+      <div class="lp-steps">
+        <div class="lp-step">
+          <div class="lp-step-num">1</div>
+          <h3>Muestra gratis</h3>
+          <p>Abre el libro y lee una selección de personajes e historias, sin crear cuenta.</p>
+        </div>
+        <div class="lp-step">
+          <div class="lp-step-num">2</div>
+          <h3>Crea tu cuenta</h3>
+          <p>Regístrate para guardar tu progreso y poder comprar el acceso completo cuando quieras.</p>
+        </div>
+        <div class="lp-step">
+          <div class="lp-step-num">3</div>
+          <h3>Acceso completo</h3>
+          <p>Compra el nivel que necesites: desbloquea el libro entero, todos los personajes, todas las historias.</p>
+        </div>
+        <div class="lp-step">
+          <div class="lp-step-num">4</div>
+          <h3>Descarga en PDF</h3>
+          <p>Con el nivel completo, descarga el libro para leer sin conexión, con el mismo diseño.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <div class="lp-wrap">
+      <div class="lp-section-head">
+        <div class="lp-section-eyebrow">Precios</div>
+        <h2>Pago único, sin suscripción</h2>
+        <p>Mismo precio para cualquier libro del catálogo. Compras una vez y el acceso queda para siempre en tu cuenta, libro por libro.</p>
+        <p class="lp-price-nota" id="notaMonedaUsd" hidden>Precio referencial en dólares según tu ubicación — el cobro se procesa en pesos chilenos (CLP) a través de Mercado Pago.</p>
+      </div>
+      <div class="lp-steps">
+        <div class="lp-step lp-price-card">
+          <h3>Acceso al flipbook</h3>
+          <p class="lp-price" id="precioFlipbook">—</p>
+          <p>El libro completo que elijas, para leer online cuando quieras, desde cualquier dispositivo.</p>
+          <a class="lp-cta-primary" href="#catalogo">Elegir libro →</a>
+        </div>
+        <div class="lp-step lp-price-card">
+          <h3>Acceso completo</h3>
+          <p class="lp-price" id="precioCompleto">—</p>
+          <p>Todo lo del flipbook, más la descarga en PDF para leer sin conexión.</p>
+          <a class="lp-cta-primary" href="#catalogo">Elegir libro →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-cta-final">
+    <div class="lp-wrap">
+      <h2>¿Empezamos?</h2>
+      <a class="lp-cta-primary" href="#catalogo">Ver los libros →</a>
+    </div>
+  </section>
+
+  <div class="lp-wrap">
+    <footer class="lp-footer">
+      <span>MYTHOLOGICA</span>
+      <span>Hecho con fuentes clásicas citadas en cada historia.</span>
+    </footer>
+  </div>
+
+  <script src="js/tema.js"></script>
+  <script src="js/landing.js"></script>
+</body>
+</html>

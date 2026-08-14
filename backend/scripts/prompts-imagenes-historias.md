@@ -1,0 +1,638 @@
+# Prompts para generar imágenes de historias y cosmogonías con Leonardo.ai
+
+A diferencia de `prompts-imagenes-ia*.md` (que son retratos de personaje, formato vertical),
+estos son **prompts de escena**: el momento más icónico de cada historia, en formato
+horizontal panorámico, con varios personajes y acción — pensados como ilustración de
+apertura de cada historia (o portada de sección para las cosmogonías).
+
+**Aviso importante**: hoy la tabla `historias` no tiene un campo de imagen ni el flipbook
+tiene un lugar donde mostrarlas (a diferencia de `personajes.imagen_principal`, que sí se
+muestra). Estos prompts están listos para que generes las imágenes cuando quieras, pero para
+que aparezcan en el sitio hace falta agregar esa función (columna en la base + subida +
+render en `app.js`/`pdf.js`). Avísame si querés que la arme y las conectamos.
+
+## 1. Configuración recomendada en Leonardo.ai
+
+- **Modelo**: "Leonardo Phoenix 1.0" — si el resultado no convence, prueba "AlbedoBase XL".
+- **Preset/Style**: "Illustration" o "Dynamic".
+- **Alchemy**: activado.
+- **Proporción**: **3:2 o 16:9 (horizontal)** — a diferencia de los retratos, estas son escenas panorámicas.
+- Genera 2-4 variaciones por historia y quédate con la mejor.
+
+## 2. Prompt negativo (pégalo una sola vez, sirve para las 80 escenas)
+
+```
+text, watermark, signature, blurry, extra limbs, extra fingers, deformed hands, deformed
+faces, cropped, modern clothing, cartoon, anime, 3d render, low detail, plain background,
+photo, too many indistinct background figures, disfigured crowd, incoherent anatomy
+```
+
+## 3. Después de generar cada imagen
+
+1. Descarga el archivo.
+2. Renómbralo exactamente como el `slug` de la historia (ej. `origen-del-cosmos.jpg`).
+3. Guárdalo por ahora en una carpeta local aparte (ej. `backend/public/images/<libro>/historias/`)
+   — todavía no hay endpoint para subirlas, así que no hace falta apurarse con esto hasta
+   que conectemos la función.
+
+---
+
+## 4. Mitología Griega (20 historias)
+
+### ⭐ El origen del cosmos (cosmogonía) — `origen-del-cosmos.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, void black and deep indigo and starlight silver and earthy green
+color palette, vast primordial void of Chaos giving birth to Gaia (the earth) and Uranus
+(the starry sky) emerging from swirling darkness, the first divine forms taking shape from
+formless void, cosmic dawn of creation
+```
+
+### La Titanomaquia — `titanomaquia.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, storm-cloud grey and electric blue and bronze color palette, epic
+ten-year war between the Titans led by Cronus and the young Olympian gods led by Zeus,
+lightning bolts crashing from the sky, mountains hurled as weapons, chaotic battlefield of
+gods and giants
+```
+
+### El reparto del cosmos — `reparto-del-cosmos.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, royal gold and deep aquamarine and obsidian black color palette,
+Zeus, Poseidon and Hades standing together dividing the cosmos by lot, Zeus claiming the sky
+with lightning, Poseidon the churning sea with his trident, Hades the shadowy underworld,
+three thrones of power
+```
+
+### Perseo y la cabeza de Medusa — `perseo-y-medusa.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, emerald green and antique gold and midnight blue color palette,
+Perseus holding up the severed snake-haired head of Medusa with his face turned away,
+reflective bronze shield in his other hand, Medusa's headless body crumpling in a cave
+```
+
+### Teseo y el Minotauro — `teseo-y-el-minotauro.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, royal blue and bronze and torchlit amber color palette, Theseus
+locked in combat with the bull-headed Minotaur deep inside the stone labyrinth, golden
+thread trailing behind him on the ground, torchlit corridors
+```
+
+### Los Doce Trabajos de Heracles — `doce-trabajos-de-heracles.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, tawny lion gold-brown and bronze and deep red color palette,
+Heracles wrestling the Nemean lion with his bare hands, the lion's pelt already draped over
+one shoulder as if from a previous moment, symbolic montage energy of his twelve labors
+```
+
+### Jasón y el Vellocino de Oro — `jason-y-el-vellocino-de-oro.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, sea blue and antique gold and weathered brown color palette, Jason
+reaching to grasp the glowing Golden Fleece hanging from a tree guarded by a coiled serpent,
+the ship Argo and the Argonauts waiting in the misty background
+```
+
+### La guerra de Troya — `guerra-de-troya.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, bronze and crimson red and ash grey color palette, the wooden
+horse of Troy being pulled through the city gates at dusk, the walls of Troy looming,
+warriors hidden in shadow, the burning city implied on the horizon
+```
+
+### La Odisea: el regreso de Odiseo — `odisea-regreso-de-odiseo.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, weathered sea grey and deep blue and foam white color palette,
+Odysseus lashed to the mast of his ship, straining against the ropes as the Sirens sing from
+the rocks, his crew rowing with wax-sealed ears, stormy sea
+```
+
+### El rapto de Perséfone — `rapto-de-persefone.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and spring lilac-pink and pale gold color palette,
+Hades in his dark chariot pulled by black horses erupting from a chasm in the earth to seize
+Persephone from a flowering field, flowers scattering, Demeter reaching after her in the
+distance
+```
+
+### Orfeo y Eurídice — `orfeo-y-euridice.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, violet and deep gold and twilight blue color palette, Orpheus
+looking back over his shoulder at the ghostly translucent figure of Eurydice just as she
+begins to fade back into the shadows of the underworld, his lyre still in hand
+```
+
+### Ío y los cien ojos de Argos — `io-y-argos.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm brown and cream white and iridescent violet-blue color
+palette, Io transformed into a white heifer standing in a meadow, watched over by the
+hundred-eyed giant Argos Panoptes, Hermes approaching in disguise with his flute in the
+distance
+```
+
+### Belerofonte y la Quimera — `belerofonte-y-la-quimera.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, sky blue and cloud white and fire orange-red color palette,
+Bellerophon riding the winged horse Pegasus, thrusting a lead-tipped spear into the
+fire-breathing mouth of the Chimera below
+```
+
+### El amor de Ares y Afrodita — `amor-de-ares-y-afrodita.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, rose pink and molten bronze and crimson red color palette, Ares
+and Aphrodite caught together in an invisible golden net forged by Hephaestus, suspended
+above a bed, the assembled Olympian gods looking on from the doorway in laughter
+```
+
+### Ícaro y el vuelo hacia el sol — `icaro-y-el-vuelo.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, sunset gold and ivory white and fading amber color palette, Icarus
+flying too close to the sun on wings of feathers and wax, individual feathers beginning to
+melt and fall away, the sea far below, his father Daedalus reaching after him
+```
+
+### Atalanta y la carrera de las manzanas doradas — `atalanta-carrera-manzanas.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, forest green and bronze and golden amber color palette, Atalanta
+and Hippomenes racing at full sprint down an ancient track, a golden apple rolling on the
+ground behind them as she stoops to pick it up
+```
+
+### Tifón contra Zeus — `tifon-contra-zeus.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, volcanic red and ash black and electric blue-white color palette,
+Zeus hurling multiple lightning bolts at once against the monstrous serpent-headed giant
+Typhon, who towers with a hundred hissing snake heads and wings, storm and fire clashing
+```
+
+### El nacimiento de Dioniso — `nacimiento-de-dioniso.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, blinding gold and deep purple and ivory white color palette, Zeus
+in blinding divine radiance opening his own thigh to reveal the infant Dionysus sewn safely
+inside, Semele's mortal form consumed by golden light in the background
+```
+
+### Ártemis y Acteón — `artemis-y-acteon.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, forest green and silver and moonlit blue color palette, Artemis,
+startled while bathing in a forest pool, casting a curse toward the hunter Actaeon as
+antlers begin to sprout from his head, his hunting dogs already turning toward him with
+hostile eyes
+```
+
+### Edipo y la Esfinge — `edipo-y-la-esfinge.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Greek temple ruins and epic landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, sandy gold and bronze and royal purple color palette, Oedipus
+standing before the Sphinx perched on a rocky outcrop outside Thebes, the creature's lion
+body and eagle wings and woman's face fixed in an enigmatic stare, bones of failed
+travelers scattered below
+```
+
+---
+
+## 5. Mitología Egipcia (21 historias)
+
+### ⭐ La cosmogonía heliopolitana (cosmogonía) — `cosmogonia-heliopolitana.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dawn gold and void indigo and deep teal color palette, Atum
+standing alone atop the first mound of dry earth rising from the dark endless waters of Nun,
+golden light radiating from him as the first act of creation begins
+```
+
+### El asesinato de Osiris — `asesinato-de-osiris.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep black and gold and desert red color palette, Osiris lying
+inside an ornately decorated wooden coffin at a banquet, Set and his conspirators sealing
+the lid shut, about to cast it into the Nile
+```
+
+### Isis y la resurrección de Osiris — `resurreccion-de-osiris.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, lapis lazuli blue and gold and green-tinted color palette, Isis in
+the form of a kite-bird hovering with beating wings over the reassembled body of Osiris on a
+funerary bier, magic swirling around her, breathing life back into him
+```
+
+### El nacimiento de Horus en los pantanos — `nacimiento-de-horus.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, papyrus green and lapis blue and gold color palette, Isis
+cradling the infant Horus protectively among tall papyrus reeds in the hidden marshes of
+Jemis, magical wards glowing faintly around them
+```
+
+### Las contiendas de Horus y Set — `contiendas-de-horus-y-set.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, Nile blue-green and desert red and gold color palette, Horus and
+Set locked in combat transformed into hippopotamuses beneath the surface of the Nile, Isis
+on the riverbank with a spear raised
+```
+
+### La destrucción de la humanidad — `destruccion-de-la-humanidad.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, blood red and gold and sun-disk orange color palette, the lioness
+goddess Sekhmet rampaging across a blood-red battlefield of fleeing humans, Ra watching
+gravely from the sky above, fields flooded with red-dyed beer in the distance
+```
+
+### Isis y el nombre secreto de Ra — `nombre-secreto-de-ra.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, solar gold and obsidian black and venomous green color palette,
+an elderly Ra writhing in agony from serpent venom while Isis stands calmly over him, a
+small magical serpent coiled nearby, other gods gathered in alarm
+```
+
+### El viaje nocturno de Ra y la serpiente Apofis — `viaje-nocturno-de-ra.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, venomous black and solar gold and dull red color palette, Ra's
+solar barque sailing through the dark waters of the underworld, Set standing at the prow
+spearing the massive coiled serpent Apophis as it rises to attack
+```
+
+### El pesaje del corazón — `pesaje-del-corazon.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and gold and bone white color palette, Anubis
+carefully balancing a human heart on a golden scale against a single white feather, Thot
+recording the result with a reed pen, the monster Ammit crouched waiting nearby
+```
+
+### El cuento de los dos hermanos — `cuento-de-los-dos-hermanos.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, earthy green and Nile brown and cedar gold color palette, Bata
+standing on the far riverbank among crocodile-infested waters, holding his own heart aloft
+toward a tall cedar tree, his accusing brother left behind on the opposite shore
+```
+
+### El cuento de Sinuhé — `cuento-de-sinuhe.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, desert tan and royal gold and weathered bronze color palette, an
+aged Sinuhé kneeling before the Egyptian pharaoh's throne after decades of exile, desert and
+foreign lands visible behind him in memory, finally home
+```
+
+### Setna y el Libro de Thot — `setna-y-el-libro-de-thot.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, midnight blue and gold and faded papyrus tan color palette, Setna
+descending into a torchlit tomb guarded by coiling serpents, reaching for a glowing ancient
+papyrus scroll resting on a stone altar
+```
+
+### Shu separa el cielo de la tierra — `shu-separa-a-geb-y-nut.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, midnight blue and moss green and pale gold color palette, Shu
+straining with his arms raised overhead, lifting the star-covered body of Nut high into the
+sky while Geb's earthen form stretches below, the first sky and earth being separated
+```
+
+### Geb desafía a Shu por la corona — `la-corona-robada-de-shu.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep moss green and dull red and bronze color palette, Geb
+reaching to seize a floating golden crown as serpents erupt furiously from the cracked earth
+around him, one striking toward him
+```
+
+### Isis y los siete escorpiones de Serket — `isis-y-los-siete-escorpiones.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, amber orange and lapis blue and desert night color palette, Isis
+walking wearily along a desert road at night with the infant Horus, seven scorpions
+following protectively in formation around her feet
+```
+
+### El veredicto de Neith — `veredicto-de-neith.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep red and black and aged gold color palette, the ancient
+goddess Neith seated in judgment as a scroll bearing her verdict is presented to a tribunal
+of gods, Horus and Set standing on opposite sides awaiting the decision
+```
+
+### Sobek y el rescate de la mano de Horus — `sobek-y-la-mano-de-horus.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, murky green and gold and Nile brown color palette, Sobek the
+crocodile god emerging from the murky waters of the Nile, gently holding a severed hand in
+his jaws, presenting it toward a distant tribunal of gods
+```
+
+### Los prodigios de Djedi ante el faraón Jufu — `prodigios-de-djedi.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, aged parchment beige and royal gold and soft grey color palette,
+the elderly magician Djedi standing before the pharaoh's court, reuniting the severed head
+of a goose with its body in a glowing burst of magic, the court watching in astonishment
+```
+
+### El mago Ubaoner y el cocodrilo de cera — `mago-ubaoner-cocodrilo-de-cera.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, murky green and dark bronze and black color palette, a small wax
+crocodile figurine transforming into a massive real crocodile the instant it touches lake
+water, jaws closing around a fleeing man on the shore
+```
+
+### El nacimiento de los reyes divinos — `nacimiento-de-los-reyes-divinos.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm terracotta and lapis blue and soft gold color palette, Isis,
+Nephthys and Khnum disguised as traveling musicians assisting at the bedside of Ruddjedet,
+three faint golden auras hovering above her as her children are born
+```
+
+### El viaje de Khonsu a la lejana Bajtan — `viaje-de-khonsu-a-bakhtan.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Egyptian temple architecture and Nile landscape backdrop with hieroglyphic carvings, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, pale silver-blue and gold and deep navy color palette, the moon
+god Khonsu's statue arriving in a grand procession at a foreign palace, a shadowy hostile
+spirit recoiling and fleeing from a princess's bedside
+```
+
+---
+
+## 6. Mitología Hindú (19 historias)
+
+### ⭐ La creación por el sacrificio de Purusha (cosmogonía) — `creacion-por-el-sacrificio-de-purusha.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, cosmic gold and deep indigo and starlight white color palette, the
+cosmic being Purusha, vast and many-headed, being ritually sacrificed by the gods on sacred
+ground, the sun, moon and stars bursting forth from his dismembered form
+```
+
+### ⭐ El batido del océano de leche (cosmogonía) — `batido-del-oceano-de-leche.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep ocean blue and gold and lotus pink color palette, devas and
+asuras pulling opposite ends of the great serpent Vasuki wrapped around Mount Mandara,
+churning the cosmic ocean of milk as Lakshmi rises from the foam on a lotus, Vishnu as a
+giant turtle supporting the mountain beneath
+```
+
+### El nacimiento de Ganesha y su cabeza de elefante — `nacimiento-de-ganesha.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm red and gold and ash grey color palette, Parvati's
+grief-stricken face as Shiva, trident lowered, places a freshly severed elephant's head onto
+Ganesha's body to restore him to life
+```
+
+### El destierro de Rama al bosque — `destierro-de-rama.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dawn gold and forest green and royal blue color palette, Rama, Sita
+and Lakshmana walking away from the golden palace of Ayodhya into the wilderness at dawn,
+the grieving King Dasharatha watching from the palace gates
+```
+
+### Hanuman y el salto a Lanka — `hanuman-y-el-salto-a-lanka.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm orange-red and deep ocean blue and gold color palette, Hanuman
+leaping across a vast ocean toward the island of Lanka, his form growing colossal mid-flight,
+mountains and sea monsters visible far below
+```
+
+### La caída de Ravana y el regreso de Rama — `caida-de-ravana.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep crimson and gold and fire orange color palette, Rama drawing
+back a glowing divine arrow aimed at the ten-headed Ravana across a burning battlefield, the
+stone bridge to Lanka visible in the background
+```
+
+### Indra, Ahalya y la maldición de los mil ojos — `indra-ahalya-y-la-maldicion.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, pale stone grey and soft gold and forest green color palette, a
+radiant stone figure of a woman cracking and coming back to life the instant Rama's foot
+touches it in a quiet forest clearing
+```
+
+### El nacimiento de Krishna y la huida a Gokul — `nacimiento-de-krishna.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep stormy blue and gold and cosmic indigo color palette, Vasudeva
+wading through a raging flooded river at night carrying the infant Krishna above his head in
+a basket, the cosmic serpent Shesha spreading its hood overhead to shield them from the rain
+```
+
+### Las hazañas del joven Krishna en Vraja — `hazanas-del-joven-krishna.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, wheat gold and storm grey and peacock blue-green color palette, the
+young Krishna lifting the entire Govardhana mountain with one raised finger, sheltering a
+crowd of villagers and cattle beneath it as a storm rages around them
+```
+
+### La muerte de Kamsa — `muerte-de-kamsa.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, royal gold and deep crimson and iron grey color palette, the young
+Krishna gripping the tusks of a charging war elephant sent to kill him in a crowded royal
+arena, the tyrant Kamsa watching in horror from his throne
+```
+
+### Krishna y el Bhagavad Gita en el campo de batalla — `bhagavad-gita-en-kurukshetra.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, cosmic gold and deep blue and radiant white color palette, Krishna
+revealing his cosmic universal form (Vishvarupa) to a stunned Arjuna on a chariot in the
+middle of the Kurukshetra battlefield, containing the entire universe within his glowing
+silhouette
+```
+
+### El juego de dados y la humillación de Draupadi — `juego-de-dados-y-draupadi.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep crimson and gold and fire orange color palette, Draupadi
+standing defiantly in a royal court as an endless cascade of sari fabric unspools from her,
+Dushasana staggering back exhausted, the Pandava brothers watching in fury
+```
+
+### La gran guerra de Kurukshetra — `gran-guerra-de-kurukshetra.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, royal blue and bronze and battlefield grey color palette, a vast
+battlefield of Kurukshetra filled with warring chariots and armies, Arjuna and Karna locked
+in an archery duel at the center beneath a smoke-filled sky
+```
+
+### Karna, el héroe trágico del sol — `karna-el-heroe-tragico.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, solar gold and bronze and dawn crimson color palette, Karna kneeling
+at dawn in prayer to the sun facing his birth father Surya glowing on the horizon, his golden
+armor and earrings gleaming, torn between two loyalties
+```
+
+### Durga y la derrota del demonio búfalo Mahishasura — `durga-y-mahishasura.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, crimson red and gold and deep saffron color palette, the ten-armed
+goddess Durga astride a roaring lion, plunging her trident into the half-transformed
+buffalo-demon Mahishasura at the climax of a nine-day battle
+```
+
+### Kali y la furia que no podía detenerse — `kali-y-la-furia-imparable.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and blood red and bone white color palette, the
+fierce dark goddess Kali frozen mid-stride with her tongue out in shock, having just stepped
+onto the chest of Shiva lying calmly in her destructive path
+```
+
+### El castigo de Hiranyakashipu y el avatar Narasimha — `hiranyakashipu-y-narasimha.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dark bronze and gold and twilight orange color palette, Narasimha,
+half-man half-lion, bursting out from a shattered stone pillar to seize the demon king
+Hiranyakashipu across his lap in the twilight doorway
+```
+
+### Surya, Chandra y el ritmo del cielo — `surya-chandra-y-el-ritmo-del-cielo.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, pale silver-blue and solar gold and deep indigo color palette, the
+moon god Chandra waning and fading into darkness in the night sky while his many wives, the
+nakshatra stars, plead below, Surya's golden chariot crossing the opposite horizon
+```
+
+### Shiva, Kama y las cenizas del deseo — `shiva-kama-y-las-cenizas-del-deseo.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved Hindu temple architecture and cosmic/celestial landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep ash grey and fire orange and rose pink color palette, Shiva's
+third eye blazing open in sudden fury, a burst of fire consuming the small winged figure of
+Kama mid-flight, his bow and flower arrow falling to the ground
+```
+
+---
+
+## 7. Mitología Nórdica (20 historias)
+
+### ⭐ La creación del mundo del cuerpo de Ymir (cosmogonía) — `creacion-del-mundo-de-ymir.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, pale ice blue and ash grey and deep black color palette, the
+three brothers Odin, Vili and Ve standing over the fallen colossal form of the primordial
+giant Ymir, his body already transforming into mountains and seas as the world is formed
+from his remains
+```
+
+### ⭐ La creación de Ask y Embla (cosmogonía) — `creacion-de-ask-y-embla.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm bark brown and pale green and dawn gold color palette, Odin
+and his two brothers kneeling on a windswept shore, breathing life into two carved tree
+trunks that are becoming the first man and woman
+```
+
+### Odín y el pozo de la sabiduría de Mímir — `odin-y-el-pozo-de-mimir.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep teal and silver and ancient bronze color palette, Odin
+kneeling at the edge of a glowing well beneath the roots of a colossal tree, his own severed
+eye sinking into the dark water
+```
+
+### Odín y las runas: nueve noches en el árbol del mundo — `odin-y-las-runas.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep indigo and silver starlight and ash grey color palette, Odin
+hanging upside down, pierced by his own spear, suspended from the vast branches of Yggdrasil
+against a starry sky, glowing runic symbols beginning to swirl around him
+```
+
+### La construcción de las murallas de Asgard — `murallas-de-asgard.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, stone grey and gold and storm blue color palette, a massive stone
+wall around Asgard nearly complete, a giant stonemason directing an enormous horse hauling
+boulders, Thor's hammer raised in the background
+```
+
+### Cómo Thor obtuvo su martillo Mjölnir — `forja-de-mjolnir.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, molten orange and iron grey and ember red color palette, two
+dwarves working at a blazing forge, a fly biting at one dwarf's eyelid as he hammers out a
+short-handled hammer glowing with power
+```
+
+### El robo del martillo de Thor — `robo-del-martillo-de-thor.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, icy blue and gold and deep crimson color palette, Thor disguised
+in a bridal veil and jewelry seated at a giant's wedding feast, Mjölnir being placed onto his
+lap by unsuspecting attendants
+```
+
+### Los hijos monstruosos de Loki y Angrboda — `hijos-de-loki-y-angrboda.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dark iron grey and deep red and black color palette, Odin standing
+before three monstrous children — a massive wolf pup, a serpent, and a half-pale
+half-decayed girl — deciding the fate of each beneath a stormy sky
+```
+
+### El encadenamiento de Fenrir y el sacrificio de Týr — `encadenamiento-de-fenrir.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dark charcoal grey and iron and blood red color palette, the
+massive wolf Fenrir straining against the thin magical ribbon Gleipnir, jaws closing down on
+Týr's arm as the gods look on in tense silence
+```
+
+### La muerte de Baldr — `muerte-de-baldr.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, radiant white and gold and pale grey color palette, Hödr releasing
+a mistletoe dart guided by Loki's hand, Baldr collapsing among the gathered gods who had been
+throwing harmless objects at him moments before
+```
+
+### Hermod cabalga a Hel para rescatar a Baldr — `hermod-cabalga-a-hel.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep violet and silver and storm grey color palette, Hermod on the
+eight-legged horse Sleipnir crossing a golden bridge over a dark river into the shadowy realm
+of Hel, pleading before her throne
+```
+
+### El castigo de Loki — `castigo-de-loki.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, emerald green and black and venomous glow color palette, Loki
+bound to jagged rocks in a dark cave, a venomous serpent coiled above his face, his wife
+Sigyn holding a bowl to catch the dripping poison
+```
+
+### Thor y el viaje a Utgard — `thor-en-utgard.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep forest green and stone grey and iron color palette, Thor
+straining to lift a small grey cat off the ground in a giant's hall, unaware it is the World
+Serpent Jörmungandr in disguise, giants watching with hidden amusement
+```
+
+### La forja del collar Brísingamen — `collar-brisingamen.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, rose gold and deep red and amber color palette, Freyja asleep in
+her chamber as Loki, transformed into a fly, delicately unclasps the glowing Brísingamen
+necklace from her neck
+```
+
+### Freyr y Gerd: el amor que costó una espada — `freyr-y-gerd.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, radiant silver and pale gold and icy white color palette, Freyr
+gazing from Odin's high seat across the nine worlds at the radiant giantess Gerd, whose bare
+arms illuminate the sky and sea below
+```
+
+### Sigurd y el dragón Fafnir — `sigurd-y-fafnir.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dull gold and dark green and bronze color palette, Sigurd
+thrusting his sword Gram upward from a hidden trench into the soft underbelly of the massive
+dragon Fafnir passing overhead
+```
+
+### Sigurd, Brynhild y la maldición del oro — `sigurd-brynhild-maldicion-del-oro.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, fiery orange and silver armor and deep red color palette, Sigurd,
+disguised by magic as Gunnar, riding through a towering wall of flame toward the sleeping
+valkyrie Brynhild on the other side
+```
+
+### La muerte de Ragnar Lodbrok en el foso de serpientes — `muerte-de-ragnar-lodbrok.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, weathered brown and iron grey and venomous green color palette,
+the aged Viking Ragnar Lodbrok surrounded by venomous serpents in a stone pit, reciting his
+final poem with unshaken defiance
+```
+
+### ⭐ El Ragnarök: el destino final de los dioses — `ragnarok.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, volcanic red and ash black and electric storm color palette, the
+final battle of Ragnarök: Odin charging into the jaws of Fenrir on the burning plain of
+Vígrid while Thor battles the coiling World Serpent Jörmungandr nearby, the sky ablaze with
+fire and lightning
+```
+
+### ⭐ El renacimiento del mundo tras el Ragnarök (cosmogonía) — `renacimiento-tras-ragnarok.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient carved wooden hall architecture and icy/stormy Norse landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, fresh green and dawn gold and pale sky blue color palette, a lush
+green new earth rising from calm ocean waters after the fires of Ragnarök have faded, two
+young gods walking together across untouched grass toward a golden dawn
+```
+
+---
+
+## 8. Resumen
+
+| Libro | Historias | Cosmogonías destacadas |
+|---|---|---|
+| Griega | 20 | El origen del cosmos |
+| Egipcia | 21 | La cosmogonía heliopolitana |
+| Hindú | 19 | La creación por el sacrificio de Purusha, El batido del océano de leche |
+| Nórdica | 20 | La creación del mundo de Ymir, La creación de Ask y Embla, El renacimiento tras el Ragnarök |
+
+**Total: 80 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+(cosmogonías + el Ragnarök) son las más importantes para tener primero — funcionan bien como
+portada de cada libro o apertura de la sección de historias en el flipbook.
