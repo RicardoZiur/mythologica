@@ -62,7 +62,7 @@ app.use('/images', express.static(path.join(__dirname, 'public/images')));
 // Chrome muestra cuando un sitio publico (el tunel) le pide datos a
 // localhost. http://localhost:3001/ sirve frontend/index.html (el
 // landing) automaticamente.
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 // ------------------------------------------------------------
 // RUTAS
