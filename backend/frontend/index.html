@@ -180,10 +180,10 @@
       </div>
 
       <form id="formLogin" class="auth-form">
-        <label>Email<input type="email" name="email" required></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
         <label>Contraseña
           <span class="auth-password-field">
-            <input type="password" name="password" required>
+            <input type="password" name="password" required autocomplete="current-password">
             <button type="button" class="auth-password-toggle" aria-label="Mostrar contraseña" aria-pressed="false">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/><line class="auth-eye-slash" x1="2" y1="2" x2="22" y2="22"/></svg>
             </button>
@@ -195,11 +195,11 @@
       </form>
 
       <form id="formRegistro" class="auth-form" hidden>
-        <label>Nombre<input type="text" name="nombre" required></label>
-        <label>Email<input type="email" name="email" required></label>
+        <label>Nombre<input type="text" name="nombre" required autocomplete="name"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
         <label>Contraseña
           <span class="auth-password-field">
-            <input type="password" name="password" required minlength="8">
+            <input type="password" name="password" required minlength="8" autocomplete="new-password">
             <button type="button" class="auth-password-toggle" aria-label="Mostrar contraseña" aria-pressed="false">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/><line class="auth-eye-slash" x1="2" y1="2" x2="22" y2="22"/></svg>
             </button>
@@ -207,7 +207,7 @@
         </label>
         <label>Confirmar contraseña
           <span class="auth-password-field">
-            <input type="password" name="passwordConfirmacion" required minlength="8">
+            <input type="password" name="passwordConfirmacion" required minlength="8" autocomplete="new-password">
             <button type="button" class="auth-password-toggle" aria-label="Mostrar contraseña" aria-pressed="false">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/><line class="auth-eye-slash" x1="2" y1="2" x2="22" y2="22"/></svg>
             </button>
@@ -220,7 +220,7 @@
 
       <form id="formOlvide" class="auth-form" hidden>
         <p class="auth-hint">Escribe el email de tu cuenta. Si existe, te mandamos un link para elegir una contraseña nueva.</p>
-        <label>Email<input type="email" name="email" required></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
         <p class="auth-error" id="olvideError"></p>
         <button type="submit" class="auth-submit">Enviar link</button>
         <button type="button" class="auth-back-link" id="btnVolverLogin">Volver a iniciar sesión</button>
@@ -230,7 +230,7 @@
         <p class="auth-hint">Elige una contraseña nueva para tu cuenta.</p>
         <label>Contraseña nueva
           <span class="auth-password-field">
-            <input type="password" name="password" required minlength="8">
+            <input type="password" name="password" required minlength="8" autocomplete="new-password">
             <button type="button" class="auth-password-toggle" aria-label="Mostrar contraseña" aria-pressed="false">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/><line class="auth-eye-slash" x1="2" y1="2" x2="22" y2="22"/></svg>
             </button>
