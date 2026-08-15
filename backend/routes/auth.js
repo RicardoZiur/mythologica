@@ -19,12 +19,25 @@ const rateLimit = require('express-rate-limit');
 const router = express.Router();
 const pool = require('../config/db');
 const { requiereAdmin, requiereSesion, LIBRO_POR_DEFECTO } = require('../middleware/auth');
-const { enviarEmailVerificacion } = require('../utils/email');
+const { enviarEmailVerificacion, enviarEmailRecuperacion } = require('../utils/email');
 
 const DURACION_SESION = '30d';
 const HORAS_VALIDEZ_TOKEN_VERIFICACION = 24;
+const MINUTOS_VALIDEZ_TOKEN_RECUPERACION = 60;
 const INTENTOS_MAXIMOS_LOGIN = 5;
 const MINUTOS_BLOQUEO_LOGIN = 15;
+
+// Limite propio para "olvidé mi contraseña": sin esto alguien podria
+// usarlo para saturar de correos la casilla de otra persona. Mas
+// permisivo que el de login (aca no hay una contraseña que probar, asi
+// que no aporta nada de fuerza bruta) pero igual acotado.
+const limitadorRecuperacion = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Demasiados pedidos de recuperación desde esta conexión. Prueba de nuevo más tarde.' }
+});
 
 // Limite por IP, ademas del bloqueo por cuenta de mas abajo: cubre el
 // caso de alguien probando muchas cuentas distintas desde la misma
@@ -180,6 +193,83 @@ router.post('/reenviar-verificacion', requiereSesion, async (req, res) => {
   } catch (error) {
     console.error('Error al reenviar la verificación:', error);
     res.status(500).json({ error: 'No se pudo reenviar el email de verificación' });
+  }
+});
+
+// ------------------------------------------------------------
+// POST /api/auth/olvide-password
+// Pide el link de recuperacion por email. Siempre responde "ok" (haya
+// o no una cuenta con ese email): si dijeramos "ese email no existe"
+// cualquiera podria usar este formulario para averiguar que emails
+// estan registrados.
+// ------------------------------------------------------------
+router.post('/olvide-password', limitadorRecuperacion, async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ error: 'Falta el email' });
+    }
+
+    const [filas] = await pool.query('SELECT id, nombre, email FROM usuarios WHERE email = ?', [email]);
+    if (filas.length > 0) {
+      const usuario = filas[0];
+      const tokenRecuperacion = crypto.randomBytes(32).toString('hex');
+      const tokenExpira = new Date(Date.now() + MINUTOS_VALIDEZ_TOKEN_RECUPERACION * 60 * 1000);
+
+      await pool.query(
+        'UPDATE usuarios SET token_recuperacion = ?, token_recuperacion_expira = ? WHERE id = ?',
+        [tokenRecuperacion, tokenExpira, usuario.id]
+      );
+
+      await enviarEmailRecuperacion(usuario, tokenRecuperacion);
+    }
+
+    res.json({ ok: true });
+  } catch (error) {
+    console.error('Error al pedir la recuperación de contraseña:', error);
+    res.status(500).json({ error: 'No se pudo procesar el pedido' });
+  }
+});
+
+// ------------------------------------------------------------
+// POST /api/auth/restablecer-password
+// El formulario que abre el link del email de arriba. No requiere
+// sesion (el usuario justamente no puede loguearse, por eso esta
+// aca): la identidad la da el token, que es de un solo uso y vence a
+// la hora.
+// ------------------------------------------------------------
+router.post('/restablecer-password', async (req, res) => {
+  try {
+    const { token, password } = req.body;
+    if (!token || !password) {
+      return res.status(400).json({ error: 'Faltan datos' });
+    }
+    if (password.length < 8) {
+      return res.status(400).json({ error: 'La contraseña debe tener al menos 8 caracteres' });
+    }
+
+    const [filas] = await pool.query(
+      `SELECT id FROM usuarios
+       WHERE token_recuperacion = ? AND token_recuperacion_expira > NOW()`,
+      [token]
+    );
+    if (filas.length === 0) {
+      return res.status(400).json({ error: 'El link de recuperación no es válido o venció. Pide uno nuevo.' });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 12);
+    await pool.query(
+      `UPDATE usuarios
+       SET password_hash = ?, token_recuperacion = NULL, token_recuperacion_expira = NULL,
+           intentos_fallidos = 0, bloqueado_hasta = NULL
+       WHERE id = ?`,
+      [passwordHash, filas[0].id]
+    );
+
+    res.json({ ok: true });
+  } catch (error) {
+    console.error('Error al restablecer la contraseña:', error);
+    res.status(500).json({ error: 'No se pudo restablecer la contraseña' });
   }
 });
 

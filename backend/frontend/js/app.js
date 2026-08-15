@@ -312,7 +312,7 @@ function construirAccionesBloqueadas(slug) {
   return `
     <div class="locked-actions">${botonesHtml}</div>
     <div class="codigo-wrap">
-      <button type="button" class="codigo-toggle" onclick="window.mostrarFormularioCodigo('${slug}')">¿Tenés un código de descuento?</button>
+      <button type="button" class="codigo-toggle" onclick="window.mostrarFormularioCodigo('${slug}')">¿Tienes un código de descuento?</button>
       <div class="codigo-form" id="codigoForm-${slug}" hidden>
         <input type="text" id="codigoInput-${slug}" class="codigo-input" placeholder="CÓDIGO" maxlength="50">
         <button type="button" class="locked-cta secundario" onclick="window.aplicarCodigoDesdeUI('${slug}')">Aplicar</button>

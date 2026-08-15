@@ -68,4 +68,23 @@ async function enviarEmailVerificacion(usuario, token) {
   });
 }
 
-module.exports = { enviarEmail, enviarEmailVerificacion };
+// ------------------------------------------------------------
+// Email de recuperacion de contraseña: manda el link que abre el
+// flipbook con "?resetToken=..." (ver frontend/js/auth.js), donde el
+// usuario elige una contraseña nueva.
+// ------------------------------------------------------------
+async function enviarEmailRecuperacion(usuario, token) {
+  const link = `${process.env.URL_FRONTEND}/libro/index.html?resetToken=${token}`;
+  await enviarEmail({
+    to: usuario.email,
+    subject: 'Recupera tu contraseña de Mythologica',
+    html: `
+      <p>Hola ${usuario.nombre},</p>
+      <p>Pediste recuperar tu contraseña de Mythologica. Haz click en este link para elegir una nueva:</p>
+      <p><a href="${link}">${link}</a></p>
+      <p>Este link vence en 1 hora. Si no pediste esto, puedes ignorar este email: tu contraseña actual sigue funcionando.</p>
+    `
+  });
+}
+
+module.exports = { enviarEmail, enviarEmailVerificacion, enviarEmailRecuperacion };

@@ -435,6 +435,7 @@ body.is-fullscreen .stage-wrap{ max-width:min(92vw, 109vh, 1500px); }
   color:var(--text-faint); border-bottom:2px solid transparent;
 }
 .auth-tab.active{ color:var(--gold); border-bottom-color:var(--gold); }
+.auth-tabs[hidden]{ display:none; }
 .auth-form{ display:flex; flex-direction:column; gap:12px; }
 .auth-form[hidden]{ display:none; }
 .auth-form label{ display:flex; flex-direction:column; gap:4px; font-size:11px; color:var(--text-dim); }
@@ -443,6 +444,26 @@ body.is-fullscreen .stage-wrap{ max-width:min(92vw, 109vh, 1500px); }
   border-radius:6px; background:var(--bg); color:var(--text);
 }
 .auth-form input:focus{ outline:none; border-color:var(--gold-soft); }
+.auth-password-field{ position:relative; display:flex; }
+.auth-password-field input{ width:100%; padding-right:34px; }
+.auth-password-toggle{
+  position:absolute; top:0; right:0; height:100%; width:32px;
+  display:flex; align-items:center; justify-content:center;
+  background:none; border:none; padding:0; color:var(--text-faint); cursor:pointer;
+}
+.auth-password-toggle:hover{ color:var(--gold); }
+.auth-password-toggle .auth-eye-slash{ display:none; }
+.auth-password-toggle[aria-pressed="true"] .auth-eye-slash{ display:block; }
+.auth-forgot-link{
+  align-self:flex-end; margin-top:-4px; background:none; border:none; padding:0;
+  color:var(--text-dim); font-size:10.5px; text-decoration:underline; cursor:pointer; font-family:inherit;
+}
+.auth-forgot-link:hover{ color:var(--gold); }
+.auth-back-link{
+  background:none; border:none; padding:0; color:var(--text-dim); font-size:10.5px;
+  text-decoration:underline; cursor:pointer; font-family:inherit; align-self:center;
+}
+.auth-back-link:hover{ color:var(--gold); }
 .auth-hint{ font-size:10px; color:var(--text-faint); line-height:1.4; margin:0; }
 .auth-error{ font-size:10.5px; color:var(--wine); margin:0; min-height:13px; }
 .auth-submit{
