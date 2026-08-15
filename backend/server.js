@@ -10,11 +10,27 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const { autenticarOpcional } = require('./middleware/auth');
 
 const app = express(); // creamos la aplicacion Express
+
+// En produccion, public/images vive en un volumen persistente (ver
+// Railway) para que las imagenes que suba el admin sobrevivan a los
+// redeploys -- pero un volumen nuevo arranca vacio, y eso taparia las
+// imagenes que ya vienen versionadas en el repo. Por eso esas viven
+// en public/images-seed (versionada en git) y, si public/images
+// todavia no existe (primer arranque sobre un volumen vacio, o en
+// local recien clonado), se copian una sola vez. Despues de esa
+// primera vez, tanto las imagenes originales como las que suba el
+// admin quedan en public/images para siempre.
+const carpetaImagenes = path.join(__dirname, 'public/images');
+const carpetaSemillaImagenes = path.join(__dirname, 'public/images-seed');
+if (!fs.existsSync(carpetaImagenes) && fs.existsSync(carpetaSemillaImagenes)) {
+  fs.cpSync(carpetaSemillaImagenes, carpetaImagenes, { recursive: true });
+}
 
 // Si el servidor corre detras de un proxy/tunel (nginx, ngrok,
 // localtunnel, etc.), Express por defecto ve la IP del proxy, no la
