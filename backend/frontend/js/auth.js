@@ -412,6 +412,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('formRegistro').addEventListener('submit', async (e) => {
     e.preventDefault();
     const datos = Object.fromEntries(new FormData(e.target));
+    if (datos.password !== datos.passwordConfirmacion) {
+      document.getElementById('registroError').textContent = 'Las contraseñas no coinciden';
+      return;
+    }
+    delete datos.passwordConfirmacion; // el backend no la necesita, es solo un chequeo del frontend
     const error = await enviarFormularioAuth('registro', datos);
     if (error) document.getElementById('registroError').textContent = error;
   });

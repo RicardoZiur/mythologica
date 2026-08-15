@@ -251,6 +251,16 @@ a{ color:inherit; }
 }
 .auth-submit:hover{ background:#dcb662; }
 
+/* ---- Aviso flotante (cuenta creada, email verificado, etc. -- ver
+   mostrarAviso() en js/auth.js) -- mismo CSS que css/style.css. */
+.pago-aviso{
+  position:fixed; top:20px; left:50%; transform:translateX(-50%);
+  background:var(--surface-2); border:1px solid var(--gold-soft); color:var(--text);
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.3px;
+  padding:12px 20px; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  z-index:100; text-align:center; max-width:90vw;
+}
+
 /* ---- Hero ---- */
 .lp-hero{
   padding:56px 0 64px;
