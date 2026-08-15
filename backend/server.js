@@ -28,7 +28,11 @@ const app = express(); // creamos la aplicacion Express
 // admin quedan en public/images para siempre.
 const carpetaImagenes = path.join(__dirname, 'public/images');
 const carpetaSemillaImagenes = path.join(__dirname, 'public/images-seed');
-if (!fs.existsSync(carpetaImagenes) && fs.existsSync(carpetaSemillaImagenes)) {
+// No alcanza con comprobar si "public/images" existe: un volumen recien
+// montado (ver Railway) ya viene como carpeta vacia (a veces con un
+// "lost+found" adentro), asi que existe pero no tiene las imagenes
+// todavia. Comprobamos el contenido real en vez de solo la carpeta.
+if (fs.existsSync(carpetaSemillaImagenes) && !fs.existsSync(path.join(carpetaImagenes, 'mitologia-griega'))) {
   fs.cpSync(carpetaSemillaImagenes, carpetaImagenes, { recursive: true });
 }
 
