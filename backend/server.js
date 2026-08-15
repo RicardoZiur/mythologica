@@ -37,13 +37,18 @@ if (fs.existsSync(carpetaSemillaImagenes) && !fs.existsSync(path.join(carpetaIma
 }
 
 // Si el servidor corre detras de un proxy/tunel (nginx, ngrok,
-// localtunnel, etc.), Express por defecto ve la IP del proxy, no la
-// del visitante real. Con esto, "req.ip" lee el header
+// localtunnel, Railway, etc.), Express por defecto ve la IP del
+// proxy, no la del visitante real. Con esto, "req.ip" lee el header
 // "X-Forwarded-For" que pone el proxy, y queda con la IP real del
 // visitante -- necesario para GET /api/pagos/precios, que geolocaliza
 // esa IP para decidir si mostrar el precio en CLP o en USD (ver
-// routes/pagos.js).
-app.set('trust proxy', true);
+// routes/pagos.js). "1" (no "true") = confiar solo en el primer salto
+// (el proxy/edge que esta justo delante nuestro): "true" confia en
+// TODA la cadena de proxies, incluido cualquiera que el visitante
+// mismo pueda falsificar en el header, y express-rate-limit (ver
+// routes/auth.js) directamente rechaza arrancar con esa configuracion
+// por lo insegura que es para el limite de intentos por IP.
+app.set('trust proxy', 1);
 
 // ------------------------------------------------------------
 // MIDDLEWARES

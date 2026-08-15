@@ -18,6 +18,12 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs/promises');
 const sharp = require('sharp');
+
+// El contenedor de produccion (Railway) corre como root, y Chrome se
+// niega a arrancar como root sin --no-sandbox (ver troubleshooting de
+// Puppeteer: https://pptr.dev/troubleshooting). En local no hace falta,
+// pero no molesta dejarlo siempre.
+const ARGUMENTOS_LANZAMIENTO_PUPPETEER = { args: ['--no-sandbox', '--disable-setuid-sandbox'] };
 const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
 const { requiereNivel } = require('../middleware/auth');
 
@@ -775,7 +781,7 @@ async function generarPdfLibro(libro, usuario) {
     // historias compactadas para medir en que pagina cae cada
     // historia/personaje (ver "encontrarNumerosDePagina"), y el
     // documento final con todo eso ya resuelto.
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch(ARGUMENTOS_LANZAMIENTO_PUPPETEER);
 
     const medidasHistorias = await medirHistorias(historias, personajes, usuario, libro, fondoPortada, browser);
 
@@ -855,7 +861,7 @@ async function generarHtmlLibro(libro, usuario) {
     const fondoPortada = await comoDataUriParaPdf(`http://localhost/images/${libro.slug}/portada-fondo.jpg`, 900, 1614);
     const fondoEmblema = await comoDataUriParaPdf(`http://localhost/images/${libro.slug}/portada-emblema.png`, 400, 400);
 
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch(ARGUMENTOS_LANZAMIENTO_PUPPETEER);
     const medidasHistorias = await medirHistorias(historias, personajes, usuario, libro, fondoPortada, browser);
 
     const htmlBorrador = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada, medidasHistorias, fondoEmblema);
