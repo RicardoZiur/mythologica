@@ -26,7 +26,10 @@ if (!LIBRO_SLUG) {
 }
 
 const CARPETA = path.join(__dirname, '../public/images', LIBRO_SLUG);
-const URL_BASE = `http://localhost:3001/images/${LIBRO_SLUG}`;
+// Ruta relativa (no absoluta con dominio): asi sirve igual en local,
+// en Railway o en cualquier dominio que use el sitio despues, sin
+// tener que volver a correr esto si el dominio cambia.
+const URL_BASE = `/images/${LIBRO_SLUG}`;
 
 // Convierte "<nombreBase>.jfif" a "<nombreBase>.<extension>" en la misma
 // carpeta (si el .jfif existe). Devuelve true si convirtio algo.

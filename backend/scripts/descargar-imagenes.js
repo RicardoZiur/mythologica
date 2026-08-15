@@ -24,7 +24,9 @@ const path = require('path');
 const pool = require('../config/db');
 
 const CARPETA_IMAGENES = path.join(__dirname, '../public/images');
-const URL_BASE_LOCAL = 'http://localhost:3001/images';
+// Ruta relativa (no absoluta con dominio): asi sirve igual en local,
+// en Railway o en cualquier dominio que use el sitio despues.
+const URL_BASE_LOCAL = '/images';
 
 // Pequeña pausa entre peticiones, para ser respetuosos con la API
 // publica de Wikipedia y no saturarla de golpe.

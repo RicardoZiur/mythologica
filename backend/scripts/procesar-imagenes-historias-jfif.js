@@ -26,7 +26,10 @@ if (!LIBRO_SLUG) {
 }
 
 const CARPETA = path.join(__dirname, '../public/images', LIBRO_SLUG, 'historias');
-const URL_BASE = `http://localhost:3001/images/${LIBRO_SLUG}/historias`;
+// Ruta relativa (no absoluta con dominio): asi sirve igual en local,
+// en Railway o en cualquier dominio que use el sitio despues, sin
+// tener que volver a correr esto si el dominio cambia.
+const URL_BASE = `/images/${LIBRO_SLUG}/historias`;
 
 // Mismo criterio que procesar-imagenes-jfif.js: no borra el .jfif
 // original (sharp/libvips en Windows a veces lo deja bloqueado un

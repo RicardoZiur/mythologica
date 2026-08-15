@@ -35,7 +35,7 @@ async function agregarColumna() {
 async function poblarUrlsGriego() {
   let n = 0;
   for (const slug of HISTORIAS_CON_IMAGEN_GRIEGO) {
-    const url = `http://localhost:3001/images/mitologia-griega/historias/${slug}.jpg`;
+    const url = `/images/mitologia-griega/historias/${slug}.jpg`;
     const [r] = await pool.query(
       'UPDATE historias SET imagen_url = ? WHERE slug = ? AND (imagen_url IS NULL OR imagen_url != ?)',
       [url, slug, url]

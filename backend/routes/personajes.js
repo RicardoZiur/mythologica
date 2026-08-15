@@ -246,7 +246,10 @@ router.post('/:slug/imagen', uploadImagen.single('imagen'), async (req, res) => 
     }
     const personajeId = personajeRows[0].id;
 
-    const urlPublica = `${req.protocol}://${req.get('host')}/images/${personajeRows[0].libro_slug}/${req.file.filename}`;
+    // Ruta relativa (no absoluta con protocolo/host): asi la imagen
+    // sigue sirviendo igual si el sitio cambia de dominio despues
+    // (ver el mismo criterio en los scripts procesar-imagenes*-jfif.js).
+    const urlPublica = `/images/${personajeRows[0].libro_slug}/${req.file.filename}`;
     const licencia = req.body.licencia || 'Generada con IA (uso propio, sin restricciones de terceros)';
     const textoAlt = req.body.texto_alt || slug;
 
