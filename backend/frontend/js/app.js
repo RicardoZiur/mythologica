@@ -677,16 +677,33 @@ async function iniciarLibro() {
     // iniciarBotonFullscreen). Subimos maxWidth/maxHeight para que ese
     // crecimiento no quede topado por el limite viejo (pensado solo
     // para el tamaño de lectura normal, no pantalla completa).
+    // En modo portrait (1 sola pagina, ver "usePortrait" mas abajo)
+    // StPageFlip nunca deja que ".stage-wrap" baje de este "minWidth" --
+    // en un celular angosto de verdad (320px de ancho, ej. iPhone SE de
+    // 1a gen) eso fuerza al libro a ser mas ancho que la pantalla y
+    // aparece scroll horizontal. Lo topamos al ancho real disponible
+    // (con margen para el padding del body, ver ".topbar"/"body" en
+    // style.css), con un piso de 260px para que la hoja no quede
+    // ilegible. En pantallas normales (>=360px) esto no cambia nada:
+    // sigue siendo 320, como antes.
+    const anchoMinimoPagina = Math.max(260, Math.min(320, window.innerWidth - 40));
+
     pageFlip = new St.PageFlip(bookEl, {
       width: 420,
       height: 600,
       size: 'stretch',
-      minWidth: 320,
+      minWidth: anchoMinimoPagina,
       maxWidth: 820,
       minHeight: 460,
       maxHeight: 1160,
       showCover: true,
-      usePortrait: false,
+      // "true" (antes iba fijo en "false") es lo que deja a StPageFlip
+      // pasar solo a una sola pagina visible cuando el contenedor no
+      // entra en 2*minWidth (celulares) -- ver ".stage-wrap" en
+      // style.css, que ya es 100% de ancho hasta el "max-width". Sin
+      // esto el libro se veia siempre como spread de 2 paginas, que no
+      // entra en una pantalla de celular sin scroll horizontal.
+      usePortrait: true,
       maxShadowOpacity: 0.6,
       flippingTime: 700,
       mobileScrollSupport: false

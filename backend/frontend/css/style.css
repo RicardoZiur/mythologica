@@ -180,7 +180,7 @@ body::after{
   background:var(--surface-2); border:1px solid var(--line); padding:9px 12px; border-radius:6px;
 }
 
-.topbar-actions{ display:flex; align-items:center; gap:10px; }
+.topbar-actions{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
 .pdf-btn{
   font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.3px;
   color:#1a1610; background:var(--gold); text-decoration:none;
@@ -534,4 +534,42 @@ body.is-fullscreen .stage-wrap{ max-width:min(92vw, 109vh, 1500px); }
   font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.3px;
   padding:12px 20px; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.4);
   z-index:100; text-align:center; max-width:90vw;
+}
+
+/* ---- Responsive (celular/tablet chica) ----
+   El libro en si ya se adapta solo: StPageFlip esta en modo "stretch"
+   con "usePortrait:true" (ver app.js), asi que pasa solo de spread de
+   2 paginas a 1 sola pagina cuando ".stage-wrap" no entra en
+   2*minWidth. Lo que queda por acomodar aca es todo lo que SI tiene
+   medidas fijas pensadas para escritorio: el padding del body y de
+   cada hoja, los tamaños de letra del contenido y el retrato/banner
+   flotante (que en una sola pagina angosta le deja muy poco lugar al
+   texto si se queda con su tamaño de escritorio). */
+@media (max-width: 700px){
+  body{ padding:18px 12px 32px; }
+  .topbar{ margin-bottom:18px; gap:10px; }
+  .brand span{ display:block; margin-left:0; margin-top:2px; }
+  .controls{ gap:14px; margin-top:26px; }
+
+  .p-face:not([style*="display: none"]){ padding:22px 16px 16px; }
+  .title{ font-size:20px; }
+  .subtitle{ font-size:12px; }
+  .body-txt{ font-size:12.5px; }
+
+  /* Mas chicos y menos "flotantes" en una pagina angosta: al tamaño
+     de escritorio (175px) le comen casi todo el ancho disponible y
+     dejan el texto embutido en una columna angostisima. */
+  .portrait{ width:110px; height:150px; margin:0 0 8px 12px; }
+  .historia-banner{ height:140px; }
+  .cover-title{ font-size:24px; }
+  .cover-emblem{ width:110px; height:110px; }
+
+  /* La formula de ancho maximo en pantalla completa (ver ".stage-wrap"
+     mas arriba) esta pensada para el spread de 2 paginas (proporcion
+     ancho:alto 1.4:1) -- en celular el libro esta en modo 1 pagina
+     (proporcion inversa, mas alto que ancho), asi que esa cuenta en
+     vh ya no aplica. Alcanza con un limite de ancho generoso: el
+     alto que le sobre lo resuelve el scroll vertical normal de body
+     (ver el comentario de "html" arriba, sobre por que se permite). */
+  body.is-fullscreen .stage-wrap{ max-width:min(94vw, 1500px); }
 }
