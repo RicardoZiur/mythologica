@@ -124,7 +124,19 @@ router.post('/registro', async (req, res) => {
       rol: 'lector'
     };
 
-    await enviarEmailVerificacion(usuario, tokenVerificacion);
+    // El envio del email es "best effort": la cuenta ya quedo creada en
+    // la fila de arriba, asi que si esto falla (ej. SMTP mal configurado,
+    // credenciales invalidas, o el hosting bloqueando el puerto SMTP
+    // saliente) NO puede tumbar toda la peticion -- eso le devolvia un
+    // 500 al usuario ("no se pudo crear la cuenta") cuando la cuenta SI
+    // se habia creado, dejandolo sin el token de sesion y sin ningun
+    // aviso de que en realidad si funciono. El usuario puede reenviar el
+    // email de verificacion despues (ver POST /reenviar-verificacion).
+    try {
+      await enviarEmailVerificacion(usuario, tokenVerificacion);
+    } catch (errorEmail) {
+      console.error('No se pudo mandar el email de verificación (la cuenta se creó igual):', errorEmail);
+    }
 
     res.status(201).json(generarSesion(usuario));
   } catch (error) {
@@ -221,7 +233,17 @@ router.post('/olvide-password', limitadorRecuperacion, async (req, res) => {
         [tokenRecuperacion, tokenExpira, usuario.id]
       );
 
-      await enviarEmailRecuperacion(usuario, tokenRecuperacion);
+      // Mismo criterio que en /registro: si el envio del email falla, no
+      // tumbamos la peticion -- ademas, este endpoint esta pensado para
+      // responder "ok" siempre (ver el comentario de arriba), asi que un
+      // 500 aca por un problema de SMTP terminaba filtrando indirectamente
+      // si el email existia o no (200 si fallaba el envio -> no existia
+      // la cuenta; 500 -> si existia y fallo el email).
+      try {
+        await enviarEmailRecuperacion(usuario, tokenRecuperacion);
+      } catch (errorEmail) {
+        console.error('No se pudo mandar el email de recuperación:', errorEmail);
+      }
     }
 
     res.json({ ok: true });
