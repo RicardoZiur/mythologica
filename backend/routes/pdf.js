@@ -40,13 +40,19 @@ const { requiereNivel } = require('../middleware/auth');
 // la recomprimimos ANTES, como data URI embebido en el HTML.
 const CACHE_IMAGENES_PDF = new Map();
 
-async function comoDataUriParaPdf(urlAbsoluta, anchoObjetivo, altoObjetivo) {
-  if (!urlAbsoluta) return null;
-  const claveCache = `${urlAbsoluta}|${anchoObjetivo}x${altoObjetivo}`;
+async function comoDataUriParaPdf(urlImagen, anchoObjetivo, altoObjetivo) {
+  if (!urlImagen) return null;
+  const claveCache = `${urlImagen}|${anchoObjetivo}x${altoObjetivo}`;
   if (CACHE_IMAGENES_PDF.has(claveCache)) return CACHE_IMAGENES_PDF.get(claveCache);
 
   try {
-    const { pathname } = new URL(urlAbsoluta);
+    // No hace ninguna peticion de red: solo lee el archivo directo del
+    // disco, y "new URL" es nomas para separar la ruta de forma
+    // confiable. "urlImagen" puede venir absoluta (portada-fondo,
+    // portada-emblema, ver mas abajo) o relativa (personajes.imagen_principal
+    // / historias.imagen_url, ver routes/personajes.js) -- la base
+    // aca solo se usa como relleno para que el relativo tambien resuelva.
+    const { pathname } = new URL(urlImagen, 'http://localhost');
     const rutaArchivo = path.join(__dirname, '..', 'public', decodeURIComponent(pathname));
     const buffer = await fs.readFile(rutaArchivo);
     const jpeg = await sharp(buffer)
@@ -57,7 +63,7 @@ async function comoDataUriParaPdf(urlAbsoluta, anchoObjetivo, altoObjetivo) {
     CACHE_IMAGENES_PDF.set(claveCache, dataUri);
     return dataUri;
   } catch (error) {
-    console.error('No se pudo preparar imagen para el PDF:', urlAbsoluta, error.message);
+    console.error('No se pudo preparar imagen para el PDF:', urlImagen, error.message);
     return null;
   }
 }
