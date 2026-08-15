@@ -177,29 +177,5 @@ async function cargarPrecios() {
   }
 }
 
-// Muestra el link "Panel de admin" del header SOLO si ya hay una
-// sesion guardada (misma clave de localStorage que usa auth.js,
-// "mythologica_token" -- la landing no carga auth.js/el modal de
-// login completo a proposito, ver el comentario de landing.css sobre
-// por que esta pagina no comparte archivos con el flipbook) y esa
-// sesion es de un administrador. Sin token, o con un token que ya no
-// sirve, el link se queda oculto (el atributo "hidden" del HTML) sin
-// romper nada.
-async function mostrarLinkAdminSiCorresponde() {
-  const token = localStorage.getItem('mythologica_token');
-  if (!token) return;
-
-  try {
-    const respuesta = await fetch(`${API_URL}/auth/yo`, { headers: { Authorization: `Bearer ${token}` } });
-    const sesion = await respuesta.json();
-    if (sesion.autenticado && sesion.rol === 'admin') {
-      document.getElementById('linkPanelAdmin').hidden = false;
-    }
-  } catch (error) {
-    // Sin sesion valida, el link se queda oculto -- no rompe nada.
-  }
-}
-
 cargarCatalogo();
 cargarPrecios();
-mostrarLinkAdminSiCorresponde();

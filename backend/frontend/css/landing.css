@@ -171,12 +171,85 @@ a{ color:inherit; }
   transition:background 0.15s;
 }
 .lp-header-cta:hover{ background:#dcb662; }
-.lp-header-actions{ display:flex; align-items:center; gap:10px; }
+.lp-header-actions{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
 .lp-header-cta.secundario{
   color:var(--text-dim); background:var(--surface-2); border:1px solid var(--line);
   font-family:'IBM Plex Mono',monospace; font-size:11px; cursor:pointer;
 }
 .lp-header-cta.secundario:hover{ border-color:var(--gold-soft); color:var(--gold); background:var(--surface-2); }
+
+/* ---- Estado de sesion en el header y modal de login/registro ----
+   Mismas clases y mismo CSS que css/style.css (el flipbook): se
+   duplica en vez de compartirse por la misma razon que los tokens de
+   :root de arriba -- son pocos archivos y no vale la pena la
+   indireccion. Ver js/auth.js, que ya se comparte tal cual entre esta
+   pagina y el flipbook/admin. */
+.auth-status{ display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:11px; }
+.auth-link{ color:var(--text-dim); background:var(--surface-2); border:1px solid var(--line); padding:9px 13px; border-radius:6px; cursor:pointer; font-family:inherit; font-size:11px; white-space:nowrap; transition:border-color 0.15s, color 0.15s; }
+.auth-link:hover{ border-color:var(--gold-soft); color:var(--gold); }
+.auth-user{ display:flex; align-items:center; gap:10px; }
+.auth-user .nombre{ color:var(--text); }
+.auth-user .nivel-tag{ font-size:9px; letter-spacing:0.5px; text-transform:uppercase; color:var(--sage); border:1px solid var(--sage); padding:3px 8px; border-radius:9px; }
+.auth-user .salir{ color:var(--wine); background:none; border:none; cursor:pointer; font-family:inherit; font-size:11px; text-decoration:underline; padding:0; }
+.auth-user .auth-link.verificar{ color:var(--gold); background:none; border:1px solid var(--gold-soft); padding:3px 9px; font-size:9.5px; border-radius:9px; }
+.auth-user .auth-link.verificar:hover{ background:var(--surface-2); }
+
+.auth-modal-backdrop{
+  display:none; position:fixed; inset:0; background:rgba(6,5,4,0.72);
+  align-items:center; justify-content:center; z-index:50; padding:20px;
+}
+.auth-modal-backdrop.open{ display:flex; }
+.auth-modal{
+  position:relative; width:100%; max-width:340px; background:var(--surface-2);
+  border:1px solid var(--line); border-radius:10px; padding:30px 26px 26px; box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.auth-close{
+  position:absolute; top:10px; right:12px; background:none; border:none;
+  font-size:20px; line-height:1; color:var(--text-faint); cursor:pointer;
+}
+.auth-tabs{ display:flex; gap:4px; margin-bottom:18px; border-bottom:1px solid var(--line); }
+.auth-tab{
+  flex:1; background:none; border:none; padding:8px 4px; cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.5px; text-transform:uppercase;
+  color:var(--text-faint); border-bottom:2px solid transparent;
+}
+.auth-tab.active{ color:var(--gold); border-bottom-color:var(--gold); }
+.auth-tabs[hidden]{ display:none; }
+.auth-form{ display:flex; flex-direction:column; gap:12px; }
+.auth-form[hidden]{ display:none; }
+.auth-form label{ display:flex; flex-direction:column; gap:4px; font-size:11px; color:var(--text-dim); }
+.auth-form input{
+  font-family:'IBM Plex Sans',sans-serif; font-size:13px; padding:9px 10px; border:1px solid var(--line-strong);
+  border-radius:6px; background:var(--bg); color:var(--text);
+}
+.auth-form input:focus{ outline:none; border-color:var(--gold-soft); }
+.auth-password-field{ position:relative; display:flex; }
+.auth-password-field input{ width:100%; padding-right:34px; }
+.auth-password-toggle{
+  position:absolute; top:0; right:0; height:100%; width:32px;
+  display:flex; align-items:center; justify-content:center;
+  background:none; border:none; padding:0; color:var(--text-faint); cursor:pointer;
+}
+.auth-password-toggle:hover{ color:var(--gold); }
+.auth-password-toggle .auth-eye-slash{ display:none; }
+.auth-password-toggle[aria-pressed="true"] .auth-eye-slash{ display:block; }
+.auth-forgot-link{
+  align-self:flex-end; margin-top:-4px; background:none; border:none; padding:0;
+  color:var(--text-dim); font-size:10.5px; text-decoration:underline; cursor:pointer; font-family:inherit;
+}
+.auth-forgot-link:hover{ color:var(--gold); }
+.auth-back-link{
+  background:none; border:none; padding:0; color:var(--text-dim); font-size:10.5px;
+  text-decoration:underline; cursor:pointer; font-family:inherit; align-self:center;
+}
+.auth-back-link:hover{ color:var(--gold); }
+.auth-hint{ font-size:10px; color:var(--text-faint); line-height:1.4; margin:0; }
+.auth-error{ font-size:10.5px; color:var(--wine); margin:0; min-height:13px; }
+.auth-submit{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.5px;
+  background:var(--gold); color:#1a1610; border:none; padding:11px; border-radius:6px; cursor:pointer; transition:background 0.15s;
+}
+.auth-submit:hover{ background:#dcb662; }
 
 /* ---- Hero ---- */
 .lp-hero{

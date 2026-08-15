@@ -28,7 +28,7 @@
   flex-wrap:wrap;
   margin-bottom:20px;
 }
-.admin-header-right{ display:flex; align-items:center; gap:10px; }
+.admin-header-right{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
 
 .admin-nav{
   display:flex;
