@@ -294,7 +294,7 @@ function construirAccionesBloqueadas(slug) {
   const sesion = window.SESION;
 
   if (!sesion || !sesion.autenticado) {
-    return `<button class="locked-cta" onclick="window.abrirModalAuth('login')">Iniciar sesión</button>`;
+    return `<button class="locked-cta" onclick="event.stopPropagation(); window.abrirModalAuth('login')">Iniciar sesión</button>`;
   }
 
   const nivelActual = nivelAccesoLibroActual();
@@ -306,16 +306,21 @@ function construirAccionesBloqueadas(slug) {
   const etiquetas = { flipbook: 'Acceso al flipbook', completo: 'Acceso completo (+ PDF)' };
   const botonesHtml = nivelesAOfrecer.map(nivel => {
     const claseExtra = nivel === 'flipbook' && nivelesAOfrecer.length > 1 ? 'secundario' : '';
-    return `<button class="locked-cta ${claseExtra}" data-nivel="${nivel}" data-etiqueta="${etiquetas[nivel]}" onclick="window.comprarNivel('${nivel}')">${etiquetaConPrecio(nivel, etiquetas[nivel])}</button>`;
+    return `<button class="locked-cta ${claseExtra}" data-nivel="${nivel}" data-etiqueta="${etiquetas[nivel]}" onclick="event.stopPropagation(); window.comprarNivel('${nivel}')">${etiquetaConPrecio(nivel, etiquetas[nivel])}</button>`;
   }).join('');
 
+  // "event.stopPropagation()" en cada onclick: StPageFlip tambien
+  // escucha clicks en todo el contenedor del libro para pasar hoja
+  // (ver el mismo problema resuelto para los links con data-page mas
+  // abajo), asi que sin esto un click en cualquiera de estos controles
+  // hace lo suyo Y ADEMAS pasa la hoja debajo.
   return `
     <div class="locked-actions">${botonesHtml}</div>
     <div class="codigo-wrap">
-      <button type="button" class="codigo-toggle" onclick="window.mostrarFormularioCodigo('${slug}')">¿Tienes un código de descuento?</button>
+      <button type="button" class="codigo-toggle" onclick="event.stopPropagation(); window.mostrarFormularioCodigo('${slug}')">¿Tienes un código de descuento?</button>
       <div class="codigo-form" id="codigoForm-${slug}" hidden>
-        <input type="text" id="codigoInput-${slug}" class="codigo-input" placeholder="CÓDIGO" maxlength="50">
-        <button type="button" class="locked-cta secundario" onclick="window.aplicarCodigoDesdeUI('${slug}')">Aplicar</button>
+        <input type="text" id="codigoInput-${slug}" class="codigo-input" placeholder="CÓDIGO" maxlength="50" onclick="event.stopPropagation()">
+        <button type="button" class="locked-cta secundario" onclick="event.stopPropagation(); window.aplicarCodigoDesdeUI('${slug}')">Aplicar</button>
       </div>
       <p class="codigo-msg" id="codigoMsg-${slug}"></p>
     </div>
