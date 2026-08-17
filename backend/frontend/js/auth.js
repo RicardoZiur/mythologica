@@ -125,11 +125,20 @@ function pintarAuthStatus() {
     ? `<a class="admin-link" href="/admin/index.html">Panel de admin</a>`
     : '';
 
+  // Link a "Mi biblioteca" (ver mis-libros.html): para CUALQUIER
+  // usuario logueado, no solo admins -- es donde ve de un vistazo que
+  // libros tiene comprados. Mismo criterio que el link de arriba: no
+  // se muestra si ya estamos parados ahi.
+  const linkMisLibros = !location.pathname.endsWith('/mis-libros.html')
+    ? `<a class="admin-link" href="/mis-libros.html">Mis libros</a>`
+    : '';
+
   contenedor.innerHTML = `
     <div class="auth-user">
       <span class="nombre">${sesion.nombre}</span>
       <span class="nivel-tag">${nivel}</span>
       ${avisoVerificacion}
+      ${linkMisLibros}
       ${linkDashboard}
       <button class="salir" id="btnSalir">Salir</button>
     </div>

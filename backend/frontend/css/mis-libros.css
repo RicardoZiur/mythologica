@@ -1,0 +1,83 @@
+/* ============================================================
+   mis-libros.css
+   ------------------------------------------------------------
+   Estilos propios de "Mi biblioteca" (frontend/mis-libros.html).
+   Se carga DESPUES de css/style.css y css/admin.css: reusa el
+   armazon de header/wrap de admin.css (mismo tratamiento responsive
+   que el dashboard) y solo agrega la grilla de tarjetas de libro,
+   con el mismo lenguaje visual que ".lp-book-card" en landing.css
+   (tarjeta con emblema circular, titulo serif) pero redefinido aca
+   en vez de cargar landing.css entero -- esta pagina necesita el
+   modal de login de style.css, que landing.css no trae.
+   ============================================================ */
+
+.mislibros-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:18px;
+}
+
+.mislibros-card{
+  display:flex;
+  flex-direction:column;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:22px 20px;
+  text-align:left;
+  text-decoration:none;
+  color:inherit;
+  transition:border-color 0.15s, transform 0.15s;
+}
+
+.mislibros-card-emblem{
+  width:48px; height:48px; border-radius:50%;
+  border:1px solid var(--gold-soft); background-size:cover; background-position:center;
+  margin-bottom:14px;
+}
+
+.mislibros-card-title{
+  font-family:'Fraunces', serif;
+  font-weight:700;
+  font-size:18px;
+  margin:0 0 4px;
+  color:var(--text);
+}
+
+.mislibros-card-subtitle{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  color:var(--text-faint);
+  margin:0 0 14px;
+}
+
+.mislibros-card-badge{
+  align-self:flex-start;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  padding:4px 10px;
+  border-radius:9px;
+  border:1px solid var(--line-strong);
+  margin-top:auto;
+}
+.mislibros-card-badge.disponible{ color:var(--sage); border-color:var(--sage); }
+.mislibros-card-badge.bloqueado{ color:var(--text-faint); }
+
+/* Comprado (flipbook o completo): tarjeta clickeable de verdad, con
+   un hover que la levanta un poco para que se note. */
+.mislibros-card--disponible{ cursor:pointer; }
+.mislibros-card--disponible:hover{
+  border-color:var(--gold-soft);
+  transform:translateY(-2px);
+}
+
+/* Sin comprar: se ve pero no se puede interactuar -- ni el emblema a
+   color (grayscale) ni el cursor invitan a tocarla, a proposito, para
+   que la diferencia con las compradas sea evidente de un vistazo. */
+.mislibros-card--bloqueado{
+  opacity:0.55;
+  cursor:not-allowed;
+}
+.mislibros-card--bloqueado .mislibros-card-emblem{ filter:grayscale(1); }

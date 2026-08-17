@@ -255,6 +255,19 @@ a{ color:inherit; }
 .auth-user .auth-link.verificar{ color:var(--gold); background:none; border:1px solid var(--gold-soft); padding:3px 9px; font-size:9.5px; border-radius:9px; }
 .auth-user .auth-link.verificar:hover{ background:var(--surface-2); }
 
+/* Links de "Panel de admin" y "Mis libros" (ver pintarAuthStatus en
+   auth.js) -- faltaba en este archivo (style.css si lo tenia, ver
+   ahi), asi que en esta pagina salian sin estilo. Mismo tratamiento
+   que alla: bordeado, no solido, para no competir con el CTA
+   principal del header. */
+.admin-link{
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.3px;
+  color:var(--gold); background:none; text-decoration:none;
+  padding:8px 14px; border-radius:6px; white-space:nowrap;
+  border:1px solid var(--gold-soft); transition:background 0.15s;
+}
+.admin-link:hover{ background:var(--surface-2); }
+
 .auth-modal-backdrop{
   display:none; position:fixed; inset:0; background:rgba(6,5,4,0.72);
   align-items:center; justify-content:center; z-index:50; padding:20px;
