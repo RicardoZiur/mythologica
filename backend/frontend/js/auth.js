@@ -297,7 +297,11 @@ function pintarBotonPdf() {
       if (!sesion.autenticado) {
         abrirModal('login');
       } else {
-        alert('Tu cuenta todavía no tiene el nivel "acceso completo". Escríbenos para desbloquear la descarga del PDF.');
+        // "Adquirir PDF" -- el boton ya lo dice, asi que en vez de un
+        // alert() mandando a escribir por soporte, arranca directo la
+        // compra real del nivel "completo" (mismo flujo que los
+        // botones de la hoja bloqueada, ver comprarNivel en pagos.js).
+        window.comprarNivel('completo');
       }
       return;
     }
