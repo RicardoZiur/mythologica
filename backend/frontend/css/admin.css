@@ -164,3 +164,33 @@
   padding:5px 10px; border-radius:6px; cursor:pointer; transition:border-color 0.15s, color 0.15s;
 }
 .admin-toggle:hover{ border-color:var(--gold-soft); color:var(--gold); }
+
+/* ---- Responsive ----
+   Mismo quiebre que usa css/style.css para el flipbook (700px). Las
+   tablas (.admin-table-wrap ya venia con overflow-x:auto) se dejan
+   scrollear horizontal en vez de forzar las columnas a reacomodarse
+   -- son 5 a 7 columnas con datos (fecha, email, monto, estado...)
+   que no reflowean bien a una tarjeta angosta sin perder de vista la
+   fila completa. */
+@media (max-width: 700px){
+  .admin-body{ padding:20px 14px 40px; }
+
+  .admin-nav{
+    gap:4px;
+    margin-bottom:22px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .admin-nav-item{ padding:6px 11px; white-space:nowrap; }
+
+  .admin-cards{ grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:12px; }
+  .admin-card{ padding:16px; }
+  .admin-card b{ font-size:21px; }
+
+  .admin-table-wrap{ -webkit-overflow-scrolling:touch; }
+  .admin-table{ font-size:11.5px; }
+  .admin-table th, .admin-table td{ padding:10px 12px; }
+
+  .admin-resumen{ gap:18px; }
+  .admin-form-card{ max-width:100%; }
+}
