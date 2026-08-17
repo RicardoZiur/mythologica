@@ -1,17 +1,28 @@
 // ============================================================
 // utils/email.js
 // ------------------------------------------------------------
-// Envio de emails transaccionales (por ahora, solo el de
-// verificacion de cuenta). Usa variables SMTP genericas (ver .env)
-// para no atarse a ningun proveedor en particular: sirve Gmail (con
-// "contraseña de aplicación"), el correo que de tu hosting cuando
-// publiques el sitio, o cualquier servicio que hable SMTP.
+// Envio de emails transaccionales (por ahora, verificacion de cuenta
+// y recuperacion de contraseña).
 //
-// Mientras SMTP_HOST este vacio (todavia no hay cuenta de correo
-// real), no se manda nada de verdad: se imprime en la consola del
-// backend. Asi se puede probar el flujo completo de principio a fin
-// sin depender de un servicio externo (mismo criterio que se uso con
-// MERCADOPAGO_ACCESS_TOKEN vacio en routes/pagos.js).
+// Dos formas de mandarlos, en este orden de preferencia:
+// 1) RESEND_API_KEY (API HTTP de Resend, sobre el puerto 443 normal):
+//    la preferida en produccion. La mayoria de los hosting en la nube
+//    (Railway incluido) BLOQUEAN las conexiones salientes por SMTP
+//    (puerto 587/465) para evitar spam -- con SMTP el pedido se queda
+//    colgado hasta que Node tira "Connection timeout", lo que ademas
+//    rompe el aviso de "cuenta creada" en el frontend porque la
+//    peticion de registro entera termina en error 500 (ver
+//    routes/auth.js) aunque el usuario ya haya quedado creado en la
+//    base. La API HTTP evita ese problema de raiz.
+// 2) SMTP generico (ver SMTP_HOST/PORT/USER/PASSWORD en .env): sigue
+//    disponible para otros proveedores o para correr esto en un host
+//    que si permita SMTP saliente (ej. un VPS propio).
+//
+// Si ninguna de las dos esta configurada, no se manda nada de verdad:
+// se imprime en la consola del backend. Asi se puede probar el flujo
+// completo de principio a fin sin depender de un servicio externo
+// (mismo criterio que se uso con MERCADOPAGO_ACCESS_TOKEN vacio en
+// routes/pagos.js).
 // ============================================================
 
 const nodemailer = require('nodemailer');
@@ -26,28 +37,44 @@ function obtenerTransportador() {
   });
 }
 
+async function enviarConResendApi({ from, to, subject, html }) {
+  const respuesta = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ from, to, subject, html })
+  });
+  if (!respuesta.ok) {
+    const cuerpo = await respuesta.text();
+    throw new Error(`Resend respondio ${respuesta.status}: ${cuerpo}`);
+  }
+}
+
 // ------------------------------------------------------------
-// Envia un email, o lo simula (console.log) si no hay SMTP
-// configurado todavia.
+// Envia un email por la mejor via disponible (ver arriba), o lo
+// simula (console.log) si no hay ninguna configurada todavia.
 // ------------------------------------------------------------
 async function enviarEmail({ to, subject, html }) {
-  const transportador = obtenerTransportador();
+  const from = process.env.SMTP_FROM || 'Mythologica <no-reply@mythologica.cl>';
 
-  if (!transportador) {
-    console.log('\n[email simulado] ------------------------------');
-    console.log('Para:', to);
-    console.log('Asunto:', subject);
-    console.log('Contenido:\n', html);
-    console.log('------------------------------------------------\n');
+  if (process.env.RESEND_API_KEY) {
+    await enviarConResendApi({ from, to, subject, html });
     return;
   }
 
-  await transportador.sendMail({
-    from: process.env.SMTP_FROM || 'Mythologica <no-reply@mythologica.cl>',
-    to,
-    subject,
-    html
-  });
+  const transportador = obtenerTransportador();
+  if (transportador) {
+    await transportador.sendMail({ from, to, subject, html });
+    return;
+  }
+
+  console.log('\n[email simulado] ------------------------------');
+  console.log('Para:', to);
+  console.log('Asunto:', subject);
+  console.log('Contenido:\n', html);
+  console.log('------------------------------------------------\n');
 }
 
 // ------------------------------------------------------------

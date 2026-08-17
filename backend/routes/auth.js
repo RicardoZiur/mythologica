@@ -124,7 +124,15 @@ router.post('/registro', async (req, res) => {
       rol: 'lector'
     };
 
-    await enviarEmailVerificacion(usuario, tokenVerificacion);
+    // La cuenta ya quedo creada arriba: un fallo al mandar el email
+    // (proveedor caido, etc.) no debe tapar ese exito ni devolverle un
+    // error al usuario por algo que ya paso -- puede pedir que se lo
+    // reenvien despues con POST /reenviar-verificacion.
+    try {
+      await enviarEmailVerificacion(usuario, tokenVerificacion);
+    } catch (errorEmail) {
+      console.error('No se pudo mandar el email de verificación (la cuenta sí se creó):', errorEmail);
+    }
 
     res.status(201).json(generarSesion(usuario));
   } catch (error) {
