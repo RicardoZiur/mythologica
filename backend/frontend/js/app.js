@@ -229,20 +229,24 @@ function renderizarHistoriasRelacionadas(personaje, mapaHistorias) {
     <div class="chip-row">${itemsHtml}</div>
   `;
 }
-// Arma el texto de un boton de compra con su precio: si hay un
-// descuento aplicable (codigo activo o el general del libro, ver
-// calcularPrecioMostrado en pagos.js) muestra el precio de lista
-// tachado junto al rebajado; si no, solo el precio de lista. Sin
-// precios cargados todavia (ver cargarPrecios en pagos.js), devuelve
-// solo la etiqueta, sin monto.
+// Arma el texto de un boton de compra con su precio, en CLP con el
+// equivalente en USD entre parentesis (mismo criterio que las
+// tarjetas del catalogo en landing.js -- el cobro real siempre se
+// procesa en CLP, el USD es solo referencial). Si hay un descuento
+// aplicable (codigo activo o el general del libro, ver
+// calcularPrecioMostrado en pagos.js) muestra el precio de lista en
+// CLP tachado junto al rebajado. Sin precios cargados todavia (ver
+// cargarPrecios en pagos.js), devuelve solo la etiqueta, sin monto.
 function etiquetaConPrecio(nivel, etiqueta) {
   if (!window.calcularPrecioMostrado) return etiqueta;
-  const { precioOriginal, precioFinal, porcentaje } = window.calcularPrecioMostrado(nivel);
-  if (precioOriginal === null) return etiqueta;
+  const { clp, usd, porcentaje } = window.calcularPrecioMostrado(nivel);
+  if (!clp) return etiqueta;
+
+  const textoUsd = usd ? ` (${window.formatearMonto(usd.final, 'USD')})` : '';
   if (porcentaje > 0) {
-    return `${etiqueta} — <s>${window.formatearMonto(precioOriginal, window.PRECIOS.moneda)}</s> ${window.formatearMonto(precioFinal, window.PRECIOS.moneda)}`;
+    return `${etiqueta} — <s>${window.formatearMonto(clp.original, 'CLP')}</s> ${window.formatearMonto(clp.final, 'CLP')}${textoUsd}`;
   }
-  return `${etiqueta} — ${window.formatearMonto(precioOriginal, window.PRECIOS.moneda)}`;
+  return `${etiqueta} — ${window.formatearMonto(clp.original, 'CLP')}${textoUsd}`;
 }
 
 // Despues de aplicar un codigo de descuento (ver aplicarCodigoDesdeUI

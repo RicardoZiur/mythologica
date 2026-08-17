@@ -17,9 +17,10 @@
 const PAGOS_API_URL = '/api/pagos';
 const DESCUENTOS_API_URL = '/api/descuentos';
 
-// Precios reales, cargados al arrancar. Hasta que la respuesta llegue,
-// construirHojaBloqueada() en app.js simplemente no muestra montos
-// (ver ahí el fallback).
+// Precios reales en las dos monedas ({clp, usd, monedaSugerida}, tal
+// cual devuelve GET /precios), cargados al arrancar. Hasta que la
+// respuesta llegue, construirHojaBloqueada() en app.js simplemente no
+// muestra montos (ver ahí el fallback).
 window.PRECIOS = null;
 
 // Descuento general activo para ESTE libro (si el admin creó uno desde
@@ -44,11 +45,12 @@ async function cargarPrecios() {
     ]);
     // GET /precios devuelve el monto en las dos monedas a la vez, mas
     // "monedaSugerida" (CLP o USD, segun de donde geolocalizamos al
-    // visitante -- ver routes/pagos.js). Los botones de compra solo
-    // tienen espacio para una moneda a la vez, asi que nos quedamos
-    // con esa.
+    // visitante -- ver routes/pagos.js). Los botones de compra
+    // muestran las dos juntas (mismo criterio que el catalogo del
+    // landing, ver construirBloquePrecio en landing.js), asi que
+    // guardamos el objeto completo tal cual.
     if (respuestaPrecios) {
-      window.PRECIOS = respuestaPrecios.monedaSugerida === 'USD' ? respuestaPrecios.usd : respuestaPrecios.clp;
+      window.PRECIOS = respuestaPrecios;
     }
     window.DESCUENTO_GENERAL = descuentoGeneral;
   } catch (error) {
@@ -57,19 +59,35 @@ async function cargarPrecios() {
 }
 cargarPrecios();
 
-// Calcula el precio final a MOSTRAR para un nivel dado, aplicando el
-// código activo (si hay uno validado) o si no el descuento general
-// (si existe). Devuelve {precioOriginal, precioFinal, porcentaje} --
-// "porcentaje" es 0 si no hay ningún descuento aplicable.
+// Calcula el precio final a MOSTRAR para un nivel dado, en las dos
+// monedas a la vez, aplicando el código activo (si hay uno validado)
+// o si no el descuento general (si existe). Devuelve
+// {clp: {original, final}, usd: {original, final} | null, porcentaje}
+// -- "usd" es null si no habia tipo de cambio disponible (ver
+// GET /api/pagos/precios); "porcentaje" es 0 si no hay descuento.
 function calcularPrecioMostrado(nivelAcceso) {
-  const precioOriginal = window.PRECIOS ? window.PRECIOS[nivelAcceso] : null;
   const descuento = window.CODIGO_DESCUENTO_ACTUAL
     ? window.CODIGO_DESCUENTO_ACTUAL.porcentaje
     : (window.DESCUENTO_GENERAL ? window.DESCUENTO_GENERAL.porcentaje : 0);
 
-  if (precioOriginal === null) return { precioOriginal: null, precioFinal: null, porcentaje: 0 };
-  const precioFinal = descuento ? Math.round(precioOriginal * (1 - descuento / 100)) : precioOriginal;
-  return { precioOriginal, precioFinal, porcentaje: descuento };
+  // CLP se redondea a entero; USD a centavos -- mismo criterio que
+  // construirBloquePrecio en landing.js, para que el mismo descuento
+  // no se vea redondeado distinto en una pagina y en la otra.
+  function paraMoneda(precios, decimales) {
+    if (!precios) return null;
+    const original = precios[nivelAcceso];
+    if (original === null || original === undefined) return null;
+    const factor = Math.pow(10, decimales);
+    const final = descuento ? Math.round(original * (1 - descuento / 100) * factor) / factor : original;
+    return { original, final };
+  }
+
+  if (!window.PRECIOS) return { clp: null, usd: null, porcentaje: descuento };
+  return {
+    clp: paraMoneda(window.PRECIOS.clp, 0),
+    usd: paraMoneda(window.PRECIOS.usd, 2),
+    porcentaje: descuento
+  };
 }
 window.calcularPrecioMostrado = calcularPrecioMostrado;
 

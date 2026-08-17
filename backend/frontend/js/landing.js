@@ -151,25 +151,26 @@ function construirTarjetaLibro(libro, totalPersonajes, totalHistorias, precios, 
 // Trae los precios reales (misma fuente de verdad que usa el flipbook
 // para los botones de compra, ver GET /api/pagos/precios en
 // backend/routes/pagos.js) para no repetirlos a mano en el HTML. El
-// precio es el mismo para cualquier libro del catálogo.
+// precio es el mismo para cualquier libro del catálogo. Se muestran
+// las dos monedas juntas (mismo criterio que construirBloquePrecio,
+// mas abajo, y que los botones de compra del flipbook) en vez de
+// elegir una sola segun la ubicacion del visitante.
 async function cargarPrecios() {
   const elFlipbook = document.getElementById('precioFlipbook');
   const elCompleto = document.getElementById('precioCompleto');
-  const notaUsd = document.getElementById('notaMonedaUsd');
 
   try {
     const respuesta = await fetch(`${API_URL}/pagos/precios`);
     if (!respuesta.ok) throw new Error('No se pudieron obtener los precios');
     const datos = await respuesta.json();
-    // "monedaSugerida" viene en USD solo para visitantes geolocalizados
-    // fuera de Chile (ver GET /api/pagos/precios) -- el cobro real
-    // siempre se procesa en CLP, asi que dejamos esa aclaracion a la
-    // vista en ese caso.
-    const precios = datos.monedaSugerida === 'USD' ? datos.usd : datos.clp;
 
-    elFlipbook.textContent = formatearMonto(precios.flipbook, precios.moneda);
-    elCompleto.textContent = formatearMonto(precios.completo, precios.moneda);
-    if (notaUsd) notaUsd.hidden = datos.monedaSugerida === 'CLP';
+    const conAmbasMonedas = (nivel) => {
+      const textoUsd = datos.usd[nivel] !== null ? ` (${formatearMonto(datos.usd[nivel], 'USD')})` : '';
+      return `${formatearMonto(datos.clp[nivel], 'CLP')}${textoUsd}`;
+    };
+
+    elFlipbook.textContent = conAmbasMonedas('flipbook');
+    elCompleto.textContent = conAmbasMonedas('completo');
   } catch (error) {
     console.error('No se pudieron cargar los precios:', error);
     elFlipbook.textContent = 'Ver en el libro';
