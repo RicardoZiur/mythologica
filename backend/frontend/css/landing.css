@@ -119,17 +119,63 @@ body::after{
   background-size:460px 300px;
   animation:lp-estrellas-parpadeo 7s ease-in-out infinite alternate-reverse;
 }
+/* Dos capas mas, en html::before/after (los unicos dos pseudo-elementos
+   que quedaban libres sin agregar divs al HTML): mismo truco que arriba,
+   pero con su propia duracion/delay para que las 4 capas queden
+   desfasadas entre si -- si las 4 respiraran juntas se ve como un solo
+   parpadeo grande en vez de estrellas titilando cada una a su ritmo. */
+html::before,
+html::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-repeat:repeat;
+}
+html::before{
+  background-image:
+    radial-gradient(0.7px 0.7px at 58px 172px, rgba(255,255,255,0.4), rgba(255,255,255,0) 100%),
+    radial-gradient(0.9px 0.9px at 143px 203px, rgba(255,255,255,0.35), rgba(255,255,255,0) 100%),
+    radial-gradient(0.65px 0.65px at 201px 47px, rgba(255,255,255,0.5), rgba(255,255,255,0) 100%),
+    radial-gradient(0.85px 0.85px at 249px 130px, rgba(255,255,255,0.42), rgba(255,255,255,0) 100%),
+    radial-gradient(1.02px 1.02px at 78px 89px, rgba(255,255,255,0.47), rgba(255,255,255,0) 100%),
+    radial-gradient(0.72px 0.72px at 189px 168px, rgba(255,255,255,0.38), rgba(255,255,255,0) 100%),
+    radial-gradient(0.93px 0.93px at 22px 118px, rgba(255,255,255,0.53), rgba(255,255,255,0) 100%),
+    radial-gradient(0.8px 0.8px at 305px 71px, rgba(255,255,255,0.44), rgba(255,255,255,0) 100%),
+    radial-gradient(0.68px 0.68px at 118px 24px, rgba(255,255,255,0.36), rgba(255,255,255,0) 100%),
+    radial-gradient(0.97px 0.97px at 262px 197px, rgba(255,255,255,0.49), rgba(255,255,255,0) 100%);
+  background-size:320px 240px;
+  animation:lp-estrellas-parpadeo 6.2s ease-in-out infinite alternate;
+  animation-delay:-2.4s;
+}
+html::after{
+  background-image:
+    radial-gradient(1.65px 1.65px at 104px 233px, rgba(255,255,255,0.72), rgba(255,255,255,0) 100%),
+    radial-gradient(1.48px 1.48px at 322px 96px, rgba(255,255,255,0.65), rgba(255,255,255,0) 100%),
+    radial-gradient(1.86px 1.86px at 199px 261px, rgba(255,255,255,0.79), rgba(255,255,255,0) 100%),
+    radial-gradient(1.32px 1.32px at 401px 178px, rgba(255,255,255,0.58), rgba(255,255,255,0) 100%),
+    radial-gradient(1.71px 1.71px at 55px 149px, rgba(255,255,255,0.68), rgba(255,255,255,0) 100%),
+    radial-gradient(1.44px 1.44px at 253px 42px, rgba(255,255,255,0.62), rgba(255,255,255,0) 100%),
+    radial-gradient(1.92px 1.92px at 372px 233px, rgba(255,255,255,0.74), rgba(255,255,255,0) 100%);
+  background-size:430px 280px;
+  animation:lp-estrellas-parpadeo 8.6s ease-in-out infinite alternate-reverse;
+  animation-delay:-5.1s;
+}
 @keyframes lp-estrellas-parpadeo{
   from{ opacity:0.55; }
   to{ opacity:1; }
 }
 @media (prefers-reduced-motion: reduce){
-  body::before, body::after{ animation:none; }
+  body::before, body::after,
+  html::before, html::after{ animation:none; }
 }
 /* En modo claro el fondo es crema/blanco: apagamos las estrellas en
    vez de recolorearlas, se ven mejor solo sobre el cielo oscuro. */
 :root[data-theme="claro"] body::before,
-:root[data-theme="claro"] body::after{
+:root[data-theme="claro"] body::after,
+:root[data-theme="claro"] html::before,
+:root[data-theme="claro"] html::after{
   display:none;
 }
 
