@@ -192,8 +192,12 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
     // Si el codigo no aplica a ESTE libro (esta limitado a otro), el
     // item se queda a precio de lista sin mas -- recien es un error
     // si no aplico a NINGUN item del carrito (chequeo despues del
-    // for, con la lista de items ya completa).
-    const descuento = await calcularDescuentoAplicable(libro.id, codigoDescuento);
+    // for, con la lista de items ya completa). Los codigos son de un
+    // solo uso por usuario (ver calcularDescuentoAplicable en
+    // routes/descuentos.js): si ya lo uso antes, esto tambien devuelve
+    // null, y el item queda a precio de lista igual que si el codigo
+    // no existiera.
+    const descuento = await calcularDescuentoAplicable(libro.id, codigoDescuento, usuario.id);
 
     const precioOriginal = precioBase;
     const precioFinal = descuento
@@ -218,7 +222,7 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
   // ahi si es un error real, se lo decimos en vez de cobrar de lista
   // en silencio.
   if (codigoDescuento && items.every(item => !item.descuento_id)) {
-    return { error: 'Código de descuento inválido, vencido, o no aplica a los libros del carrito' };
+    return { error: 'Código de descuento inválido, vencido, ya usado, o no aplica a los libros del carrito' };
   }
 
   const total = items.reduce((suma, item) => suma + item.precio_final, 0);

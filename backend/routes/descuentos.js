@@ -25,12 +25,21 @@ const { requiereAdmin, requiereSesion, resolverLibro } = require('../middleware/
 // corresponde aplicar:
 //   - Si viene "codigoTexto", busca ESE codigo puntual (activo, y que
 //     aplique a este libro o a todos). Si no existe/no esta activo,
-//     devuelve null (quien llama decide si eso es un error o no).
+//     devuelve null (quien llama decide si eso es un error o no). Los
+//     codigos son de un solo uso POR USUARIO (no por compra): si se
+//     pasa "usuarioId" y esa persona ya tiene un pago APROBADO con
+//     este mismo codigo (de este libro o de cualquier otro, si el
+//     codigo aplica a todos), tambien devuelve null -- ya lo gasto.
+//     Solo cuenta un pago aprobado de verdad, no uno pendiente o
+//     rechazado (un intento que no se completo no deberia quemar el
+//     codigo).
 //   - Si no viene codigo, busca el mejor descuento "general" activo
 //     que aplique a este libro (el de mayor porcentaje, por si hay
-//     mas de uno enredado a proposito o por error).
+//     mas de uno enredado a proposito o por error). Los "general" no
+//     tienen limite de uso -- son una promo del sitio, no algo que
+//     "gaste" cada comprador.
 // ------------------------------------------------------------
-async function calcularDescuentoAplicable(libroId, codigoTexto) {
+async function calcularDescuentoAplicable(libroId, codigoTexto, usuarioId) {
   if (codigoTexto) {
     const [filas] = await pool.query(
       `SELECT * FROM descuentos
@@ -38,7 +47,18 @@ async function calcularDescuentoAplicable(libroId, codigoTexto) {
          AND (libro_id IS NULL OR libro_id = ?)`,
       [String(codigoTexto).trim().toUpperCase(), libroId]
     );
-    return filas[0] || null;
+    const descuento = filas[0];
+    if (!descuento) return null;
+
+    if (usuarioId) {
+      const [usados] = await pool.query(
+        `SELECT 1 FROM pagos WHERE usuario_id = ? AND descuento_id = ? AND estado = 'aprobado' LIMIT 1`,
+        [usuarioId, descuento.id]
+      );
+      if (usados.length > 0) return null;
+    }
+
+    return descuento;
   }
 
   const [filas] = await pool.query(
@@ -193,9 +213,9 @@ router.post('/validar', requiereSesion, resolverLibro, async (req, res) => {
       return res.status(400).json({ valido: false, error: 'Falta el código' });
     }
 
-    const descuento = await calcularDescuentoAplicable(req.libro.id, codigo);
+    const descuento = await calcularDescuentoAplicable(req.libro.id, codigo, req.usuario.id);
     if (!descuento) {
-      return res.json({ valido: false, error: 'Código inválido o vencido' });
+      return res.json({ valido: false, error: 'Código inválido, vencido, o ya lo usaste antes' });
     }
     res.json({ valido: true, porcentaje: descuento.porcentaje });
   } catch (error) {
