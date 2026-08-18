@@ -23,6 +23,15 @@ const ETIQUETAS_NIVEL = {
   ninguno: 'No comprado'
 };
 
+// Agrega al carrito (ver carrito.js) y avisa con un toast chico --
+// mismo criterio que agregarAlCarritoDesdeUI en app.js, pero ese vive
+// en app.js, que solo se carga en el flipbook, asi que se repite acá
+// (no vale la pena cargar todo app.js en esta pagina por esto solo).
+function agregarAlCarritoDesdeMisLibros(slug, nivelAcceso) {
+  window.agregarAlCarrito(slug, nivelAcceso);
+  window.mostrarAviso('Agregado al carrito. Puedes seguir explorando o ir a pagar cuando quieras.', 5000);
+}
+
 function construirTarjeta(libro, nivelAcceso) {
   const disponible = nivelAcceso === 'flipbook' || nivelAcceso === 'completo';
   const emblemaUrl = `/images/${libro.slug}/portada-emblema.png`;
@@ -43,9 +52,18 @@ function construirTarjeta(libro, nivelAcceso) {
     `;
   }
 
+  // Sin acceso: la tarjeta no lleva a ningun lado (nada que leer
+  // todavia), pero ofrece agregar cualquiera de los dos niveles al
+  // carrito -- mismas etiquetas que usa el flipbook (ver
+  // construirAccionesBloqueadas en app.js), para que se reconozcan
+  // como la misma accion en cualquier pagina del sitio.
   return `
     <div class="mislibros-card mislibros-card--bloqueado" aria-disabled="true">
       ${contenido}
+      <div class="mislibros-card-acciones">
+        <button type="button" class="admin-toggle" onclick="agregarAlCarritoDesdeMisLibros('${libro.slug}', 'flipbook')">Añadir: acceso al sitio</button>
+        <button type="button" class="admin-toggle" onclick="agregarAlCarritoDesdeMisLibros('${libro.slug}', 'completo')">Añadir: completo + PDF</button>
+      </div>
     </div>
   `;
 }

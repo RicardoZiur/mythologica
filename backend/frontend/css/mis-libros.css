@@ -73,11 +73,27 @@
   transform:translateY(-2px);
 }
 
-/* Sin comprar: se ve pero no se puede interactuar -- ni el emblema a
-   color (grayscale) ni el cursor invitan a tocarla, a proposito, para
-   que la diferencia con las compradas sea evidente de un vistazo. */
-.mislibros-card--bloqueado{
-  opacity:0.55;
-  cursor:not-allowed;
+/* Sin comprar: el emblema y el texto se ven apagados (grayscale +
+   opacidad) para que la diferencia con las compradas sea evidente de
+   un vistazo -- pero SIN atenuar los botones de "añadir al carro" de
+   abajo, esos si son interactivos y tienen que notarse como tales. */
+.mislibros-card--bloqueado{ cursor:default; }
+.mislibros-card--bloqueado .mislibros-card-emblem{ filter:grayscale(1); opacity:0.6; }
+.mislibros-card--bloqueado .mislibros-card-title,
+.mislibros-card--bloqueado .mislibros-card-subtitle{ opacity:0.6; }
+
+/* Botones de "añadir al carro" en una tarjeta sin comprar (ver
+   construirTarjeta en mis-libros.js). Uno debajo del otro porque son
+   dos acciones distintas (acceso al sitio / completo + PDF) y una
+   tarjeta angosta no da para ponerlos lado a lado sin que el texto se
+   corte. */
+.mislibros-card-acciones{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:14px;
 }
-.mislibros-card--bloqueado .mislibros-card-emblem{ filter:grayscale(1); }
+.mislibros-card-acciones .admin-toggle{
+  width:100%;
+  text-align:center;
+}
