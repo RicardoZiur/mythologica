@@ -313,7 +313,10 @@ function pintarBotonPdf() {
 
   boton.removeAttribute('href');
   boton.classList.toggle('locked', !tieneAccesoCompleto);
-  boton.textContent = tieneAccesoCompleto ? 'Descargar PDF' : 'Añadir PDF al carro';
+  // Misma frase que usa construirAccionesBloqueadas en app.js para el
+  // nivel "completo" (y carrito-resumen.js despues), para que se
+  // reconozca como lo mismo en todo el sitio.
+  boton.textContent = tieneAccesoCompleto ? 'Descargar PDF' : 'Añadir: acceso completo + PDF';
 
   boton.onclick = async (e) => {
     e.preventDefault();

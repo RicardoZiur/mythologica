@@ -266,9 +266,18 @@ function construirAccionesBloqueadas(slug) {
     return jerarquia[nivel] > jerarquia[nivelActual];
   });
 
+  // Mismas etiquetas que carrito-resumen.js (ETIQUETAS_NIVEL), para
+  // que el usuario reconozca lo mismo en el flipbook y despues en el
+  // carrito. Antes los dos botones decian "Añadir al carro" a secas y
+  // no se distinguian entre si -- ahora cada uno deja claro que nivel
+  // agrega.
+  const etiquetas = {
+    flipbook: 'Añadir: acceso al libro en el sitio',
+    completo: 'Añadir: acceso completo + PDF'
+  };
   const botonesHtml = nivelesAOfrecer.map(nivel => {
     const claseExtra = nivel === 'flipbook' && nivelesAOfrecer.length > 1 ? 'secundario' : '';
-    return `<button class="locked-cta ${claseExtra}" ${SIN_PASAR_HOJA} onclick="event.stopPropagation(); window.agregarAlCarritoDesdeUI('${slug}', '${nivel}')">Añadir al carro</button>`;
+    return `<button class="locked-cta ${claseExtra}" ${SIN_PASAR_HOJA} onclick="event.stopPropagation(); window.agregarAlCarritoDesdeUI('${slug}', '${nivel}')">${etiquetas[nivel]}</button>`;
   }).join('');
 
   return `<div class="locked-actions">${botonesHtml}</div>`;
