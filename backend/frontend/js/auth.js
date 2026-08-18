@@ -133,12 +133,21 @@ function pintarAuthStatus() {
     ? `<a class="admin-link" href="/mis-libros.html">Mis libros</a>`
     : '';
 
+  // Link al carrito (ver carrito.js, que llena el numero de
+  // "#carritoCount" -- este archivo no sabe nada de que hay adentro
+  // del carrito, solo deja el hueco). No se muestra si ya estamos
+  // parados en carrito.html, mismo criterio que los links de arriba.
+  const linkCarrito = !location.pathname.endsWith('/carrito.html')
+    ? `<a class="admin-link" href="/carrito.html">Carrito <span id="carritoCount"></span></a>`
+    : '';
+
   contenedor.innerHTML = `
     <div class="auth-user">
       <span class="nombre">${sesion.nombre}</span>
       <span class="nivel-tag">${nivel}</span>
       ${avisoVerificacion}
       ${linkMisLibros}
+      ${linkCarrito}
       ${linkDashboard}
       <button class="salir" id="btnSalir">Salir</button>
     </div>
@@ -146,6 +155,12 @@ function pintarAuthStatus() {
   document.getElementById('btnSalir').addEventListener('click', cerrarSesion);
   const btnVerificar = document.getElementById('btnReenviarVerificacion');
   if (btnVerificar) btnVerificar.addEventListener('click', reenviarVerificacion);
+
+  // pintarAuthStatus() reconstruye TODO #authStatus (incluido el span
+  // vacio de arriba) cada vez que corre -- si carrito.js ya esta
+  // cargado, hay que volver a pintar el numero, o queda vacio hasta
+  // el proximo cambio en el carrito.
+  if (window.pintarContadorCarrito) window.pintarContadorCarrito();
 }
 
 // ------------------------------------------------------------
@@ -185,6 +200,7 @@ function mostrarAviso(texto, duracionMs = 5000) {
   document.body.appendChild(aviso);
   setTimeout(() => aviso.remove(), duracionMs);
 }
+window.mostrarAviso = mostrarAviso; // usado tambien desde app.js (ver construirAccionesBloqueadas)
 
 // ------------------------------------------------------------
 // Si venimos de clickear el link de verificacion del email
@@ -297,7 +313,7 @@ function pintarBotonPdf() {
 
   boton.removeAttribute('href');
   boton.classList.toggle('locked', !tieneAccesoCompleto);
-  boton.textContent = tieneAccesoCompleto ? 'Descargar PDF' : 'Adquirir PDF';
+  boton.textContent = tieneAccesoCompleto ? 'Descargar PDF' : 'Añadir PDF al carro';
 
   boton.onclick = async (e) => {
     e.preventDefault();
@@ -306,11 +322,12 @@ function pintarBotonPdf() {
       if (!sesion.autenticado) {
         abrirModal('login');
       } else {
-        // "Adquirir PDF" -- el boton ya lo dice, asi que en vez de un
-        // alert() mandando a escribir por soporte, arranca directo la
-        // compra real del nivel "completo" (mismo flujo que los
-        // botones de la hoja bloqueada, ver comprarNivel en pagos.js).
-        window.comprarNivel('completo');
+        // Mismo criterio que los botones de la hoja bloqueada (ver
+        // construirAccionesBloqueadas en app.js): agrega al carrito y
+        // avisa, sin sacar al usuario de la pagina -- paga cuando
+        // quiera desde carrito.html.
+        window.agregarAlCarrito(window.LIBRO_ACTUAL, 'completo');
+        mostrarAviso('Agregado al carrito. Puedes seguir leyendo o ir a pagar cuando quieras.', 5000);
       }
       return;
     }

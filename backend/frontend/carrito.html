@@ -2,71 +2,39 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Mythologica — Flipbook</title>
-<!-- Aplica el tema guardado ANTES de pintar la pagina (ver ../js/tema.js) -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mythologica — Carrito</title>
 <script>(function(){ if(localStorage.getItem('mythologica_tema')==='claro') document.documentElement.setAttribute('data-theme','claro'); })();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css">
-<!-- StPageFlip: libreria real para el efecto de pasar hojas con curvatura -->
-<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/carrito.css">
 </head>
-<body>
+<body class="admin-body">
 
-  <!-- Overlay de "generando PDF": oculto por defecto, js/auth.js lo
-       muestra/oculta durante la descarga (ver descargarPdf()). Puppeteer
-       puede tardar varios segundos en armar el PDF completo, y antes el
-       unico aviso era el texto del boton cambiando a "Generando...",
-       facil de no notar. -->
-  <div class="pdf-loading-overlay" id="pdfLoadingOverlay" hidden>
-    <div class="pdf-loading-box">
-      <div class="pdf-spinner"></div>
-      <p>Generando tu PDF…</p>
-      <p class="pdf-loading-sub">Puede tardar unos segundos, no cierres esta página.</p>
+  <div class="admin-wrap">
+    <header class="admin-header">
+      <a class="brand" href="index.html">MYTHOLOGICA <span>CARRITO</span></a>
+      <div class="admin-header-right">
+        <button class="auth-link" id="btnTema" type="button">☀ Modo claro</button>
+        <div id="authStatus" class="auth-status"></div>
+      </div>
+    </header>
+
+    <div id="carritoContenido">
+      <p class="admin-cargando">Cargando...</p>
     </div>
   </div>
 
-  <div class="topbar">
-    <a class="brand" href="../index.html">MYTHOLOGICA <span>VISTA DE LECTURA · CONECTADO A TU BASE DE DATOS</span></a>
-    <div class="topbar-actions">
-      <select class="toc-select" id="tocSelect"></select>
-      <button class="auth-link" id="btnTema" type="button">☀ Modo claro</button>
-      <button class="auth-link" id="btnFullscreen" type="button">⛶ Pantalla completa</button>
-      <!-- Este contenedor lo llena js/auth.js segun haya o no sesion:
-           botones de login/registro, o el nombre del usuario + salir. -->
-      <div id="authStatus" class="auth-status"></div>
-      <!-- js/auth.js controla este boton por completo: si el usuario
-           tiene nivel "completo" pide el PDF con su token y dispara la
-           descarga; si no, lo deja como aviso para loguearse/comprar.
-           Una sola version de PDF (la imprimible) -- ya no hay boton
-           aparte para eso. -->
-      <button class="pdf-btn" id="pdfBtn" type="button">Descargar PDF</button>
-    </div>
-  </div>
-
-  <div class="stage-wrap" id="stageWrap">
-    <div class="stage-shadow"></div>
-    <div id="book">
-      <div class="loading-msg">Cargando personajes desde la API...</div>
-    </div>
-  </div>
-
-  <div class="controls">
-    <button class="nav-btn" id="prevBtn">‹</button>
-    <div class="page-indicator" id="pageIndicator">—</div>
-    <button class="nav-btn" id="nextBtn">›</button>
-  </div>
-
-  <!-- Modal de login / registro, oculto por defecto (js/auth.js lo abre/cierra) -->
+  <!-- Modal de login (quien llega sin sesion necesita loguearse para ver su carrito) -->
   <div class="auth-modal-backdrop" id="authBackdrop">
     <div class="auth-modal">
       <button class="auth-close" id="authClose" aria-label="Cerrar">×</button>
-
       <div class="auth-tabs" id="authTabs">
         <button class="auth-tab active" id="tabLogin" type="button">Iniciar sesión</button>
         <button class="auth-tab" id="tabRegistro" type="button">Crear cuenta</button>
       </div>
-
       <form id="formLogin" class="auth-form">
         <label>Email<input type="email" name="email" required autocomplete="email"></label>
         <label>Contraseña
@@ -81,7 +49,6 @@
         <p class="auth-error" id="loginError"></p>
         <button type="submit" class="auth-submit">Entrar</button>
       </form>
-
       <form id="formRegistro" class="auth-form" hidden>
         <label>Nombre<input type="text" name="nombre" required autocomplete="name"></label>
         <label>Email<input type="email" name="email" required autocomplete="email"></label>
@@ -105,7 +72,6 @@
         <p class="auth-error" id="registroError"></p>
         <button type="submit" class="auth-submit">Crear cuenta</button>
       </form>
-
       <form id="formOlvide" class="auth-form" hidden>
         <p class="auth-hint">Escribe el email de tu cuenta. Si existe, te mandamos un link para elegir una contraseña nueva.</p>
         <label>Email<input type="email" name="email" required autocomplete="email"></label>
@@ -113,7 +79,6 @@
         <button type="submit" class="auth-submit">Enviar link</button>
         <button type="button" class="auth-back-link" id="btnVolverLogin">Volver a iniciar sesión</button>
       </form>
-
       <form id="formRestablecer" class="auth-form" hidden>
         <p class="auth-hint">Elige una contraseña nueva para tu cuenta.</p>
         <label>Contraseña nueva
@@ -130,11 +95,9 @@
     </div>
   </div>
 
-  <!-- Nuestro codigo va al final, para asegurarnos de que StPageFlip
-       ya este cargado antes de usarlo (el script de arriba, en el head) -->
-  <script src="../js/tema.js"></script>
-  <script src="../js/auth.js"></script>
-  <script src="../js/carrito.js"></script>
-  <script src="../js/app.js"></script>
+  <script src="js/tema.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/carrito-resumen.js"></script>
 </body>
 </html>

@@ -1,0 +1,127 @@
+/* ============================================================
+   carrito.css
+   ------------------------------------------------------------
+   Estilos propios del carrito (frontend/carrito.html). Se carga
+   DESPUES de style.css y admin.css: reusa el armazon de
+   header/wrap de admin.css (mismo tratamiento responsive que el
+   dashboard) y ".pdf-btn"/".locked-cta"/".auth-form" de style.css
+   para no reinventar botones -- solo agrega lo que falta: la fila de
+   cada item, el bloque de codigo de descuento y el total.
+   ============================================================ */
+
+.carrito-items{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:24px;
+}
+
+.carrito-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:14px 16px;
+}
+
+.carrito-item-emblem{
+  flex-shrink:0;
+  width:44px; height:44px; border-radius:50%;
+  border:1px solid var(--gold-soft); background-size:cover; background-position:center;
+}
+
+.carrito-item-info{ flex:1; min-width:0; }
+.carrito-item-titulo{
+  font-family:'Fraunces', serif;
+  font-weight:700;
+  font-size:15px;
+  margin:0 0 2px;
+  color:var(--text);
+}
+.carrito-item-nivel{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  color:var(--text-faint);
+  margin:0;
+}
+
+.carrito-item-precio{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  color:var(--text-dim);
+  white-space:nowrap;
+}
+.carrito-item-precio s{ color:var(--text-faint); margin-right:4px; }
+.carrito-item-descuento{
+  display:inline-block;
+  font-size:9.5px;
+  font-weight:600;
+  color:#fff;
+  background:var(--wine);
+  padding:2px 7px;
+  border-radius:8px;
+  margin-left:6px;
+}
+
+.carrito-item-quitar{
+  flex-shrink:0;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  color:var(--text-faint);
+  background:none;
+  border:1px solid var(--line-strong);
+  padding:6px 10px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:border-color 0.15s, color 0.15s;
+}
+.carrito-item-quitar:hover{ border-color:var(--wine); color:var(--wine); }
+
+.carrito-codigo{
+  display:flex;
+  gap:8px;
+  max-width:360px;
+  margin-bottom:8px;
+}
+.carrito-codigo input{
+  flex:1;
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:13px;
+  padding:9px 10px;
+  border:1px solid var(--line-strong);
+  border-radius:6px;
+  background:var(--bg);
+  color:var(--text);
+  text-transform:uppercase;
+}
+.carrito-codigo input:focus{ outline:none; border-color:var(--gold-soft); }
+
+.carrito-codigo-msg{
+  min-height:16px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--wine);
+  margin:0 0 20px;
+}
+
+.carrito-total{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  padding:16px 0;
+  border-top:1px solid var(--line-strong);
+  margin-bottom:20px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  color:var(--text-dim);
+}
+.carrito-total strong{
+  font-family:'Fraunces', serif;
+  font-size:22px;
+  color:var(--gold);
+}
+
+.carrito-pagar{ width:100%; padding:13px; font-size:13px; }
+.carrito-pagar[disabled]{ opacity:0.5; cursor:not-allowed; }

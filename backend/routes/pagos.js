@@ -20,7 +20,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
 const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
-const { requiereSesion, requiereAdmin, resolverLibro, tieneNivel, JERARQUIA_NIVELES } = require('../middleware/auth');
+const { requiereSesion, requiereAdmin, tieneNivel, JERARQUIA_NIVELES } = require('../middleware/auth');
 const { calcularDescuentoAplicable } = require('./descuentos');
 
 // Precios en pesos chilenos (CLP no usa decimales). Única fuente de
@@ -50,7 +50,7 @@ function obtenerCliente() {
 // PRECIO MOSTRADO EN USD PARA VISITANTES FUERA DE CHILE
 // ------------------------------------------------------------
 // Esto es SOLO para lo que se ve en pantalla. El cobro real en
-// Mercado Pago (ver POST /preferencia mas abajo) siempre queda en
+// Mercado Pago (ver POST /pedido mas abajo) siempre queda en
 // CLP: la cuenta de Mercado Pago detras de esta integracion es
 // chilena, y Checkout Pro no permite cobrar en otra moneda sin una
 // cuenta/integracion aparte por pais. A un visitante fuera de Chile
@@ -124,12 +124,121 @@ router.get('/precios', async (req, res) => {
 });
 
 // ------------------------------------------------------------
-// POST /api/pagos/preferencia
-// Requiere sesión. Body: { nivel_acceso: 'flipbook'|'completo', libro? }
-// Crea la "preferencia" de pago en MercadoPago y devuelve la URL a
-// la que hay que mandar al usuario para que pague.
+// Busca un libro por slug (para el carrito, que puede traer varios
+// libros distintos en un mismo pedido -- a diferencia de
+// "resolverLibro" en middleware/auth.js, que resuelve UN libro desde
+// "?libro=" en la query y no sirve aca).
 // ------------------------------------------------------------
-router.post('/preferencia', requiereSesion, resolverLibro, async (req, res) => {
+async function resolverLibroPorSlug(slug) {
+  const [filas] = await pool.query('SELECT id, slug, titulo FROM libros WHERE slug = ?', [slug]);
+  return filas[0] || null;
+}
+
+// ------------------------------------------------------------
+// Valida el carrito (mismas reglas para cotizar y para pagar de
+// verdad, asi el precio que se muestra en el resumen es EXACTAMENTE
+// el que despues se cobra): resuelve cada libro por slug, valida
+// nivel_acceso, y calcula el precio final de cada item aplicando el
+// descuento que corresponda -- el mismo codigo puede aplicar a un
+// item y no a otro (ver calcularDescuentoAplicable en
+// routes/descuentos.js, ya soporta descuentos limitados a un libro).
+// Devuelve { items, total } o { error } si algo no es valido.
+// ------------------------------------------------------------
+async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
+  if (!Array.isArray(itemsCarrito) || itemsCarrito.length === 0) {
+    return { error: 'El carrito está vacío' };
+  }
+
+  const items = [];
+  for (const itemCarrito of itemsCarrito) {
+    const libro = await resolverLibroPorSlug(itemCarrito.libro);
+    if (!libro) {
+      return { error: `El libro "${itemCarrito.libro}" no existe` };
+    }
+
+    const nivelAcceso = itemCarrito.nivel_acceso;
+    if (!PRECIOS[nivelAcceso]) {
+      return { error: `nivel_acceso debe ser uno de: ${Object.keys(PRECIOS).join(', ')}` };
+    }
+
+    // Si ya tiene ese nivel o uno mayor para ESE libro, no tiene
+    // sentido cobrarle de nuevo -- se rechaza el carrito entero (mas
+    // simple que sacar el item solo) nombrando el libro en conflicto,
+    // para que lo saque del carrito y reintente.
+    if (tieneNivel(usuario, libro.id, nivelAcceso)) {
+      return { error: `Ya tienes acceso a "${libro.titulo}" en ese nivel (o uno mayor) -- sácalo del carrito` };
+    }
+
+    // Si el codigo no aplica a ESTE libro (esta limitado a otro), el
+    // item se queda a precio de lista sin mas -- recien es un error
+    // si no aplico a NINGUN item del carrito (chequeo despues del
+    // for, con la lista de items ya completa).
+    const descuento = await calcularDescuentoAplicable(libro.id, codigoDescuento);
+
+    const precioOriginal = PRECIOS[nivelAcceso];
+    const precioFinal = descuento
+      ? Math.round(precioOriginal * (1 - descuento.porcentaje / 100))
+      : precioOriginal;
+
+    items.push({
+      libro: libro.slug,
+      libroId: libro.id,
+      titulo: libro.titulo,
+      nivel_acceso: nivelAcceso,
+      precio_original: precioOriginal,
+      precio_final: precioFinal,
+      descuento_id: descuento ? descuento.id : null,
+      descuento_porcentaje: descuento ? descuento.porcentaje : 0
+    });
+  }
+
+  // Si se mando un codigo y NINGUN item del carrito lo aprovecho, es
+  // que el codigo no aplica a nada de lo que hay en el carrito --
+  // ahi si es un error real, se lo decimos en vez de cobrar de lista
+  // en silencio.
+  if (codigoDescuento && items.every(item => !item.descuento_id)) {
+    return { error: 'Código de descuento inválido, vencido, o no aplica a los libros del carrito' };
+  }
+
+  const total = items.reduce((suma, item) => suma + item.precio_final, 0);
+  return { items, total };
+}
+
+// ------------------------------------------------------------
+// POST /api/pagos/cotizar-carrito
+// Requiere sesión. Body: { items: [{libro, nivel_acceso}], codigo_descuento? }
+// Puramente informativo (para pintar frontend/carrito.html antes de
+// pagar) -- calcula el precio real de cada item con las mismas
+// reglas que POST /pedido, para que el resumen nunca muestre un
+// numero distinto al que despues se cobra de verdad.
+// ------------------------------------------------------------
+router.post('/cotizar-carrito', requiereSesion, async (req, res) => {
+  try {
+    const { items, codigo_descuento: codigoDescuento } = req.body;
+    const resultado = await calcularCarrito(req.usuario, items, codigoDescuento);
+    if (resultado.error) return res.status(400).json({ error: resultado.error });
+
+    res.json({
+      items: resultado.items.map(({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje }) =>
+        ({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje })),
+      total: resultado.total,
+      moneda: MONEDA
+    });
+  } catch (error) {
+    console.error('Error al cotizar el carrito:', error);
+    res.status(500).json({ error: 'No se pudo cotizar el carrito' });
+  }
+});
+
+// ------------------------------------------------------------
+// POST /api/pagos/pedido
+// Requiere sesión. Body: { items: [{libro, nivel_acceso}], codigo_descuento? }
+// Crea el pedido (una fila en "pedidos" + una fila en "pagos" por
+// cada item del carrito, todas apuntando a ese pedido) y la
+// "preferencia" de pago en MercadoPago con un item de checkout por
+// cada item del carrito -- un solo pago cubre todo el pedido.
+// ------------------------------------------------------------
+router.post('/pedido', requiereSesion, async (req, res) => {
   try {
     const cliente = obtenerCliente();
     if (!cliente) {
@@ -143,61 +252,45 @@ router.post('/preferencia', requiereSesion, resolverLibro, async (req, res) => {
       return res.status(403).json({ error: 'Verifica tu email antes de comprar', requiereVerificacion: true });
     }
 
-    const { nivel_acceso: nivelAcceso } = req.body;
-    if (!PRECIOS[nivelAcceso]) {
-      return res.status(400).json({ error: `nivel_acceso debe ser uno de: ${Object.keys(PRECIOS).join(', ')}` });
-    }
+    const { items, codigo_descuento: codigoDescuento } = req.body;
+    const resultado = await calcularCarrito(req.usuario, items, codigoDescuento);
+    if (resultado.error) return res.status(400).json({ error: resultado.error });
 
-    // Si ya tiene ese nivel o uno mayor, no tiene sentido cobrarle de nuevo.
-    if (tieneNivel(req.usuario, req.libro.id, nivelAcceso)) {
-      return res.status(400).json({ error: 'Ya tienes ese nivel de acceso (o uno mayor) para este libro' });
-    }
-
-    // Si el usuario mando un codigo, ese tiene que ser valido (si no,
-    // avisamos en vez de cobrarle el precio de lista sin que se de
-    // cuenta). Si no mando codigo, buscamos el mejor descuento
-    // "general" activo para este libro -- puede no haber ninguno, y
-    // ahi se cobra el precio de lista. El % nunca sale de lo que
-    // mande el navegador, siempre se vuelve a buscar en la base (ver
-    // routes/descuentos.js).
-    const { codigo_descuento: codigoDescuento } = req.body;
-    const descuento = await calcularDescuentoAplicable(req.libro.id, codigoDescuento);
-    if (codigoDescuento && !descuento) {
-      return res.status(400).json({ error: 'Código de descuento inválido o vencido' });
-    }
-
-    const monto = descuento
-      ? Math.round(PRECIOS[nivelAcceso] * (1 - descuento.porcentaje / 100))
-      : PRECIOS[nivelAcceso];
-
-    const [resultado] = await pool.query(
-      `INSERT INTO pagos (usuario_id, libro_id, nivel_acceso, monto, moneda, estado, descuento_id)
-       VALUES (?, ?, ?, ?, ?, 'pendiente', ?)`,
-      [req.usuario.id, req.libro.id, nivelAcceso, monto, MONEDA, descuento ? descuento.id : null]
+    const [resultadoPedido] = await pool.query(
+      `INSERT INTO pedidos (usuario_id, monto_total, moneda, estado)
+       VALUES (?, ?, ?, 'pendiente')`,
+      [req.usuario.id, resultado.total, MONEDA]
     );
-    const pagoId = resultado.insertId;
+    const pedidoId = resultadoPedido.insertId;
+
+    for (const item of resultado.items) {
+      await pool.query(
+        `INSERT INTO pagos (usuario_id, libro_id, nivel_acceso, monto, moneda, estado, descuento_id, pedido_id)
+         VALUES (?, ?, ?, ?, ?, 'pendiente', ?, ?)`,
+        [req.usuario.id, item.libroId, item.nivel_acceso, item.precio_final, MONEDA, item.descuento_id, pedidoId]
+      );
+    }
 
     const urlFrontend = process.env.URL_FRONTEND;
     const urlBackend = process.env.URL_BACKEND;
-    const nombreProducto = nivelAcceso === 'completo'
-      ? `${req.libro.titulo} — Acceso completo (flipbook + PDF)`
-      : `${req.libro.titulo} — Acceso al flipbook`;
 
     const preference = new Preference(cliente);
     const resultadoPreferencia = await preference.create({
       body: {
-        items: [{
-          id: `${nivelAcceso}-${req.libro.slug}`,
-          title: nombreProducto,
+        items: resultado.items.map(item => ({
+          id: `${item.nivel_acceso}-${item.libro}`,
+          title: item.nivel_acceso === 'completo'
+            ? `${item.titulo} — Acceso completo (flipbook + PDF)`
+            : `${item.titulo} — Acceso al flipbook`,
           quantity: 1,
-          unit_price: monto,
+          unit_price: item.precio_final,
           currency_id: MONEDA
-        }],
-        external_reference: String(pagoId),
+        })),
+        external_reference: String(pedidoId),
         back_urls: {
-          success: `${urlFrontend}/libro/index.html`,
-          pending: `${urlFrontend}/libro/index.html`,
-          failure: `${urlFrontend}/libro/index.html`
+          success: `${urlFrontend}/carrito.html`,
+          pending: `${urlFrontend}/carrito.html`,
+          failure: `${urlFrontend}/carrito.html`
         },
         // "auto_return" hace que MercadoPago redirija solo de vuelta a
         // back_urls.success apenas se aprueba el pago (sin esto, el
@@ -224,7 +317,7 @@ router.post('/preferencia', requiereSesion, resolverLibro, async (req, res) => {
       }
     });
 
-    await pool.query('UPDATE pagos SET mercadopago_preference_id = ? WHERE id = ?', [resultadoPreferencia.id, pagoId]);
+    await pool.query('UPDATE pedidos SET mercadopago_preference_id = ? WHERE id = ?', [resultadoPreferencia.id, pedidoId]);
 
     // Confirmado por soporte de MercadoPago: este Checkout Pro NO usa
     // el flujo de sandbox tradicional. "sandbox_init_point" es solo un
@@ -234,9 +327,9 @@ router.post('/preferencia', requiereSesion, resolverLibro, async (req, res) => {
     // sandbox_init_point pensando que era necesario para probar sin
     // cobrar de verdad, pero el ambiente de prueba lo da el tipo de
     // cuenta detrás del access token, no la URL.
-    res.json({ init_point: resultadoPreferencia.init_point, pago_id: pagoId });
+    res.json({ init_point: resultadoPreferencia.init_point, pedido_id: pedidoId });
   } catch (error) {
-    console.error('Error al crear la preferencia de pago:', error);
+    console.error('Error al crear el pedido:', error);
     res.status(500).json({ error: 'No se pudo iniciar el pago' });
   }
 });
@@ -317,54 +410,63 @@ router.get('/resumen', requiereAdmin, async (req, res) => {
 });
 
 // ------------------------------------------------------------
-// Procesa el resultado de un pago ya verificado contra la API de
-// MercadoPago. Idempotente: si el pago ya estaba aprobado en nuestra
-// base, no vuelve a tocar nada (el webhook puede llegar más de una
-// vez para el mismo pago).
-// Nunca BAJA un nivel de acceso: si el usuario ya tenía "completo" y
-// compró "flipbook" (por error, o dos pestañas a la vez), el nivel
-// más alto se mantiene.
+// Procesa el resultado de un PEDIDO ya verificado contra la API de
+// MercadoPago (un pedido puede cubrir varios libros/niveles a la vez,
+// ver POST /pedido mas arriba). Idempotente: si el pedido ya estaba
+// aprobado en nuestra base, no vuelve a tocar nada (el webhook puede
+// llegar más de una vez para el mismo pago).
+// Nunca BAJA un nivel de acceso: si el usuario ya tenía "completo" de
+// un libro y el pedido incluia "flipbook" para ese mismo libro (por
+// error, o dos pestañas a la vez), el nivel más alto se mantiene.
 // ------------------------------------------------------------
-async function procesarResultadoPago(pagoId, estadoMercadoPago, mercadopagoPaymentId) {
-  const [filas] = await pool.query('SELECT * FROM pagos WHERE id = ?', [pagoId]);
+async function procesarResultadoPedido(pedidoId, estadoMercadoPago, mercadopagoPaymentId) {
+  const [filas] = await pool.query('SELECT * FROM pedidos WHERE id = ?', [pedidoId]);
   if (filas.length === 0) return { encontrado: false };
-  const pago = filas[0];
+  const pedido = filas[0];
 
-  if (pago.estado === 'aprobado') return { encontrado: true, pago }; // ya procesado, no hacer nada de nuevo
+  if (pedido.estado === 'aprobado') return { encontrado: true, pedido }; // ya procesado, no hacer nada de nuevo
 
   const nuevoEstado = estadoMercadoPago === 'approved' ? 'aprobado'
     : estadoMercadoPago === 'rejected' ? 'rechazado'
     : 'pendiente';
 
   await pool.query(
-    'UPDATE pagos SET estado = ?, mercadopago_payment_id = ? WHERE id = ?',
-    [nuevoEstado, mercadopagoPaymentId || pago.mercadopago_payment_id, pagoId]
+    'UPDATE pedidos SET estado = ?, mercadopago_payment_id = ? WHERE id = ?',
+    [nuevoEstado, mercadopagoPaymentId || pedido.mercadopago_payment_id, pedidoId]
+  );
+  await pool.query(
+    'UPDATE pagos SET estado = ?, mercadopago_payment_id = ? WHERE pedido_id = ?',
+    [nuevoEstado, mercadopagoPaymentId || pedido.mercadopago_payment_id, pedidoId]
   );
 
   if (nuevoEstado === 'aprobado') {
-    const [accesoActual] = await pool.query(
-      'SELECT nivel_acceso FROM accesos WHERE usuario_id = ? AND libro_id = ?',
-      [pago.usuario_id, pago.libro_id]
-    );
-    const nivelActual = accesoActual.length > 0 ? accesoActual[0].nivel_acceso : 'ninguno';
+    const [items] = await pool.query('SELECT libro_id, nivel_acceso FROM pagos WHERE pedido_id = ?', [pedidoId]);
 
-    if (JERARQUIA_NIVELES[pago.nivel_acceso] > JERARQUIA_NIVELES[nivelActual]) {
-      await pool.query(
-        `INSERT INTO accesos (usuario_id, libro_id, nivel_acceso)
-         VALUES (?, ?, ?)
-         ON DUPLICATE KEY UPDATE nivel_acceso = VALUES(nivel_acceso)`,
-        [pago.usuario_id, pago.libro_id, pago.nivel_acceso]
+    for (const item of items) {
+      const [accesoActual] = await pool.query(
+        'SELECT nivel_acceso FROM accesos WHERE usuario_id = ? AND libro_id = ?',
+        [pedido.usuario_id, item.libro_id]
       );
+      const nivelActual = accesoActual.length > 0 ? accesoActual[0].nivel_acceso : 'ninguno';
+
+      if (JERARQUIA_NIVELES[item.nivel_acceso] > JERARQUIA_NIVELES[nivelActual]) {
+        await pool.query(
+          `INSERT INTO accesos (usuario_id, libro_id, nivel_acceso)
+           VALUES (?, ?, ?)
+           ON DUPLICATE KEY UPDATE nivel_acceso = VALUES(nivel_acceso)`,
+          [pedido.usuario_id, item.libro_id, item.nivel_acceso]
+        );
+      }
     }
   }
 
-  return { encontrado: true, pago: { ...pago, estado: nuevoEstado } };
+  return { encontrado: true, pedido: { ...pedido, estado: nuevoEstado } };
 }
 
 // ------------------------------------------------------------
 // GET /api/pagos/confirmar?payment_id=&external_reference=
 // Llamado por el frontend justo después de que MercadoPago redirige
-// de vuelta al usuario. "external_reference" es nuestro pagos.id;
+// de vuelta al usuario. "external_reference" es nuestro pedidos.id;
 // "payment_id" es el id que le asignó MercadoPago al pago. Volvemos
 // a consultar la API real antes de confirmar nada (ver nota arriba).
 // ------------------------------------------------------------
@@ -385,10 +487,10 @@ router.get('/confirmar', async (req, res) => {
       return res.status(400).json({ error: 'El pago no corresponde a esta compra' });
     }
 
-    const resultado = await procesarResultadoPago(Number(externalReference), pagoMercadoPago.status, paymentId);
+    const resultado = await procesarResultadoPedido(Number(externalReference), pagoMercadoPago.status, paymentId);
     if (!resultado.encontrado) return res.status(404).json({ error: 'Compra no encontrada' });
 
-    res.json({ estado: resultado.pago.estado });
+    res.json({ estado: resultado.pedido.estado });
   } catch (error) {
     console.error('Error al confirmar el pago:', error);
     res.status(500).json({ error: 'No se pudo confirmar el pago' });
@@ -422,7 +524,7 @@ router.post('/webhook', async (req, res) => {
     const pagoMercadoPago = await payment.get({ id: paymentId });
     if (!pagoMercadoPago.external_reference) return;
 
-    await procesarResultadoPago(Number(pagoMercadoPago.external_reference), pagoMercadoPago.status, paymentId);
+    await procesarResultadoPedido(Number(pagoMercadoPago.external_reference), pagoMercadoPago.status, paymentId);
   } catch (error) {
     console.error('Error al procesar el webhook de MercadoPago:', error);
   }

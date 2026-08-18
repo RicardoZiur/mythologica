@@ -229,71 +229,22 @@ function renderizarHistoriasRelacionadas(personaje, mapaHistorias) {
     <div class="chip-row">${itemsHtml}</div>
   `;
 }
-// Arma el texto de un boton de compra con su precio, en CLP con el
-// equivalente en USD entre parentesis (mismo criterio que las
-// tarjetas del catalogo en landing.js -- el cobro real siempre se
-// procesa en CLP, el USD es solo referencial). Si hay un descuento
-// aplicable (codigo activo o el general del libro, ver
-// calcularPrecioMostrado en pagos.js) muestra el precio de lista en
-// CLP tachado junto al rebajado. Sin precios cargados todavia (ver
-// cargarPrecios en pagos.js), devuelve solo la etiqueta, sin monto.
-function etiquetaConPrecio(nivel, etiqueta) {
-  if (!window.calcularPrecioMostrado) return etiqueta;
-  const { clp, usd, porcentaje } = window.calcularPrecioMostrado(nivel);
-  if (!clp) return etiqueta;
-
-  const textoUsd = usd ? ` (${window.formatearMonto(usd.final, 'USD')})` : '';
-  if (porcentaje > 0) {
-    return `${etiqueta} — <s>${window.formatearMonto(clp.original, 'CLP')}</s> ${window.formatearMonto(clp.final, 'CLP')}${textoUsd}`;
-  }
-  return `${etiqueta} — ${window.formatearMonto(clp.original, 'CLP')}${textoUsd}`;
-}
-
-// Despues de aplicar un codigo de descuento (ver aplicarCodigoDesdeUI
-// mas abajo), hay que refrescar el precio mostrado en CADA boton de
-// compra que este montado en el libro en ese momento -- StPageFlip
-// monta TODAS las hojas del libro de una sola vez (no solo la que se
-// esta viendo), asi que puede haber varias hojas bloqueadas con su
-// propio boton al mismo tiempo.
-function actualizarPreciosEnPagina() {
-  document.querySelectorAll('.locked-cta[data-nivel]').forEach(boton => {
-    boton.innerHTML = etiquetaConPrecio(boton.dataset.nivel, boton.dataset.etiqueta);
-  });
-}
-window.actualizarPreciosEnPagina = actualizarPreciosEnPagina;
-
-// Muestra el mini-formulario de "tengo un codigo" de una hoja
-// bloqueada en particular (identificada por su slug, para no chocar
-// con los de otras hojas bloqueadas montadas al mismo tiempo).
-window.mostrarFormularioCodigo = function mostrarFormularioCodigo(slug) {
-  const form = document.getElementById(`codigoForm-${slug}`);
-  if (form) form.hidden = false;
-};
-
-// Valida el codigo escrito en la hoja bloqueada "slug" contra el
-// backend (ver aplicarCodigoDescuento en pagos.js) y, si es valido,
-// refresca los precios mostrados en TODO el libro para reflejarlo.
-window.aplicarCodigoDesdeUI = async function aplicarCodigoDesdeUI(slug) {
-  const input = document.getElementById(`codigoInput-${slug}`);
-  const mensaje = document.getElementById(`codigoMsg-${slug}`);
-  if (!input || !mensaje || !input.value.trim()) return;
-
-  mensaje.textContent = 'Validando...';
-  const resultado = await window.aplicarCodigoDescuento(input.value.trim());
-  if (resultado.valido) {
-    mensaje.textContent = `Código aplicado: ${resultado.porcentaje}% de descuento.`;
-    actualizarPreciosEnPagina();
-  } else {
-    mensaje.textContent = resultado.error || 'Código inválido';
-  }
+// Agrega "slug" (con el nivel pedido) al carrito (ver carrito.js) y
+// avisa con un toast chico, sin sacar al usuario de la pagina -- paga
+// cuando quiera desde carrito.html (link en el header, ver
+// pintarAuthStatus en auth.js).
+window.agregarAlCarritoDesdeUI = function agregarAlCarritoDesdeUI(slug, nivelAcceso) {
+  window.agregarAlCarrito(slug, nivelAcceso);
+  window.mostrarAviso('Agregado al carrito. Puedes seguir leyendo o ir a pagar cuando quieras.', 5000);
 };
 
 // Arma los botones de la hoja bloqueada segun haya o no sesion:
-//   - Sin sesion: invita a loguearse (todavia no sabemos a quien cobrarle).
-//   - Con sesion: botones de compra reales, con el precio real (si ya
-//     cargo desde la API, ver pagos.js) para cada nivel que le falte,
-//     mas un mini-formulario para ingresar un codigo de descuento.
-//     Si ya tiene "flipbook" pero no "completo", solo ofrece ese.
+//   - Sin sesion: invita a loguearse (todavia no sabemos a nombre de
+//     quien agregar cosas al carrito).
+//   - Con sesion: un boton "Añadir al carro" por cada nivel que le
+//     falte (si ya tiene "flipbook" pero no "completo", solo ofrece
+//     ese). El precio y el codigo de descuento se ven recien en
+//     carrito.html, no aca.
 // Frena el evento en mousedown/pointerdown Y en click: StPageFlip
 // arranca el gesto de pasar hoja desde el PRIMER toque (mousedown/
 // pointerdown, no espera a que se suelte el click) para poder
@@ -315,23 +266,12 @@ function construirAccionesBloqueadas(slug) {
     return jerarquia[nivel] > jerarquia[nivelActual];
   });
 
-  const etiquetas = { flipbook: 'Acceso al flipbook', completo: 'Acceso completo (+ PDF)' };
   const botonesHtml = nivelesAOfrecer.map(nivel => {
     const claseExtra = nivel === 'flipbook' && nivelesAOfrecer.length > 1 ? 'secundario' : '';
-    return `<button class="locked-cta ${claseExtra}" data-nivel="${nivel}" data-etiqueta="${etiquetas[nivel]}" ${SIN_PASAR_HOJA} onclick="event.stopPropagation(); window.comprarNivel('${nivel}')">${etiquetaConPrecio(nivel, etiquetas[nivel])}</button>`;
+    return `<button class="locked-cta ${claseExtra}" ${SIN_PASAR_HOJA} onclick="event.stopPropagation(); window.agregarAlCarritoDesdeUI('${slug}', '${nivel}')">Añadir al carro</button>`;
   }).join('');
 
-  return `
-    <div class="locked-actions">${botonesHtml}</div>
-    <div class="codigo-wrap">
-      <button type="button" class="codigo-toggle" ${SIN_PASAR_HOJA} onclick="event.stopPropagation(); window.mostrarFormularioCodigo('${slug}')">¿Tienes un código de descuento?</button>
-      <div class="codigo-form" id="codigoForm-${slug}" hidden>
-        <input type="text" id="codigoInput-${slug}" class="codigo-input" placeholder="CÓDIGO" maxlength="50" ${SIN_PASAR_HOJA} onclick="event.stopPropagation()">
-        <button type="button" class="locked-cta secundario" ${SIN_PASAR_HOJA} onclick="event.stopPropagation(); window.aplicarCodigoDesdeUI('${slug}')">Aplicar</button>
-      </div>
-      <p class="codigo-msg" id="codigoMsg-${slug}"></p>
-    </div>
-  `;
+  return `<div class="locked-actions">${botonesHtml}</div>`;
 }
 
 // Arma una hoja "bloqueada": se usa cuando el backend respondio 403
