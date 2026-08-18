@@ -22,6 +22,7 @@ const pool = require('../config/db');
 const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
 const { requiereSesion, requiereAdmin, tieneNivel, JERARQUIA_NIVELES } = require('../middleware/auth');
 const { calcularDescuentoAplicable } = require('./descuentos');
+const { enviarEmailCompra } = require('../utils/email');
 
 // Precios en pesos chilenos (CLP no usa decimales). Única fuente de
 // verdad: el frontend los pide a GET /precios en vez de tenerlos
@@ -467,7 +468,12 @@ async function procesarResultadoPedido(pedidoId, estadoMercadoPago, mercadopagoP
   );
 
   if (nuevoEstado === 'aprobado') {
-    const [items] = await pool.query('SELECT libro_id, nivel_acceso FROM pagos WHERE pedido_id = ?', [pedidoId]);
+    const [items] = await pool.query(
+      `SELECT p.libro_id, p.nivel_acceso, l.titulo
+       FROM pagos p JOIN libros l ON l.id = p.libro_id
+       WHERE p.pedido_id = ?`,
+      [pedidoId]
+    );
 
     for (const item of items) {
       const [accesoActual] = await pool.query(
@@ -484,6 +490,18 @@ async function procesarResultadoPedido(pedidoId, estadoMercadoPago, mercadopagoP
           [pedido.usuario_id, item.libro_id, item.nivel_acceso]
         );
       }
+    }
+
+    // El email es un "extra": si falla (proveedor caido, etc.) no
+    // tiene que tirar abajo la confirmacion del pago -- el acceso ya
+    // quedo dado arriba de todas formas.
+    try {
+      const [usuarios] = await pool.query('SELECT nombre, email FROM usuarios WHERE id = ?', [pedido.usuario_id]);
+      if (usuarios.length > 0) {
+        await enviarEmailCompra(usuarios[0], items, pedido.monto_total, pedido.moneda);
+      }
+    } catch (error) {
+      console.error('No se pudo enviar el email de confirmación de compra:', error);
     }
   }
 
