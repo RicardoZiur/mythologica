@@ -157,7 +157,13 @@ function construirTarjetaLibro(libro, totalPersonajes, totalHistorias, precios, 
   // "completo" no queda nada que ofrecer). Mismas etiquetas que usan
   // el flipbook y "Mis libros", para que se reconozcan como la misma
   // accion en cualquier pagina del sitio.
-  const etiquetasNivel = { flipbook: 'Añadir: acceso al sitio', completo: 'Añadir: completo + PDF' };
+  // Si ya tiene "flipbook" y le falta el PDF, se le cobra solo eso
+  // (ver precioParaNivel en routes/pagos.js) -- el boton lo dice, en
+  // vez de sugerir que esta pagando el paquete completo de nuevo.
+  const etiquetasNivel = {
+    flipbook: 'Añadir: acceso al sitio',
+    completo: nivelAcceso === 'flipbook' ? 'Añadir: descarga en PDF' : 'Añadir: completo + PDF'
+  };
   const nivelesAOfrecer = ['flipbook', 'completo'].filter(nivel => {
     const jerarquia = { ninguno: 0, flipbook: 1, completo: 2 };
     return jerarquia[nivel] > jerarquia[nivelAcceso];
@@ -198,6 +204,7 @@ function construirTarjetaLibro(libro, totalPersonajes, totalHistorias, precios, 
 async function cargarPrecios() {
   const elFlipbook = document.getElementById('precioFlipbook');
   const elCompleto = document.getElementById('precioCompleto');
+  const elPdf = document.getElementById('precioPdf');
 
   try {
     const respuesta = await fetch(`${API_URL}/pagos/precios`);
@@ -211,10 +218,12 @@ async function cargarPrecios() {
 
     elFlipbook.textContent = conAmbasMonedas('flipbook');
     elCompleto.textContent = conAmbasMonedas('completo');
+    elPdf.textContent = conAmbasMonedas('pdf');
   } catch (error) {
     console.error('No se pudieron cargar los precios:', error);
     elFlipbook.textContent = 'Ver en el libro';
     elCompleto.textContent = 'Ver en el libro';
+    elPdf.textContent = 'Ver en el libro';
   }
 }
 

@@ -65,7 +65,7 @@ window.pintarContadorCarrito = function pintarContadorCarrito() {
   const span = document.getElementById('carritoCount');
   if (!span) return;
   const cantidad = window.contarCarrito();
-  span.textContent = cantidad > 0 ? `(${cantidad})` : '';
+  span.textContent = cantidad > 0 ? String(cantidad) : '';
 };
 
 document.addEventListener('DOMContentLoaded', window.pintarContadorCarrito);

@@ -45,9 +45,21 @@ function construirTarjeta(libro, nivelAcceso) {
   `;
 
   if (disponible) {
+    // Si ya tiene "flipbook" pero no el PDF, se ofrece agregarlo aca
+    // mismo -- antes esta tarjeta no dejaba ninguna forma de subir de
+    // nivel sin ir al flipbook a buscar una hoja bloqueada. Se cobra
+    // solo el PDF, no el paquete completo de nuevo (ver precioParaNivel
+    // en routes/pagos.js). El boton frena el click para no disparar el
+    // <a> que envuelve toda la tarjeta.
+    const accionPdf = nivelAcceso === 'flipbook' ? `
+      <div class="mislibros-card-acciones">
+        <button type="button" class="admin-toggle" onmousedown="event.stopPropagation()" onclick="event.preventDefault(); event.stopPropagation(); agregarAlCarritoDesdeMisLibros('${libro.slug}', 'completo')">Añadir: descarga en PDF</button>
+      </div>
+    ` : '';
     return `
       <a class="mislibros-card mislibros-card--disponible" href="libro/index.html?libro=${encodeURIComponent(libro.slug)}">
         ${contenido}
+        ${accionPdf}
       </a>
     `;
   }

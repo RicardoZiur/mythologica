@@ -19,6 +19,13 @@ const ETIQUETAS_NIVEL = {
   flipbook: 'Acceso al libro en el sitio'
 };
 
+// Cuando "completo" en realidad es solo agregar el PDF sobre un
+// flipbook que ya tenia (ver "es_actualizacion" en POST
+// /cotizar-carrito, routes/pagos.js), se muestra esta etiqueta en vez
+// de la de arriba -- si no, el precio mas bajo se veria como un
+// descuento sin explicacion.
+const ETIQUETA_SOLO_PDF = 'Descarga en PDF (ya tienes el acceso al sitio)';
+
 // Código que el usuario escribió y quedó validado contra al menos un
 // ítem del carrito (ver aplicarCodigo). null si no hay ninguno.
 window.CODIGO_DESCUENTO_ACTUAL = null;
@@ -56,13 +63,14 @@ function construirFilaItem(item) {
   const precioHtml = item.descuento_porcentaje > 0
     ? `<s>${formatearMonto(item.precio_original, 'CLP')}</s> ${formatearMonto(item.precio_final, 'CLP')} <span class="carrito-item-descuento">-${item.descuento_porcentaje}%</span>`
     : formatearMonto(item.precio_final, 'CLP');
+  const etiquetaNivel = item.es_actualizacion ? ETIQUETA_SOLO_PDF : (ETIQUETAS_NIVEL[item.nivel_acceso] || item.nivel_acceso);
 
   return `
     <div class="carrito-item">
       <div class="carrito-item-emblem" style="background-image:url('${emblemaUrl}');"></div>
       <div class="carrito-item-info">
         <p class="carrito-item-titulo">${escaparHtml(item.titulo)}</p>
-        <p class="carrito-item-nivel">${ETIQUETAS_NIVEL[item.nivel_acceso] || item.nivel_acceso}</p>
+        <p class="carrito-item-nivel">${etiquetaNivel}</p>
       </div>
       <div class="carrito-item-precio">${precioHtml}</div>
       <button type="button" class="carrito-item-quitar" data-libro="${item.libro}">Quitar</button>

@@ -27,19 +27,32 @@ const { calcularDescuentoAplicable } = require('./descuentos');
 // verdad: el frontend los pide a GET /precios en vez de tenerlos
 // escritos en dos lugares distintos.
 //
-// Calculados para dejar una ganancia neta de $7.000 (flipbook) y
-// $13.000 (completo) DESPUÉS de la comisión de Mercado Pago (3,44%,
-// liberación en 10 días) y del 19% de impuesto sobre lo que queda:
-// precio × 0,9656 × 0,81 ≈ ganancia. Redondeados hacia arriba para
-// que la ganancia real quede un poco por encima del objetivo.
-//
-// OJO: el 3,44% asume que la cuenta de Mercado Pago está configurada
-// con liberación en 10 días, no inmediata (eso se cambia aparte, en
-// la configuración de cobros de Mercado Pago, no en este código). Si
-// se vuelve a liberación inmediata, la comisión real sube a 3,8% y
-// estos precios rendirían un poco menos de lo calculado.
-const PRECIOS = { flipbook: 8950, completo: 16630 };
+// Dos componentes, no dos productos fijos: "flipbook" es el acceso al
+// libro en el sitio, "pdf" es la descarga. "completo" (comprado de una
+// sola vez) es la suma de los dos -- pero si el usuario YA tiene
+// "flipbook" y solo le falta el PDF, se le cobra nada más que
+// PRECIOS.pdf (ver precioParaNivel más abajo), nunca la suma completa
+// de nuevo. Así comprarlo en dos partes cuesta exactamente lo mismo
+// que comprarlo junto, nunca más.
+const PRECIOS = { flipbook: 6640, pdf: 9990 };
 const MONEDA = 'CLP';
+const NIVELES_VALIDOS = ['flipbook', 'completo'];
+
+// Precio real de agregar "nivelAcceso" para alguien que ya tiene
+// "nivelActual" en ese libro ('ninguno' si no tiene nada todavía).
+// Devuelve tambien "esActualizacion": true cuando lo que se está
+// cobrando es solo el PDF sobre un flipbook ya comprado (para que el
+// carrito y el checkout de MercadoPago lo dejen claro en vez de
+// mostrar "acceso completo" como si fuera la compra desde cero).
+function precioParaNivel(nivelAcceso, nivelActual) {
+  if (nivelAcceso === 'flipbook') {
+    return { precio: PRECIOS.flipbook, esActualizacion: false };
+  }
+  if (nivelActual === 'flipbook') {
+    return { precio: PRECIOS.pdf, esActualizacion: true };
+  }
+  return { precio: PRECIOS.flipbook + PRECIOS.pdf, esActualizacion: false };
+}
 
 function obtenerCliente() {
   if (!process.env.MERCADOPAGO_ACCESS_TOKEN) return null;
@@ -115,10 +128,11 @@ router.get('/precios', async (req, res) => {
   const tasa = await obtenerTasaClpAUsd();
 
   const aUsd = (montoClp) => tasa ? Math.round(montoClp * tasa * 100) / 100 : null;
+  const precioCompleto = PRECIOS.flipbook + PRECIOS.pdf;
 
   res.json({
-    clp: { flipbook: PRECIOS.flipbook, completo: PRECIOS.completo, moneda: 'CLP' },
-    usd: { flipbook: aUsd(PRECIOS.flipbook), completo: aUsd(PRECIOS.completo), moneda: 'USD' },
+    clp: { flipbook: PRECIOS.flipbook, pdf: PRECIOS.pdf, completo: precioCompleto, moneda: 'CLP' },
+    usd: { flipbook: aUsd(PRECIOS.flipbook), pdf: aUsd(PRECIOS.pdf), completo: aUsd(precioCompleto), moneda: 'USD' },
     monedaSugerida: (pais && pais !== 'CL' && tasa) ? 'USD' : 'CLP'
   });
 });
@@ -157,8 +171,8 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
     }
 
     const nivelAcceso = itemCarrito.nivel_acceso;
-    if (!PRECIOS[nivelAcceso]) {
-      return { error: `nivel_acceso debe ser uno de: ${Object.keys(PRECIOS).join(', ')}` };
+    if (!NIVELES_VALIDOS.includes(nivelAcceso)) {
+      return { error: `nivel_acceso debe ser uno de: ${NIVELES_VALIDOS.join(', ')}` };
     }
 
     // Si ya tiene ese nivel o uno mayor para ESE libro, no tiene
@@ -169,13 +183,19 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
       return { error: `Ya tienes acceso a "${libro.titulo}" en ese nivel (o uno mayor) -- sácalo del carrito` };
     }
 
+    // Cuanto le toca pagar depende de lo que ya tenga de ESE libro:
+    // si ya tiene "flipbook" y esta agregando "completo", solo se le
+    // cobra el PDF (ver precioParaNivel), no el paquete entero de nuevo.
+    const nivelActual = (usuario.accesosPorLibro && usuario.accesosPorLibro[libro.id]) || 'ninguno';
+    const { precio: precioBase, esActualizacion } = precioParaNivel(nivelAcceso, nivelActual);
+
     // Si el codigo no aplica a ESTE libro (esta limitado a otro), el
     // item se queda a precio de lista sin mas -- recien es un error
     // si no aplico a NINGUN item del carrito (chequeo despues del
     // for, con la lista de items ya completa).
     const descuento = await calcularDescuentoAplicable(libro.id, codigoDescuento);
 
-    const precioOriginal = PRECIOS[nivelAcceso];
+    const precioOriginal = precioBase;
     const precioFinal = descuento
       ? Math.round(precioOriginal * (1 - descuento.porcentaje / 100))
       : precioOriginal;
@@ -187,6 +207,7 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
       nivel_acceso: nivelAcceso,
       precio_original: precioOriginal,
       precio_final: precioFinal,
+      es_actualizacion: esActualizacion,
       descuento_id: descuento ? descuento.id : null,
       descuento_porcentaje: descuento ? descuento.porcentaje : 0
     });
@@ -219,8 +240,8 @@ router.post('/cotizar-carrito', requiereSesion, async (req, res) => {
     if (resultado.error) return res.status(400).json({ error: resultado.error });
 
     res.json({
-      items: resultado.items.map(({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje }) =>
-        ({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje })),
+      items: resultado.items.map(({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje, es_actualizacion }) =>
+        ({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje, es_actualizacion })),
       total: resultado.total,
       moneda: MONEDA
     });
@@ -280,7 +301,9 @@ router.post('/pedido', requiereSesion, async (req, res) => {
         items: resultado.items.map(item => ({
           id: `${item.nivel_acceso}-${item.libro}`,
           title: item.nivel_acceso === 'completo'
-            ? `${item.titulo} — Acceso completo (flipbook + PDF)`
+            ? (item.es_actualizacion
+                ? `${item.titulo} — Descarga en PDF`
+                : `${item.titulo} — Acceso completo (flipbook + PDF)`)
             : `${item.titulo} — Acceso al flipbook`,
           quantity: 1,
           unit_price: item.precio_final,

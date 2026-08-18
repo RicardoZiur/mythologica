@@ -133,24 +133,36 @@ function pintarAuthStatus() {
     ? `<a class="user-menu-item" href="/mis-libros.html">Mis libros</a>`
     : '';
 
-  // Link al carrito (ver carrito.js, que llena el numero de
+  // Icono del carrito (ver carrito.js, que llena el numero de
   // "#carritoCount" -- este archivo no sabe nada de que hay adentro
-  // del carrito, solo deja el hueco). No se muestra si ya estamos
-  // parados en carrito.html, mismo criterio que los links de arriba.
-  const linkCarrito = !location.pathname.endsWith('/carrito.html')
-    ? `<a class="user-menu-item" href="/carrito.html">Carrito <span id="carritoCount"></span></a>`
+  // del carrito, solo deja el hueco). A proposito AFUERA del
+  // desplegable de usuario, como icono suelto y siempre visible (el
+  // carrito se revisa mucho mas seguido que "Mis libros"/"Panel de
+  // admin", no tiene sentido esconderlo detras de un click extra). No
+  // se muestra si ya estamos parados en carrito.html, mismo criterio
+  // que los links del desplegable.
+  const iconoCarrito = !location.pathname.endsWith('/carrito.html')
+    ? `<a class="cart-icon-btn" href="/carrito.html" title="Carrito" aria-label="Carrito">
+         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+           <circle cx="9" cy="21" r="1"></circle>
+           <circle cx="20" cy="21" r="1"></circle>
+           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+         </svg>
+         <span class="cart-badge" id="carritoCount"></span>
+       </a>`
     : '';
 
-  // Nombre/nivel/aviso de verificacion quedan siempre a la vista (el
-  // de verificacion es urgente -- bloquea comprar -- asi que no
-  // conviene esconderlo adentro de un menu); Mis libros/Carrito/Panel
-  // de admin/Salir se agrupan en un desplegable para no llenar el
-  // header de botones sueltos (ver iniciarMenuUsuario mas abajo, que
-  // maneja el abrir/cerrar).
+  // Nombre/nivel/aviso de verificacion/carrito quedan siempre a la
+  // vista (el de verificacion es urgente -- bloquea comprar -- y el
+  // carrito se usa seguido, no conviene esconder ninguno de los dos
+  // adentro de un menu); Mis libros/Panel de admin/Salir se agrupan en
+  // un desplegable para no llenar el header de botones sueltos (ver
+  // iniciarMenuUsuario mas abajo, que maneja el abrir/cerrar).
   contenedor.innerHTML = `
     <div class="auth-user">
       <span class="nivel-tag">${nivel}</span>
       ${avisoVerificacion}
+      ${iconoCarrito}
       <div class="user-menu">
         <button class="user-menu-trigger" id="btnUserMenu" type="button" aria-haspopup="true" aria-expanded="false">
           <span class="nombre">${escaparHtmlAuth(sesion.nombre)}</span>
@@ -158,7 +170,6 @@ function pintarAuthStatus() {
         </button>
         <div class="user-menu-dropdown" id="userMenuDropdown" hidden>
           ${linkMisLibros}
-          ${linkCarrito}
           ${linkDashboard}
           <button type="button" class="user-menu-item salir" id="btnSalir">Salir</button>
         </div>
@@ -368,8 +379,13 @@ function pintarBotonPdf() {
   boton.classList.toggle('locked', !tieneAccesoCompleto);
   // Misma frase que usa construirAccionesBloqueadas en app.js para el
   // nivel "completo" (y carrito-resumen.js despues), para que se
-  // reconozca como lo mismo en todo el sitio.
-  boton.textContent = tieneAccesoCompleto ? 'Descargar PDF' : 'Añadir: acceso completo + PDF';
+  // reconozca como lo mismo en todo el sitio. Si ya tiene "flipbook"
+  // (el PDF es lo unico que falta), se le cobra solo eso -- ver
+  // precioParaNivel en routes/pagos.js -- asi que el boton lo dice.
+  const yaTieneFlipbook = nivelAccesoLibroActual() === 'flipbook';
+  boton.textContent = tieneAccesoCompleto
+    ? 'Descargar PDF'
+    : (yaTieneFlipbook ? 'Añadir: descarga en PDF' : 'Añadir: acceso completo + PDF');
 
   boton.onclick = async (e) => {
     e.preventDefault();
