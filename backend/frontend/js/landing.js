@@ -40,6 +40,20 @@ function pintarEmblemasDelHero(libros) {
   `).join('');
 }
 
+// Agrega al carrito (ver carrito.js) y avisa con un toast chico --
+// mismo criterio que agregarAlCarritoDesdeUI en app.js/mis-libros.js,
+// pero sin sesion abre el modal de login en vez de agregar (aca, a
+// diferencia de esas dos paginas, puede llegar cualquier visitante
+// sin cuenta todavia).
+function agregarAlCarritoDesdeLanding(slug, nivelAcceso) {
+  if (!window.SESION || !window.SESION.autenticado) {
+    window.abrirModalAuth('login');
+    return;
+  }
+  window.agregarAlCarrito(slug, nivelAcceso);
+  window.mostrarAviso('Agregado al carrito. Puedes seguir explorando o ir a pagar cuando quieras.', 5000);
+}
+
 // Trae los libros publicados y, para cada uno, su cuenta real de
 // personajes/historias, mas si tiene un descuento general activo (ver
 // GET /api/descuentos/general en backend/routes/descuentos.js -- el
@@ -50,6 +64,12 @@ async function cargarCatalogo() {
   const contenedor = document.getElementById('lpBooks');
 
   try {
+    // Espera a que auth.js resuelva la sesion (ver window.SESION.accesos
+    // mas abajo, para saber que niveles ofrecer comprar en cada tarjeta)
+    // -- si nadie esta logueado, esto no tarda nada (se resuelve con
+    // autenticado:false enseguida).
+    await window.sesionListaPromise;
+
     const [libros, precios] = await Promise.all([
       fetch(`${API_URL}/libros`).then(r => {
         if (!r.ok) throw new Error('No se pudo obtener el catálogo');
@@ -66,7 +86,9 @@ async function cargarCatalogo() {
         fetch(`${API_URL}/historias?libro=${encodeURIComponent(libro.slug)}`).then(r => r.ok ? r.json() : []),
         fetch(`${API_URL}/descuentos/general?libro=${encodeURIComponent(libro.slug)}`).then(r => r.ok ? r.json() : null)
       ]);
-      return construirTarjetaLibro(libro, personajes.length, historias.length, precios, descuento);
+      const acceso = (window.SESION.accesos || []).find(a => a.libro === libro.slug);
+      const nivelAcceso = window.SESION.rol === 'admin' ? 'completo' : (acceso ? acceso.nivel_acceso : 'ninguno');
+      return construirTarjetaLibro(libro, personajes.length, historias.length, precios, descuento, nivelAcceso);
     }));
 
     contenedor.innerHTML = tarjetas.join('');
@@ -118,7 +140,7 @@ function construirBloquePrecio(precios, descuento) {
   `;
 }
 
-function construirTarjetaLibro(libro, totalPersonajes, totalHistorias, precios, descuento) {
+function construirTarjetaLibro(libro, totalPersonajes, totalHistorias, precios, descuento, nivelAcceso) {
   const subtitulo = libro.subtitulo ? `<p class="lp-book-subtitle">${escaparHtml(libro.subtitulo)}</p>` : '';
   const descripcion = libro.descripcion ? `<p class="lp-book-desc">${escaparHtml(libro.descripcion)}</p>` : '';
   const ofertaHtml = construirBloquePrecio(precios, descuento);
@@ -130,6 +152,23 @@ function construirTarjetaLibro(libro, totalPersonajes, totalHistorias, precios, 
   // siempre: si algun libro todavia no tiene el suyo, simplemente no
   // se pinta nada en vez de mostrar un icono de imagen rota.
   const emblemaUrl = `/images/${libro.slug}/portada-emblema.png`;
+
+  // Botones de compra: solo los niveles que le falten (si ya tiene
+  // "completo" no queda nada que ofrecer). Mismas etiquetas que usan
+  // el flipbook y "Mis libros", para que se reconozcan como la misma
+  // accion en cualquier pagina del sitio.
+  const etiquetasNivel = { flipbook: 'Añadir: acceso al sitio', completo: 'Añadir: completo + PDF' };
+  const nivelesAOfrecer = ['flipbook', 'completo'].filter(nivel => {
+    const jerarquia = { ninguno: 0, flipbook: 1, completo: 2 };
+    return jerarquia[nivel] > jerarquia[nivelAcceso];
+  });
+  const botonesCompraHtml = nivelesAOfrecer.length > 0 ? `
+    <div class="lp-book-compra">
+      ${nivelesAOfrecer.map(nivel =>
+        `<button type="button" class="lp-header-cta secundario" onclick="agregarAlCarritoDesdeLanding('${libro.slug}', '${nivel}')">${etiquetasNivel[nivel]}</button>`
+      ).join('')}
+    </div>
+  ` : '';
 
   return `
     <article class="lp-book-card lp-book-card--disponible">
@@ -144,6 +183,7 @@ function construirTarjetaLibro(libro, totalPersonajes, totalHistorias, precios, 
         <span><strong>${totalHistorias}</strong> historias</span>
       </div>
       <a class="lp-cta-primary" href="libro/index.html?libro=${encodeURIComponent(libro.slug)}">Leer la muestra gratis →</a>
+      ${botonesCompraHtml}
     </article>
   `;
 }
@@ -178,5 +218,13 @@ async function cargarPrecios() {
   }
 }
 
-cargarCatalogo();
-cargarPrecios();
+// cargarCatalogo() espera window.sesionListaPromise (ver mas arriba),
+// que auth.js recien deja asignado dentro de SU PROPIO listener de
+// DOMContentLoaded -- para que ya exista cuando cargarCatalogo lo lee,
+// este archivo tiene que esperar el mismo evento (auth.js se carga
+// antes que este archivo, asi que su listener se registra primero y
+// corre primero).
+document.addEventListener('DOMContentLoaded', () => {
+  cargarCatalogo();
+  cargarPrecios();
+});

@@ -615,6 +615,15 @@ a{ color:inherit; }
   padding:10px 20px;
   font-size:11px;
 }
+/* Botones de "añadir al carro" (ver construirTarjetaLibro en
+   landing.js) -- debajo del CTA de "leer la muestra", uno por nivel
+   que le falte al usuario (nada si ya tiene "completo"). */
+.lp-book-compra{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
 .lp-book-card--proximo{ opacity:0.6; }
 
 /* ---- CTA final ---- */
