@@ -345,7 +345,7 @@ router.get('/todos', requiereAdmin, async (req, res) => {
     const [filas] = await pool.query(`
       SELECT
         p.id, p.nivel_acceso, p.monto, p.moneda, p.estado,
-        p.mercadopago_payment_id, p.creado_en, p.actualizado_en,
+        p.mercadopago_payment_id, p.status_detail, p.creado_en, p.actualizado_en,
         u.nombre AS usuario_nombre, u.email AS usuario_email,
         l.titulo AS libro_titulo,
         d.tipo AS descuento_tipo, d.codigo AS descuento_codigo, d.porcentaje AS descuento_porcentaje
@@ -419,7 +419,7 @@ router.get('/resumen', requiereAdmin, async (req, res) => {
 // un libro y el pedido incluia "flipbook" para ese mismo libro (por
 // error, o dos pestañas a la vez), el nivel más alto se mantiene.
 // ------------------------------------------------------------
-async function procesarResultadoPedido(pedidoId, estadoMercadoPago, mercadopagoPaymentId) {
+async function procesarResultadoPedido(pedidoId, estadoMercadoPago, mercadopagoPaymentId, statusDetail) {
   const [filas] = await pool.query('SELECT * FROM pedidos WHERE id = ?', [pedidoId]);
   if (filas.length === 0) return { encontrado: false };
   const pedido = filas[0];
@@ -431,12 +431,12 @@ async function procesarResultadoPedido(pedidoId, estadoMercadoPago, mercadopagoP
     : 'pendiente';
 
   await pool.query(
-    'UPDATE pedidos SET estado = ?, mercadopago_payment_id = ? WHERE id = ?',
-    [nuevoEstado, mercadopagoPaymentId || pedido.mercadopago_payment_id, pedidoId]
+    'UPDATE pedidos SET estado = ?, mercadopago_payment_id = ?, status_detail = ? WHERE id = ?',
+    [nuevoEstado, mercadopagoPaymentId || pedido.mercadopago_payment_id, statusDetail || null, pedidoId]
   );
   await pool.query(
-    'UPDATE pagos SET estado = ?, mercadopago_payment_id = ? WHERE pedido_id = ?',
-    [nuevoEstado, mercadopagoPaymentId || pedido.mercadopago_payment_id, pedidoId]
+    'UPDATE pagos SET estado = ?, mercadopago_payment_id = ?, status_detail = ? WHERE pedido_id = ?',
+    [nuevoEstado, mercadopagoPaymentId || pedido.mercadopago_payment_id, statusDetail || null, pedidoId]
   );
 
   if (nuevoEstado === 'aprobado') {
@@ -487,7 +487,7 @@ router.get('/confirmar', async (req, res) => {
       return res.status(400).json({ error: 'El pago no corresponde a esta compra' });
     }
 
-    const resultado = await procesarResultadoPedido(Number(externalReference), pagoMercadoPago.status, paymentId);
+    const resultado = await procesarResultadoPedido(Number(externalReference), pagoMercadoPago.status, paymentId, pagoMercadoPago.status_detail);
     if (!resultado.encontrado) return res.status(404).json({ error: 'Compra no encontrada' });
 
     res.json({ estado: resultado.pedido.estado });
@@ -524,7 +524,7 @@ router.post('/webhook', async (req, res) => {
     const pagoMercadoPago = await payment.get({ id: paymentId });
     if (!pagoMercadoPago.external_reference) return;
 
-    await procesarResultadoPedido(Number(pagoMercadoPago.external_reference), pagoMercadoPago.status, paymentId);
+    await procesarResultadoPedido(Number(pagoMercadoPago.external_reference), pagoMercadoPago.status, paymentId, pagoMercadoPago.status_detail);
   } catch (error) {
     console.error('Error al procesar el webhook de MercadoPago:', error);
   }
