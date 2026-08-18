@@ -253,7 +253,7 @@ window.agregarAlCarritoDesdeUI = function agregarAlCarritoDesdeUI(slug, nivelAcc
 // antes de que el navegador termine de procesar el click.
 const SIN_PASAR_HOJA = 'onmousedown="event.stopPropagation()" onpointerdown="event.stopPropagation()"';
 
-function construirAccionesBloqueadas(slug) {
+function construirAccionesBloqueadas() {
   const sesion = window.SESION;
 
   if (!sesion || !sesion.autenticado) {
@@ -277,7 +277,7 @@ function construirAccionesBloqueadas(slug) {
   };
   const botonesHtml = nivelesAOfrecer.map(nivel => {
     const claseExtra = nivel === 'flipbook' && nivelesAOfrecer.length > 1 ? 'secundario' : '';
-    return `<button class="locked-cta ${claseExtra}" ${SIN_PASAR_HOJA} onclick="event.stopPropagation(); window.agregarAlCarritoDesdeUI('${slug}', '${nivel}')">${etiquetas[nivel]}</button>`;
+    return `<button class="locked-cta ${claseExtra}" ${SIN_PASAR_HOJA} onclick="event.stopPropagation(); window.agregarAlCarritoDesdeUI('${window.LIBRO_ACTUAL}', '${nivel}')">${etiquetas[nivel]}</button>`;
   }).join('');
 
   return `<div class="locked-actions">${botonesHtml}</div>`;
@@ -296,7 +296,7 @@ function construirHojaBloqueada(slug, titulo, subtitulo, eyebrow) {
       <div class="subtitle">${subtitulo || ''}</div>
       <div class="locked-icon">🔒</div>
       <p class="locked-msg">Este contenido es parte del libro completo. Inicia sesión o consigue acceso para seguir leyendo.</p>
-      ${construirAccionesBloqueadas(slug)}
+      ${construirAccionesBloqueadas()}
     </div>
   `;
 }

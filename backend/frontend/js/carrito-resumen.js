@@ -75,6 +75,22 @@ function construirFilaItem(item) {
 // aplicar a algo), reintenta SIN el código en vez de dejar la
 // pantalla en blanco -- el usuario no pierde de vista su carrito solo
 // por escribir mal un código.
+// Mensaje de error CON forma de salir: sin esto, un item invalido en
+// el carrito (ej. quedo guardado con un bug ya corregido, o el libro
+// se borro) dejaba la pantalla trabada -- cotizar-carrito rechaza el
+// carrito ENTERO si un solo item no es valido, y antes no habia forma
+// de vaciarlo sin abrir las herramientas de desarrollador.
+function pintarErrorCarrito(contenedor, mensaje) {
+  contenedor.innerHTML = `
+    <p class="admin-vacio">${escaparHtml(mensaje)}</p>
+    <p class="admin-vacio"><button type="button" class="carrito-item-quitar" id="btnVaciarCarrito">Vaciar carrito</button></p>
+  `;
+  document.getElementById('btnVaciarCarrito').addEventListener('click', () => {
+    window.vaciarCarrito();
+    pintarCarrito();
+  });
+}
+
 async function pintarCarrito() {
   const contenedor = document.getElementById('carritoContenido');
 
@@ -93,7 +109,7 @@ async function pintarCarrito() {
     cotizacion = await cotizarCarrito();
   } catch (error) {
     if (!window.CODIGO_DESCUENTO_ACTUAL) {
-      contenedor.innerHTML = `<p class="admin-vacio">${escaparHtml(error.message)}</p>`;
+      pintarErrorCarrito(contenedor, error.message);
       return;
     }
     errorCodigo = error.message;
@@ -101,7 +117,7 @@ async function pintarCarrito() {
     try {
       cotizacion = await cotizarCarrito();
     } catch (error2) {
-      contenedor.innerHTML = `<p class="admin-vacio">${escaparHtml(error2.message)}</p>`;
+      pintarErrorCarrito(contenedor, error2.message);
       return;
     }
   }
