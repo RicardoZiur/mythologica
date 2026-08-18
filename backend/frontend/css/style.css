@@ -486,7 +486,8 @@ body.is-fullscreen .stage-wrap{ max-width:min(92vw, 109vh, 1500px); }
 }
 .user-menu-trigger:hover{ border-color:var(--gold-soft); }
 .user-menu-trigger .nombre{ font-size:11px; }
-.user-menu-caret{ font-size:8px; color:var(--text-faint); transition:transform 0.15s; }
+.user-menu-caret{ flex-shrink:0; color:var(--text-dim); transition:transform 0.15s; }
+.user-menu-trigger:hover .user-menu-caret{ color:var(--gold); }
 .user-menu-trigger[aria-expanded="true"] .user-menu-caret{ transform:rotate(180deg); }
 
 .user-menu-dropdown{

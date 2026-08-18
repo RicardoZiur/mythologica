@@ -154,7 +154,7 @@ function pintarAuthStatus() {
       <div class="user-menu">
         <button class="user-menu-trigger" id="btnUserMenu" type="button" aria-haspopup="true" aria-expanded="false">
           <span class="nombre">${escaparHtmlAuth(sesion.nombre)}</span>
-          <span class="user-menu-caret">▾</span>
+          <svg class="user-menu-caret" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="user-menu-dropdown" id="userMenuDropdown" hidden>
           ${linkMisLibros}
