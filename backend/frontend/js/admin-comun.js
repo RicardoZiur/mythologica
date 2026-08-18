@@ -15,7 +15,8 @@ function construirNavAdmin(paginaActiva) {
     { id: 'resumen', href: 'index.html', etiqueta: 'Resumen' },
     { id: 'pagos', href: 'pagos.html', etiqueta: 'Pagos' },
     { id: 'usuarios', href: 'usuarios.html', etiqueta: 'Usuarios' },
-    { id: 'descuentos', href: 'descuentos.html', etiqueta: 'Descuentos' }
+    { id: 'descuentos', href: 'descuentos.html', etiqueta: 'Descuentos' },
+    { id: 'cambios', href: 'cambios.html', etiqueta: 'Cambios' }
   ];
 
   const itemsHtml = paginas.map(p =>
@@ -39,3 +40,22 @@ async function esperarSesionAdmin(contenedor) {
   }</p>`;
   return false;
 }
+
+// Numero de version chico junto al logo (ver GET /api/version en
+// backend/routes/version.js) -- solo si la pagina tiene el hueco
+// "#versionTag" (no todas lo tienen todavia). Si el pedido falla (sin
+// sesion admin, o el backend no responde) se deja vacio, sin romper
+// nada -- no es informacion critica para usar el panel.
+async function cargarVersion() {
+  const tag = document.getElementById('versionTag');
+  if (!tag) return;
+  try {
+    const respuesta = await fetch('/api/version', { headers: window.authHeaders() });
+    if (!respuesta.ok) return;
+    const datos = await respuesta.json();
+    tag.textContent = `v${datos.version}`;
+  } catch (error) {
+    // Sin version visible no rompe nada.
+  }
+}
+document.addEventListener('DOMContentLoaded', cargarVersion);

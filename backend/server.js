@@ -102,6 +102,7 @@ const authRouter = require('./routes/auth');
 const librosRouter = require('./routes/libros');
 const pagosRouter = require('./routes/pagos');
 const descuentosRouter = require('./routes/descuentos');
+const versionRouter = require('./routes/version');
 
 // Registro, login, logout y consulta de la sesion actual
 app.use('/api/auth', authRouter);
@@ -114,6 +115,9 @@ app.use('/api/pagos', pagosRouter);
 
 // Códigos de descuento y descuentos generales (panel de admin)
 app.use('/api/descuentos', descuentosRouter);
+
+// Version del sitio y registro de cambios (panel de admin)
+app.use('/api/version', versionRouter);
 
 // Todo lo que llegue a una URL que empiece con /api/personajes
 // se lo pasamos al router que armamos en routes/personajes.js

@@ -264,24 +264,42 @@ a{ color:inherit; }
 .lp-header-left{ display:flex; align-items:center; gap:12px; }
 
 .auth-user{ display:flex; align-items:center; gap:10px; }
-.auth-user .nombre{ color:var(--text); }
 .auth-user .nivel-tag{ font-size:9px; letter-spacing:0.5px; text-transform:uppercase; color:var(--sage); border:1px solid var(--sage); padding:3px 8px; border-radius:9px; }
-.auth-user .salir{ color:var(--wine); background:none; border:none; cursor:pointer; font-family:inherit; font-size:11px; text-decoration:underline; padding:0; }
 .auth-user .auth-link.verificar{ color:var(--gold); background:none; border:1px solid var(--gold-soft); padding:3px 9px; font-size:9.5px; border-radius:9px; }
 .auth-user .auth-link.verificar:hover{ background:var(--surface-2); }
 
-/* Links de "Panel de admin" y "Mis libros" (ver pintarAuthStatus en
-   auth.js) -- faltaba en este archivo (style.css si lo tenia, ver
-   ahi), asi que en esta pagina salian sin estilo. Mismo tratamiento
-   que alla: bordeado, no solido, para no competir con el CTA
-   principal del header. */
-.admin-link{
-  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.3px;
-  color:var(--gold); background:none; text-decoration:none;
-  padding:8px 14px; border-radius:6px; white-space:nowrap;
-  border:1px solid var(--gold-soft); transition:background 0.15s;
+/* Menu desplegable del usuario (ver pintarAuthStatus/iniciarMenuUsuario
+   en auth.js): agrupa "Mis libros"/"Carrito"/"Panel de admin"/"Salir"
+   en un solo boton en vez de tenerlos sueltos en el header. */
+.user-menu{ position:relative; }
+.user-menu-trigger{
+  display:flex; align-items:center; gap:6px;
+  background:var(--surface-2); border:1px solid var(--line); border-radius:6px;
+  padding:8px 12px; cursor:pointer; font-family:inherit; color:var(--text);
+  transition:border-color 0.15s;
 }
-.admin-link:hover{ background:var(--surface-2); }
+.user-menu-trigger:hover{ border-color:var(--gold-soft); }
+.user-menu-trigger .nombre{ font-size:11px; }
+.user-menu-caret{ font-size:8px; color:var(--text-faint); transition:transform 0.15s; }
+.user-menu-trigger[aria-expanded="true"] .user-menu-caret{ transform:rotate(180deg); }
+
+.user-menu-dropdown{
+  position:absolute; top:calc(100% + 6px); right:0; z-index:40;
+  min-width:180px;
+  background:var(--surface-2); border:1px solid var(--line-strong); border-radius:8px;
+  box-shadow:0 12px 32px rgba(0,0,0,0.35);
+  display:flex; flex-direction:column; gap:2px; padding:6px;
+}
+.user-menu-dropdown[hidden]{ display:none; }
+.user-menu-item{
+  display:block; width:100%; text-align:left; box-sizing:border-box;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim);
+  background:none; border:none; text-decoration:none;
+  padding:9px 10px; border-radius:5px; cursor:pointer;
+  transition:background 0.12s, color 0.12s;
+}
+.user-menu-item:hover{ background:var(--surface-3); color:var(--gold); }
+.user-menu-item.salir:hover{ background:var(--surface-3); color:var(--wine); }
 
 .auth-modal-backdrop{
   display:none; position:fixed; inset:0; background:rgba(6,5,4,0.72);

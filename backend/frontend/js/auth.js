@@ -122,7 +122,7 @@ function pintarAuthStatus() {
   // /admin/ (esas paginas ya tienen su propia navegacion, seria
   // redundante).
   const linkDashboard = (sesion.rol === 'admin' && !location.pathname.startsWith('/admin/'))
-    ? `<a class="admin-link" href="/admin/index.html">Panel de admin</a>`
+    ? `<a class="user-menu-item" href="/admin/index.html">Panel de admin</a>`
     : '';
 
   // Link a "Mi biblioteca" (ver mis-libros.html): para CUALQUIER
@@ -130,7 +130,7 @@ function pintarAuthStatus() {
   // libros tiene comprados. Mismo criterio que el link de arriba: no
   // se muestra si ya estamos parados ahi.
   const linkMisLibros = !location.pathname.endsWith('/mis-libros.html')
-    ? `<a class="admin-link" href="/mis-libros.html">Mis libros</a>`
+    ? `<a class="user-menu-item" href="/mis-libros.html">Mis libros</a>`
     : '';
 
   // Link al carrito (ver carrito.js, que llena el numero de
@@ -138,18 +138,31 @@ function pintarAuthStatus() {
   // del carrito, solo deja el hueco). No se muestra si ya estamos
   // parados en carrito.html, mismo criterio que los links de arriba.
   const linkCarrito = !location.pathname.endsWith('/carrito.html')
-    ? `<a class="admin-link" href="/carrito.html">Carrito <span id="carritoCount"></span></a>`
+    ? `<a class="user-menu-item" href="/carrito.html">Carrito <span id="carritoCount"></span></a>`
     : '';
 
+  // Nombre/nivel/aviso de verificacion quedan siempre a la vista (el
+  // de verificacion es urgente -- bloquea comprar -- asi que no
+  // conviene esconderlo adentro de un menu); Mis libros/Carrito/Panel
+  // de admin/Salir se agrupan en un desplegable para no llenar el
+  // header de botones sueltos (ver iniciarMenuUsuario mas abajo, que
+  // maneja el abrir/cerrar).
   contenedor.innerHTML = `
     <div class="auth-user">
-      <span class="nombre">${sesion.nombre}</span>
       <span class="nivel-tag">${nivel}</span>
       ${avisoVerificacion}
-      ${linkMisLibros}
-      ${linkCarrito}
-      ${linkDashboard}
-      <button class="salir" id="btnSalir">Salir</button>
+      <div class="user-menu">
+        <button class="user-menu-trigger" id="btnUserMenu" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="nombre">${escaparHtmlAuth(sesion.nombre)}</span>
+          <span class="user-menu-caret">▾</span>
+        </button>
+        <div class="user-menu-dropdown" id="userMenuDropdown" hidden>
+          ${linkMisLibros}
+          ${linkCarrito}
+          ${linkDashboard}
+          <button type="button" class="user-menu-item salir" id="btnSalir">Salir</button>
+        </div>
+      </div>
     </div>
   `;
   document.getElementById('btnSalir').addEventListener('click', cerrarSesion);
@@ -162,6 +175,46 @@ function pintarAuthStatus() {
   // el proximo cambio en el carrito.
   if (window.pintarContadorCarrito) window.pintarContadorCarrito();
 }
+
+function escaparHtmlAuth(texto) {
+  const div = document.createElement('div');
+  div.textContent = texto || '';
+  return div.innerHTML;
+}
+
+// Abre/cierra el desplegable del menu de usuario. Se registra UNA
+// sola vez a nivel de documento (no adentro de pintarAuthStatus, que
+// se llama de nuevo cada vez que cambia la sesion -- si esto se
+// registrara ahi, cada refresco de sesion sumaria un listener mas,
+// todos apilandose): busca el trigger/dropdown actuales con
+// getElementById en cada click en vez de guardarlos en el closure,
+// asi sigue funcionando sin importar cuantas veces se haya vuelto a
+// pintar #authStatus desde que esto se registro.
+document.addEventListener('click', (e) => {
+  const trigger = document.getElementById('btnUserMenu');
+  const dropdown = document.getElementById('userMenuDropdown');
+  if (!trigger || !dropdown) return;
+
+  if (trigger.contains(e.target)) {
+    const estabaAbierto = !dropdown.hidden;
+    dropdown.hidden = estabaAbierto;
+    trigger.setAttribute('aria-expanded', String(!estabaAbierto));
+    return;
+  }
+  if (!dropdown.hidden && !dropdown.contains(e.target)) {
+    dropdown.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+  }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  const trigger = document.getElementById('btnUserMenu');
+  const dropdown = document.getElementById('userMenuDropdown');
+  if (trigger && dropdown && !dropdown.hidden) {
+    dropdown.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+  }
+});
 
 // ------------------------------------------------------------
 // Pide que se reenvie el email de verificacion (el usuario ya tiene

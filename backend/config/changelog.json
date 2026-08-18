@@ -1,0 +1,24 @@
+[
+  {
+    "version": "1.1.0",
+    "fecha": "2026-08-18",
+    "cambios": [
+      "Menú desplegable de usuario en el header (Mis libros, Carrito, Panel de admin y Salir agrupados en un solo botón)",
+      "Botón de modo claro/oscuro rediseñado: solo ícono, a la izquierda, con el texto como tooltip",
+      "Registro de cambios y número de versión visibles para el administrador"
+    ]
+  },
+  {
+    "version": "1.0.0",
+    "fecha": "2026-08-17",
+    "cambios": [
+      "Lanzamiento a producción: hosting propio, dominio y HTTPS",
+      "Carrito de compras: agregar varios libros/niveles y pagarlos todos juntos en un solo checkout",
+      "Pantalla \"Mis libros\": biblioteca personal con acceso directo a lo ya comprado",
+      "Panel de administración: usuarios, pagos, descuentos y resumen",
+      "Registro de cuenta, verificación de email y recuperación de contraseña",
+      "Precios mostrados en pesos chilenos y dólares en todo el sitio",
+      "Modo claro/oscuro y diseño responsive en todo el sitio"
+    ]
+  }
+]
