@@ -27,10 +27,12 @@
   </div>
 
   <div class="topbar">
-    <a class="brand" href="../index.html">MYTHOLOGICA <span>VISTA DE LECTURA · CONECTADO A TU BASE DE DATOS</span></a>
+    <div class="topbar-left">
+      <button class="theme-toggle" id="btnTema" type="button">☀</button>
+      <a class="brand" href="../index.html">MYTHOLOGICA <span>VISTA DE LECTURA · CONECTADO A TU BASE DE DATOS</span></a>
+    </div>
     <div class="topbar-actions">
       <select class="toc-select" id="tocSelect"></select>
-      <button class="auth-link" id="btnTema" type="button">☀ Modo claro</button>
       <button class="auth-link" id="btnFullscreen" type="button">⛶ Pantalla completa</button>
       <!-- Este contenedor lo llena js/auth.js segun haya o no sesion:
            botones de login/registro, o el nombre del usuario + salir. -->

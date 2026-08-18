@@ -464,6 +464,24 @@ body.is-fullscreen .stage-wrap{ max-width:min(92vw, 109vh, 1500px); }
 .auth-status{ display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:11px; }
 .auth-link{ color:var(--text-dim); background:var(--surface-2); border:1px solid var(--line); padding:9px 13px; border-radius:6px; cursor:pointer; font-family:inherit; font-size:11px; white-space:nowrap; transition:border-color 0.15s, color 0.15s; }
 .auth-link:hover{ border-color:var(--gold-soft); color:var(--gold); }
+
+/* Boton de modo claro/oscuro (ver tema.js): solo el icono, el texto
+   de a que modo pasa va como title/aria-label (tooltip nativo al
+   pasar el mouse). Circular y chico a proposito -- va pegado al
+   logo, no compite con los demas botones de la topbar. */
+.theme-toggle{
+  display:flex; align-items:center; justify-content:center;
+  width:34px; height:34px; flex-shrink:0;
+  color:var(--text-dim); background:var(--surface-2); border:1px solid var(--line);
+  border-radius:50%; cursor:pointer; font-size:15px; line-height:1; padding:0;
+  transition:border-color 0.15s, color 0.15s;
+}
+.theme-toggle:hover{ border-color:var(--gold-soft); color:var(--gold); }
+
+/* Agrupa el boton de tema con el logo, a la izquierda de la topbar/
+   header -- separado del resto de las acciones (que van a la
+   derecha), en vez de mezclado con ellas. */
+.topbar-left, .admin-header-left{ display:flex; align-items:center; gap:12px; }
 .auth-user{ display:flex; align-items:center; gap:10px; }
 .auth-user .nombre{ color:var(--text); }
 .auth-user .nivel-tag{ font-size:9px; letter-spacing:0.5px; text-transform:uppercase; color:var(--sage); border:1px solid var(--sage); padding:3px 8px; border-radius:9px; }

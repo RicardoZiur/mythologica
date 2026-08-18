@@ -33,12 +33,17 @@ function alternarTema() {
   pintarBotonTema();
 }
 
-// Actualiza el texto del boton para que siempre diga a que modo pasas
-// si lo tocas (no el modo en el que estas).
+// Solo el icono adentro del boton (ver .theme-toggle en style.css/
+// landing.css) -- el texto de a que modo pasas si lo tocas (no el
+// modo en el que estas) va como title/aria-label, se ve al pasar el
+// mouse en vez de ocupar lugar en el header todo el tiempo.
 function pintarBotonTema() {
   const boton = document.getElementById('btnTema');
   if (!boton) return;
-  boton.textContent = temaActual() === 'claro' ? '☾ Modo oscuro' : '☀ Modo claro';
+  const pasarA = temaActual() === 'claro' ? 'Modo oscuro' : 'Modo claro';
+  boton.textContent = temaActual() === 'claro' ? '☾' : '☀';
+  boton.title = pasarA;
+  boton.setAttribute('aria-label', pasarA);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
