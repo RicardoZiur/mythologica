@@ -227,6 +227,36 @@ async function cargarPrecios() {
   }
 }
 
+// Trae la vitrina de "próximos libros" (ver GET /api/proximos en
+// backend/routes/proximos.js) -- mitologías todavía sin catálogo real,
+// administrables desde frontend/admin/proximos.html. Si no hay ninguna
+// activa (o falla el pedido), la sección entera queda oculta en vez de
+// mostrarse vacía.
+async function cargarProximosLibros() {
+  const seccion = document.getElementById('seccionProximos');
+  const contenedor = document.getElementById('lpProximos');
+
+  try {
+    const proximos = await fetch(`${API_URL}/proximos`).then(r => {
+      if (!r.ok) throw new Error('No se pudieron obtener los próximos libros');
+      return r.json();
+    });
+
+    if (proximos.length === 0) return; // seccion se queda "hidden"
+
+    contenedor.innerHTML = proximos.map(p => `
+      <div class="lp-proximo-card">
+        <h3>${escaparHtml(p.nombre)}</h3>
+        <p>${escaparHtml(p.descripcion)}</p>
+      </div>
+    `).join('');
+    seccion.hidden = false;
+  } catch (error) {
+    console.error('No se pudieron cargar los próximos libros:', error);
+    // seccion se queda "hidden" -- no vale la pena mostrar un error acá.
+  }
+}
+
 // cargarCatalogo() espera window.sesionListaPromise (ver mas arriba),
 // que auth.js recien deja asignado dentro de SU PROPIO listener de
 // DOMContentLoaded -- para que ya exista cuando cargarCatalogo lo lee,
@@ -236,4 +266,5 @@ async function cargarPrecios() {
 document.addEventListener('DOMContentLoaded', () => {
   cargarCatalogo();
   cargarPrecios();
+  cargarProximosLibros();
 });

@@ -16,6 +16,7 @@ function construirNavAdmin(paginaActiva) {
     { id: 'pagos', href: 'pagos.html', etiqueta: 'Pagos' },
     { id: 'usuarios', href: 'usuarios.html', etiqueta: 'Usuarios' },
     { id: 'descuentos', href: 'descuentos.html', etiqueta: 'Descuentos' },
+    { id: 'proximos', href: 'proximos.html', etiqueta: 'Próximos libros' },
     { id: 'cambios', href: 'cambios.html', etiqueta: 'Cambios' }
   ];
 
