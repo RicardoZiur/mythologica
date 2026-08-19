@@ -668,7 +668,16 @@ async function iniciarLibro() {
       usePortrait: true,
       maxShadowOpacity: 0.6,
       flippingTime: 700,
-      mobileScrollSupport: false
+      // "true" -- en "false" (como estaba) StPageFlip llama
+      // preventDefault() en CUALQUIER toque apenas empieza, antes de
+      // saber si termina siendo un swipe horizontal (pasar hoja) o un
+      // scroll vertical -- eso es lo que bloqueaba .page-scroll en el
+      // celular (ver style.css: el contenedor con scroll interno para
+      // fichas largas ya estaba armado, solo que el navegador nunca
+      // llegaba a recibir el gesto). En "true", la libreria espera a
+      // ver si el arrastre es horizontal (>10px) antes de tomarlo como
+      // cambio de hoja, y deja pasar el resto como scroll nativo.
+      mobileScrollSupport: true
     });
 
     pageFlip.loadFromHTML(document.querySelectorAll('#book .p-face'));
