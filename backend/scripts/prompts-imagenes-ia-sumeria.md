@@ -14,6 +14,21 @@ Gemini que genere 2-3 variaciones o ajustá algún detalle del prompt y volvé a
 3. Guárdalo en una carpeta local `mitologia-sumeria/` — cuando tengas todos, avisame y los subo
    al sitio.
 
+## Portada — `portada-fondo.jpg`
+
+Fondo de la tapa del libro (flipbook y PDF): un degradado oscuro se aplica encima por CSS, más
+fuerte hacia abajo, para que el título dorado se lea bien — por eso el prompt evita poner
+detalle importante en la mitad inferior. Proporción recomendada: vertical alta (9:16 o 1:2).
+El emblema (`portada-emblema.png`) ya está resuelto — lo generé yo mismo con código, no hace
+falta pedírselo a Gemini.
+
+```
+Semi-realistic fantasy digital painting, epic wide vertical composition, dramatic dusk lighting with a deep amber and indigo sky, silhouette of a massive ancient stepped ziggurat temple tower against the twilight, the Tigris and Euphrates rivers reflecting the sky in the foreground, distant palm groves and reed marshes along the riverbanks, a bright eight-pointed star and a crescent moon glowing above the ziggurat, atmospheric dust and haze, painterly rendering, highly detailed digital art, trending on artstation, cinematic wide dynamic range, no text or writing anywhere in the image, no visible human figures, crowds or faces, keep the lower half of the frame calm, dark and uncluttered (it will be covered by a title later), deep amber gold and indigo blue and warm terracotta color palette, sense of ancient sacred grandeur, the birthplace of the first cities
+```
+
+Después de generarla: renómbrala `portada-fondo.jpg` y guárdala junto con los personajes, en
+la carpeta `mitologia-sumeria/`.
+
 ## Nota sobre personajes sin forma humana
 
 Para **el Toro del Cielo**, **Anzu**, **Mushussu** y **Kur** (monstruos sin apariencia humana),
