@@ -35,8 +35,9 @@ clothing, Egyptian clothing, generic bodybuilder physique, identical muscular bu
 character, overly sexualized pose
 ```
 
-Para **Cipactli** y **Tlaltecuhtli** (monstruos primordiales sin forma humana), agrega
-además, solo para esas dos generaciones puntuales:
+Para **Cipactli**, **Tlaltecuhtli** (monstruos primordiales sin forma humana) y
+**Quetzalcoatl** (representado aquí como serpiente emplumada, no humanoide), agrega además,
+solo para esas generaciones puntuales:
 `human, human face, human body, human anatomy, humanoid`
 
 Para los personajes con rasgos de animal (Xolotl, Tepeyollotl, Ahuízotl), cada prompt ya
@@ -67,7 +68,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 #### Quetzalcoatl (`quetzalcoatl.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, body type and physique matching the character's own nature and role rather than a uniform idealized build, intricate ornate Aztec jewelry and feathered garment details, ancient Mesoamerican stepped pyramid ruins with carved stone reliefs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, emerald green and turquoise and gold color palette, serene wise priest-god with a slender elegant build, wrapped in iridescent quetzal feathers and serpent scales, conical priest headdress, wind swirling around him carrying feathers, Venus star faintly visible in the dawn sky
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a colossal feathered serpent deity, NOT humanoid, no human anatomy, sinuous serpent body covered in iridescent emerald and turquoise quetzal feathers instead of scales, feathered wings along its length, ancient Mesoamerican stepped pyramid ruins with carved stone reliefs in the misty background, atmospheric haze, centered dynamic coiled composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, emerald green and turquoise and gold color palette, serpent coiling gracefully through swirling wind and mist, Venus star glowing faintly in the dawn sky above, feathers catching golden light
 ```
 
 #### Tlaloc (`tlaloc.jpg`)
