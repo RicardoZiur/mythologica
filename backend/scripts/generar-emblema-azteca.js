@@ -62,6 +62,26 @@ function anilloEscalonado() {
   `;
 }
 
+// --- Anillo de glifos de los dias -----------------------------
+// En la Piedra del Sol real, entre la escena central y el borde
+// hay una franja con los 20 signos de los dias del calendario.
+// Replicar cada glifo exacto no es viable a esta escala, pero una
+// hilera de 20 marcas rectangulares parejas, cada una orientada en
+// forma radial, evoca esa franja sin pretender ser un facsimil.
+function anilloGlifos() {
+  const N = 20;
+  const r = 118;
+  let marcas = '';
+  for (let i = 0; i < N; i++) {
+    const angulo = (i / N) * 360;
+    const a = angulo * Math.PI / 180;
+    const x = CENTER + r * Math.sin(a);
+    const y = CENTER - r * Math.cos(a);
+    marcas += `<rect x="${(x - 4).toFixed(2)}" y="${(y - 5.5).toFixed(2)}" width="8" height="11" rx="1.5" transform="rotate(${angulo.toFixed(2)} ${x.toFixed(2)} ${y.toFixed(2)})" fill="none" stroke="${GOLD}" stroke-width="1.3" />`;
+  }
+  return marcas;
+}
+
 // --- Escena central: la cara solar de la Piedra del Sol (Tonatiuh)
 // Coordenadas locales centradas en (0,0), luego trasladadas al
 // centro del lienzo con un <g transform="translate(...)">.
@@ -74,29 +94,36 @@ function escenaCentral() {
   const solido = `fill="${GOLD}" stroke="none"`;
   const hueco = `fill="${BG}" stroke="none"`;
 
-  // Rayos solares: 8 puntas, alternando largas y cortas, calculadas
-  // igual que los dientes del anillo exterior.
-  const N = 8;
-  const rInner = 44;
-  const anchoBaseGrados = 14;
-  let rayos = '';
-  for (let i = 0; i < N; i++) {
-    const anguloCentro = (i / N) * 360;
-    const rPunta = i % 2 === 0 ? 98 : 76;
-    const a0 = (anguloCentro - anchoBaseGrados) * Math.PI / 180;
-    const a1 = (anguloCentro + anchoBaseGrados) * Math.PI / 180;
+  // "Nahui Ollin" (los cuatro movimientos): en la piedra real, la
+  // cara de Tonatiuh esta enmarcada por 4 brazos anchos en las
+  // diagonales, con punta redondeada -- no un sol de 8 picos
+  // finos. Cada brazo se arma igual que un diente del anillo, pero
+  // usando curvas Q hacia la punta en vez de un pico recto.
+  const rInner = 46;
+  const rTip = 98;
+  const medioAnchoGrados = 21;
+  const spreadCtrlGrados = 9;
+  const rCtrl = rTip * 0.9;
+  let brazos = '';
+  [45, 135, 225, 315].forEach(anguloCentro => {
+    const a0 = (anguloCentro - medioAnchoGrados) * Math.PI / 180;
+    const a1 = (anguloCentro + medioAnchoGrados) * Math.PI / 180;
+    const ac0 = (anguloCentro - spreadCtrlGrados) * Math.PI / 180;
+    const ac1 = (anguloCentro + spreadCtrlGrados) * Math.PI / 180;
     const aC = anguloCentro * Math.PI / 180;
     const x0 = (rInner * Math.sin(a0)).toFixed(2), y0 = (-rInner * Math.cos(a0)).toFixed(2);
     const x1 = (rInner * Math.sin(a1)).toFixed(2), y1 = (-rInner * Math.cos(a1)).toFixed(2);
-    const xp = (rPunta * Math.sin(aC)).toFixed(2), yp = (-rPunta * Math.cos(aC)).toFixed(2);
-    rayos += `<path d="M ${x0},${y0} L ${xp},${yp} L ${x1},${y1} Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />`;
-  }
+    const cx0 = (rCtrl * Math.sin(ac0)).toFixed(2), cy0 = (-rCtrl * Math.cos(ac0)).toFixed(2);
+    const cx1 = (rCtrl * Math.sin(ac1)).toFixed(2), cy1 = (-rCtrl * Math.cos(ac1)).toFixed(2);
+    const xp = (rTip * Math.sin(aC)).toFixed(2), yp = (-rTip * Math.cos(aC)).toFixed(2);
+    brazos += `<path d="M ${x0},${y0} Q ${cx0},${cy0} ${xp},${yp} Q ${cx1},${cy1} ${x1},${y1} Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />`;
+  });
 
   return `
     <g transform="translate(${CENTER},${CENTER})">
 
-      <!-- rayos solares, detras de la cara -->
-      ${rayos}
+      <!-- brazos del Nahui Ollin, detras de la cara -->
+      ${brazos}
 
       <!-- cara: disco solido -->
       <circle cx="0" cy="0" r="${rInner}" ${solido} stroke="${BG}" stroke-width="2.2" />
@@ -147,6 +174,7 @@ function construirSvg() {
   <svg width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="${SIZE}" height="${SIZE}" fill="${BG}" />
     ${anilloEscalonado()}
+    ${anilloGlifos()}
     ${escenaCentral()}
   </svg>
 </body>
