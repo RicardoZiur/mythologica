@@ -62,140 +62,106 @@ function anilloEscalonado() {
   `;
 }
 
-// --- Anillo de rayos puntiagudos (como un engranaje) -----------
-// En la piedra real, justo alrededor del Nahui Ollin hay una
-// corona de puntas triangulares parejas (el "anillo de rayos
-// solares") antes de llegar a los signos de los dias -- distinta
-// de los brazos anchos del Ollin y del zigzag exterior.
-function anilloRayos() {
-  const N = 24;
-  const rBase = 100;
-  const rPunta = 111;
-  const medioAnchoGrados = (360 / N) * 0.34;
-  let dientes = `<circle cx="${CENTER}" cy="${CENTER}" r="${rBase}" fill="none" stroke="${GOLD}" stroke-width="1.2" />`;
-  for (let i = 0; i < N; i++) {
-    const anguloCentro = (i / N) * 360;
-    const a0 = (anguloCentro - medioAnchoGrados) * Math.PI / 180;
-    const a1 = (anguloCentro + medioAnchoGrados) * Math.PI / 180;
-    const aC = anguloCentro * Math.PI / 180;
-    const x0 = CENTER + rBase * Math.sin(a0), y0 = CENTER - rBase * Math.cos(a0);
-    const x1 = CENTER + rBase * Math.sin(a1), y1 = CENTER - rBase * Math.cos(a1);
-    const xp = CENTER + rPunta * Math.sin(aC), yp = CENTER - rPunta * Math.cos(aC);
-    dientes += `<path d="M ${x0.toFixed(2)},${y0.toFixed(2)} L ${xp.toFixed(2)},${yp.toFixed(2)} L ${x1.toFixed(2)},${y1.toFixed(2)} Z" fill="${GOLD}" stroke="none" />`;
-  }
-  return dientes;
-}
-
-// --- Anillo de glifos de los dias -----------------------------
-// En la Piedra del Sol real, entre la corona de rayos y el borde
-// hay una franja con los 20 signos de los dias del calendario.
-// Replicar cada glifo exacto no es viable a esta escala, pero una
-// hilera de 20 marcas rectangulares parejas, cada una orientada en
-// forma radial, evoca esa franja sin pretender ser un facsimil.
-function anilloGlifos() {
-  const N = 20;
-  const r = 118;
-  let marcas = '';
-  for (let i = 0; i < N; i++) {
-    const angulo = (i / N) * 360;
-    const a = angulo * Math.PI / 180;
-    const x = CENTER + r * Math.sin(a);
-    const y = CENTER - r * Math.cos(a);
-    marcas += `<rect x="${(x - 4).toFixed(2)}" y="${(y - 5.5).toFixed(2)}" width="8" height="11" rx="1.5" transform="rotate(${angulo.toFixed(2)} ${x.toFixed(2)} ${y.toFixed(2)})" fill="none" stroke="${GOLD}" stroke-width="1.3" />`;
-  }
-  return marcas;
-}
-
-// --- Anillo de cuentas -----------------------------------------
-// Una hilera fina de cuentas redondas, como las que separan la
-// franja de los dias del borde exterior en la piedra real.
-function anilloCuentas() {
-  const N = 40;
-  const r = 128;
-  let cuentas = '';
-  for (let i = 0; i < N; i++) {
-    const angulo = (i / N) * Math.PI * 2;
-    const x = CENTER + r * Math.sin(angulo);
-    const y = CENTER - r * Math.cos(angulo);
-    cuentas += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="2" fill="${GOLD}" stroke="none" />`;
-  }
-  return cuentas;
-}
-
-// --- Escena central: la cara solar de la Piedra del Sol (Tonatiuh)
+// --- Escena central: insignia compacta al estilo del dibujo de
+// referencia que mando el usuario (contorno de 4 lobulos con
+// paneles, no anillos concentricos como la piedra real) ----------
 // Coordenadas locales centradas en (0,0), luego trasladadas al
-// centro del lienzo con un <g transform="translate(...)">.
-//
-// Al ser radialmente simetrica (rayos calculados por trigonometria,
-// como el anillo exterior) es mucho mas facil que quede limpia a
-// 320px que una figura organica como un aguila -- sin partes que
-// se puedan pellizcar o fundirse entre si.
+// centro del lienzo con un <g transform="translate(...)">. El
+// fondo negro alrededor no molesta: el circulo dorado fino que
+// dibuja anilloEscalonado ya marca el borde del medallon, y todo
+// lo que sobre dentro de ese circulo se ve como espacio vacio del
+// mismo color que el resto de la pagina.
 function escenaCentral() {
   const solido = `fill="${GOLD}" stroke="none"`;
   const hueco = `fill="${BG}" stroke="none"`;
+  const linea = `fill="none" stroke="${GOLD}" stroke-width="2.4" stroke-linecap="round"`;
 
-  // "Nahui Ollin" (los cuatro movimientos): en la piedra real, la
-  // cara de Tonatiuh esta enmarcada por 4 brazos anchos en las
-  // diagonales, con punta redondeada -- no un sol de 8 picos
-  // finos. Cada brazo se arma igual que un diente del anillo, pero
-  // usando curvas Q hacia la punta en vez de un pico recto.
-  const rInner = 46;
-  const rTip = 98;
-  const medioAnchoGrados = 21;
-  const spreadCtrlGrados = 9;
-  const rCtrl = rTip * 0.9;
-  let brazos = '';
-  [45, 135, 225, 315].forEach(anguloCentro => {
-    const a0 = (anguloCentro - medioAnchoGrados) * Math.PI / 180;
-    const a1 = (anguloCentro + medioAnchoGrados) * Math.PI / 180;
-    const ac0 = (anguloCentro - spreadCtrlGrados) * Math.PI / 180;
-    const ac1 = (anguloCentro + spreadCtrlGrados) * Math.PI / 180;
-    const aC = anguloCentro * Math.PI / 180;
-    const x0 = (rInner * Math.sin(a0)).toFixed(2), y0 = (-rInner * Math.cos(a0)).toFixed(2);
-    const x1 = (rInner * Math.sin(a1)).toFixed(2), y1 = (-rInner * Math.cos(a1)).toFixed(2);
-    const cx0 = (rCtrl * Math.sin(ac0)).toFixed(2), cy0 = (-rCtrl * Math.cos(ac0)).toFixed(2);
-    const cx1 = (rCtrl * Math.sin(ac1)).toFixed(2), cy1 = (-rCtrl * Math.cos(ac1)).toFixed(2);
-    const xp = (rTip * Math.sin(aC)).toFixed(2), yp = (-rTip * Math.cos(aC)).toFixed(2);
-    brazos += `<path d="M ${x0},${y0} Q ${cx0},${cy0} ${xp},${yp} Q ${cx1},${cy1} ${x1},${y1} Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />`;
+  // Los 4 paneles con un glifo simple (punto - barra - punto) en
+  // las diagonales, igual que los 4 recuadros con los soles
+  // anteriores que enmarcan la cara en el dibujo de referencia.
+  let paneles = '';
+  [45, 135, 225, 315].forEach(angulo => {
+    const a = angulo * Math.PI / 180;
+    const cx = 72 * Math.sin(a), cy = -72 * Math.cos(a);
+    paneles += `
+      <g transform="translate(${cx.toFixed(2)},${cy.toFixed(2)}) rotate(${angulo})">
+        <rect x="-19" y="-22" width="38" height="44" rx="5" fill="none" stroke="${GOLD}" stroke-width="2.4" />
+        <circle cx="0" cy="-10" r="3.2" ${solido} />
+        <rect x="-8" y="-2" width="16" height="6" rx="2" ${solido} />
+        <circle cx="0" cy="12" r="3.2" ${solido} />
+      </g>
+    `;
+  });
+
+  // Ganchos/espirales que rellenan los huecos entre paneles (arriba,
+  // abajo y a los costados), como el grequizado que conecta los
+  // paneles en la referencia.
+  let ganchos = '';
+  [0, 90, 180, 270].forEach(angulo => {
+    const a = angulo * Math.PI / 180;
+    const cx = 66 * Math.sin(a), cy = -66 * Math.cos(a);
+    ganchos += `
+      <g transform="translate(${cx.toFixed(2)},${cy.toFixed(2)}) rotate(${angulo})">
+        <path d="M -11,12 Q -16,-2 -1,-4 Q 12,-6 10,-16" fill="none" stroke="${GOLD}" stroke-width="3.2" stroke-linecap="round" />
+      </g>
+    `;
   });
 
   return `
     <g transform="translate(${CENTER},${CENTER})">
 
-      <!-- brazos del Nahui Ollin, detras de la cara -->
-      ${brazos}
+      <!-- garras inferiores, como en la referencia -->
+      <path d="M -58,64 Q -80,58 -86,74 Q -73,70 -68,80 Q -78,84 -74,94 Q -58,90 -52,76 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
+      <path d="M 58,64 Q 80,58 86,74 Q 73,70 68,80 Q 78,84 74,94 Q 58,90 52,76 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
+
+      <!-- corona/penacho arriba de la cara -->
+      <path d="M -13,-80 L 0,-104 L 13,-80 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
+      <path d="M -22,-72 Q -32,-82 -22,-90 Q -22,-78 -14,-74 Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />
+      <path d="M 22,-72 Q 32,-82 22,-90 Q 22,-78 14,-74 Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />
+
+      <!-- ganchos entre paneles -->
+      ${ganchos}
+
+      <!-- paneles de los 4 soles -->
+      ${paneles}
 
       <!-- cara: disco solido -->
-      <circle cx="0" cy="0" r="${rInner}" ${solido} stroke="${BG}" stroke-width="2.2" />
+      <circle cx="0" cy="0" r="42" ${solido} stroke="${BG}" stroke-width="2.2" />
+
+      <!-- vincha con 3 plumas, sobre la frente -->
+      <rect x="-20" y="-38" width="40" height="7" rx="2" ${hueco} />
+      <rect x="-10" y="-46" width="5" height="9" rx="1.5" ${hueco} />
+      <rect x="-2.5" y="-49" width="5" height="12" rx="1.5" ${hueco} />
+      <rect x="5" y="-46" width="5" height="9" rx="1.5" ${hueco} />
 
       <!-- cejas, grabadas -->
-      <path d="M -30,-13 Q -19,-20 -8,-13" fill="none" stroke="${BG}" stroke-width="2.4" stroke-linecap="round" />
-      <path d="M 30,-13 Q 19,-20 8,-13" fill="none" stroke="${BG}" stroke-width="2.4" stroke-linecap="round" />
+      <path d="M -27,-12 Q -18,-18 -9,-12" fill="none" stroke="${BG}" stroke-width="2.2" stroke-linecap="round" />
+      <path d="M 27,-12 Q 18,-18 9,-12" fill="none" stroke="${BG}" stroke-width="2.2" stroke-linecap="round" />
 
       <!-- ojos: almendrados, huecos -->
-      <path d="M -25,-8 Q -18,-14 -9,-8 Q -18,-3 -25,-8 Z" ${hueco} />
-      <path d="M 25,-8 Q 18,-14 9,-8 Q 18,-3 25,-8 Z" ${hueco} />
-      <circle cx="-17" cy="-8" r="2.4" ${solido} />
-      <circle cx="17" cy="-8" r="2.4" ${solido} />
+      <path d="M -23,-7 Q -17,-13 -8,-7 Q -17,-2 -23,-7 Z" ${hueco} />
+      <path d="M 23,-7 Q 17,-13 8,-7 Q 17,-2 23,-7 Z" ${hueco} />
+      <circle cx="-15.5" cy="-7" r="2.2" ${solido} />
+      <circle cx="15.5" cy="-7" r="2.2" ${solido} />
 
       <!-- nariz -->
-      <path d="M -6,-2 L 6,-2 L 0,10 Z" ${hueco} />
+      <path d="M -5,-1 L 5,-1 L 0,9 Z" ${hueco} />
 
       <!-- boca abierta, con dientes -->
-      <rect x="-18" y="14" width="36" height="15" rx="3" ${hueco} />
-      <rect x="-13" y="14" width="5" height="7" ${solido} />
-      <rect x="-4.5" y="14" width="5" height="7" ${solido} />
-      <rect x="4" y="14" width="5" height="7" ${solido} />
-      <rect x="12.5" y="14" width="5" height="7" ${solido} />
+      <rect x="-16" y="13" width="32" height="13" rx="3" ${hueco} />
+      <rect x="-12" y="13" width="4.5" height="6" ${solido} />
+      <rect x="-4" y="13" width="4.5" height="6" ${solido} />
+      <rect x="3.5" y="13" width="4.5" height="6" ${solido} />
+      <rect x="11" y="13" width="4.5" height="6" ${solido} />
 
       <!-- lengua: cuchillo de pedernal (tecpatl) asomando de la boca -->
-      <path d="M -7,29 L 7,29 L 4,44 L 0,50 L -4,44 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
+      <path d="M -6,26 L 6,26 L 3.5,38 L 0,43 L -3.5,38 Z" ${solido} stroke="${BG}" stroke-width="1.5" stroke-linejoin="round" />
 
-      <!-- adornos laterales (orejeras), simples y solidos -->
-      <circle cx="-40" cy="6" r="8" ${solido} stroke="${BG}" stroke-width="1.8" />
-      <circle cx="40" cy="6" r="8" ${solido} stroke="${BG}" stroke-width="1.8" />
-      <circle cx="-40" cy="6" r="2.6" ${hueco} />
-      <circle cx="40" cy="6" r="2.6" ${hueco} />
+      <!-- orejeras -->
+      <circle cx="-37" cy="4" r="7" ${solido} stroke="${BG}" stroke-width="1.6" />
+      <circle cx="37" cy="4" r="7" ${solido} stroke="${BG}" stroke-width="1.6" />
+      <circle cx="-37" cy="4" r="2.3" ${hueco} />
+      <circle cx="37" cy="4" r="2.3" ${hueco} />
     </g>
   `;
 }
@@ -214,9 +180,6 @@ function construirSvg() {
   <svg width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="${SIZE}" height="${SIZE}" fill="${BG}" />
     ${anilloEscalonado()}
-    ${anilloCuentas()}
-    ${anilloGlifos()}
-    ${anilloRayos()}
     ${escenaCentral()}
   </svg>
 </body>
