@@ -121,11 +121,42 @@ function iconoAnkh() {
   `;
 }
 
+// ---------------------------------------------------------------
+// SUMERIA: la estrella de ocho puntas de Inanna/Ishtar, el simbolo
+// mesopotamico mas reconocible (sellos, joyeria, kudurru). Mismo
+// truco trigonometrico que el loto, pero con puntas afiladas (sin
+// curvas Q) en vez de petalos redondeados.
+function iconoEstrella() {
+  const solido = `fill="${GOLD}" stroke="none"`;
+  const N = 8;
+  const rInner = 20;
+  const rTip = 84;
+  const medioAnchoGrados = 14;
+  let puntas = '';
+  for (let i = 0; i < N; i++) {
+    const anguloCentro = (i / N) * 360;
+    const a0 = (anguloCentro - medioAnchoGrados) * Math.PI / 180;
+    const a1 = (anguloCentro + medioAnchoGrados) * Math.PI / 180;
+    const aC = anguloCentro * Math.PI / 180;
+    const x0 = (rInner * Math.sin(a0)).toFixed(2), y0 = (-rInner * Math.cos(a0)).toFixed(2);
+    const x1 = (rInner * Math.sin(a1)).toFixed(2), y1 = (-rInner * Math.cos(a1)).toFixed(2);
+    const xp = (rTip * Math.sin(aC)).toFixed(2), yp = (-rTip * Math.cos(aC)).toFixed(2);
+    puntas += `<path d="M ${x0},${y0} L ${xp},${yp} L ${x1},${y1} Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />`;
+  }
+  return `
+    <g transform="translate(${CENTER},${CENTER})">
+      ${puntas}
+      <circle cx="0" cy="0" r="${rInner}" ${solido} stroke="${BG}" stroke-width="1.6" />
+    </g>
+  `;
+}
+
 const LIBROS = [
   { slug: 'mitologia-griega', icono: iconoRayo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-hindu', icono: iconoLoto, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-nordica', icono: iconoMartillo, rMarcas: [96, 108], nMarcas: 28 },
-  { slug: 'mitologia-egipcia', icono: iconoAnkh, rMarcas: [96, 108], nMarcas: 28 }
+  { slug: 'mitologia-egipcia', icono: iconoAnkh, rMarcas: [96, 108], nMarcas: 28 },
+  { slug: 'mitologia-sumeria', icono: iconoEstrella, rMarcas: [96, 108], nMarcas: 28 }
 ];
 
 function construirSvg(libro) {
@@ -178,8 +209,17 @@ async function generarUno(browser, libro) {
 }
 
 async function main() {
+  // Filtro opcional por slug (ej. "node scripts/generar-emblemas-simples.js mitologia-sumeria")
+  // para regenerar un solo libro sin tocar los que ya estan desplegados.
+  const filtro = process.argv[2];
+  const librosAGenerar = filtro ? LIBROS.filter(l => l.slug === filtro) : LIBROS;
+  if (filtro && librosAGenerar.length === 0) {
+    console.error(`No hay ningun libro con slug "${filtro}".`);
+    process.exit(1);
+  }
+
   const browser = await puppeteer.launch({ headless: 'new' });
-  for (const libro of LIBROS) {
+  for (const libro of librosAGenerar) {
     await generarUno(browser, libro);
   }
   await browser.close();
