@@ -62,8 +62,32 @@ function anilloEscalonado() {
   `;
 }
 
+// --- Anillo de rayos puntiagudos (como un engranaje) -----------
+// En la piedra real, justo alrededor del Nahui Ollin hay una
+// corona de puntas triangulares parejas (el "anillo de rayos
+// solares") antes de llegar a los signos de los dias -- distinta
+// de los brazos anchos del Ollin y del zigzag exterior.
+function anilloRayos() {
+  const N = 24;
+  const rBase = 100;
+  const rPunta = 111;
+  const medioAnchoGrados = (360 / N) * 0.34;
+  let dientes = `<circle cx="${CENTER}" cy="${CENTER}" r="${rBase}" fill="none" stroke="${GOLD}" stroke-width="1.2" />`;
+  for (let i = 0; i < N; i++) {
+    const anguloCentro = (i / N) * 360;
+    const a0 = (anguloCentro - medioAnchoGrados) * Math.PI / 180;
+    const a1 = (anguloCentro + medioAnchoGrados) * Math.PI / 180;
+    const aC = anguloCentro * Math.PI / 180;
+    const x0 = CENTER + rBase * Math.sin(a0), y0 = CENTER - rBase * Math.cos(a0);
+    const x1 = CENTER + rBase * Math.sin(a1), y1 = CENTER - rBase * Math.cos(a1);
+    const xp = CENTER + rPunta * Math.sin(aC), yp = CENTER - rPunta * Math.cos(aC);
+    dientes += `<path d="M ${x0.toFixed(2)},${y0.toFixed(2)} L ${xp.toFixed(2)},${yp.toFixed(2)} L ${x1.toFixed(2)},${y1.toFixed(2)} Z" fill="${GOLD}" stroke="none" />`;
+  }
+  return dientes;
+}
+
 // --- Anillo de glifos de los dias -----------------------------
-// En la Piedra del Sol real, entre la escena central y el borde
+// En la Piedra del Sol real, entre la corona de rayos y el borde
 // hay una franja con los 20 signos de los dias del calendario.
 // Replicar cada glifo exacto no es viable a esta escala, pero una
 // hilera de 20 marcas rectangulares parejas, cada una orientada en
@@ -80,6 +104,22 @@ function anilloGlifos() {
     marcas += `<rect x="${(x - 4).toFixed(2)}" y="${(y - 5.5).toFixed(2)}" width="8" height="11" rx="1.5" transform="rotate(${angulo.toFixed(2)} ${x.toFixed(2)} ${y.toFixed(2)})" fill="none" stroke="${GOLD}" stroke-width="1.3" />`;
   }
   return marcas;
+}
+
+// --- Anillo de cuentas -----------------------------------------
+// Una hilera fina de cuentas redondas, como las que separan la
+// franja de los dias del borde exterior en la piedra real.
+function anilloCuentas() {
+  const N = 40;
+  const r = 128;
+  let cuentas = '';
+  for (let i = 0; i < N; i++) {
+    const angulo = (i / N) * Math.PI * 2;
+    const x = CENTER + r * Math.sin(angulo);
+    const y = CENTER - r * Math.cos(angulo);
+    cuentas += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="2" fill="${GOLD}" stroke="none" />`;
+  }
+  return cuentas;
 }
 
 // --- Escena central: la cara solar de la Piedra del Sol (Tonatiuh)
@@ -128,15 +168,15 @@ function escenaCentral() {
       <!-- cara: disco solido -->
       <circle cx="0" cy="0" r="${rInner}" ${solido} stroke="${BG}" stroke-width="2.2" />
 
-      <!-- cejas / marco de los ojos, grabado -->
-      <path d="M -30,-9 Q -20,-18 -10,-9" fill="none" stroke="${BG}" stroke-width="2.4" stroke-linecap="round" />
-      <path d="M 30,-9 Q 20,-18 10,-9" fill="none" stroke="${BG}" stroke-width="2.4" stroke-linecap="round" />
+      <!-- cejas, grabadas -->
+      <path d="M -30,-13 Q -19,-20 -8,-13" fill="none" stroke="${BG}" stroke-width="2.4" stroke-linecap="round" />
+      <path d="M 30,-13 Q 19,-20 8,-13" fill="none" stroke="${BG}" stroke-width="2.4" stroke-linecap="round" />
 
-      <!-- ojos: rombos huecos -->
-      <rect x="-19" y="-15" width="15" height="15" transform="rotate(45 -11.5 -7.5)" ${hueco} />
-      <rect x="4" y="-15" width="15" height="15" transform="rotate(45 11.5 -7.5)" ${hueco} />
-      <circle cx="-11.5" cy="-7.5" r="2.6" ${solido} />
-      <circle cx="11.5" cy="-7.5" r="2.6" ${solido} />
+      <!-- ojos: almendrados, huecos -->
+      <path d="M -25,-8 Q -18,-14 -9,-8 Q -18,-3 -25,-8 Z" ${hueco} />
+      <path d="M 25,-8 Q 18,-14 9,-8 Q 18,-3 25,-8 Z" ${hueco} />
+      <circle cx="-17" cy="-8" r="2.4" ${solido} />
+      <circle cx="17" cy="-8" r="2.4" ${solido} />
 
       <!-- nariz -->
       <path d="M -6,-2 L 6,-2 L 0,10 Z" ${hueco} />
@@ -174,7 +214,9 @@ function construirSvg() {
   <svg width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="${SIZE}" height="${SIZE}" fill="${BG}" />
     ${anilloEscalonado()}
+    ${anilloCuentas()}
     ${anilloGlifos()}
+    ${anilloRayos()}
     ${escenaCentral()}
   </svg>
 </body>
