@@ -19,7 +19,7 @@ render en `app.js`/`pdf.js`). Avísame si querés que la arme y las conectamos.
 - **Proporción**: **3:2 o 16:9 (horizontal)** — a diferencia de los retratos, estas son escenas panorámicas.
 - Genera 2-4 variaciones por historia y quédate con la mejor.
 
-## 2. Prompt negativo (pégalo una sola vez, sirve para las 90 escenas)
+## 2. Prompt negativo (pégalo una sola vez, sirve para las 98 escenas)
 
 ```
 text, watermark, signature, blurry, extra limbs, extra fingers, deformed hands, deformed
@@ -624,11 +624,12 @@ young gods walking together across untouched grass toward a golden dawn
 
 ---
 
-## 8. Mitología Azteca (10 historias)
+## 8. Mitología Azteca (18 historias)
 
-A diferencia de los otros 4 libros, esta colección es más corta a propósito -- ver la nota
-sobre cantidad en `prompts-imagenes-ia-azteca.md` (el archivo hermano de retratos de
-personaje): se priorizó contenido bien documentado por sobre forzar la paridad de 20.
+Colección ampliada en dos tandas: las primeras 10 (ver nota original en
+`prompts-imagenes-ia-azteca.md` sobre priorizar contenido bien documentado por sobre forzar
+la paridad de 20) más estas 8 adicionales, todas centradas en mitos de dioses ya presentes en
+el libro, siempre sobre relatos con buen respaldo en fuentes reales.
 
 ### ⭐ Los Cinco Soles (cosmogonía) — `los-cinco-soles.jpg`
 ```
@@ -703,6 +704,65 @@ Achitométl recoiling in horror at a torch-lit ceremony as he recognizes his dau
 the surrounding mexica priests frozen mid-dance
 ```
 
+### El descubrimiento del maíz (cosmogonía) — `descubrimiento-del-maiz.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, earthy gold and deep cave brown and maize yellow color palette, a tiny black
+ant carrying an oversized golden kernel of maize emerging from a narrow crack in a great
+mountain, a red ant guiding beside it, the gathered gods of Tamoanchan waiting in the misty
+distance
+```
+
+### El encuentro de Mixcóatl y Chimalma (amor) — `encuentro-de-mixcoatl-y-chimalma.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, starlit indigo and bronze and earthy red color palette, the huntress
+Chimalma catching a glowing arrow mid-air with her round shield, four more arrows already
+embedded harmlessly around her feet, the star-cloaked hunter god Mixcóatl lowering his bow in
+the misty forest ahead
+```
+
+### La cacería de los Centzon Mimixcoa (heroica) — `caceria-de-los-centzon-mimixcoa.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, night-sky indigo and bronze and blood red color palette, the star-cloaked
+hunter god Mixcóatl drawing his bow against a fleeing cloud-serpent warrior hiding among dark
+boulders, the newborn sun Tonatiuh glowing motionless on the horizon behind him
+```
+
+### La huida del joven Nezahualcóyotl (heroica) — `huida-del-joven-nezahualcoyotl.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, forest green and shadow black and moonlit silver color palette, a young
+prince crouched motionless inside the hollow trunk of a great tree, peering through a narrow
+crack as armed tepanec warriors pass within arm's reach in the moonlit forest
+```
+
+### Tlalocan, el paraíso de Tláloc (otro) — `tlalocan-paraiso-de-tlaloc.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, lush emerald green and turquoise and golden light color palette, an eternal
+spring paradise of blooming trees heavy with fruit and butterflies drifting over endless
+fields of maize, Tláloc and Chalchiuhtlicue standing together at its radiant heart
+```
+
+### El viaje diario del sol (otro) — `viaje-diario-del-sol.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, blazing solar gold and deep dusk violet and warm amber color palette, Tonatiuh
+carried high across the sky in a radiant disk, a procession of triumphant warriors escorting
+him toward the zenith while the pale spectral Cihuateteo wait at the horizon for the descent
+```
+
+### La confesión ante Tlazolteotl (otro) — `confesion-ante-tlazolteotl.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dusky violet and earthy brown and pale incense-smoke grey color palette, an
+elderly penitent kneeling bare-shouldered before a priest of Tlazolteotl inside a
+torchlit temple, incense smoke curling upward, the goddess's presence implied in a faint
+glowing silhouette behind the altar
+```
+
+### La caída final de Tollan bajo Huémac (tragedia) — `caida-final-de-tollan-bajo-huemac.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, ash grey and dying ember orange and faded gold color palette, the exiled ruler
+Huémac standing alone at the mouth of a cave near Chapultepec, the crumbling silhouette of
+Tollan's stepped pyramids visible and abandoned in the smoky distance behind him
+```
+
 ---
 
 ## 9. Resumen
@@ -713,8 +773,8 @@ the surrounding mexica priests frozen mid-dance
 | Egipcia | 21 | La cosmogonía heliopolitana |
 | Hindú | 19 | La creación por el sacrificio de Purusha, El batido del océano de leche |
 | Nórdica | 20 | La creación del mundo de Ymir, La creación de Ask y Embla, El renacimiento tras el Ragnarök |
-| Azteca | 10 | Los Cinco Soles, El descenso de Quetzalcoatl al Mictlán |
+| Azteca | 18 | Los Cinco Soles, El descenso de Quetzalcoatl al Mictlán, El descubrimiento del maíz |
 
-**Total: 90 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 98 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + el Ragnarök) son las más importantes para tener primero — funcionan bien como
 portada de cada libro o apertura de la sección de historias en el flipbook.
