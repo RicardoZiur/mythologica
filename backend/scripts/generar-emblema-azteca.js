@@ -4,12 +4,16 @@
 // Genera public/images/mitologia-azteca/portada-emblema.png
 // (320x320, linea dorada sobre negro) con el mismo formato que
 // los emblemas de los otros libros (ver p.ej.
-// public/images/mitologia-griega/portada-emblema.png), pero con
-// el motivo central del aguila sobre el nopal devorando la
-// serpiente -- la imagen de la fundacion de Tenochtitlan, el
-// mito mas reconocible del libro -- rodeada de un anillo
-// escalonado (xicalcoliuhqui / greca mesoamericana) en vez del
-// meandro griego o las runas nordicas de los otros emblemas.
+// public/images/mitologia-griega/portada-emblema.png).
+//
+// v3: el motivo central paso de "aguila sobre el nopal" (dificil
+// de leer a esta escala por ser una figura organica asimetrica) a
+// la cara solar de la Piedra del Sol / Tonatiuh -- radialmente
+// simetrica, así que es mucho mas facil que salga limpia y legible,
+// y conecta directo con la cosmogonia del libro (Los Cinco Soles).
+// Sigue rodeada del mismo anillo escalonado (xicalcoliuhqui /
+// greca mesoamericana) en vez del meandro griego o las runas
+// nordicas de los otros emblemas.
 //
 // Se construye como SVG (para que el patron del anillo se pueda
 // calcular con trigonometria en vez de escribirlo a mano) y se
@@ -58,76 +62,73 @@ function anilloEscalonado() {
   `;
 }
 
-// --- Escena central: aguila sobre el nopal devorando la serpiente
+// --- Escena central: la cara solar de la Piedra del Sol (Tonatiuh)
 // Coordenadas locales centradas en (0,0), luego trasladadas al
 // centro del lienzo con un <g transform="translate(...)">.
 //
-// v2: formas SOLIDAS (rellenas), no solo trazo delgado -- la
-// primera version usaba lineas finas para todo, y a esa escala
-// (320px) el resultado se veia como un amasijo de hilos en vez de
-// un simbolo reconocible. Ahora el cuerpo de cada elemento es una
-// silueta rellena en dorado (como un escudo/crest), y el detalle
-// interno (espinas, plumas) se graba encima con lineas negras
-// finas -- mismo truco que un grabado en madera o una moneda.
+// Al ser radialmente simetrica (rayos calculados por trigonometria,
+// como el anillo exterior) es mucho mas facil que quede limpia a
+// 320px que una figura organica como un aguila -- sin partes que
+// se puedan pellizcar o fundirse entre si.
 function escenaCentral() {
   const solido = `fill="${GOLD}" stroke="none"`;
-  const grabado = `fill="none" stroke="${BG}" stroke-width="1.6" stroke-linecap="round"`;
-  const acento = `fill="none" stroke="${GOLD}" stroke-width="2" stroke-linecap="round"`;
+  const hueco = `fill="${BG}" stroke="none"`;
+
+  // Rayos solares: 8 puntas, alternando largas y cortas, calculadas
+  // igual que los dientes del anillo exterior.
+  const N = 8;
+  const rInner = 44;
+  const anchoBaseGrados = 14;
+  let rayos = '';
+  for (let i = 0; i < N; i++) {
+    const anguloCentro = (i / N) * 360;
+    const rPunta = i % 2 === 0 ? 98 : 76;
+    const a0 = (anguloCentro - anchoBaseGrados) * Math.PI / 180;
+    const a1 = (anguloCentro + anchoBaseGrados) * Math.PI / 180;
+    const aC = anguloCentro * Math.PI / 180;
+    const x0 = (rInner * Math.sin(a0)).toFixed(2), y0 = (-rInner * Math.cos(a0)).toFixed(2);
+    const x1 = (rInner * Math.sin(a1)).toFixed(2), y1 = (-rInner * Math.cos(a1)).toFixed(2);
+    const xp = (rPunta * Math.sin(aC)).toFixed(2), yp = (-rPunta * Math.cos(aC)).toFixed(2);
+    rayos += `<path d="M ${x0},${y0} L ${xp},${yp} L ${x1},${y1} Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />`;
+  }
 
   return `
     <g transform="translate(${CENTER},${CENTER})">
 
-      <!-- suelo / islote -->
-      <path d="M -30,101 Q 0,107 30,101" ${acento} />
+      <!-- rayos solares, detras de la cara -->
+      ${rayos}
 
-      <!-- nopal: pala base (forma de raqueta, rellena) -->
-      <path d="M -17,98 L -19,58 Q -19,30 0,28 Q 19,30 19,58 L 17,98 Q 0,104 -17,98 Z" ${solido} />
-      <path d="M -13,50 l -5,-2 M -14,66 l -6,-1 M -14,84 l -6,-1 M 13,50 l 5,-2 M 14,66 l 6,-1 M 14,84 l 6,-1" ${grabado} />
+      <!-- cara: disco solido -->
+      <circle cx="0" cy="0" r="${rInner}" ${solido} stroke="${BG}" stroke-width="2.2" />
 
-      <!-- nopal: pala izquierda (rama ancha, rellena) -->
-      <path d="M -10,58 C -28,55 -50,42 -60,16 C -52,10 -40,13 -31,22 C -19,35 -10,47 -7,58 Z" ${solido} />
-      <path d="M -34,26 l -6,-3 M -47,15 l -6,-4" ${grabado} />
+      <!-- cejas / marco de los ojos, grabado -->
+      <path d="M -30,-9 Q -20,-18 -10,-9" fill="none" stroke="${BG}" stroke-width="2.4" stroke-linecap="round" />
+      <path d="M 30,-9 Q 20,-18 10,-9" fill="none" stroke="${BG}" stroke-width="2.4" stroke-linecap="round" />
 
-      <!-- nopal: pala derecha (espejo) -->
-      <path d="M 10,58 C 28,55 50,42 60,16 C 52,10 40,13 31,22 C 19,35 10,47 7,58 Z" ${solido} />
-      <path d="M 34,26 l 6,-3 M 47,15 l 6,-4" ${grabado} />
+      <!-- ojos: rombos huecos -->
+      <rect x="-19" y="-15" width="15" height="15" transform="rotate(45 -11.5 -7.5)" ${hueco} />
+      <rect x="4" y="-15" width="15" height="15" transform="rotate(45 11.5 -7.5)" ${hueco} />
+      <circle cx="-11.5" cy="-7.5" r="2.6" ${solido} />
+      <circle cx="11.5" cy="-7.5" r="2.6" ${solido} />
 
-      <!-- garras sobre la pala base -->
-      <path d="M -9,28 l -5,7 M -9,28 l 3,8 M 9,28 l 5,7 M 9,28 l -3,8" ${acento} stroke-width="2.2" />
+      <!-- nariz -->
+      <path d="M -6,-2 L 6,-2 L 0,10 Z" ${hueco} />
 
-      <!-- cuerpo del aguila (relleno) -->
-      <path d="M -9,26 C -11,12 -10,-4 0,-18 C 10,-4 11,12 9,26 C 5,31 -5,31 -9,26 Z" ${solido} />
+      <!-- boca abierta, con dientes -->
+      <rect x="-18" y="14" width="36" height="15" rx="3" ${hueco} />
+      <rect x="-13" y="14" width="5" height="7" ${solido} />
+      <rect x="-4.5" y="14" width="5" height="7" ${solido} />
+      <rect x="4" y="14" width="5" height="7" ${solido} />
+      <rect x="12.5" y="14" width="5" height="7" ${solido} />
 
-      <!-- cola, rellena -->
-      <path d="M -7,24 C -8,33 -4,40 0,44 C 4,40 8,33 7,24 Z" ${solido} />
+      <!-- lengua: cuchillo de pedernal (tecpatl) asomando de la boca -->
+      <path d="M -7,29 L 7,29 L 4,44 L 0,50 L -4,44 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
 
-      <!-- ala izquierda: ovalo solido, mas horizontal que vertical para
-           dejar libre la zona de arriba (cabeza) y de la derecha
-           (serpiente) -->
-      <ellipse cx="-40" cy="-19" rx="33" ry="11" transform="rotate(-16 -40 -19)" fill="${GOLD}" stroke="${BG}" stroke-width="1.8" />
-      <path d="M -22,-14 L -48,-24 M -26,-8 L -52,-16" ${grabado} />
-
-      <!-- ala derecha: espejo, corta para no invadir el camino de la serpiente -->
-      <ellipse cx="34" cy="-16" rx="24" ry="9" transform="rotate(10 34 -16)" fill="${GOLD}" stroke="${BG}" stroke-width="1.8" />
-      <path d="M 20,-13 L 42,-18 M 22,-8 L 46,-11" ${grabado} />
-
-      <!-- cuello: trazo grueso solido, une el cuerpo con la cabeza -->
-      <path d="M 0,-17 C -2,-26 -1,-34 3,-40" fill="none" stroke="${GOLD}" stroke-width="8" stroke-linecap="round" />
-
-      <!-- cabeza -->
-      <circle cx="5" cy="-41" r="9" ${solido} />
-      <!-- pico, apuntando hacia la serpiente -->
-      <path d="M 12,-40 L 27,-34 L 12,-31 Z" ${solido} />
-      <!-- ojo, grabado -->
-      <circle cx="7" cy="-43" r="1.6" fill="${BG}" />
-
-      <!-- serpiente: cinta gruesa colgando del pico, con un borde oscuro
-           fino para que quede separada del ala cuando se cruzan -->
-      <path d="M 27,-33 C 48,-22 34,2 50,14 C 33,25 47,40 30,52" fill="none" stroke="${BG}" stroke-width="12.5" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M 27,-33 C 48,-22 34,2 50,14 C 33,25 47,40 30,52" fill="none" stroke="${GOLD}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
-      <!-- cabeza de la serpiente -->
-      <ellipse cx="32" cy="58" rx="9.5" ry="6.8" transform="rotate(25 32 58)" fill="${GOLD}" stroke="${BG}" stroke-width="1.8" />
-      <path d="M 36,64 l -2,7 M 36,64 l 4,6" ${acento} stroke-width="1.6" />
+      <!-- adornos laterales (orejeras), simples y solidos -->
+      <circle cx="-40" cy="6" r="8" ${solido} stroke="${BG}" stroke-width="1.8" />
+      <circle cx="40" cy="6" r="8" ${solido} stroke="${BG}" stroke-width="1.8" />
+      <circle cx="-40" cy="6" r="2.6" ${hueco} />
+      <circle cx="40" cy="6" r="2.6" ${hueco} />
     </g>
   `;
 }
