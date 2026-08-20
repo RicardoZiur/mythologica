@@ -2,22 +2,20 @@
 // scripts/generar-emblema-azteca.js
 // ------------------------------------------------------------
 // Genera public/images/mitologia-azteca/portada-emblema.png
-// (320x320, linea dorada sobre negro) con el mismo formato que
-// los emblemas de los otros libros (ver p.ej.
+// (320x320, dorado sobre negro) con el mismo formato que los
+// emblemas de los otros libros (ver p.ej.
 // public/images/mitologia-griega/portada-emblema.png).
 //
-// v3: el motivo central paso de "aguila sobre el nopal" (dificil
-// de leer a esta escala por ser una figura organica asimetrica) a
-// la cara solar de la Piedra del Sol / Tonatiuh -- radialmente
-// simetrica, así que es mucho mas facil que salga limpia y legible,
-// y conecta directo con la cosmogonia del libro (Los Cinco Soles).
-// Sigue rodeada del mismo anillo escalonado (xicalcoliuhqui /
-// greca mesoamericana) en vez del meandro griego o las runas
-// nordicas de los otros emblemas.
+// v7: el usuario mando un icono de referencia (sol abstracto,
+// estilo flat-icon): punto central, anillo de marcas radiales,
+// anillo de ganchos en espiral, y anillo exterior de rayos
+// organicos de largo irregular. Sin cara, sin anillos concentricos
+// "realistas" como las versiones anteriores que imitaban la Piedra
+// del Sol -- esta calca la composicion exacta de esa referencia.
 //
-// Se construye como SVG (para que el patron del anillo se pueda
-// calcular con trigonometria en vez de escribirlo a mano) y se
-// rasteriza con Puppeteer a 3x y se reduce con sharp a 320x320
+// Se construye como SVG (todo calculado por trigonometria, para
+// que cada anillo salga parejo sin ajustar coordenadas a mano) y
+// se rasteriza con Puppeteer a 3x, reducido con sharp a 320x320
 // para que el trazo quede nitido.
 //
 // COMO CORRERLO (desde backend/):
@@ -34,136 +32,71 @@ const BG = '#050403';
 const SIZE = 320;
 const CENTER = SIZE / 2;
 
-// --- Anillo escalonado (xicalcoliuhqui) ------------------------
-// Un poligono en zigzag que alterna entre r_out y r_mid en cada
-// paso, mas un circulo interior de cierre -- el equivalente
-// mesoamericano geometrico al meandro griego o las almenas de un
-// templo escalonado.
-function anilloEscalonado() {
-  const N = 40; // cantidad de "dientes" alrededor del circulo
-  const rOut = 148;
-  const rMid = 136;
-  const rIn = 126;
-  const puntos = [];
-  for (let i = 0; i <= N; i++) {
-    const angulo = (i / N) * Math.PI * 2;
-    const r = i % 2 === 0 ? rOut : rMid;
-    const x = CENTER + r * Math.sin(angulo);
-    const y = CENTER - r * Math.cos(angulo);
-    puntos.push(`${i === 0 ? 'M' : 'L'} ${x.toFixed(2)},${y.toFixed(2)}`);
+// --- Anillo exterior de rayos organicos -------------------------
+// Petalos con punta redondeada (curvas Q, no picos rectos), largo
+// variable entre ellos para el efecto "irregular a mano" de la
+// referencia en vez de un sol de picos todos iguales.
+function anilloRayos() {
+  const N = 18;
+  const rInner = 90;
+  const largos = [132, 145, 136, 148, 130, 142];
+  const medioAnchoGrados = (360 / N) * 0.32;
+  const spreadCtrlGrados = medioAnchoGrados * 0.45;
+  let out = '';
+  for (let i = 0; i < N; i++) {
+    const anguloCentro = (i / N) * 360;
+    const rPunta = largos[i % largos.length];
+    const rCtrl = rPunta * 0.92;
+    const a0 = (anguloCentro - medioAnchoGrados) * Math.PI / 180;
+    const a1 = (anguloCentro + medioAnchoGrados) * Math.PI / 180;
+    const ac0 = (anguloCentro - spreadCtrlGrados) * Math.PI / 180;
+    const ac1 = (anguloCentro + spreadCtrlGrados) * Math.PI / 180;
+    const aC = anguloCentro * Math.PI / 180;
+    const x0 = CENTER + rInner * Math.sin(a0), y0 = CENTER - rInner * Math.cos(a0);
+    const x1 = CENTER + rInner * Math.sin(a1), y1 = CENTER - rInner * Math.cos(a1);
+    const cx0 = CENTER + rCtrl * Math.sin(ac0), cy0 = CENTER - rCtrl * Math.cos(ac0);
+    const cx1 = CENTER + rCtrl * Math.sin(ac1), cy1 = CENTER - rCtrl * Math.cos(ac1);
+    const xp = CENTER + rPunta * Math.sin(aC), yp = CENTER - rPunta * Math.cos(aC);
+    out += `<path d="M ${x0.toFixed(2)},${y0.toFixed(2)} Q ${cx0.toFixed(2)},${cy0.toFixed(2)} ${xp.toFixed(2)},${yp.toFixed(2)} Q ${cx1.toFixed(2)},${cy1.toFixed(2)} ${x1.toFixed(2)},${y1.toFixed(2)} Z" fill="${GOLD}" stroke="none" />`;
   }
-  const zigzag = puntos.join(' ') + ' Z';
-
-  return `
-    <circle cx="${CENTER}" cy="${CENTER}" r="152" fill="none" stroke="${GOLD}" stroke-width="1.2" />
-    <path d="${zigzag}" fill="none" stroke="${GOLD}" stroke-width="1.6" stroke-linejoin="round" />
-    <circle cx="${CENTER}" cy="${CENTER}" r="${rIn}" fill="none" stroke="${GOLD}" stroke-width="1.2" />
-    <circle cx="${CENTER}" cy="${CENTER}" r="112" fill="none" stroke="${GOLD}" stroke-width="0.8" />
-  `;
+  return out;
 }
 
-// --- Escena central: insignia compacta al estilo del dibujo de
-// referencia que mando el usuario (contorno de 4 lobulos con
-// paneles, no anillos concentricos como la piedra real) ----------
-// Coordenadas locales centradas en (0,0), luego trasladadas al
-// centro del lienzo con un <g transform="translate(...)">. El
-// fondo negro alrededor no molesta: el circulo dorado fino que
-// dibuja anilloEscalonado ya marca el borde del medallon, y todo
-// lo que sobre dentro de ese circulo se ve como espacio vacio del
-// mismo color que el resto de la pagina.
-function escenaCentral() {
-  const solido = `fill="${GOLD}" stroke="none"`;
-  const hueco = `fill="${BG}" stroke="none"`;
-  const linea = `fill="none" stroke="${GOLD}" stroke-width="2.4" stroke-linecap="round"`;
-
-  // Los 4 paneles con un glifo simple (punto - barra - punto) en
-  // las diagonales, igual que los 4 recuadros con los soles
-  // anteriores que enmarcan la cara en el dibujo de referencia.
-  let paneles = '';
-  [45, 135, 225, 315].forEach(angulo => {
-    const a = angulo * Math.PI / 180;
-    const cx = 72 * Math.sin(a), cy = -72 * Math.cos(a);
-    paneles += `
-      <g transform="translate(${cx.toFixed(2)},${cy.toFixed(2)}) rotate(${angulo})">
-        <rect x="-19" y="-22" width="38" height="44" rx="5" fill="none" stroke="${GOLD}" stroke-width="2.4" />
-        <circle cx="0" cy="-10" r="3.2" ${solido} />
-        <rect x="-8" y="-2" width="16" height="6" rx="2" ${solido} />
-        <circle cx="0" cy="12" r="3.2" ${solido} />
+// --- Anillo de ganchos en espiral --------------------------------
+// Cada unidad es una cola curva (trazo grueso) que termina en un
+// circulo -- una espiral simplificada tipo "coma", repetida
+// alrededor del anillo. Mismo espiritu que la greca escalonada de
+// las versiones anteriores, pero curva en vez de angular, para
+// calcar la referencia.
+function anilloGanchos() {
+  const N = 10;
+  let out = '';
+  for (let i = 0; i < N; i++) {
+    const angulo = (i / N) * 360;
+    out += `
+      <g transform="translate(${CENTER},${CENTER}) rotate(${angulo})">
+        <path d="M 0,-80 Q -21,-70 -17,-59" fill="none" stroke="${GOLD}" stroke-width="7.5" stroke-linecap="round" />
+        <circle cx="-18" cy="-56" r="8" fill="${GOLD}" stroke="none" />
       </g>
     `;
-  });
+  }
+  return out;
+}
 
-  // Ganchos/espirales que rellenan los huecos entre paneles (arriba,
-  // abajo y a los costados), como el grequizado que conecta los
-  // paneles en la referencia.
-  let ganchos = '';
-  [0, 90, 180, 270].forEach(angulo => {
-    const a = angulo * Math.PI / 180;
-    const cx = 66 * Math.sin(a), cy = -66 * Math.cos(a);
-    ganchos += `
-      <g transform="translate(${cx.toFixed(2)},${cy.toFixed(2)}) rotate(${angulo})">
-        <path d="M -11,12 Q -16,-2 -1,-4 Q 12,-6 10,-16" fill="none" stroke="${GOLD}" stroke-width="3.2" stroke-linecap="round" />
-      </g>
-    `;
-  });
-
-  return `
-    <g transform="translate(${CENTER},${CENTER})">
-
-      <!-- garras inferiores, como en la referencia -->
-      <path d="M -58,64 Q -80,58 -86,74 Q -73,70 -68,80 Q -78,84 -74,94 Q -58,90 -52,76 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
-      <path d="M 58,64 Q 80,58 86,74 Q 73,70 68,80 Q 78,84 74,94 Q 58,90 52,76 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
-
-      <!-- corona/penacho arriba de la cara -->
-      <path d="M -13,-80 L 0,-104 L 13,-80 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
-      <path d="M -22,-72 Q -32,-82 -22,-90 Q -22,-78 -14,-74 Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />
-      <path d="M 22,-72 Q 32,-82 22,-90 Q 22,-78 14,-74 Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />
-
-      <!-- ganchos entre paneles -->
-      ${ganchos}
-
-      <!-- paneles de los 4 soles -->
-      ${paneles}
-
-      <!-- cara: disco solido -->
-      <circle cx="0" cy="0" r="42" ${solido} stroke="${BG}" stroke-width="2.2" />
-
-      <!-- vincha con 3 plumas, sobre la frente -->
-      <rect x="-20" y="-38" width="40" height="7" rx="2" ${hueco} />
-      <rect x="-10" y="-46" width="5" height="9" rx="1.5" ${hueco} />
-      <rect x="-2.5" y="-49" width="5" height="12" rx="1.5" ${hueco} />
-      <rect x="5" y="-46" width="5" height="9" rx="1.5" ${hueco} />
-
-      <!-- cejas, grabadas -->
-      <path d="M -27,-12 Q -18,-18 -9,-12" fill="none" stroke="${BG}" stroke-width="2.2" stroke-linecap="round" />
-      <path d="M 27,-12 Q 18,-18 9,-12" fill="none" stroke="${BG}" stroke-width="2.2" stroke-linecap="round" />
-
-      <!-- ojos: almendrados, huecos -->
-      <path d="M -23,-7 Q -17,-13 -8,-7 Q -17,-2 -23,-7 Z" ${hueco} />
-      <path d="M 23,-7 Q 17,-13 8,-7 Q 17,-2 23,-7 Z" ${hueco} />
-      <circle cx="-15.5" cy="-7" r="2.2" ${solido} />
-      <circle cx="15.5" cy="-7" r="2.2" ${solido} />
-
-      <!-- nariz -->
-      <path d="M -5,-1 L 5,-1 L 0,9 Z" ${hueco} />
-
-      <!-- boca abierta, con dientes -->
-      <rect x="-16" y="13" width="32" height="13" rx="3" ${hueco} />
-      <rect x="-12" y="13" width="4.5" height="6" ${solido} />
-      <rect x="-4" y="13" width="4.5" height="6" ${solido} />
-      <rect x="3.5" y="13" width="4.5" height="6" ${solido} />
-      <rect x="11" y="13" width="4.5" height="6" ${solido} />
-
-      <!-- lengua: cuchillo de pedernal (tecpatl) asomando de la boca -->
-      <path d="M -6,26 L 6,26 L 3.5,38 L 0,43 L -3.5,38 Z" ${solido} stroke="${BG}" stroke-width="1.5" stroke-linejoin="round" />
-
-      <!-- orejeras -->
-      <circle cx="-37" cy="4" r="7" ${solido} stroke="${BG}" stroke-width="1.6" />
-      <circle cx="37" cy="4" r="7" ${solido} stroke="${BG}" stroke-width="1.6" />
-      <circle cx="-37" cy="4" r="2.3" ${hueco} />
-      <circle cx="37" cy="4" r="2.3" ${hueco} />
-    </g>
-  `;
+// --- Anillo de marcas radiales -----------------------------------
+// Una fila fina de trazos cortos, como los "tics" de un reloj,
+// entre el punto central y el anillo de ganchos.
+function anilloMarcas() {
+  const N = 20;
+  const r0 = 28, r1 = 39;
+  let out = '';
+  for (let i = 0; i < N; i++) {
+    const a = (i / N) * Math.PI * 2;
+    const x0 = CENTER + r0 * Math.sin(a), y0 = CENTER - r0 * Math.cos(a);
+    const x1 = CENTER + r1 * Math.sin(a), y1 = CENTER - r1 * Math.cos(a);
+    out += `<line x1="${x0.toFixed(2)}" y1="${y0.toFixed(2)}" x2="${x1.toFixed(2)}" y2="${y1.toFixed(2)}" stroke="${GOLD}" stroke-width="2.8" stroke-linecap="round" />`;
+  }
+  return out;
 }
 
 function construirSvg() {
@@ -179,8 +112,10 @@ function construirSvg() {
 <body>
   <svg width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="${SIZE}" height="${SIZE}" fill="${BG}" />
-    ${anilloEscalonado()}
-    ${escenaCentral()}
+    ${anilloRayos()}
+    ${anilloGanchos()}
+    ${anilloMarcas()}
+    <circle cx="${CENTER}" cy="${CENTER}" r="16" fill="${GOLD}" stroke="none" />
   </svg>
 </body>
 </html>`;
