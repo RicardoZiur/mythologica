@@ -19,7 +19,7 @@ render en `app.js`/`pdf.js`). Avísame si querés que la arme y las conectamos.
 - **Proporción**: **3:2 o 16:9 (horizontal)** — a diferencia de los retratos, estas son escenas panorámicas.
 - Genera 2-4 variaciones por historia y quédate con la mejor.
 
-## 2. Prompt negativo (pégalo una sola vez, sirve para las 98 escenas)
+## 2. Prompt negativo (pégalo una sola vez, sirve para las 114 escenas — salvo Sumeria, que se genera con Gemini)
 
 ```
 text, watermark, signature, blurry, extra limbs, extra fingers, deformed hands, deformed
@@ -765,7 +765,94 @@ Tollan's stepped pyramids visible and abandoned in the smoky distance behind him
 
 ---
 
-## 9. Resumen
+## 9. Mitología Sumeria (16 historias)
+
+**Nota:** este libro se ilustra con Gemini, no con Leonardo.ai — no hace falta la configuración
+de la sección 1, solo pega cada prompt completo directo en el chat.
+
+### ⭐ La creación desde las aguas de Nammu (cosmogonía) — `creacion-desde-las-aguas-de-nammu.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, void black and deep teal and dawn gold color palette, a vast primordial ocean giving birth to the fused mass of sky and earth, the young storm god Enlil straining to force them apart with his bare hands, the first sliver of light breaking through
+```
+
+### ⭐ El Enuma Elish: la batalla de Marduk contra Tiamat (cosmogonía) — `enuma-elish-marduk-contra-tiamat.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, storm blue and molten gold and abyssal black color palette, Marduk casting a vast net woven of wind over the colossal sea-dragon Tiamat, an arrow already loosed toward her open jaws, the primordial ocean churning violently around them
+```
+
+### El diluvio de Ziusudra (tragedia) — `el-diluvio-de-ziusudra.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, storm grey and deep flood blue and faint gold color palette, a massive sealed cubic ark tossed on flood waters that cover the entire world, a lone raven flying from an open hatch toward a sliver of dry land on the horizon
+```
+
+### El encuentro de Gilgamesh y Enkidu (heroica) — `el-encuentro-de-gilgamesh-y-enkidu.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, bronze and dusty gold and deep night blue color palette, Gilgamesh and Enkidu locked in a violent wrestling clash in a narrow doorway during a wedding feast, onlookers scattering, dust rising around their straining bodies
+```
+
+### La expedición al Bosque de los Cedros (heroica) — `la-expedicion-al-bosque-de-los-cedros.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep forest green and bronze and storm grey color palette, Gilgamesh and Enkidu standing over the felled monstrous guardian Humbaba beneath towering ancient cedar trees, eight powerful winds visibly swirling around the clearing
+```
+
+### El Toro del Cielo (heroica) — `el-toro-del-cielo.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, night blue and burning gold and blood red color palette, Enkidu gripping the horns and tail of a colossal celestial bull while Gilgamesh drives a bronze sword into the back of its neck, the walls of Uruk cracking in the background, Inanna watching furious from the ramparts
+```
+
+### La muerte de Enkidu (tragedia) — `la-muerte-de-enkidu.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dim ash grey and fading amber and deep violet color palette, Gilgamesh kneeling beside the dying Enkidu on a modest bed, torchlight flickering, grief and disbelief plain on the king's face
+```
+
+### Gilgamesh y la flor de la eterna juventud (tragedia) — `gilgamesh-y-la-flor-de-la-eterna-juventud.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep sea teal and pale gold and grey color palette, Gilgamesh kneeling by a still pool watching in horror as a serpent slithers away with a glowing thorned plant, its old skin left shed behind on the stones
+```
+
+### ⭐ El descenso de Inanna al inframundo (tragedia) — `el-descenso-de-inanna-al-inframundo.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and deep violet and faint lapis blue color palette, Inanna passing through the seventh gate of the underworld stripped of her last royal insignia, Ereshkigal watching coldly from a bone-pale throne ahead
+```
+
+### La condena de Dumuzi (tragedia) — `la-condena-de-dumuzi.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep crimson and shadow black and dull gold color palette, gaunt gallu demons dragging Dumuzi from his own throne as Inanna points at him with cold fury, Geshtinanna rushing in from the doorway too late to stop it
+```
+
+### Inanna y los Me de la civilización (otro) — `inanna-y-los-me-de-la-civilizacion.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm amber and lapis blue and gold color palette, Inanna loading glowing sacred tablets and vessels onto the Boat of Heaven while a slumped, deeply drunk Enki toasts her from his banquet table in Eridu
+```
+
+### Enki y Ninhursag en Dilmun (amor) — `enki-y-ninhursag-en-dilmun.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, lush emerald green and soft gold and pale blue color palette, a lush primordial paradise garden where eight strange new plants sprout from the earth, a weakened Enki lying among them as Ninhursag approaches with healing hands outstretched
+```
+
+### El mito de Anzu (heroica) — `el-mito-de-anzu.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, storm grey and electric gold and deep violet color palette, Ninurta riding the south wind against the colossal storm-bird Anzu on a jagged mountaintop, glowing tablets clutched in the monster's talons, arrows dissolving mid-air around them
+```
+
+### Etana y el águila (heroica) — `etana-y-el-aguila.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, sky blue and warm gold and cloud white color palette, King Etana clutching the neck of a great eagle as they climb high above a shrinking earth, clouds streaming past below them
+```
+
+### Adapa y el pan de la vida (tragedia) — `adapa-y-el-pan-de-la-vida.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, celestial gold and pale cloud white and deep blue color palette, Adapa standing before the enthroned sky god Anu, waving away a offered plate of glowing bread and a cup of shimmering water, a look of dawning doubt on his face
+```
+
+### Nergal y Ereshkigal (amor) — `nergal-y-ereshkigal.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesopotamian ziggurat architecture and river/desert landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and molten red and deep violet color palette, Nergal standing over a fallen Ereshkigal with an axe raised, the blow frozen mid-swing as their eyes meet, fourteen demons watching motionless at the throne room's edge
+```
+
+---
+
+## 10. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -774,7 +861,8 @@ Tollan's stepped pyramids visible and abandoned in the smoky distance behind him
 | Hindú | 19 | La creación por el sacrificio de Purusha, El batido del océano de leche |
 | Nórdica | 20 | La creación del mundo de Ymir, La creación de Ask y Embla, El renacimiento tras el Ragnarök |
 | Azteca | 18 | Los Cinco Soles, El descenso de Quetzalcoatl al Mictlán, El descubrimiento del maíz |
+| Sumeria | 16 | La creación desde las aguas de Nammu, El Enuma Elish |
 
-**Total: 98 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 114 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + el Ragnarök) son las más importantes para tener primero — funcionan bien como
 portada de cada libro o apertura de la sección de historias en el flipbook.
