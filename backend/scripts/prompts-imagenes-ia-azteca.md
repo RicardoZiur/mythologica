@@ -249,7 +249,7 @@ Semi-realistic fantasy digital painting, wide dynamic scene, dramatic chiaroscur
 
 #### Náhual (`nahual.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, mid-transformation figure, half human sorcerer half jaguar, dynamic transformation pose, intricate ornate Aztec jewelry, dense misty jungle at night in the background, atmospheric haze, centered composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, jaguar-spot black and gold and moonlit silver color palette, piercing feline eyes, one side human one side animal, moonlight cutting across the transformation
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a human sorcerer's body actively transforming, muscular human torso and legs with jaguar spots spreading across the skin, clawed hands mid-transformation, a jaguar's head emerging over the sorcerer's own face like a spectral overlay, intricate ornate Aztec jewelry, dense misty jungle at night in the background, atmospheric haze, centered dynamic composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, jaguar-spot black and gold and moonlit silver color palette, piercing feline eyes glowing through the human face beneath, moonlight cutting dramatically across the transformation
 ```
 
 #### Coyotlináhual (`coyotlinahual.jpg`)
