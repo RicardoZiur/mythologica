@@ -19,7 +19,7 @@ render en `app.js`/`pdf.js`). Avísame si querés que la arme y las conectamos.
 - **Proporción**: **3:2 o 16:9 (horizontal)** — a diferencia de los retratos, estas son escenas panorámicas.
 - Genera 2-4 variaciones por historia y quédate con la mejor.
 
-## 2. Prompt negativo (pégalo una sola vez, sirve para las 80 escenas)
+## 2. Prompt negativo (pégalo una sola vez, sirve para las 90 escenas)
 
 ```
 text, watermark, signature, blurry, extra limbs, extra fingers, deformed hands, deformed
@@ -624,7 +624,88 @@ young gods walking together across untouched grass toward a golden dawn
 
 ---
 
-## 8. Resumen
+## 8. Mitología Azteca (10 historias)
+
+A diferencia de los otros 4 libros, esta colección es más corta a propósito -- ver la nota
+sobre cantidad en `prompts-imagenes-ia-azteca.md` (el archivo hermano de retratos de
+personaje): se priorizó contenido bien documentado por sobre forzar la paridad de 20.
+
+### ⭐ Los Cinco Soles (cosmogonía) — `los-cinco-soles.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, blazing gold and ember orange and deep night blue color palette, the
+humble sore-covered god Nanahuatzin leaping into a great sacrificial bonfire at Teotihuacan
+while the proud god Tecuciztecatl hesitates behind him, the darkened sky above about to
+erupt with a new sun
+```
+
+### ⭐ El nacimiento de Huitzilopochtli (teogonía) — `nacimiento-de-huitzilopochtli.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, turquoise blue and solar gold and blood red color palette, Huitzilopochtli
+bursting fully-armed from Coatlicue at the moment of birth, the fire serpent Xiuhcoatl
+already decapitating his sister Coyolxauhqui as her four hundred brothers scatter in terror
+up the slopes of Coatepec
+```
+
+### La fundación de Tenochtitlan (fundación) — `fundacion-de-tenochtitlan.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dawn gold and lake blue and nopal green color palette, a group of
+weary mexica pilgrims kneeling in awe on a marshy islet as an eagle lands on a nopal cactus
+growing from bare rock, sunrise breaking over the lake behind them
+```
+
+### La caída de Tollan (tragedia) — `caida-de-tollan.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, faded gold and shadow black and pulque amber color palette, the
+disguised old man Tezcatlipoca offering a cup of pulque to the weakened priest-king Topiltzin
+Quetzalcoatl inside a once-glorious Toltec hall now dimmed with shadow
+```
+
+### El descenso de Quetzalcoatl al Mictlán (cosmogonía) — `descenso-al-mictlan.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, bone white and obsidian black and violet underworld glow color palette, Quetzalcoatl
+fleeing through a cavernous underworld carrying broken bones, tripping into a hidden pit as
+the skeletal Mictlantecuhtli watches from a shadowy throne
+```
+
+### El origen del maguey y el pulque (amor) — `origen-del-maguey-y-el-pulque.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, teal green and starlit violet and earthy brown color palette, the
+goddess Mayahuel and Quetzalcoatl intertwined as the branches of a single tree in the night
+sky, skeletal tzitzimime star-demons circling closer, about to discover the disguise
+```
+
+### ⭐ La leyenda de Ixtaccíhuatl y Popocatépetl (amor) — `ixtaccihuatl-y-popocatepetl.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, pale ivory and ember orange and twilight violet color palette, the
+warrior Popocatépetl kneeling with a burning torch beside the peacefully resting body of
+princess Ixtaccíhuatl atop a snow-capped mountain, both silhouettes already beginning to
+transform into the shapes of two great volcanoes
+```
+
+### La venganza de Copil (tragedia) — `venganza-de-copil.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, marsh green and blood red and dusk purple color palette, mexica
+priests casting a still-beating heart into the reeds of a misty lake at dusk, a single nopal
+cactus already sprouting from the water where it lands
+```
+
+### El abandono de Malinalxochitl (tragedia) — `abandono-de-malinalxochitl.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, desert amber and shadow blue and starlight silver color palette, the
+sorceress Malinalxochitl asleep alone in a desert camp as the silhouettes of the departing
+mexica caravan disappear into the night, scorpions and serpents coiling protectively near her
+```
+
+### La princesa desollada de Culhuacán (tragedia) — `princesa-desollada-de-culhuacan.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Mesoamerican stepped pyramid architecture and volcanic/starry landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, torchlight orange and deep red and shadow black color palette, lord
+Achitométl recoiling in horror at a torch-lit ceremony as he recognizes his daughter's face,
+the surrounding mexica priests frozen mid-dance
+```
+
+---
+
+## 9. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -632,7 +713,8 @@ young gods walking together across untouched grass toward a golden dawn
 | Egipcia | 21 | La cosmogonía heliopolitana |
 | Hindú | 19 | La creación por el sacrificio de Purusha, El batido del océano de leche |
 | Nórdica | 20 | La creación del mundo de Ymir, La creación de Ask y Embla, El renacimiento tras el Ragnarök |
+| Azteca | 10 | Los Cinco Soles, El descenso de Quetzalcoatl al Mictlán |
 
-**Total: 80 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 90 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + el Ragnarök) son las más importantes para tener primero — funcionan bien como
 portada de cada libro o apertura de la sección de historias en el flipbook.
