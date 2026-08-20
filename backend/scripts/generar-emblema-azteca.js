@@ -61,52 +61,73 @@ function anilloEscalonado() {
 // --- Escena central: aguila sobre el nopal devorando la serpiente
 // Coordenadas locales centradas en (0,0), luego trasladadas al
 // centro del lienzo con un <g transform="translate(...)">.
+//
+// v2: formas SOLIDAS (rellenas), no solo trazo delgado -- la
+// primera version usaba lineas finas para todo, y a esa escala
+// (320px) el resultado se veia como un amasijo de hilos en vez de
+// un simbolo reconocible. Ahora el cuerpo de cada elemento es una
+// silueta rellena en dorado (como un escudo/crest), y el detalle
+// interno (espinas, plumas) se graba encima con lineas negras
+// finas -- mismo truco que un grabado en madera o una moneda.
 function escenaCentral() {
+  const solido = `fill="${GOLD}" stroke="none"`;
+  const grabado = `fill="none" stroke="${BG}" stroke-width="1.6" stroke-linecap="round"`;
+  const acento = `fill="none" stroke="${GOLD}" stroke-width="2" stroke-linecap="round"`;
+
   return `
-    <g transform="translate(${CENTER},${CENTER})" fill="none" stroke="${GOLD}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(${CENTER},${CENTER})">
 
       <!-- suelo / islote -->
-      <path d="M -28,99 Q 0,104 28,99" stroke-width="1.6" />
+      <path d="M -30,101 Q 0,107 30,101" ${acento} />
 
-      <!-- nopal: pala base (forma de raqueta) -->
-      <path d="M -15,96 L -17,60 Q -17,34 0,32 Q 17,34 17,60 L 15,96 Q 0,101 -15,96 Z" />
-      <path d="M -12,52 l -5,-2 M -13,68 l -6,-1 M -13,84 l -6,-1 M 12,52 l 5,-2 M 13,68 l 6,-1 M 13,84 l 6,-1" stroke-width="1.1" />
+      <!-- nopal: pala base (forma de raqueta, rellena) -->
+      <path d="M -17,98 L -19,58 Q -19,30 0,28 Q 19,30 19,58 L 17,98 Q 0,104 -17,98 Z" ${solido} />
+      <path d="M -13,50 l -5,-2 M -14,66 l -6,-1 M -14,84 l -6,-1 M 13,50 l 5,-2 M 14,66 l 6,-1 M 14,84 l 6,-1" ${grabado} />
 
-      <!-- nopal: pala izquierda (rama ancha, bien separada del aguila) -->
-      <path d="M -9,58 C -26,56 -46,44 -56,20 C -49,15 -38,18 -30,26 C -18,38 -10,48 -8,58 Z" />
-      <path d="M -32,26 l -6,-3 M -44,16 l -6,-4" stroke-width="1.1" />
+      <!-- nopal: pala izquierda (rama ancha, rellena) -->
+      <path d="M -10,58 C -28,55 -50,42 -60,16 C -52,10 -40,13 -31,22 C -19,35 -10,47 -7,58 Z" ${solido} />
+      <path d="M -34,26 l -6,-3 M -47,15 l -6,-4" ${grabado} />
 
       <!-- nopal: pala derecha (espejo) -->
-      <path d="M 9,58 C 26,56 46,44 56,20 C 49,15 38,18 30,26 C 18,38 10,48 8,58 Z" />
-      <path d="M 32,26 l 6,-3 M 44,16 l 6,-4" stroke-width="1.1" />
+      <path d="M 10,58 C 28,55 50,42 60,16 C 52,10 40,13 31,22 C 19,35 10,47 7,58 Z" ${solido} />
+      <path d="M 34,26 l 6,-3 M 47,15 l 6,-4" ${grabado} />
 
-      <!-- garras sobre la pala base, unicamente -->
-      <path d="M -8,29 l -4,6 M -8,29 l 3,7 M 8,29 l 4,6 M 8,29 l -3,7" stroke-width="1.5" />
+      <!-- garras sobre la pala base -->
+      <path d="M -9,28 l -5,7 M -9,28 l 3,8 M 9,28 l 5,7 M 9,28 l -3,8" ${acento} stroke-width="2.2" />
 
-      <!-- cuerpo del aguila -->
-      <path d="M -7,27 C -9,14 -8,0 0,-14 C 8,0 9,14 7,27 C 3,31 -3,31 -7,27 Z" />
+      <!-- cuerpo del aguila (relleno) -->
+      <path d="M -9,26 C -11,12 -10,-4 0,-18 C 10,-4 11,12 9,26 C 5,31 -5,31 -9,26 Z" ${solido} />
 
-      <!-- cola, compacta entre las patas -->
-      <path d="M -5,25 C -6,32 -3,37 0,40 C 3,37 6,32 5,25" stroke-width="1.7" />
+      <!-- cola, rellena -->
+      <path d="M -7,24 C -8,33 -4,40 0,44 C 4,40 8,33 7,24 Z" ${solido} />
 
-      <!-- ala izquierda: una sola forma de hoja/pluma alzada (mas legible que varias lineas finas) -->
-      <path d="M -2,-13 C -20,-20 -38,-26 -50,-48 C -38,-36 -22,-24 -10,-15 Z" />
-      <path d="M -12,-18 L -34,-34 M -18,-15 L -40,-27" stroke-width="1.2" />
+      <!-- ala izquierda: ovalo solido, mas horizontal que vertical para
+           dejar libre la zona de arriba (cabeza) y de la derecha
+           (serpiente) -->
+      <ellipse cx="-40" cy="-19" rx="33" ry="11" transform="rotate(-16 -40 -19)" fill="${GOLD}" stroke="${BG}" stroke-width="1.8" />
+      <path d="M -22,-14 L -48,-24 M -26,-8 L -52,-16" ${grabado} />
 
-      <!-- ala derecha: espejo -->
-      <path d="M 2,-13 C 20,-20 38,-26 50,-48 C 38,-36 22,-24 10,-15 Z" />
-      <path d="M 12,-18 L 34,-34 M 18,-15 L 40,-27" stroke-width="1.2" />
+      <!-- ala derecha: espejo, corta para no invadir el camino de la serpiente -->
+      <ellipse cx="34" cy="-16" rx="24" ry="9" transform="rotate(10 34 -16)" fill="${GOLD}" stroke="${BG}" stroke-width="1.8" />
+      <path d="M 20,-13 L 42,-18 M 22,-8 L 46,-11" ${grabado} />
 
-      <!-- cuello y cabeza -->
-      <path d="M 0,-14 C -2,-24 -1,-33 3,-40" />
-      <circle cx="5" cy="-39" r="7.5" />
-      <!-- pico, mirando hacia la serpiente -->
-      <path d="M 12,-38 L 25,-33 L 12,-31 Z" />
+      <!-- cuello: trazo grueso solido, une el cuerpo con la cabeza -->
+      <path d="M 0,-17 C -2,-26 -1,-34 3,-40" fill="none" stroke="${GOLD}" stroke-width="8" stroke-linecap="round" />
 
-      <!-- serpiente: cuelga a la derecha, en el hueco entre el ala y el nopal -->
-      <path d="M 25,-33 C 45,-24 30,-4 47,8 C 30,18 44,33 29,45" stroke-width="2.6" />
-      <ellipse cx="32" cy="50" rx="7.5" ry="5.5" transform="rotate(25 32 50)" />
-      <path d="M 35,55 l -2,7 M 35,55 l 4,6" stroke-width="1.3" />
+      <!-- cabeza -->
+      <circle cx="5" cy="-41" r="9" ${solido} />
+      <!-- pico, apuntando hacia la serpiente -->
+      <path d="M 12,-40 L 27,-34 L 12,-31 Z" ${solido} />
+      <!-- ojo, grabado -->
+      <circle cx="7" cy="-43" r="1.6" fill="${BG}" />
+
+      <!-- serpiente: cinta gruesa colgando del pico, con un borde oscuro
+           fino para que quede separada del ala cuando se cruzan -->
+      <path d="M 27,-33 C 48,-22 34,2 50,14 C 33,25 47,40 30,52" fill="none" stroke="${BG}" stroke-width="12.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M 27,-33 C 48,-22 34,2 50,14 C 33,25 47,40 30,52" fill="none" stroke="${GOLD}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+      <!-- cabeza de la serpiente -->
+      <ellipse cx="32" cy="58" rx="9.5" ry="6.8" transform="rotate(25 32 58)" fill="${GOLD}" stroke="${BG}" stroke-width="1.8" />
+      <path d="M 36,64 l -2,7 M 36,64 l 4,6" ${acento} stroke-width="1.6" />
     </g>
   `;
 }
