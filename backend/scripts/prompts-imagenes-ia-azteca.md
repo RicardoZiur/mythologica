@@ -35,9 +35,9 @@ clothing, Egyptian clothing, generic bodybuilder physique, identical muscular bu
 character, overly sexualized pose
 ```
 
-Para **Cipactli**, **Tlaltecuhtli** (monstruos primordiales sin forma humana) y
-**Quetzalcoatl** (representado aquí como serpiente emplumada, no humanoide), agrega además,
-solo para esas generaciones puntuales:
+Para **Cipactli**, **Tlaltecuhtli** (monstruos primordiales sin forma humana),
+**Quetzalcoatl** (serpiente emplumada, no humanoide) y **Centzon Totochtin** (conejos reales,
+no humanoides), agrega además, solo para esas generaciones puntuales:
 `human, human face, human body, human anatomy, humanoid`
 
 Para los personajes con rasgos de animal (Xolotl, Tepeyollotl, Ahuízotl), cada prompt ya
@@ -239,7 +239,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 #### Centzon Totochtin (`centzon-totochtin.jpg`)
 ```
-Semi-realistic fantasy digital painting, wide dynamic scene, dramatic chiaroscuro lighting, a group of minor rabbit-headed deities of varied builds, intricate ornate Aztec jewelry, festive Mesoamerican courtyard in the misty background, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm amber and earthy brown and pale moonlight color palette, animal-headed deities, human bodies, rabbit heads with wild varied expressions from joyful to violent, surrounded by ceremonial pulque vessels
+Semi-realistic fantasy digital painting, wide dynamic scene, dramatic chiaroscuro lighting, a group of mystical rabbits, NOT humanoid, real full animal rabbit bodies (four-legged, fur, long ears, no human anatomy), each wearing small ornate Aztec jewelry and jade pendants around their necks, festive Mesoamerican courtyard in the misty background, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm amber and earthy brown and pale moonlight color palette, rabbits in wild varied poses from joyfully leaping to aggressively baring teeth, surrounded by overturned ceremonial pulque vessels
 ```
 
 #### Centzon Mimixcoa (`centzon-mimixcoa.jpg`)
