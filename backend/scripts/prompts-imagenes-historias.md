@@ -874,7 +874,7 @@ Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiarosc
 
 ### La derrota de Zipacná (heroica) — `la-derrota-de-zipacna.jpg`
 ```
-Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, stone grey and earthy brown and jade green color palette, a colossal mountain giant crushed beneath an entire artificial mountain collapsing on top of him at the bottom of a ravine, two hero twins watching from the ridge above
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, stone grey and earthy brown and jade green color palette, a colossal muscular giant with skin textured like cracked stone and packed earth, wearing a crude necklace of large uncut jade stones and animal teeth and a rough woven loincloth, crushed beneath an entire artificial mountain collapsing on top of him at the bottom of a ravine, two young hero twins clad in full jaguar-pelt warrior suits with jaguar-head hoods framing their faces and red-orange ritual paint on their cheeks watching triumphantly from the ridge above
 ```
 
 ### La derrota de Cabracán (heroica) — `la-derrota-de-cabrakan.jpg`
