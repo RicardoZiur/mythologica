@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KK7M7VG3');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mythologica — Libros</title>
+<script>(function(){ if(localStorage.getItem('mythologica_tema')==='claro') document.documentElement.setAttribute('data-theme','claro'); })();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KK7M7VG3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <div class="admin-wrap">
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <button class="theme-toggle" id="btnTema" type="button">☀</button>
+        <a class="brand" href="../index.html">MYTHOLOGICA <span>LIBROS</span></a>
+        <span id="versionTag" class="admin-version"></span>
+      </div>
+      <div class="admin-header-right">
+        <div id="authStatus" class="auth-status"></div>
+      </div>
+    </header>
+
+    <div id="adminNav"></div>
+
+    <div id="adminContenido">
+      <p class="admin-cargando">Cargando...</p>
+    </div>
+  </div>
+
+  <!-- Modal de login (por si alguien llega sin sesion) -->
+  <div class="auth-modal-backdrop" id="authBackdrop">
+    <div class="auth-modal">
+      <button class="auth-close" id="authClose" aria-label="Cerrar">×</button>
+      <div class="auth-tabs" id="authTabs">
+        <button class="auth-tab active" id="tabLogin" type="button">Iniciar sesión</button>
+        <button class="auth-tab" id="tabRegistro" type="button">Crear cuenta</button>
+      </div>
+      <form id="formLogin" class="auth-form">
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Contraseña
+          <span class="auth-password-field">
+            <input type="password" name="password" required autocomplete="current-password">
+            <button type="button" class="auth-password-toggle" aria-label="Mostrar contraseña" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/><line class="auth-eye-slash" x1="2" y1="2" x2="22" y2="22"/></svg>
+            </button>
+          </span>
+        </label>
+        <button type="button" class="auth-forgot-link" id="btnOlvidePassword">¿Olvidaste tu contraseña?</button>
+        <p class="auth-error" id="loginError"></p>
+        <button type="submit" class="auth-submit">Entrar</button>
+      </form>
+      <form id="formRegistro" class="auth-form" hidden>
+        <label>Nombre<input type="text" name="nombre" required autocomplete="name"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Contraseña
+          <span class="auth-password-field">
+            <input type="password" name="password" required minlength="8" autocomplete="new-password">
+            <button type="button" class="auth-password-toggle" aria-label="Mostrar contraseña" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/><line class="auth-eye-slash" x1="2" y1="2" x2="22" y2="22"/></svg>
+            </button>
+          </span>
+        </label>
+        <label>Confirmar contraseña
+          <span class="auth-password-field">
+            <input type="password" name="passwordConfirmacion" required minlength="8" autocomplete="new-password">
+            <button type="button" class="auth-password-toggle" aria-label="Mostrar contraseña" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/><line class="auth-eye-slash" x1="2" y1="2" x2="22" y2="22"/></svg>
+            </button>
+          </span>
+        </label>
+        <p class="auth-hint">Tu cuenta se crea con acceso a la muestra gratuita. El acceso completo y la descarga del PDF se habilitan por separado.</p>
+        <p class="auth-error" id="registroError"></p>
+        <button type="submit" class="auth-submit">Crear cuenta</button>
+      </form>
+      <form id="formOlvide" class="auth-form" hidden>
+        <p class="auth-hint">Escribe el email de tu cuenta. Si existe, te mandamos un link para elegir una contraseña nueva.</p>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <p class="auth-error" id="olvideError"></p>
+        <button type="submit" class="auth-submit">Enviar link</button>
+        <button type="button" class="auth-back-link" id="btnVolverLogin">Volver a iniciar sesión</button>
+      </form>
+      <form id="formRestablecer" class="auth-form" hidden>
+        <p class="auth-hint">Elige una contraseña nueva para tu cuenta.</p>
+        <label>Contraseña nueva
+          <span class="auth-password-field">
+            <input type="password" name="password" required minlength="8" autocomplete="new-password">
+            <button type="button" class="auth-password-toggle" aria-label="Mostrar contraseña" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/><line class="auth-eye-slash" x1="2" y1="2" x2="22" y2="22"/></svg>
+            </button>
+          </span>
+        </label>
+        <p class="auth-error" id="restablecerError"></p>
+        <button type="submit" class="auth-submit">Guardar contraseña</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/tema.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/admin-comun.js"></script>
+  <script src="../js/admin-libros.js"></script>
+</body>
+</html>
