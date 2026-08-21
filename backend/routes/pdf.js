@@ -327,21 +327,6 @@ function construirEstilos(paleta, fondoPortada) {
        min-height, cada hoja mide exactamente lo que su contenido
        necesita -- una sola si entra, o tantas como haga falta si no. */
     .pdf-page-fija { min-height:297mm; }
-    /* Marca de agua: el texto se define UNA sola vez, en la variable
-       CSS "--marca-agua" (puesta en <body>, ver construirDocumentoCompleto),
-       y como las variables CSS heredan hacia abajo, aparece igual en
-       CADA pagina via este "::after" -- sin tener que agregarla a mano
-       en cada una de las funciones que arman paginas (portada, indices,
-       historias, personajes...). Chica y de bajo contraste a proposito:
-       tiene que ser legible si hace falta identificar la copia, pero
-       sin ensuciar la lectura normal del libro. */
-    .pdf-page::after {
-      content: var(--marca-agua);
-      position:absolute; left:0; right:0; bottom:7mm;
-      text-align:center; font-family:'IBM Plex Mono', monospace;
-      font-size:6.5px; letter-spacing:0.3px; color:${paleta.textoDebil};
-      opacity:0.7; pointer-events:none;
-    }
     /* La portada es la unica hoja del PDF que puede romper la paleta
        clara del resto del libro: si hay imagen de fondo (no todos los
        libros la tienen todavia), lleva la misma ilustracion oscura que
@@ -515,10 +500,6 @@ function construirDocumentoCompleto(historias, personajes, usuario, libro, numer
     })
   ].join('');
 
-  const nombre = limpiarParaAtributo(usuario.nombre);
-  const email = limpiarParaAtributo(usuario.email);
-  const marcaAgua = `Copia personal de ${nombre} (${email}) — uso personal, prohibida su reventa o redistribución`;
-
   return `
     <!DOCTYPE html>
     <html lang="es">
@@ -528,7 +509,7 @@ function construirDocumentoCompleto(historias, personajes, usuario, libro, numer
       <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
       <style>${estilos}</style>
     </head>
-    <body style="--marca-agua:&quot;${marcaAgua}&quot;;">
+    <body>
 
       <section class="pdf-page pdf-page-fija portada${fondoPortada ? ' portada-con-fondo' : ''}">
         <div class="cover-spacer-top"></div>
@@ -711,6 +692,16 @@ const ALTURA_BANNER_MIN = 150;
 const ALTURA_BANNER_MAX = 260;
 const COLCHON_SEGURIDAD_PX = 15;
 
+async function medirAlturasHistorias(page) {
+  return page.evaluate(() => {
+    const resultado = {};
+    document.querySelectorAll('.pdf-page[id^="hist-"]').forEach((el) => {
+      resultado[el.id.replace('hist-', '')] = el.getBoundingClientRect().height;
+    });
+    return resultado;
+  });
+}
+
 // Mide, en un HTML de prueba (sin PDF, mas rapido que renderizar uno),
 // cuanto ocupa cada historia con su tamaño de letra NORMAL y el banner
 // al minimo, y devuelve para cada una si necesita ".compacta" (no
@@ -725,24 +716,45 @@ async function medirHistorias(historias, personajes, usuario, libro, fondoPortad
   const pageMedicion = await browser.newPage();
   try {
     await pageMedicion.setContent(htmlSinCompactar, { waitUntil: 'networkidle0' });
-    const alturas = await pageMedicion.evaluate(() => {
-      const resultado = {};
-      document.querySelectorAll('.pdf-page[id^="hist-"]').forEach((el) => {
-        resultado[el.id.replace('hist-', '')] = el.getBoundingClientRect().height;
-      });
-      return resultado;
-    });
+    const alturas = await medirAlturasHistorias(pageMedicion);
 
     const resultado = new Map();
+    const slugsCompactos = [];
     for (const [slug, altura] of Object.entries(alturas)) {
       if (altura > ALTO_UTIL_HISTORIA_PX) {
         resultado.set(slug, { compacta: true, alturaBanner: ALTURA_BANNER_MIN });
+        slugsCompactos.push(slug);
         continue;
       }
       const holgura = ALTO_UTIL_HISTORIA_PX - altura - COLCHON_SEGURIDAD_PX;
       const alturaBanner = Math.min(ALTURA_BANNER_MIN + Math.max(0, holgura), ALTURA_BANNER_MAX);
       resultado.set(slug, { compacta: false, alturaBanner });
     }
+
+    // Segunda pasada, SOLO para las que quedaron ".compacta": la letra
+    // mas chica (11px/1.42, ver ".pagina-historia.compacta .cuerpo" en
+    // construirEstilos) libera espacio que la primera pasada nunca
+    // llegaba a medir -- antes, cualquier historia "compacta" se
+    // quedaba SIEMPRE con el banner al minimo sin importar cuanto
+    // sobrara, aunque la letra chica dejara, en varios casos, tanto
+    // espacio libre como una que no necesitaba compactarse. Se vuelve a
+    // renderizar YA con ".compacta" aplicada (pasando "resultado", que
+    // en este punto tiene compacta:true para todas estas) y se repite
+    // el mismo calculo de holgura, ahora sobre la altura real a ese
+    // tamaño de letra.
+    if (slugsCompactos.length > 0) {
+      const htmlCompactado = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada, resultado);
+      await pageMedicion.setContent(htmlCompactado, { waitUntil: 'networkidle0' });
+      const alturasCompactas = await medirAlturasHistorias(pageMedicion);
+
+      for (const slug of slugsCompactos) {
+        const altura = alturasCompactas[slug];
+        const holgura = ALTO_UTIL_HISTORIA_PX - altura - COLCHON_SEGURIDAD_PX;
+        const alturaBanner = Math.min(ALTURA_BANNER_MIN + Math.max(0, holgura), ALTURA_BANNER_MAX);
+        resultado.set(slug, { compacta: true, alturaBanner });
+      }
+    }
+
     return resultado;
   } finally {
     await pageMedicion.close();
