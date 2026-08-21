@@ -151,12 +151,46 @@ function iconoEstrella() {
   `;
 }
 
+// ---------------------------------------------------------------
+// MAYA: la piramide escalonada (tipo El Castillo de Chichen Itza),
+// el icono mas reconocible de la cultura maya -- silueta solida de
+// cuatro cuerpos escalonados con la escalinata central marcada por
+// un corte en negativo, mas un pequeno templo/remate en la cima.
+function iconoPiramide() {
+  const solido = `fill="${GOLD}" stroke="none"`;
+  const niveles = 4;
+  const anchoBase = 88;
+  const anchoTope = 30;
+  const altoTotal = 84;
+  const altoNivel = altoTotal / niveles;
+  const anchoEscalinata = 15;
+  let cuerpos = '';
+  for (let i = 0; i < niveles; i++) {
+    const y0 = 40 - i * altoNivel;
+    const y1 = y0 - altoNivel;
+    const w0 = anchoBase - (anchoBase - anchoTope) * (i / niveles);
+    const w1 = anchoBase - (anchoBase - anchoTope) * ((i + 1) / niveles);
+    cuerpos += `<path d="M ${-w0 / 2},${y0} L ${-w1 / 2},${y1} L ${w1 / 2},${y1} L ${w0 / 2},${y0} Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />`;
+  }
+  const yTope = 40 - altoTotal;
+  const escalinata = `<path d="M ${-anchoEscalinata / 2},40 L ${-anchoEscalinata * 0.32},${yTope} L ${anchoEscalinata * 0.32},${yTope} L ${anchoEscalinata / 2},40 Z" fill="${BG}" stroke="none" />`;
+  const templo = `<rect x="${-anchoTope * 0.42}" y="${yTope - 16}" width="${anchoTope * 0.84}" height="16" ${solido} stroke="${BG}" stroke-width="1.6" />`;
+  return `
+    <g transform="translate(${CENTER},${CENTER})">
+      ${cuerpos}
+      ${escalinata}
+      ${templo}
+    </g>
+  `;
+}
+
 const LIBROS = [
   { slug: 'mitologia-griega', icono: iconoRayo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-hindu', icono: iconoLoto, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-nordica', icono: iconoMartillo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-egipcia', icono: iconoAnkh, rMarcas: [96, 108], nMarcas: 28 },
-  { slug: 'mitologia-sumeria', icono: iconoEstrella, rMarcas: [96, 108], nMarcas: 28 }
+  { slug: 'mitologia-sumeria', icono: iconoEstrella, rMarcas: [96, 108], nMarcas: 28 },
+  { slug: 'mitologia-maya', icono: iconoPiramide, rMarcas: [96, 108], nMarcas: 28 }
 ];
 
 function construirSvg(libro) {

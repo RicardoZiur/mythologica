@@ -852,7 +852,104 @@ Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiarosc
 
 ---
 
-## 10. Resumen
+## 10. Mitología Maya (18 historias)
+
+**Nota:** este libro se ilustra con Gemini, no con Leonardo.ai — no hace falta la configuración
+de la sección 1, solo pega cada prompt completo directo en el chat.
+
+### ⭐ La creación del mundo (cosmogonía) — `la-creacion-del-mundo.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, void black and jade teal and dawn gold color palette, mountains and forested land rising instantly from a calm primordial sea as three divine presences speak the word "earth" into the darkness, mist parting to reveal the first shoreline
+```
+
+### Los hombres de barro y madera (cosmogonía) — `los-hombres-de-barro-y-madera.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, storm grey and dull ember red and obsidian black color palette, wooden humanoid figures fleeing in panic as a monstrous eagle tears at their eyes and a great jaguar lunges from the shadows, their own household tools and animals turning against them, a flood rising in the background
+```
+
+### ⭐ La derrota de Vucub-Caquix (heroica) — `la-derrota-de-vucub-caquix.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, garish jeweled gold and jade green and deep red color palette, two young hero twins disguised as elderly healers prying jeweled teeth from the jaws of a monstrous vain macaw demon perched in a fruit tree, its silver eyes dimming as its false splendor is stripped away
+```
+
+### La derrota de Zipacná (heroica) — `la-derrota-de-zipacna.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, stone grey and earthy brown and jade green color palette, a colossal mountain giant crushed beneath an entire artificial mountain collapsing on top of him at the bottom of a ravine, two hero twins watching from the ridge above
+```
+
+### La derrota de Cabracán (heroica) — `la-derrota-de-cabrakan.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dusty ochre and stone grey and dull gold color palette, a mighty earthquake giant collapsing weakly to his knees mid-stride, cracked earth radiating around him, two hero twins binding his arms as he loses his strength
+```
+
+### La muerte de Hun-Hunahpú y Vucub-Hunahpú (tragedia) — `la-muerte-de-hun-hunahpu-y-vucub-hunahpu.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and bone white and deep violet color palette, a severed head hanging among round fruit in a barren tree that has burst into bloom overnight, the shadowy lords of the underworld watching from a stone throne in the background
+```
+
+### Ixquic y el árbol de las calabazas (otro) — `ixquic-y-el-arbol-de-las-calabazas.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, deep violet dusk and pale jade and soft gold color palette, a young woman reaching toward a skull hidden among calabash fruit as it speaks and spits into her open palm, owl messengers watching silently from a nearby branch
+```
+
+### El nacimiento de los gemelos y los hermanos simios (heroica) — `el-nacimiento-de-los-gemelos-y-los-hermanos-simios.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm gold and jade green and deep brown color palette, two elder brothers trapped high in a suddenly towering tree, their bodies already transforming into spider monkeys, two young hero twins watching calmly from the ground below as their grandmother laughs uncontrollably nearby
+```
+
+### La convocatoria a Xibalbá (heroica) — `la-convocatoria-a-xibalba.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm gold and deep jungle green and dusk violet color palette, two young hero twins playing a fierce ballgame on a stone court as owl messengers descend from a dark crack opening in the earth beside them, their grandmother watching anxiously from a doorway
+```
+
+### Las casas de tormento (heroica) — `las-casas-de-tormento.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and deep crimson and bone white color palette, a monstrous bat-headed guardian striking downward inside a dark chamber as two hero twins crouch hidden inside hollow blowguns, one twin's severed head already gone
+```
+
+### ⭐ La derrota final de los señores de Xibalbá (heroica) — `la-derrota-final-de-los-senores-de-xibalba.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and molten gold and deep violet color palette, two disguised hero twins performing a miraculous sacrifice-and-revival trick before an astonished council of underworld lords, one twin frozen mid-strike over a kneeling supreme lord who has just requested the same fate
+```
+
+### Los gemelos se convierten en el Sol y la Luna (cosmogonía) — `los-gemelos-se-convierten-en-el-sol-y-la-luna.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, blazing gold and silver moonlight and deep indigo color palette, two hero twins ascending together from a dark underworld crevice into an open sky, one already transforming into a blazing sun and the other into a glowing moon, tiny star-lights gathering around them
+```
+
+### ⭐ La creación de los hombres de maíz (cosmogonía) — `la-creacion-de-los-hombres-de-maiz.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm maize gold and jade green and soft dawn light color palette, an elderly goddess grinding white and yellow maize into fine dough as four newly formed human figures rise from the paste, animals watching from the edge of a hidden split mountain in the background
+```
+
+### La niebla sobre los ojos de los primeros hombres (cosmogonía) — `la-niebla-sobre-los-ojos-de-los-primeros-hombres.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, pale mist grey and warm maize gold and soft indigo color palette, four maize-born men staring in awe at a vast horizon stretching in every direction, a divine breath of thick mist rolling toward their wide open eyes to dim their unlimited sight
+```
+
+### Kukulkán y la serpiente de luz (fundación) — `kukulkan-y-la-serpiente-de-luz.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, emerald green and warm gold and deep violet dusk color palette, a great stepped pyramid at dusk, its stairway shadow forming the unmistakable coiling body of a descending feathered serpent meeting a carved stone head at the base, worshippers gathered small and reverent below
+```
+
+### Chaac y el origen de la lluvia (otro) — `chaac-y-el-origen-de-la-lluvia.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, storm grey and electric blue and jade green color palette, four identical rain gods in red, white, black and yellow regalia striking heavy storm clouds with stone axes from the four corners of the sky, rain beginning to fall over a parched maize field below
+```
+
+### ⭐ La leyenda de Sac-Nicté y Canek (amor) — `la-leyenda-de-sac-nicte-y-canek.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm ivory and jade green and deep crimson color palette, a young prince pulling his bride away from a wedding altar mid-ceremony, the humiliated groom rising in fury as startled guests scatter around the stone temple courtyard
+```
+
+### El origen de la Xtabay (tragedia) — `el-origen-de-la-xtabay.jpg`
+```
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, pale moonlight silver and jade green and deep violet color palette, two matching graves side by side beneath a great ceibo tree, a fragrant white flower blooming from one and a beautiful scentless cactus flower from the other, a pale seductive figure beginning to form from the mist above the second grave
+```
+
+---
+
+## 11. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -862,7 +959,8 @@ Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiarosc
 | Nórdica | 20 | La creación del mundo de Ymir, La creación de Ask y Embla, El renacimiento tras el Ragnarök |
 | Azteca | 18 | Los Cinco Soles, El descenso de Quetzalcoatl al Mictlán, El descubrimiento del maíz |
 | Sumeria | 16 | La creación desde las aguas de Nammu, El Enuma Elish |
+| Maya | 18 | La creación del mundo, La creación de los hombres de maíz, La derrota final de los señores de Xibalbá |
 
-**Total: 114 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
-(cosmogonías + el Ragnarök) son las más importantes para tener primero — funcionan bien como
-portada de cada libro o apertura de la sección de historias en el flipbook.
+**Total: 132 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+(cosmogonías + momentos clave) son las más importantes para tener primero — funcionan bien
+como portada de cada libro o apertura de la sección de historias en el flipbook.
