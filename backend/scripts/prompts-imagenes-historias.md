@@ -879,7 +879,7 @@ Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiarosc
 
 ### La derrota de Cabracán (heroica) — `la-derrota-de-cabrakan.jpg`
 ```
-Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dusty ochre and stone grey and dull gold color palette, a mighty earthquake giant collapsing weakly to his knees mid-stride, cracked earth radiating around him, two hero twins binding his arms as he loses his strength
+Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, dusty ochre and stone grey and dull gold color palette, a mighty colossal muscular giant with skin textured like cracked stone and packed earth, wearing a crude necklace of large uncut jade stones and animal teeth and a rough woven loincloth, collapsing weakly to his knees mid-stride, cracked earth radiating around him, two young hero twins clad in full jaguar-pelt warrior suits with jaguar-head hoods framing their faces and red-orange ritual paint on their cheeks binding his arms as he loses his strength
 ```
 
 ### La muerte de Hun-Hunahpú y Vucub-Hunahpú (tragedia) — `la-muerte-de-hun-hunahpu-y-vucub-hunahpu.jpg`
