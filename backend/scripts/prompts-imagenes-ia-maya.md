@@ -189,7 +189,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Mahucutah — `mahucutah.jpg`
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a powerful newly-formed build with a subtle maize-colored skin tone, a plain woven loincloth with minimal ornament, small jade earspools, a single carved jade pendant, an unpolished direct bearing, standing at the edge of a wide open landscape in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm maize gold and jade green and deep brown color palette, the third true man of maize, blunt and grounded, a quiet strength in his stance
+Semi-realistic fantasy digital painting, full body portrait, standing barefoot on a cracked rocky outcrop, arms crossed firmly over his chest, dramatic chiaroscuro lighting, a stocky powerful newly-formed build with a subtle maize-colored skin tone, tousled uncombed hair true to his name, no headband or headdress at all, a plain rough-woven loincloth with no ornament, small unpolished jade earspools, no necklace, an unpolished direct bearing, a hard unwavering stare straight ahead, a wide open landscape of bare stone and distant mountains in the misty background, atmospheric haze, centered composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm maize gold and stone grey and deep brown color palette, the third true man of maize, blunt and grounded, a quiet unshakeable strength in his stance
 ```
 
 ### Iqui Balam — `iqui-balam.jpg`
