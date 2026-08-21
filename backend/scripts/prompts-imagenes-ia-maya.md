@@ -56,7 +56,7 @@ Semi-realistic fantasy digital painting, full body portrait, kneeling in profile
 
 ### Kukulkán — `kukulkan.jpg`
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a lithe regal humanoid build wrapped in the coiling body of an enormous feathered serpent, iridescent quetzal-feather scales, jade ornaments, a stepped pyramid with a serpent-shaped shadow on its staircase in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, emerald green and turquoise and gold color palette, a majestic feathered serpent god of wind and knowledge, wind visibly stirring the surrounding mist
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a MALE deity, a muscular regal masculine build with a strong-jawed bearded warrior-priest face, broad shoulders and bare muscular torso, wrapped in the coiling body of an enormous feathered serpent, iridescent quetzal-feather scales, jade and gold male regalia, a stepped pyramid with a serpent-shaped shadow on its staircase in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, emerald green and turquoise and gold color palette, a majestic feathered serpent god of wind and knowledge, unmistakably male, commanding and powerful, wind visibly stirring the surrounding mist
 ```
 
 ### Chaac — `chaac.jpg`
