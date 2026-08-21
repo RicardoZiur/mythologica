@@ -166,7 +166,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Enkidu
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a powerfully built wild-man physique, entire body covered in long shaggy hair, simple animal-hide garments, wild animals of the steppe faintly visible around his feet, tall grasslands under open sky in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, earthy green and warm brown and dawn gold color palette, a wild untamed man of the steppe, expression caught between animal instinct and dawning human awareness
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a powerfully built wild-man physique, entire body covered in long shaggy hair, a pair of small curved bull horns emerging from his brow, simple animal-hide garments, wild animals of the steppe faintly visible around his feet, tall grasslands under open sky in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, earthy green and warm brown and dawn gold color palette, a wild untamed man of the steppe, expression caught between animal instinct and dawning human awareness
 ```
 
 ### Utnapishtim
