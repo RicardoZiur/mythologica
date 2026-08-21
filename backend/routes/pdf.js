@@ -311,7 +311,7 @@ function construirEstilos(paleta, fondoPortada) {
     body { font-family:'IBM Plex Sans', sans-serif; color:${paleta.texto}; }
     .pdf-page {
       position:relative; page-break-after: always; background:${paleta.fondo};
-      border:1px solid ${paleta.linea}; padding:8mm 10mm 18mm;
+      padding:8mm 10mm 18mm;
       box-decoration-break: clone; -webkit-box-decoration-break: clone;
     }
     .pdf-page:last-child { page-break-after: auto; }
