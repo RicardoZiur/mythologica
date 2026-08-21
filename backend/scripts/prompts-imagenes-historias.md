@@ -11,6 +11,18 @@ muestra). Estos prompts están listos para que generes las imágenes cuando quie
 que aparezcan en el sitio hace falta agregar esa función (columna en la base + subida +
 render en `app.js`/`pdf.js`). Avísame si querés que la arme y las conectamos.
 
+**Aviso sobre el recorte del banner (2026-08-21)**: el `.historia-banner` se muestra con
+`object-fit:cover` en una caja MUY panorámica — hasta ~2.7:1 en el PDF (el ancho útil de la
+hoja entre 150-260px de alto), más angosta pero igual de ancha en el flipbook. Una imagen
+generada en 16:9 o 3:2 "normal" es más alta de lo que esa caja necesita, así que el recorte
+centrado le come la parte de arriba y de abajo — típicamente la cabeza de un personaje "en lo
+alto" o un elemento flotando por encima de la escena. Desde este aviso, los prompts nuevos
+piden explícitamente `aspect ratio approximately 21:9` y mantienen toda la acción clave en una
+franja horizontal baja al centro del cuadro (evitando composiciones "altas": alguien trepado,
+algo flotando arriba de otra cosa, un grupo disperso en vertical). Si una imagen ya generada
+se ve con partes importantes cortadas, ese es el motivo — pedile a Gemini que la regenere con
+el prompt actualizado.
+
 ## 1. Configuración recomendada en Leonardo.ai
 
 - **Modelo**: "Leonardo Phoenix 1.0" — si el resultado no convence, prueba "AlbedoBase XL".
@@ -894,7 +906,7 @@ Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiarosc
 
 ### El nacimiento de los gemelos y los hermanos simios (heroica) — `el-nacimiento-de-los-gemelos-y-los-hermanos-simios.jpg`
 ```
-Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, warm gold and jade green and deep brown color palette, two elder brothers trapped high in a suddenly towering tree, their bodies already transforming into spider monkeys, two young hero twins watching calmly from the ground below as their grandmother laughs uncontrollably nearby
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and jade green and deep brown color palette, a low leafy tree branch stretching horizontally across the middle of the frame with two elder brothers clinging to it at mid-height, their bodies already transforming into spider monkeys, two young hero twins standing on the ground looking up at them, their grandmother laughing beside them, the tree's upper branches and roots left out of frame so the group stays centered in a tight horizontal band
 ```
 
 ### La convocatoria a Xibalbá (heroica) — `la-convocatoria-a-xibalba.jpg`
@@ -904,12 +916,12 @@ Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiarosc
 
 ### Las casas de tormento (heroica) — `las-casas-de-tormento.jpg`
 ```
-Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and deep crimson and bone white color palette, a monstrous bat-headed guardian striking downward inside a dark chamber as two hero twins crouch hidden inside hollow blowguns, one twin's severed head already gone
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic chiaroscuro lighting, dynamic multi-figure composition, a dark low-ceilinged stone chamber interior, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, obsidian black and deep crimson and bone white color palette, a monstrous bat-headed guardian lunging low and sideways at chest height toward two hero twins crouched at ground level partly hidden inside hollow blowguns lying on the stone floor, one twin's severed head resting nearby on the ground, the chamber's ceiling and depth left out of frame so the action stays centered in a tight horizontal band
 ```
 
 ### ⭐ La derrota final de los señores de Xibalbá (heroica) — `la-derrota-final-de-los-senores-de-xibalba.jpg`
 ```
-Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, obsidian black and molten gold and deep violet color palette, two disguised hero twins performing a miraculous sacrifice-and-revival trick before an astonished council of underworld lords, one twin frozen mid-strike over a kneeling supreme lord who has just requested the same fate
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic chiaroscuro lighting, dynamic multi-figure composition, a dark low stone throne hall interior, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, obsidian black and molten gold and deep violet color palette, two disguised hero twins performing a miraculous sacrifice-and-revival trick close to the ground, one twin frozen mid-strike over a kneeling supreme lord who has just requested the same fate, a tight cluster of a few astonished underworld lords seated low nearby watching, the hall's tall walls and ceiling left out of frame so the group stays centered in a tight horizontal band
 ```
 
 ### Los gemelos se convierten en el Sol y la Luna (cosmogonía) — `los-gemelos-se-convierten-en-el-sol-y-la-luna.jpg`
@@ -944,7 +956,7 @@ Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiarosc
 
 ### El origen de la Xtabay (tragedia) — `el-origen-de-la-xtabay.jpg`
 ```
-Semi-realistic fantasy digital painting, wide cinematic scene, dramatic chiaroscuro lighting, dynamic multi-figure composition, ancient Maya jungle and stepped pyramid landscape backdrop, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, cinematic wide-angle framing, no text or writing anywhere in the image, pale moonlight silver and jade green and deep violet color palette, two matching graves side by side beneath a great ceibo tree, a fragrant white flower blooming from one and a beautiful scentless cactus flower from the other, a pale seductive figure beginning to form from the mist above the second grave
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key elements kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic chiaroscuro lighting, dynamic composition, a low ground-level view at the base of a great ceibo tree trunk, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, pale moonlight silver and jade green and deep violet color palette, two matching low graves side by side at ground level, a fragrant white flower blooming from one and a beautiful scentless cactus flower from the other, a pale seductive figure kneeling low beside the second grave as if just emerging from the mist rather than floating above it, the tree's tall trunk and canopy left out of frame so the scene stays centered in a tight horizontal band
 ```
 
 ---
