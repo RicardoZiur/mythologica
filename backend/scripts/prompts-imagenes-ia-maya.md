@@ -282,7 +282,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Ah Ulil — `ah-ulil.jpg`
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a proud regal build, an elaborate feathered ceremonial headdress now askew, round jade earspools, a jade and gold noble collar, fine ceremonial wedding garments now in disarray, clenched fists, standing alone before an empty altar, a distant war party gathering in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep crimson and stone grey and dull gold color palette, a humiliated lord consumed by wounded pride, cold fury barely contained
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, an older heavyset regal build, a thin dark mustache and short beard, a tall rigid gold and turquoise ceremonial headdress now knocked askew, large square jade earspools, a wide stiff collar of gold discs and turquoise mosaic, an ornate ruler's cloak now torn at one shoulder, gripping a broken ceremonial scepter in one clenched fist, standing rigid before an overturned altar, a distant war party gathering behind him in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep crimson and stone grey and dull gold color palette, an older humiliated lord consumed by wounded pride, cold fury barely contained beneath a rigid regal mask
 ```
 
 ### Xkeban — `xkeban.jpg`
