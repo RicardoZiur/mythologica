@@ -260,7 +260,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Kur
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, NOT human, NOT humanoid, no human face, no human anatomy, a vast primordial serpent-dragon coiling through subterranean darkness, scales like raw stone, glowing faint cracks of underworld light along its body, a deep underground river in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep cavern black and dull ember red and stone grey color palette, an ancient formless dragon of the underworld rising from black water, hurling stones from below
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, NOT human, NOT humanoid, no human face, no human anatomy, a vast primordial serpent-dragon coiling through subterranean darkness, scales like raw stone, large jagged bat-like wings unfurled from its upper coils, glowing faint cracks of underworld light along its body, a deep underground river in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep cavern black and dull ember red and stone grey color palette, an ancient formless winged dragon of the underworld rising from black water, hurling stones from below
 ```
 
 ### Los Lahmu
