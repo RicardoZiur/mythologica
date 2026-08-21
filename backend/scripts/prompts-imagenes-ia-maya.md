@@ -169,7 +169,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Vucub-Hunahpú — `vucub-hunahpu.jpg`
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a lean athletic build mirroring his brother, a carved stone ballgame yoke belt around his waist, protective deerhide kneepads and wristguards, round jade earspools, a jade bead necklace, a woven feathered headband, standing beside the same stone ballcourt, a rubber ball held loosely in one hand, atmospheric haze in the misty background, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm gold and jade green and dusk violet color palette, a loyal devoted brother and fellow ballplayer, a quieter more watchful presence beside his sibling
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a slightly stockier athletic build than his brother, a carved stone ballgame yoke belt around his waist worn lower and heavier, protective deerhide kneepads and thick wristguards, round jade earspools, a simple bone and jade bead necklace, a plain woven headband without feathers, crouched low in a ready defensive stance at the edge of the stone ballcourt, both hands braced against his knees, sweat visible on his brow, a bruise faintly visible on one shoulder from a previous play, atmospheric haze in the misty background, centered composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm gold and jade green and dusk violet color palette, a loyal devoted brother and fellow ballplayer, a quieter more watchful presence, weathered and steady
 ```
 
 ### Ixquic — `ixquic.jpg`
