@@ -71,7 +71,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Yum Kaax — `yum-kaax.jpg`
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a youthful serene build, skin the warm color of ripe maize, a headdress of green maize leaves and a sprouting ear of corn crowning his head, simple woven garments, lush maize fields under bright sun in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, verdant green and golden yellow and warm earth color palette, a gentle young god of maize, fragile beauty barely holding its ground against unseen threats
+Flat vector illustration in the style of ancient Maya codex and painted vase art, bold clean black outlines, simple flat color fills with no gradients or shading, a young MALE god seated cross-legged in strict profile view, warm tan-gold skin, an ornate feathered headdress with a red bird crest and dotted black accents, a large round jade earspool, a layered necklace of round jade and gold beads, bare muscular torso, a red loincloth patterned with small yellow squares, holding a small bowl or cacao pod topped with sprouting green leaves and a red bud cupped gently in both hands, plain white or neutral background, centered composition, stylized ancient Maya glyph-art aesthetic, warm earthy palette of tan, red, jade green, gold and black outline, a gentle young maize god presenting his offering with quiet reverence
 ```
 
 ### Ek Chuah — `ek-chuah.jpg`
