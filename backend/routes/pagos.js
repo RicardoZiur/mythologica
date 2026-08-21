@@ -145,7 +145,7 @@ router.get('/precios', async (req, res) => {
 // "?libro=" en la query y no sirve aca).
 // ------------------------------------------------------------
 async function resolverLibroPorSlug(slug) {
-  const [filas] = await pool.query('SELECT id, slug, titulo FROM libros WHERE slug = ?', [slug]);
+  const [filas] = await pool.query('SELECT id, slug, titulo, estado FROM libros WHERE slug = ?', [slug]);
   return filas[0] || null;
 }
 
@@ -167,7 +167,10 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
   const items = [];
   for (const itemCarrito of itemsCarrito) {
     const libro = await resolverLibroPorSlug(itemCarrito.libro);
-    if (!libro) {
+    // Mismo criterio que "resolverLibro" en middleware/auth.js: un libro
+    // no publicado se trata como si no existiera, salvo para un admin.
+    const esAdmin = usuario && usuario.rol === 'admin';
+    if (!libro || (libro.estado !== 'publicado' && !esAdmin)) {
       return { error: `El libro "${itemCarrito.libro}" no existe` };
     }
 

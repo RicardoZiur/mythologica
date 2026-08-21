@@ -94,15 +94,32 @@ function tieneNivel(usuario, libroId, nivelRequerido) {
 // ------------------------------------------------------------
 // Busca el libro por slug (o el libro por defecto si la peticion no
 // especifica "?libro=<slug>") y lo deja en "req.libro".
+//
+// Si el libro esta en 'borrador' o 'en_revision' (no publicado), se
+// rechaza como si no existiera -- MISMO error 404 que un slug
+// inexistente, a proposito, para no revelarle a un visitante comun
+// que hay un libro ahi deshabilitado. Los administradores son la
+// unica excepcion: pueden seguir entrando por la URL directa para
+// previsualizar un libro antes de publicarlo (requiere
+// "autenticarOpcional", montado global en server.js antes de
+// cualquier ruta que use este middleware, asi "req.usuario" ya esta
+// resuelto para este punto).
 // ------------------------------------------------------------
 async function resolverLibro(req, res, next) {
   try {
     const slug = req.query.libro || LIBRO_POR_DEFECTO;
-    const [filas] = await pool.query('SELECT id, slug, titulo FROM libros WHERE slug = ?', [slug]);
+    const [filas] = await pool.query('SELECT id, slug, titulo, estado FROM libros WHERE slug = ?', [slug]);
     if (filas.length === 0) {
       return res.status(404).json({ error: `El libro "${slug}" no existe` });
     }
-    req.libro = filas[0];
+
+    const libro = filas[0];
+    const esAdmin = req.usuario && req.usuario.rol === 'admin';
+    if (libro.estado !== 'publicado' && !esAdmin) {
+      return res.status(404).json({ error: `El libro "${slug}" no existe` });
+    }
+
+    req.libro = { id: libro.id, slug: libro.slug, titulo: libro.titulo };
     next();
   } catch (error) {
     console.error('Error al resolver el libro:', error);
