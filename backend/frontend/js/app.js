@@ -101,7 +101,15 @@ function iconoTematico(nombre) {
 // en auth.js) -- sin esto, el backend siempre traeria el griego.
 async function obtenerListaPersonajes() {
   const respuesta = await fetch(`${API_URL}/personajes?libro=${encodeURIComponent(window.LIBRO_ACTUAL)}`, { headers: window.authHeaders() });
-  if (!respuesta.ok) throw new Error('No se pudo obtener la lista de personajes');
+  if (!respuesta.ok) {
+    // "status" queda pegado al error para que iniciarLibro() pueda
+    // distinguir "este libro no existe/no esta disponible" (404, ver
+    // resolverLibro en middleware/auth.js) de una falla real de
+    // conexion con la API, y mostrar un mensaje distinto para cada caso.
+    const error = new Error('No se pudo obtener la lista de personajes');
+    error.status = respuesta.status;
+    throw error;
+  }
   return respuesta.json();
 }
 
@@ -124,7 +132,11 @@ async function obtenerPersonajeCompleto(slug) {
 // "?libro=" que obtenerListaPersonajes)
 async function obtenerListaHistorias() {
   const respuesta = await fetch(`${API_URL}/historias?libro=${encodeURIComponent(window.LIBRO_ACTUAL)}`, { headers: window.authHeaders() });
-  if (!respuesta.ok) throw new Error('No se pudo obtener la lista de historias');
+  if (!respuesta.ok) {
+    const error = new Error('No se pudo obtener la lista de historias');
+    error.status = respuesta.status;
+    throw error;
+  }
   return respuesta.json();
 }
 
@@ -736,13 +748,25 @@ async function iniciarLibro() {
     }, true);
 
   } catch (error) {
-    // Si algo falla (ej: el backend no esta corriendo), avisamos claro en pantalla
     console.error(error);
-    bookEl.innerHTML = `
-      <div class="loading-msg">
-        No se pudo conectar con la API en ${API_URL}.<br>
-        Verifica que el backend este corriendo (npm run dev).
-      </div>`;
+
+    // "error.status === 404" (ver obtenerListaPersonajes/obtenerListaHistorias
+    // arriba) significa que resolverLibro en middleware/auth.js resolvio
+    // que este libro no existe o esta deshabilitado (estado != 'publicado'
+    // y quien pide no es admin) -- no es una falla de conexion, es un
+    // mensaje claro para quien haya llegado por un link a un libro que ya
+    // no esta disponible.
+    bookEl.innerHTML = error.status === 404
+      ? `
+        <div class="loading-msg">
+          Este libro no está disponible por el momento.<br>
+          Puede que todavía no se haya publicado, o que se haya retirado del catálogo.
+        </div>`
+      : `
+        <div class="loading-msg">
+          No se pudo conectar con la API en ${API_URL}.<br>
+          Verifica que el backend este corriendo (npm run dev).
+        </div>`;
   }
 }
 
