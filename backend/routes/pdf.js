@@ -683,13 +683,21 @@ async function agregarNumerosDePagina(pdfBuffer, libro) {
 // una sola hoja y necesitan la clase ".compacta".
 const ALTO_UTIL_HISTORIA_PX = (297 - 8 - 18) * 96 / 25.4;
 // El banner nunca es mas chico que esto (lo justo para que las 4
-// historias "compactas" quepan) ni mas grande que esto (mas alto que
-// eso empieza a recortar demasiado los costados de una imagen
-// panoramica 3:2/16:9 al recortarla con object-fit:cover). Un colchon
+// historias "compactas" quepan). El ancho util de la hoja es de
+// ~718px (190mm de contenido a 96dpi): a 260px de alto eso da una
+// caja de ~2.76:1, bastante MAS panoramica que una imagen 16:9 real
+// (~1.78:1) o incluso 21:9 (~2.33:1) -- con object-fit:cover, una
+// caja mas panoramica que la imagen fuente se ajusta por el ANCHO y
+// termina recortando de arriba y abajo (no de los costados), tanto
+// mas cuanto mas alta sea la imagen fuente respecto a esa caja. Subir
+// este techo ACERCA la proporcion de la caja a la de la imagen y por
+// lo tanto reduce ese recorte -- 320px (~2.24:1) sigue por debajo del
+// punto de quiebre donde el recorte pasaria a ser lateral en vez de
+// vertical para las imagenes 16:9/21:9 que se generan hoy. Un colchon
 // de 15px de margen de seguridad evita que quede al borde justo por
 // cualquier diferencia minima entre esta medicion y el render final.
 const ALTURA_BANNER_MIN = 150;
-const ALTURA_BANNER_MAX = 260;
+const ALTURA_BANNER_MAX = 320;
 const COLCHON_SEGURIDAD_PX = 15;
 
 async function medirAlturasHistorias(page) {
