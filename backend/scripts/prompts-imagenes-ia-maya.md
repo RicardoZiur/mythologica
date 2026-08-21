@@ -96,7 +96,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Vucub-Camé — `vucub-came.jpg`
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a regal decayed build mirroring his co-ruler, dark ornate underworld regalia, jade death-mask jewelry, seated on a matching throne of carved bone and stone, glowing torture-house silhouettes faintly visible in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, obsidian black and deep crimson and bone white color palette, the second supreme lord of Xibalbá, sly and calculating, hands steepled as if plotting the next trial
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a bulkier bloated decayed build, swollen rotting flesh in stark contrast to his co-ruler's leaner skeletal frame, a vulture-feather headdress with a hooked bone beak ornament, dark ornate underworld regalia, standing gripping a tall staff topped with a rattling row of small human skulls, a live owl messenger perched on his shoulder, the shadowy torture-house halls of Xibalbá in the misty background, atmospheric haze, centered composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, obsidian black and sickly bruised green and bone white color palette, the second supreme lord of Xibalbá, sly and calculating, a slow cruel smile as if already plotting the next trial
 ```
 
 ### Los Bacab — `bacab.jpg`
