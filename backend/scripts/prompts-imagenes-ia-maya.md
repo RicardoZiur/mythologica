@@ -61,7 +61,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Chaac — `chaac.jpg`
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a powerful weathered build, a long curling serpentine nose, visible fangs, ornate jade and shell regalia, wielding a stone axe crackling with lightning, storm clouds and falling rain over a maize field in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, storm grey and electric blue and jade green color palette, a fierce rain god mid-strike, lightning arcing from his raised axe toward the clouds
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a MALE deity, a powerful weathered muscular build, a strong human face with a heavy brow and visible fangs, round goggle-like jade eye ornaments, ornate jade and shell regalia, wielding a stone axe crackling with lightning, storm clouds and falling rain over a maize field in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, storm grey and electric blue and jade green color palette, a fierce rain god mid-strike, lightning arcing from his raised axe toward the clouds
 ```
 
 ### Ah Puch — `ah-puch.jpg`
