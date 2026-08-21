@@ -31,9 +31,11 @@ la carpeta `mitologia-sumeria/`.
 
 ## Nota sobre personajes sin forma humana
 
-**El Toro del Cielo**, **Anzu**, **Mushussu**, **Kur**, **Tiamat** y **Apsu** (monstruos y
-primordiales sin apariencia humana) ya llevan `NOT human, NOT humanoid, no human face, no
-human anatomy` incorporado directo en su prompt — no hace falta agregar nada a mano.
+**El Toro del Cielo**, **Anzu**, **Mushussu**, **Kur** y **Tiamat** (monstruos y primordiales sin
+apariencia humana) ya llevan `NOT human, NOT humanoid, no human face, no human anatomy`
+incorporado directo en su prompt — no hace falta agregar nada a mano. **Apsu** es la excepción:
+se representa como un híbrido reptil-tritón (torso humanoide con escamas, cola serpentina/de
+pez, alas), así que no lleva esa aclaración.
 
 ---
 
@@ -140,7 +142,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Apsu
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, NOT human, NOT humanoid, no human face, no human anatomy, a vast formless mass of still, glassy fresh water taking a barely-suggested reclining shape, faint ripples across its surface like slow breathing, an endless calm subterranean freshwater sea in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep clear teal and pale silver and soft grey color palette, a primordial body of fresh water in a deep untroubled sleep, unaware of the blade already descending toward it
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a reptilian merman-like hybrid build, humanoid torso and arms covered in dark teal-grey scales, a long serpentine or fish-like lower body coiling down into the water instead of legs, large translucent finned wings arching from his back, faint webbing between clawed fingers, emerging waist-up from turbulent dark sea water, calm heavy-lidded reptilian eyes as if perpetually resting, an endless calm subterranean freshwater sea in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep teal and dark emerald and pale silver color palette, an ancient reptilian primordial water god half-risen from the depths in untroubled sleep, water cascading off his scaled form, unaware of the blade already descending toward him
 ```
 
 ### Tiamat
