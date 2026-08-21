@@ -31,10 +31,9 @@ la carpeta `mitologia-sumeria/`.
 
 ## Nota sobre personajes sin forma humana
 
-Para **el Toro del Cielo**, **Anzu**, **Mushussu** y **Kur** (monstruos sin apariencia humana),
-agregá al final del prompt: `NOT human, NOT humanoid, no human face, no human anatomy`. Para
-**Tiamat** y **Apsu** (primordiales, forma de dragón/agua), lo mismo aplica salvo que quieras
-una representación más simbólica — a tu criterio.
+**El Toro del Cielo**, **Anzu**, **Mushussu**, **Kur**, **Tiamat** y **Apsu** (monstruos y
+primordiales sin apariencia humana) ya llevan `NOT human, NOT humanoid, no human face, no
+human anatomy` incorporado directo en su prompt — no hace falta agregar nada a mano.
 
 ---
 
@@ -141,7 +140,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Apsu
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, a fluid ancient build, robes flowing like still fresh water, calm half-closed eyes as if perpetually resting, an endless calm subterranean freshwater sea in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep clear teal and pale silver and soft grey color palette, a primordial god of fresh water in a deep untroubled sleep, unaware of the blade already descending toward him
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, NOT human, NOT humanoid, no human face, no human anatomy, a vast formless mass of still, glassy fresh water taking a barely-suggested reclining shape, faint ripples across its surface like slow breathing, an endless calm subterranean freshwater sea in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep clear teal and pale silver and soft grey color palette, a primordial body of fresh water in a deep untroubled sleep, unaware of the blade already descending toward it
 ```
 
 ### Tiamat
