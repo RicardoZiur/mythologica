@@ -145,7 +145,7 @@ Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscur
 
 ### Xpiyacoc — `xpiacoc.jpg`
 ```
-Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, an elderly wise build mirroring Xmucané, a woven loincloth and shoulder wrap patterned with small glyph motifs, round jade earspools, a simple necklace of jade and bone beads, a modest woven headband, tzité seeds held in one weathered hand, a modest divination altar with a stone grinding tool nearby, a quiet dawn light in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm dawn gold and earthy brown and soft grey color palette, an ancient grandfather god of divination, calm and patient, eyes half closed as if reading an unseen pattern
+Semi-realistic fantasy digital painting, full body portrait, dramatic chiaroscuro lighting, an ELDERLY MALE grandfather, unmistakably masculine, a wizened old man's face with a long thin white beard and deep wrinkles, a lean weathered elderly male torso, a woven loincloth and shoulder wrap patterned with small glyph motifs, round jade earspools, a simple necklace of jade and bone beads, a modest woven headband, tzité seeds held in one weathered hand, a modest divination altar with a stone grinding tool nearby, a quiet dawn light in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm dawn gold and earthy brown and soft grey color palette, an ancient grandfather god of divination, calm and patient, eyes half closed as if reading an unseen pattern
 ```
 
 ---
