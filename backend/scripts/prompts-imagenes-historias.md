@@ -961,7 +961,106 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 
 ---
 
-## 11. Resumen
+## 11. Mitología Japonesa (18 historias)
+
+**Nota:** este libro se ilustra con Gemini, no con Leonardo.ai — no hace falta la configuración
+de la sección 1, solo pega cada prompt completo directo en el chat. Todas las escenas ya piden
+`aspect ratio approximately 21:9` y la acción contenida en una franja horizontal baja desde el
+inicio (ver el aviso sobre el recorte del banner más arriba) — no hace falta corregirlas después.
+
+### ⭐ La creación del mundo (cosmogonía) — `la-creacion-del-mundo-sintoista.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic celestial lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep ocean teal and celestial gold and soft white color palette, two primordial deities standing on a floating bridge dipping a long jeweled spear into a churning primordial sea, glowing droplets falling from its tip solidifying into the first island below
+```
+
+### La muerte de Izanami y el descenso a Yomi (tragedia) — `la-muerte-de-izanami-y-el-descenso-a-yomi.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic dark chiaroscuro lighting, dynamic composition, a shadowy underworld cavern passage, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, obsidian black and sickly grey and faint ember orange color palette, a horrified male deity fleeing with a small burning torch as a decaying female figure shrieks in fury behind him, a massive boulder ready to seal the passage between them
+```
+
+### Susanoo y la serpiente Yamata-no-Orochi (heroica) — `susanoo-y-la-serpiente-yamata-no-orochi.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, serpent green and sake amber and blood red color palette, a storm god poised with a raised sword beside eight great sake vats where the drooping drunken heads of a colossal eight-headed serpent lie slumped along a low fence line
+```
+
+### La cueva celestial de Amaterasu (otro) — `la-cueva-celestial-de-amaterasu.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic dark-to-golden lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, obsidian black and blazing gold and warm crimson color palette, a goddess peering out through a narrow gap in a sealed cave entrance toward her own dazzling reflection in a hanging bronze mirror, a dancing female figure and a crowd of laughing deities gathered low before the cave mouth
+```
+
+### ⭐ El descenso de Ninigi a la tierra (fundación) — `el-descenso-de-ninigi-a-la-tierra.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic golden celestial lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and soft cloud white and deep green color palette, a young celestial prince and his retinue stepping down through parting clouds onto a mountain peak, guided by a red-faced long-nosed deity pointing the way forward
+```
+
+### Konohanasakuya-hime y la prueba del fuego (amor) — `konohanasakuya-hime-y-la-prueba-del-fuego.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic firelit lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blazing orange fire and cherry blossom pink and ash grey color palette, a serene pregnant goddess seated calm and unburned at the center of a small wooden hut fully engulfed in flame, a stunned prince watching helplessly from just outside
+```
+
+### Umisachihiko y Yamasachihiko (heroica) — `umisachihiko-y-yamasachihiko.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic underwater-surface lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, coral red and ocean teal and warm gold color palette, a hunter prince kneeling before a dragon king who presses a recovered fishhook and two glowing tide jewels into his hands, a coral palace wall low behind them
+```
+
+### El nacimiento del emperador Jimmu (fundación) — `el-nacimiento-del-emperador-jimmu.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic golden dawn lighting, dynamic composition, a misty mountain pass, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and deep forest green and bronze color palette, a young armored prince following a three-legged crow gliding low just ahead of him through a narrow mountain trail, a hidden valley opening beyond
+```
+
+### ⭐ Urashima Taro y el palacio del dragón (tragedia) — `urashima-taro-y-el-palacio-del-dragon.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic bittersweet lighting, dynamic composition, a quiet beach at dusk, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm coral and pale smoke white and deep sunset orange color palette, an old fisherman opening a small lacquered box on a beach, a burst of pale smoke rolling low across the sand as his hands and face age instantly before his own eyes
+```
+
+### Momotarō y la conquista de la isla de los oni (heroica) — `momotaro-y-la-conquista-de-la-isla-de-los-oni.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, peach pink and iron grey and blood red color palette, a determined young hero and his dog, monkey and pheasant companions storming through a breached iron gate as red demons scatter before them
+```
+
+### Kintarō, el niño dorado de las montañas (heroica) — `kintaro-el-nino-dorado-de-las-montanas.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, warm forest lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, forest green and bright red and warm brown color palette, a stocky red-bibbed boy wrestling a large bear to the ground while a monkey and a mountain witch look on, low forest ferns filling the foreground
+```
+
+### Issun-bōshi, el guerrero de una pulgada (heroica) — `issun-boshi-el-guerrero-de-una-pulgada.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic dynamic lighting, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, demon red and needle silver and warm rice cream color palette, a tiny warrior leaping from the gaping mouth of a recoiling giant demon, a small mallet tumbling from the demon's grasp onto the ground below
+```
+
+### Shuten-dōji, el señor demonio del monte Ōe (heroica) — `shuten-doji-el-senor-demonio-del-monte-oe.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic torchlit lighting, dynamic multi-figure composition, a low fortress hall interior, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blood red and torchlight orange and iron black color palette, disguised warrior monks raising cups of drugged sake toward a massive slumping demon lord and his collapsing drunken retainers around a low banquet table
+```
+
+### Watanabe no Tsuna y el brazo del oni en Rashōmon (heroica) — `watanabe-no-tsuna-y-el-brazo-del-oni-en-rashomon.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic dark nocturnal lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, obsidian black and steel grey and deep crimson color palette, a samurai gripping a drawn sword low beside a severed clawed demon arm on the ground, the dark base of the Rashōmon gate looming just behind him
+```
+
+### ⭐ Tamamo-no-Mae, la zorra de nueve colas (tragedia) — `tamamo-no-mae-la-zorra-de-nueve-colas.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic opulent lighting, dynamic composition, a low imperial court hall, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, golden fox fur and deep imperial crimson and pale ivory color palette, a beautiful court lady's nine fox tails spilling into view low behind her painted screen as a startled onmyōji astrologer points in sudden revelation
+```
+
+### Abe no Seimei, el hijo de la zorra (otro) — `abe-no-seimei-el-hijo-de-la-zorra.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic soft melancholic lighting, dynamic composition, a low traditional room interior, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, soft fox white and warm lantern amber and pale indigo color palette, a young boy staring in shock as his mother's form shifts into a pale fox low beside a garden screen, a farewell poem faintly visible as brushstrokes on the panel behind her
+```
+
+### Namazu y los terremotos bajo el archipiélago (otro) — `namazu-y-los-terremotos-bajo-el-archipielago.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic subterranean lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, murky brown and stone grey and warrior bronze color palette, a colossal catfish coiled beneath a cracking landscape, a small stone deity pressing a single sacred stone firmly down where its head meets its tail
+```
+
+### La emperatriz Jingū y la conquista prometida por los dioses (fundación) — `la-emperatriz-jingu-y-la-conquista-prometida.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic naval battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep ocean blue and warrior bronze and gold color palette, an armored pregnant empress standing at the prow of her flagship holding two glowing tide jewels aloft, a low fleet of ships crossing a suddenly receding tideline toward a distant shore
+```
+
+---
+
+## 12. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -972,7 +1071,8 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 | Azteca | 18 | Los Cinco Soles, El descenso de Quetzalcoatl al Mictlán, El descubrimiento del maíz |
 | Sumeria | 16 | La creación desde las aguas de Nammu, El Enuma Elish |
 | Maya | 18 | La creación del mundo, La creación de los hombres de maíz, La derrota final de los señores de Xibalbá |
+| Japonesa | 18 | La creación del mundo, La cueva celestial de Amaterasu, El descenso de Ninigi a la tierra |
 
-**Total: 132 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 150 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + momentos clave) son las más importantes para tener primero — funcionan bien
 como portada de cada libro o apertura de la sección de historias en el flipbook.

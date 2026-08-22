@@ -184,13 +184,50 @@ function iconoPiramide() {
   `;
 }
 
+// ---------------------------------------------------------------
+// JAPONESA: el crisantemo imperial de dieciseis petalos (kikukamon),
+// el sello mas reconocible de Japon y simbolo directo del linaje de
+// Amaterasu. Mismo truco trigonometrico que el loto de 8 petalos,
+// con el doble de petalos y puntas mas redondeadas y superpuestas.
+function iconoCrisantemo() {
+  const solido = `fill="${GOLD}" stroke="none"`;
+  const N = 16;
+  const rInner = 10;
+  const rTip = 82;
+  const medioAnchoGrados = 15;
+  const spreadCtrlGrados = 9;
+  const rCtrl = rTip * 0.86;
+  let petalos = '';
+  for (let i = 0; i < N; i++) {
+    const anguloCentro = (i / N) * 360;
+    const a0 = (anguloCentro - medioAnchoGrados) * Math.PI / 180;
+    const a1 = (anguloCentro + medioAnchoGrados) * Math.PI / 180;
+    const ac0 = (anguloCentro - spreadCtrlGrados) * Math.PI / 180;
+    const ac1 = (anguloCentro + spreadCtrlGrados) * Math.PI / 180;
+    const aC = anguloCentro * Math.PI / 180;
+    const x0 = (rInner * Math.sin(a0)).toFixed(2), y0 = (-rInner * Math.cos(a0)).toFixed(2);
+    const x1 = (rInner * Math.sin(a1)).toFixed(2), y1 = (-rInner * Math.cos(a1)).toFixed(2);
+    const cx0 = (rCtrl * Math.sin(ac0)).toFixed(2), cy0 = (-rCtrl * Math.cos(ac0)).toFixed(2);
+    const cx1 = (rCtrl * Math.sin(ac1)).toFixed(2), cy1 = (-rCtrl * Math.cos(ac1)).toFixed(2);
+    const xp = (rTip * Math.sin(aC)).toFixed(2), yp = (-rTip * Math.cos(aC)).toFixed(2);
+    petalos += `<path d="M ${x0},${y0} Q ${cx0},${cy0} ${xp},${yp} Q ${cx1},${cy1} ${x1},${y1} Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />`;
+  }
+  return `
+    <g transform="translate(${CENTER},${CENTER})">
+      ${petalos}
+      <circle cx="0" cy="0" r="${rInner}" fill="${BG}" stroke="${GOLD}" stroke-width="3" />
+    </g>
+  `;
+}
+
 const LIBROS = [
   { slug: 'mitologia-griega', icono: iconoRayo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-hindu', icono: iconoLoto, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-nordica', icono: iconoMartillo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-egipcia', icono: iconoAnkh, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-sumeria', icono: iconoEstrella, rMarcas: [96, 108], nMarcas: 28 },
-  { slug: 'mitologia-maya', icono: iconoPiramide, rMarcas: [96, 108], nMarcas: 28 }
+  { slug: 'mitologia-maya', icono: iconoPiramide, rMarcas: [96, 108], nMarcas: 28 },
+  { slug: 'mitologia-japonesa', icono: iconoCrisantemo, rMarcas: [96, 108], nMarcas: 28 }
 ];
 
 function construirSvg(libro) {
