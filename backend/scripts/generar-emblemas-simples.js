@@ -220,6 +220,52 @@ function iconoCrisantemo() {
   `;
 }
 
+// ---------------------------------------------------------------
+// CHINA: un dragon chino (long) enroscado en circulo, mordiendo o
+// persiguiendo su propia cola -- el motivo mas reconocible de la
+// mitologia china, construido a mano como una serie de segmentos
+// serpenteantes en vez de con el truco trigonometrico de petalos.
+function iconoDragon() {
+  const solido = `fill="${GOLD}" stroke="none"`;
+  const r = 78;
+  const grosor = 15;
+  const vueltas = 1.3;
+  const pasos = 64;
+  let cuerpo = '';
+  const puntos = [];
+  for (let i = 0; i <= pasos; i++) {
+    const t = i / pasos;
+    const angulo = t * Math.PI * 2 * vueltas - Math.PI / 2;
+    const radio = r * (0.28 + 0.72 * t);
+    const x = radio * Math.cos(angulo);
+    const y = radio * Math.sin(angulo);
+    puntos.push([x, y, t]);
+  }
+  for (let i = 0; i < puntos.length - 1; i++) {
+    const [x0, y0, t0] = puntos[i];
+    const [x1, y1] = puntos[i + 1];
+    const ancho = grosor * (1 - t0 * 0.7);
+    cuerpo += `<line x1="${x0.toFixed(2)}" y1="${y0.toFixed(2)}" x2="${x1.toFixed(2)}" y2="${y1.toFixed(2)}" stroke="${GOLD}" stroke-width="${ancho.toFixed(2)}" stroke-linecap="round" />`;
+  }
+  const [hx, hy, ] = puntos[puntos.length - 1];
+  const [px, py] = puntos[puntos.length - 2];
+  const anguloTangente = Math.atan2(hy - py, hx - px) * 180 / Math.PI;
+  const cabeza = `
+    <g transform="translate(${hx.toFixed(2)},${hy.toFixed(2)}) rotate(${anguloTangente.toFixed(1)})">
+      <path d="M -6,-9 L 16,-4 L 20,3 L 14,9 L -6,9 Z" ${solido} />
+      <path d="M 16,-4 L 26,-9 L 22,-1 Z" ${solido} />
+      <path d="M -2,-9 L 2,-20 L 8,-9 Z" ${solido} />
+      <path d="M 6,-9 L 12,-19 L 15,-8 Z" ${solido} />
+    </g>
+  `;
+  return `
+    <g transform="translate(${CENTER},${CENTER})">
+      ${cuerpo}
+      ${cabeza}
+    </g>
+  `;
+}
+
 const LIBROS = [
   { slug: 'mitologia-griega', icono: iconoRayo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-hindu', icono: iconoLoto, rMarcas: [96, 108], nMarcas: 28 },
@@ -227,7 +273,8 @@ const LIBROS = [
   { slug: 'mitologia-egipcia', icono: iconoAnkh, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-sumeria', icono: iconoEstrella, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-maya', icono: iconoPiramide, rMarcas: [96, 108], nMarcas: 28 },
-  { slug: 'mitologia-japonesa', icono: iconoCrisantemo, rMarcas: [96, 108], nMarcas: 28 }
+  { slug: 'mitologia-japonesa', icono: iconoCrisantemo, rMarcas: [96, 108], nMarcas: 28 },
+  { slug: 'mitologia-china', icono: iconoDragon, rMarcas: [96, 108], nMarcas: 28 }
 ];
 
 function construirSvg(libro) {

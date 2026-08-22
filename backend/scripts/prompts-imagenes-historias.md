@@ -1060,7 +1060,106 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 
 ---
 
-## 12. Resumen
+## 12. Mitología China (18 historias)
+
+**Nota:** este libro se ilustra con Gemini, no con Leonardo.ai — no hace falta la configuración
+de la sección 1, solo pega cada prompt completo directo en el chat. Todas las escenas ya piden
+`aspect ratio approximately 21:9` y la acción contenida en una franja horizontal baja desde el
+inicio (ver el aviso sobre el recorte del banner más arriba).
+
+### ⭐ Pangu y la creación del mundo (cosmogonía) — `pangu-y-la-creacion-del-mundo.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic cosmic lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, cosmic gold and deep earth brown and soft void black color palette, a colossal giant with arms and legs braced low between a rising golden sky and a settling dark earth, fragments of a shattered cosmic egg shell scattered around his feet
+```
+
+### Nüwa crea a la humanidad (cosmogonía) — `nuwa-crea-a-la-humanidad.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic warm lighting, dynamic composition, a low riverbank, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm amber clay and soft gold and jade green color palette, a serpent-tailed goddess kneeling low at a riverbank shaping small clay figures that rise and walk on their own, a trailing cord dripping mud droplets that become more figures in the distance
+```
+
+### Gonggong y la inclinación del cielo (tragedia) — `gonggong-y-la-inclinacion-del-cielo.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic catastrophic lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, storm grey and flood blue and molten crack orange color palette, a furious serpent-bodied god ramming his head low into the base of a great stone pillar, the pillar cracking and floodwater and fire beginning to spill through a widening rift in the sky above
+```
+
+### Fuxi y los ocho trigramas (fundación) — `fuxi-y-los-ocho-trigramas.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic contemplative lighting, dynamic composition, a low riverbank, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm amber gold and deep river blue and soft jade color palette, a serpent-tailed sage kneeling low studying glowing trigram patterns on the shell of a great tortoise emerging from the water beside him
+```
+
+### ⭐ Houyi derriba nueve soles (heroica) — `houyi-derriba-nueve-soles.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic blazing lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blazing gold and deep crimson and warm bronze color palette, an archer drawing his bow low against a cracked parched earth as several golden crow-suns tumble from a blazing sky, one last sun remaining steady above
+```
+
+### Chang'e vuela a la luna (tragedia) — `chang-e-vuela-a-la-luna.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic bittersweet twilight lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, pale moonlight silver and warm dusk orange and soft cloud white color palette, a woman rising weightlessly just above a low rooftop, her sleeves trailing, reaching one last time toward a husband below with an empty vial at his feet, a pale moon glowing low on the horizon behind her
+```
+
+### El diluvio domado por Yu el Grande (heroica) — `el-diluvio-domado-por-yu-el-grande.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic determined lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, earthy brown and river blue and warm gold color palette, an exhausted man digging a canal low through a muddy landscape, floodwater draining away in a controlled channel toward a distant sea, his own house passing unentered in the low background
+```
+
+### El Emperador Amarillo contra Chiyou (heroica) — `el-emperador-amarillo-contra-chiyou.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, bronze and blood red and thick grey fog color palette, an armored sovereign beside a small south-pointing chariot leading troops low through thinning battle fog toward a horned warlord collapsing under a final blow
+```
+
+### El nacimiento de Nezha y su desafío al Rey Dragón (heroica) — `el-nacimiento-de-nezha-y-su-desafio-al-rey-dragon.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense lighting, dynamic composition, a low shoreline, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blazing red and deep ocean teal and warm gold color palette, a small fierce child warrior standing low at the water's edge facing down a rising dragon prince, red silk ribbons trailing across the sand between them
+```
+
+### Sun Wukong y el caos en el cielo (heroica) — `sun-wukong-y-el-caos-en-el-cielo.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic chaotic lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and jade green and deep bronze color palette, a golden-furred monkey warrior standing triumphant low among overturned peach trees and scattered celestial guards, a three-eyed god approaching from one side with a spear lowered
+```
+
+### Jing Wei rellena el mar (tragedia) — `jing-wei-rellena-el-mar.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic quiet melancholic lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep ocean blue and warm earth brown and soft white color palette, a small determined bird gliding low just above churning waves, a tiny pebble falling from its beak into the vast water below
+```
+
+### Kuafu persigue al sol (tragedia) — `kuafu-persigue-al-sol.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic scorching lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blazing orange and cracked earth brown and dusty gold color palette, an exhausted giant collapsing low onto cracked dry ground, his wooden staff falling from his hand and already sprouting into a low line of peach trees beside him
+```
+
+### ⭐ La leyenda de la serpiente blanca (amor) — `la-leyenda-de-la-serpiente-blanca.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense lighting, dynamic composition, a low lakeside willow grove, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, pure white and soft jade green and pale silver color palette, a woman in white robes shifting mid-transformation into a pale serpent low beside a startled husband, a stern monk watching from a nearby pagoda base
+```
+
+### La tejedora y el pastor de bueyes (amor) — `la-tejedora-y-el-pastor-de-bueyes.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic starlit lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, silver starlight and soft cloud white and warm gold color palette, two lovers reaching toward each other low across a shimmering river of stars, a line of magpies forming a living bridge just beneath their outstretched hands
+```
+
+### Meng Jiangnü y la Gran Muralla (tragedia) — `meng-jiangnu-y-la-gran-muralla.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic sorrowful lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, stone grey and deep sorrow blue and pale ivory color palette, a grieving woman kneeling low before a freshly collapsed section of a massive stone wall, pale bones just visible among the low rubble
+```
+
+### Xu Fu y la búsqueda del elixir de la inmortalidad (otro) — `xu-fu-y-la-busqueda-del-elixir-de-la-inmortalidad.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic seafaring lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep ocean teal and warm ship wood brown and pale misty gold color palette, a large wooden fleet sailing low across calm water toward three faint mountain silhouettes rising from mist on the horizon
+```
+
+### Dong Yong y la hada tejedora (amor) — `dong-yong-y-la-hada-tejedora.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic warm domestic lighting, dynamic composition, a low humble cottage interior, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm earthy brown and soft silk white and pale gold color palette, a celestial weaver working a loom at impossible speed low beside a humble farmer, a finished bolt of shimmering silk already piling at their feet
+```
+
+### Bao Zheng, el juez que juzga a vivos y muertos (otro) — `bao-zheng-el-juez-que-juzga-a-vivos-y-muertos.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic severe lighting, dynamic composition, a low judgment hall, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, obsidian black and deep crimson and pale moon white color palette, a stern magistrate with a crescent mark on his brow seated low at a judgment table, a translucent spirit and a kneeling living petitioner both awaiting his verdict on opposite sides
+```
+
+---
+
+## 13. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -1072,7 +1171,8 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 | Sumeria | 16 | La creación desde las aguas de Nammu, El Enuma Elish |
 | Maya | 18 | La creación del mundo, La creación de los hombres de maíz, La derrota final de los señores de Xibalbá |
 | Japonesa | 18 | La creación del mundo, La cueva celestial de Amaterasu, El descenso de Ninigi a la tierra |
+| China | 18 | Pangu y la creación del mundo, Houyi derriba nueve soles, La leyenda de la serpiente blanca |
 
-**Total: 150 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 168 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + momentos clave) son las más importantes para tener primero — funcionan bien
 como portada de cada libro o apertura de la sección de historias en el flipbook.
