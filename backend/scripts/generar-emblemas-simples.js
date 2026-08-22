@@ -399,6 +399,42 @@ function iconoPentagrama() {
   `;
 }
 
+// ---------------------------------------------------------------
+// ANGELOLOGIA: un halo circular enmarcado por un par de alas
+// extendidas -- el simbolo mas directamente reconocible de lo
+// angelical en general, mas alla de cualquier tradicion
+// especifica. Cada ala construida como una serie de plumas
+// superpuestas con el mismo truco trigonometrico usado en los
+// petalos del loto y el crisantemo.
+function iconoAlasYHalo() {
+  const solido = `fill="${GOLD}" stroke="none"`;
+  function ala(lado) {
+    const N = 8;
+    let plumas = '';
+    const xBase = lado * 28;
+    const yBase = -2;
+    for (let i = 0; i < N; i++) {
+      const t = i / (N - 1);
+      const anguloBase = (58 - t * 50) * Math.PI / 180;
+      const largo = 34 + t * 46;
+      const ancho = 16 - t * 6;
+      const xTip = xBase + lado * largo * Math.cos(anguloBase);
+      const yTip = yBase - largo * Math.sin(anguloBase);
+      const xc1 = xBase + lado * ancho * 0.6;
+      const yc1 = yBase - ancho * 0.2;
+      plumas += `<path d="M ${xBase.toFixed(1)},${yBase.toFixed(1)} Q ${xc1.toFixed(1)},${yc1.toFixed(1)} ${xTip.toFixed(1)},${yTip.toFixed(1)} Q ${(xBase + (xTip - xBase) * 0.4).toFixed(1)},${(yBase + ancho * 0.55).toFixed(1)} ${xBase.toFixed(1)},${yBase.toFixed(1)} Z" ${solido} stroke="${BG}" stroke-width="1.4" stroke-linejoin="round" />`;
+    }
+    return plumas;
+  }
+  return `
+    <g transform="translate(${CENTER},${CENTER})">
+      ${ala(-1)}
+      ${ala(1)}
+      <circle cx="0" cy="0" r="26" fill="${BG}" stroke="${GOLD}" stroke-width="7" />
+    </g>
+  `;
+}
+
 const LIBROS = [
   { slug: 'mitologia-griega', icono: iconoRayo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-hindu', icono: iconoLoto, rMarcas: [96, 108], nMarcas: 28 },
@@ -411,7 +447,8 @@ const LIBROS = [
   { slug: 'mitologia-celta', icono: iconoTriskel, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-mapuche', icono: iconoKultrun, rMarcas: [110, 122], nMarcas: 28 },
   { slug: 'mitologia-africana', icono: iconoSankofa, rMarcas: [96, 108], nMarcas: 28 },
-  { slug: 'demonologia', icono: iconoPentagrama, rMarcas: [96, 108], nMarcas: 28 }
+  { slug: 'demonologia', icono: iconoPentagrama, rMarcas: [96, 108], nMarcas: 28 },
+  { slug: 'angelologia', icono: iconoAlasYHalo, rMarcas: [96, 108], nMarcas: 28 }
 ];
 
 function construirSvg(libro) {

@@ -1552,7 +1552,108 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 
 ---
 
-## 17. Resumen
+## 17. Angelología (18 historias)
+
+**Nota:** este libro se ilustra con Gemini, no con Leonardo.ai — no hace falta la configuración
+de la sección 1, solo pega cada prompt completo directo en el chat. Todas las escenas ya piden
+`aspect ratio approximately 21:9` y la acción contenida en una franja horizontal baja desde el
+inicio (ver el aviso sobre el recorte del banner más arriba). Varias escenas involucran figuras
+bíblicas y coránicas veneradas (María de Nazaret en particular) — mantené un tono digno,
+luminoso y respetuoso, sin nada provocador.
+
+### ⭐ La visión de los serafines de Isaías (otro) — `la-vision-de-los-serafines-de-isaias.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic blazing radiant lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blazing gold and radiant white and soft ember orange color palette, a kneeling prophet low before a great glowing throne wreathed in smoke, six-winged burning figures circling just above him, one descending with a glowing ember held in tongs
+```
+
+### La visión del carro de Ezequiel (otro) — `la-vision-del-carro-de-ezequiel.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic stormy radiant lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, storm grey and radiant gold and deep sapphire blue color palette, a robed prophet collapsed low on a riverbank before four towering many-faced beings and wheels covered in eyes, a glowing sapphire throne shimmering faintly above them
+```
+
+### ⭐ La transformación de Enoc en Metatrón (otro) — `la-transformacion-de-enoc-en-metatron.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic radiant transformative lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, radiant gold and soft cloud white and warm amber color palette, a robed man ascending low through parting clouds, wings and eyes beginning to bloom across his form as a crown of light settles onto his head
+```
+
+### La caída de los ángeles vigilantes (tragedia) — `la-caida-de-los-angeles-vigilantes.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic somber lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, dusty desert tan and deep shadow black and pale ember color palette, four armored winged figures gathering low before a radiant throne, a bound dark figure being lowered into a rocky abyss in the distance behind them
+```
+
+### ⭐ Miguel derrota al dragón (heroica) — `miguel-derrota-al-dragon.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic radiant battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, radiant gold and deep storm black and blazing white color palette, an armored winged warrior driving a blazing sword low into a great falling seven-headed dragon, scattered stars trailing from its tail toward the earth below
+```
+
+### La lucha de Jacob con el ángel (otro) — `la-lucha-de-jacob-con-el-angel.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic dawn lighting, dynamic composition, a low riverside ford, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm dawn gold and deep river blue and soft mist grey color palette, two figures locked in a determined struggle low beside a river at first light, one radiant and winged, neither yielding as the sun begins to rise behind them
+```
+
+### Los tres visitantes de Abraham (otro) — `los-tres-visitantes-de-abraham.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic warm hospitable lighting, dynamic multi-figure composition, a low desert tent, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm earthy gold and soft desert tan and pale sky blue color palette, an elderly man bowing low before three robed travelers seated beneath an oak tree, a tent flap open behind him with a listening figure just visible inside
+```
+
+### El rescate de Lot en Sodoma (tragedia) — `el-rescate-de-lot-en-sodoma.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic urgent fiery lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blazing ember orange and deep smoky black and pale urgent gold color palette, two winged figures pulling a fleeing family low away from a burning city gate, a single figure turning back to look despite the urgency
+```
+
+### Agar y el ángel del desierto (otro) — `agar-y-el-angel-del-desierto.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic desert dawn lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm desert gold and pale dawn blue and soft sand tan color palette, a kneeling woman low beside a child under a bush, a radiant winged figure pointing toward a well that shimmers into visibility in the sand nearby
+```
+
+### Gedeón y la señal del fuego (heroica) — `gedeon-y-la-senal-del-fuego.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic warm rustic lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm ember gold and earthy green and soft dusk grey color palette, a farmer kneeling low before a rock as fire bursts upward consuming an offering, a winged figure standing calmly beside an ancient oak tree nearby
+```
+
+### Elías alimentado por el ángel (otro) — `elias-alimentado-por-el-angel.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic soft desert dawn lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm amber gold and soft desert tan and pale dawn blue color palette, an exhausted man lying low beneath a solitary tree, a gentle winged figure touching his shoulder beside a simple cake and jar of water
+```
+
+### Daniel y la interpretación de Gabriel (otro) — `daniel-y-la-interpretacion-de-gabriel.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic radiant visionary lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, radiant gold and deep royal purple and pale silver color palette, a robed man kneeling low beside a river, a swift-flying radiant winged figure descending to touch his shoulder and speak
+```
+
+### El anuncio a Zacarías (otro) — `el-anuncio-a-zacarias.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic soft reverent lighting, dynamic composition, a low temple altar, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and deep temple crimson and soft ivory color palette, an elderly priest recoiling low in astonishment beside an incense altar, a radiant winged figure standing calmly at his side
+```
+
+### ⭐ La Anunciación a María (otro) — `la-anunciacion-a-maria.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic soft radiant lighting, dynamic composition, a low humble room, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, soft radiant gold and gentle sky blue and pure white color palette, a young woman in modest blue robes standing serenely low with hands folded, a radiant winged figure kneeling respectfully before her with a white lily, treated with traditional reverent iconography
+```
+
+### Harut y Marut en Babilonia (tragedia) — `harut-y-marut-en-babilonia.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic ancient lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm sandstone gold and deep shadow black and pale sky blue color palette, two winged figures standing low before a gathered crowd in ancient Babylon, one raising a hand in solemn warning as a ziggurat fades into haze behind them
+```
+
+### Múnkar y Nakir interrogan a los muertos (otro) — `munkar-y-nakir-interrogan-a-los-muertos.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic eerie moonlit lighting, dynamic composition, a low graveyard, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep midnight black and pale lightning silver and dull iron grey color palette, two dark stern winged figures standing low beside an open grave, glowing eyes fixed on a faint translucent figure rising to answer
+```
+
+### La magia enoquiana de John Dee y Edward Kelley (otro) — `la-magia-enoquiana-de-john-dee-y-edward-kelley.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic mystical candlelit lighting, dynamic composition, a low candlelit study, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep mystical indigo and warm candle gold and soft crystal silver color palette, two scholars seated low at a table around a glowing crystal orb, faint unknown celestial letters shimmering in the air above it
+```
+
+### La visión celestial de Emanuel Swedenborg (otro) — `la-vision-celestial-de-emanuel-swedenborg.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic radiant visionary lighting, dynamic composition, a low candlelit dining room, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, radiant gold and deep scholarly navy and soft heavenly white color palette, a seated scholar low at a table frozen in wonder, a luminous figure and faint conversing angels shimmering into view beside him
+```
+
+---
+
+## 18. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -1569,7 +1670,12 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 | Mapuche | 18 | La lucha de Trentren Vilu y Caicai Vilu, La victoria de Pelantaro en Curalaba, La última noche de Lautaro y Guacolda |
 | Africana | 18 | La creación de Mawu-Lisa y la serpiente Aido-Hwedo, El ascenso de Sundiata Keita, Yaa Asantewaa y la Guerra del Taburete de Oro |
 | Demonología | 18 | La caída de Lucifer, El rey Salomón ata a los setenta y dos espíritus, El pacto de Fausto con Mefistófeles |
+| Angelología | 18 | La visión de los serafines de Isaías, La transformación de Enoc en Metatrón, Miguel derrota al dragón |
 
-**Total: 240 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 258 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + momentos clave) son las más importantes para tener primero — funcionan bien
 como portada de cada libro o apertura de la sección de historias en el flipbook.
+
+**Con Angelología se completa todo el pipeline de libros planeado** (ver memoria del proyecto)
+— los 10 libros nuevos, más los 5 ya existentes del catálogo original, quedan con contenido,
+prompts y emblema listos, a la espera de que se generen y suban las imágenes de cada uno.
