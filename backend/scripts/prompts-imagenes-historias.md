@@ -1451,7 +1451,108 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 
 ---
 
-## 16. Resumen
+## 16. Demonología (18 historias)
+
+**Nota:** este libro se ilustra con Gemini, no con Leonardo.ai — no hace falta la configuración
+de la sección 1, solo pega cada prompt completo directo en el chat. Todas las escenas ya piden
+`aspect ratio approximately 21:9` y la acción contenida en una franja horizontal baja desde el
+inicio (ver el aviso sobre el recorte del banner más arriba). Varias escenas involucran figuras
+históricas reales (León XIII, Jacobo VI y I, los juicios de Loudun y Salem) — mantené el mismo
+tono digno y serio del resto del libro, sin sensacionalismo.
+
+### ⭐ La caída de Lucifer, la estrella de la mañana (tragedia) — `la-caida-de-lucifer-la-estrella-de-la-manana.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic falling lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, fading radiant gold and deep abyssal black and pale starlight color palette, a beautiful winged figure falling low across a darkening sky, feathers scattering into embers as the light around him fades toward shadow below
+```
+
+### El origen de Lilith, la primera mujer (cosmogonía) — `el-origen-de-lilith-la-primera-mujer.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic desert dawn lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm desert gold and deep midnight blue and pale dawn white color palette, a determined woman walking low away from a lush garden toward a distant desert horizon, a garden gate closing softly behind her
+```
+
+### El combate final entre Leviatán y Behemot (otro) — `el-combate-final-entre-leviatan-y-behemot.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic apocalyptic lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, abyssal black and earthy bronze and molten ember color palette, a colossal sea serpent and a colossal land beast clashing low where the shoreline meets the water, waves and dust rising together around the point of impact
+```
+
+### Los ángeles vigilantes y la caída de Azazel (otro) — `los-angeles-vigilantes-y-la-caida-de-azazel.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic somber lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, dusty desert tan and deep shadow black and pale ember color palette, a bound winged figure being lowered low into a rocky desert abyss by an armored angel, sharp stones piling around him in the pit below
+```
+
+### Asmodeo y las siete noches de bodas de Sara (tragedia) — `asmodeo-y-las-siete-noches-de-bodas-de-sara.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic smoky lighting, dynamic composition, a low bridal chamber, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep crimson and smoky grey and warm bronze color palette, a young groom burning fish organs low over glowing coals as a three-headed shadow recoils and flees through a window behind him
+```
+
+### La transformación de Astarté en Astaroth (otro) — `la-transformacion-de-astarte-en-astaroth.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic transformative lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, ancient temple gold and deep venomous green and shadow black color palette, an ancient goddess statue on one side cracking low into a winged dragon-riding figure on the other, a ruined temple fading into a medieval grimoire page between them
+```
+
+### Belcebú, el señor de las moscas de Ecrón (otro) — `belcebu-el-senor-de-las-moscas-de-ecron.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic ancient lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, sandstone gold and deep shadow black and sickly green color palette, a robed prophet blocking low a group of royal messengers on a dusty road, a distant temple of an ancient foreign god fading into haze behind them
+```
+
+### ⭐ El rey Salomón ata a los setenta y dos espíritus (heroica) — `el-rey-salomon-ata-a-los-setenta-y-dos-espiritus.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic regal lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and deep royal purple and bronze color palette, a crowned king raising a glowing signet ring low before a line of kneeling demonic figures at the base of a rising temple, a sealed bronze vessel resting at his feet
+```
+
+### ⭐ El pacto de Fausto con Mefistófeles (tragedia) — `el-pacto-de-fausto-con-mefistofeles.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic candlelit forest lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm candle gold and deep forest black and blood crimson color palette, a scholar signing a contract in blood low at a small table facing a dark cloaked figure, a lone candle flickering between them in a moonlit forest clearing
+```
+
+### La creación de Baphomet por Éliphas Lévi (otro) — `la-creacion-de-baphomet-por-eliphas-levi.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic scholarly lighting, dynamic composition, a low candlelit study desk, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm candle gold and deep ink black and soft symbolic silver color palette, an occultist sketching low a symmetrical goat-headed figure on a large parchment, bookshelves of esoteric texts fading into shadow behind him
+```
+
+### La visión del Papa León XIII (otro) — `la-vision-del-papa-leon-xiii.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic reverent lighting, dynamic composition, a low church altar, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, pure white and warm gold and soft heavenly light color palette, an elderly pope standing frozen low before an altar, a faint glowing vision of a heavenly exchange shimmering just above the incense smoke
+```
+
+### Los juicios de brujas de North Berwick y el rey Jacobo (otro) — `los-juicios-de-brujas-de-north-berwick-y-el-rey-jacobo.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic stormy lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep royal navy and storm grey and pale candle gold color palette, a king observing low an interrogation inside a torchlit stone chamber, a storm-wracked ship faintly visible through a narrow window behind him
+```
+
+### Las posesiones del convento de Loudun (tragedia) — `las-posesiones-del-convento-de-loudun.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic somber convent lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep habit black and warm candle gold and soft stone grey color palette, robed nuns gathered low around an altar during a solemn public rite, a crowd of onlookers watching from the shadowed edges of a stone chapel
+```
+
+### El auge y la caída de Matthew Hopkins (tragedia) — `el-auge-y-la-caida-de-matthew-hopkins.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic grim lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep Puritan black and pale grey and muted earth tone color palette, a stern robed figure standing low beside a village pond where a bound accused woman is lowered into the water, villagers watching grimly from the bank
+```
+
+### Los juicios de brujas de Salem (tragedia) — `los-juicios-de-brujas-de-salem.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic somber colonial lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep Puritan black and warm parchment gold and muted grey color palette, a courtroom scene low with a young accuser pointing across a wooden table, somber magistrates and a modest colonial meeting house fading into the background
+```
+
+### Pazuzu contra Lamashtu (otro) — `pazuzu-contra-lamashtu.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic protective lighting, dynamic composition, a low ancient birthing chamber, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, dusty desert tan and deep storm grey and pale ember color palette, a winged wind demon amulet glowing low above a sleeping mother and infant, a shadowy lion-headed shape recoiling just outside the doorway
+```
+
+### Krampus y las noches de diciembre (otro) — `krampus-y-las-noches-de-diciembre.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic wintry torchlit lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep winter black and warm torchlight orange and pale snow white color palette, a horned chained figure and a gentle bearded elder walking low together through a snowy alpine village street, lantern-lit windows glowing along the row of houses behind them
+```
+
+### El exorcismo de Anneliese Michel (tragedia) — `el-exorcismo-de-anneliese-michel.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic somber candlelit lighting, dynamic composition, a low modest bedroom, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, muted soft grey and pale candle gold and gentle ivory color palette, two solemn robed figures praying quietly low beside a bed, a small worn cross and a single candle resting on a nearby nightstand, treated with dignity and restraint
+```
+
+---
+
+## 17. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -1467,7 +1568,8 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 | Celta | 18 | La llegada de los Tuatha Dé Danann, La segunda batalla de Mag Tuired, Deirdre de las Tristezas |
 | Mapuche | 18 | La lucha de Trentren Vilu y Caicai Vilu, La victoria de Pelantaro en Curalaba, La última noche de Lautaro y Guacolda |
 | Africana | 18 | La creación de Mawu-Lisa y la serpiente Aido-Hwedo, El ascenso de Sundiata Keita, Yaa Asantewaa y la Guerra del Taburete de Oro |
+| Demonología | 18 | La caída de Lucifer, El rey Salomón ata a los setenta y dos espíritus, El pacto de Fausto con Mefistófeles |
 
-**Total: 222 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 240 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + momentos clave) son las más importantes para tener primero — funcionan bien
 como portada de cada libro o apertura de la sección de historias en el flipbook.

@@ -369,6 +369,36 @@ function iconoSankofa() {
   `;
 }
 
+// ---------------------------------------------------------------
+// DEMONOLOGIA: el Sello de Salomon invertido -- un pentagrama de
+// cinco puntas dentro de un doble circulo, el simbolo mas
+// directamente asociado a la tradicion de invocacion y dominio de
+// demonios (el anillo que, segun la leyenda, permitio a Salomon
+// atar a los 72 espiritus). Punta hacia abajo, como es habitual en
+// su asociacion con la demonologia (a diferencia del pentagrama
+// recto, mas asociado a la proteccion).
+function iconoPentagrama() {
+  const solido = `fill="${GOLD}" stroke="none"`;
+  const N = 5;
+  const rTip = 84;
+  const rInner = 32;
+  const anguloInicial = Math.PI;
+  const puntos = [];
+  for (let i = 0; i < N * 2; i++) {
+    const r = i % 2 === 0 ? rTip : rInner;
+    const a = anguloInicial + (i / (N * 2)) * Math.PI * 2;
+    puntos.push(`${(r * Math.cos(a)).toFixed(2)},${(r * Math.sin(a)).toFixed(2)}`);
+  }
+  const estrella = `<polygon points="${puntos.join(' ')}" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />`;
+  return `
+    <g transform="translate(${CENTER},${CENTER})">
+      <circle cx="0" cy="0" r="70" fill="none" stroke="${GOLD}" stroke-width="3" />
+      ${estrella}
+      <circle cx="0" cy="0" r="10" fill="${BG}" stroke="${GOLD}" stroke-width="3" />
+    </g>
+  `;
+}
+
 const LIBROS = [
   { slug: 'mitologia-griega', icono: iconoRayo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-hindu', icono: iconoLoto, rMarcas: [96, 108], nMarcas: 28 },
@@ -380,7 +410,8 @@ const LIBROS = [
   { slug: 'mitologia-china', icono: iconoDragon, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-celta', icono: iconoTriskel, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-mapuche', icono: iconoKultrun, rMarcas: [110, 122], nMarcas: 28 },
-  { slug: 'mitologia-africana', icono: iconoSankofa, rMarcas: [96, 108], nMarcas: 28 }
+  { slug: 'mitologia-africana', icono: iconoSankofa, rMarcas: [96, 108], nMarcas: 28 },
+  { slug: 'demonologia', icono: iconoPentagrama, rMarcas: [96, 108], nMarcas: 28 }
 ];
 
 function construirSvg(libro) {
