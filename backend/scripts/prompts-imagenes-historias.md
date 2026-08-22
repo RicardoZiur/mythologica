@@ -1357,7 +1357,101 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 
 ---
 
-## 15. Resumen
+## 15. Mitología Africana (18 historias)
+
+**Nota:** este libro se ilustra con Gemini, no con Leonardo.ai — no hace falta la configuración
+de la sección 1, solo pega cada prompt completo directo en el chat. Todas las escenas ya piden
+`aspect ratio approximately 21:9` y la acción contenida en una franja horizontal baja desde el
+inicio (ver el aviso sobre el recorte del banner más arriba).
+
+### ⭐ La creación de Mawu-Lisa y la serpiente Aido-Hwedo (cosmogonía) — `la-creacion-de-mawu-lisa-y-la-serpiente-aido-hwedo.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic cosmic lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep midnight blue and radiant gold and soft void black color palette, two divine figures riding low along the coiled body of a vast cosmic serpent, mountains and rivers taking shape in the terrain beneath its winding path
+```
+
+### Cómo Anansi ganó las historias del mundo (otro) — `como-anansi-gano-las-historias-del-mundo.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic warm lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm amber gold and deep earth brown and soft jungle green color palette, a clever spider figure presenting a bound python, a sealed calabash, a trapped leopard and a stuck wooden doll low before a vast seated sky god
+```
+
+### La creación de la humanidad por Obatala (cosmogonía) — `la-creacion-de-la-humanidad-por-obatala.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic warm lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm clay ochre and pure white and soft gold color palette, a robed figure in white shaping rows of clay human figures low along newly formed ground, a palm wine cup tipped over beside unfinished figures
+```
+
+### El nacimiento de Shango (otro) — `el-nacimiento-de-shango.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic catastrophic lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blazing orange and deep storm grey and radiant gold color palette, a regal figure standing low before a burning palace as lightning bursts from his raised hands into the sky above
+```
+
+### Oshun y la crisis de la fertilidad (otro) — `oshun-y-la-crisis-de-la-fertilidad.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic parched lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, dusty cracked brown and pale gold and soft river blue color palette, a group of divine figures kneeling low in supplication before a golden-robed woman beside a single trickling river returning to flow
+```
+
+### Ogún abre camino a través de la selva (otro) — `ogun-abre-camino-a-traves-de-la-selva.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic determined lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep forest green and iron grey and warm forge orange color palette, a rugged warrior swinging a forged machete low through dense tangled jungle vines, a line of divine figures following through the newly opened path behind him
+```
+
+### Eshu y el sombrero de dos colores (otro) — `eshu-y-el-sombrero-de-dos-colores.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic warm daylight lighting, dynamic composition, a low farming path, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm crimson and shadow black and soft field green color palette, a traveler in a red-and-black split cap walking low along a path between two farmers each glancing up from opposite fields
+```
+
+### La venganza de Oba (tragedia) — `la-venganza-de-oba.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense lighting, dynamic composition, a low royal dining hall, atmospheric haze, centered composition, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep crimson and storm grey and pale gold color palette, a horrified warrior king recoiling low from a offered bowl of soup, a veiled woman fleeing toward a distant turbulent river in the misty background
+```
+
+### Oya y las batallas de Shango (heroica) — `oya-y-las-batallas-de-shango.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep maroon and storm grey and blazing gold color palette, a fierce woman warrior charging low at the front of a battle line with a raised sword, lightning striking behind her among scattering enemy ranks
+```
+
+### ⭐ El ascenso de Sundiata Keita (heroica) — `el-ascenso-de-sundiata-keita.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic triumphant lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and deep bronze and savanna green color palette, a young man rising low to his feet gripping a bending iron bar, a stunned royal court watching from either side of the scene
+```
+
+### La peregrinación de Mansa Musa a La Meca (otro) — `la-peregrinacion-de-mansa-musa-a-la-meca.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic radiant desert lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and desert ochre and deep royal purple color palette, an immense caravan of camels laden with gold moving low across a desert horizon, a regal figure distributing gold to grateful crowds along the roadside
+```
+
+### Shaka y la reforma del ejército zulu (heroica) — `shaka-y-la-reforma-del-ejercito-zulu.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic disciplined lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep bronze and earthy red and storm grey color palette, ranks of warriors forming a curved horn-shaped battle formation low across open grassland, a commanding figure directing them with a raised short spear
+```
+
+### ⭐ Yaa Asantewaa y la Guerra del Taburete de Oro (heroica) — `yaa-asantewaa-y-la-guerra-del-taburete-de-oro.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic defiant lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and deep kente crimson and storm grey color palette, a fierce queen mother raising a sword low before a hesitant council of seated elders, a golden stool glowing faintly at the center between them
+```
+
+### Nzinga y el trono improvisado (heroica) — `nzinga-y-el-trono-improvisado.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense negotiation lighting, dynamic composition, a low colonial meeting room, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep royal red and warm bronze and storm grey color palette, a regal woman seated calmly low upon a servant positioned on hands and knees, facing a startled seated colonial governor across a table
+```
+
+### La fuga de Yennenga (heroica) — `la-fuga-de-yennenga.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic dawn lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm dawn gold and earthy bronze and misty green color palette, a lone warrior woman galloping low across open wilderness at dawn, a distant royal court fading into mist behind her
+```
+
+### El descenso del Taburete de Oro sobre Osei Tutu (fundación) — `el-descenso-del-taburete-de-oro-sobre-osei-tutu.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic thunderous lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, radiant gold and storm grey and deep kente crimson color palette, a golden stool descending low through a lightning-lit sky onto the lap of a kneeling king, gathered clan leaders watching in awe on either side
+```
+
+### La resistencia final de Behanzin (tragedia) — `la-resistencia-final-de-behanzin.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic somber battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep royal red and smoky grey and bronze color palette, ranks of female warriors making a final defiant stand low before an advancing colonial column, a king watching resolutely from the center of the line
+```
+
+---
+
+## 16. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -1372,7 +1466,8 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 | China | 18 | Pangu y la creación del mundo, Houyi derriba nueve soles, La leyenda de la serpiente blanca |
 | Celta | 18 | La llegada de los Tuatha Dé Danann, La segunda batalla de Mag Tuired, Deirdre de las Tristezas |
 | Mapuche | 18 | La lucha de Trentren Vilu y Caicai Vilu, La victoria de Pelantaro en Curalaba, La última noche de Lautaro y Guacolda |
+| Africana | 18 | La creación de Mawu-Lisa y la serpiente Aido-Hwedo, El ascenso de Sundiata Keita, Yaa Asantewaa y la Guerra del Taburete de Oro |
 
-**Total: 204 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 222 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + momentos clave) son las más importantes para tener primero — funcionan bien
 como portada de cada libro o apertura de la sección de historias en el flipbook.

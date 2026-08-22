@@ -350,6 +350,25 @@ function iconoKultrun() {
   `;
 }
 
+// ---------------------------------------------------------------
+// AFRICANA: el simbolo Adinkra Sankofa -- un pajaro estilizado que
+// gira la cabeza hacia atras mientras camina hacia adelante,
+// sosteniendo un huevo en el pico. Uno de los simbolos akan mas
+// reconocibles ("hay que volver al pasado para construir el
+// futuro"). Silueta solida construida con formas geometricas.
+function iconoSankofa() {
+  const solido = `fill="${GOLD}" stroke="none"`;
+  return `
+    <g transform="translate(${CENTER},${CENTER})">
+      <path d="M -60,50 Q -66,-30 -10,-46 Q 30,-56 34,-20 Q 36,4 8,6 Q -14,7 -12,-12 Q -11,-24 2,-24 Q 12,-24 12,-14 L 2,-14 Q -2,-14 -2,-11 Q -2,-6 6,-6 Q 24,-6 22,-20 Q 20,-36 -6,-30 Q -46,-20 -42,44 Q -42,50 -34,50 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
+      <path d="M 30,-46 Q 44,-52 54,-42 Q 60,-36 52,-30 Q 42,-24 34,-32 Z" ${solido} stroke="${BG}" stroke-width="1.6" stroke-linejoin="round" />
+      <circle cx="46" cy="-40" r="6" ${solido} />
+      <path d="M -60,50 L -30,50 L -30,62 L -60,62 Z" ${solido} />
+      <path d="M 14,-6 Q 8,10 -6,10 Q -16,10 -18,2" fill="none" stroke="${GOLD}" stroke-width="6" stroke-linecap="round" />
+    </g>
+  `;
+}
+
 const LIBROS = [
   { slug: 'mitologia-griega', icono: iconoRayo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-hindu', icono: iconoLoto, rMarcas: [96, 108], nMarcas: 28 },
@@ -360,7 +379,8 @@ const LIBROS = [
   { slug: 'mitologia-japonesa', icono: iconoCrisantemo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-china', icono: iconoDragon, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-celta', icono: iconoTriskel, rMarcas: [96, 108], nMarcas: 28 },
-  { slug: 'mitologia-mapuche', icono: iconoKultrun, rMarcas: [110, 122], nMarcas: 28 }
+  { slug: 'mitologia-mapuche', icono: iconoKultrun, rMarcas: [110, 122], nMarcas: 28 },
+  { slug: 'mitologia-africana', icono: iconoSankofa, rMarcas: [96, 108], nMarcas: 28 }
 ];
 
 function construirSvg(libro) {
