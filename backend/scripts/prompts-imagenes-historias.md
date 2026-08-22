@@ -1159,7 +1159,106 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 
 ---
 
-## 13. Resumen
+## 13. Mitología Celta (18 historias)
+
+**Nota:** este libro se ilustra con Gemini, no con Leonardo.ai — no hace falta la configuración
+de la sección 1, solo pega cada prompt completo directo en el chat. Todas las escenas ya piden
+`aspect ratio approximately 21:9` y la acción contenida en una franja horizontal baja desde el
+inicio (ver el aviso sobre el recorte del banner más arriba).
+
+### ⭐ La llegada de los Tuatha Dé Danann (fundación) — `la-llegada-de-los-tuatha-de-danann.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic misty dawn lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, misty teal and warm gold and deep green color palette, a line of radiant robed figures emerging low out of a rolling bank of mist onto green hills, a burning ship silhouette smoldering faintly behind them on a distant shore
+```
+
+### La primera batalla de Mag Tuired (heroica) — `la-primera-batalla-de-mag-tuired.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, bronze and storm grey and blood red color palette, two armies of bronze-armored warriors clashing low across a misty plain, a silver-armed king staggering back as his sword arm falls, a rival warrior standing over him with a bloodied blade
+```
+
+### El nacimiento de Lugh (cosmogonía) — `el-nacimiento-de-lugh.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic moonlit lighting, dynamic composition, a low rocky shoreline, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep ocean navy and pale moon silver and warm gold color palette, a small infant wrapped in cloth drifting low on dark waves toward an outstretched hand reaching from a boat, a distant glass tower fading into mist on the horizon behind
+```
+
+### ⭐ La segunda batalla de Mag Tuired (heroica) — `la-segunda-batalla-de-mag-tuired.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic explosive lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, radiant gold and storm grey and deadly amber color palette, a young warrior slinging a stone low toward a collapsing one-eyed giant whose massive eyelid tears open, a beam of light punching backward through the giant's own retreating army in the distance
+```
+
+### La forja del brazo de plata de Nuada (otro) — `la-forja-del-brazo-de-plata-de-nuada.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic forge lighting, dynamic composition, a low smith's forge, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, forge orange and polished silver and deep bronze color palette, a bearded smith hammering a glowing silver arm low over an anvil, a wounded king watching with his sleeve pinned empty at his side, sparks scattering across the low foreground
+```
+
+### El cortejo de Étaín (amor) — `el-cortejo-de-etain.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic golden hall lighting, dynamic composition, a low great hall interior, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and iridescent butterfly blue and pale ivory color palette, a noble figure reaching low across a chessboard toward one identical woman among fifty seated in a row, a pale butterfly motif glowing faintly above her chosen hand
+```
+
+### El nacimiento de Cú Chulainn (fundación) — `el-nacimiento-de-cu-chulainn.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic mystical dawn lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and misty grey and pale green color palette, a lone house dissolving into mist low on a hillside at dawn, a woman kneeling beside an abandoned infant with a mare and two foals standing nearby
+```
+
+### Cú Chulainn y el perro de Culann (heroica) — `cu-chulainn-y-el-perro-de-culann.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense twilight lighting, dynamic composition, a low fortress gate, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, dusk purple and bronze and pale moon white color palette, a small determined boy standing his ground low before an enormous lunging hound, a heavy wooden gate and torches glowing faintly behind him
+```
+
+### ⭐ La razzia de las vacas de Cooley (heroica) — `la-razzia-de-las-vacas-de-cooley.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic battle-fury lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blood bronze and storm grey and pale battle-light color palette, a lone warrior mid-transformation standing alone at a river ford low blocking a vast invading army, a great brown bull silhouette faintly visible on a distant hill behind the enemy ranks
+```
+
+### La muerte de Cú Chulainn (tragedia) — `la-muerte-de-cu-chulainn.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic somber dusk lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, dusk grey and dried blood red and pale moon white color palette, a mortally wounded warrior bound upright low against a standing stone with his own belt, a single raven landing silently on his shoulder as distant enemies watch from afar
+```
+
+### ⭐ Deirdre de las Tristezas (tragedia) — `deirdre-de-las-tristezas.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic sorrowful twilight lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blood red and snow white and raven black color palette, a grieving woman kneeling low over a fallen warrior at a fortress gate, armed men lowering their weapons around her in the fading light, a raven perched on the wall above
+```
+
+### Fionn mac Cumhaill y el salmón del conocimiento (heroica) — `fionn-mac-cumhaill-y-el-salmon-del-conocimiento.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic firelit riverside lighting, dynamic composition, a low riverside campfire, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, forge orange and river silver and deep green color palette, a young man pressing a burned thumb to his lips low beside a roasting salmon over a campfire, an old druid watching in surprise from across the flames
+```
+
+### Diarmuid y Gráinne (amor) — `diarmuid-y-grainne.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic torchlit night lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm torchlight gold and forest green and deep night blue color palette, two figures fleeing low together into a dark forest on horseback, torches and armed warriors gathering in confusion at a banquet hall entrance behind them
+```
+
+### Oisín y la tierra de la eterna juventud (otro) — `oisin-y-la-tierra-de-la-eterna-juventud.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic bittersweet golden lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and misty white and pale grey color palette, a rider on a white horse falling low toward the ground as a broken saddle strap trails behind, his youthful form already beginning to wither with age mid-fall
+```
+
+### La navegación de Bran mac Febail (otro) — `la-navegacion-de-bran-mac-febail.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic misty seafaring lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, sea green and misty silver and deep navy color palette, a small currach boat gliding low across calm waves beside a robed figure galloping a pale horse directly atop the water's surface, a veiled misty horizon ahead
+```
+
+### Pwyll y Rhiannon (amor) — `pwyll-y-rhiannon.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic golden dusk lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, pale gold and misty lavender and soft white color palette, a mounted man reining in his horse low behind a woman on an unhurried pale mare who can never be overtaken, an ancient burial mound rising gently in the misty background
+```
+
+### Branwen, hija de Llŷr (tragedia) — `branwen-hija-de-llyr.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic overcast sorrowful lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, muted grey and pale gold and deep sea blue color palette, a grieving woman releasing a small starling low from her open hand at a rugged coastline, warships massing faintly on the grey horizon behind her
+```
+
+### Culhwch y Olwen (heroica) — `culhwch-y-olwen.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic adventurous lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm gold and forest green and bronze color palette, a young warrior and a small band of companions closing in low on a massive tusked boar fleeing through shallow water, a comb and shears glinting faintly among its bristling back
+```
+
+---
+
+## 14. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -1172,7 +1271,8 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 | Maya | 18 | La creación del mundo, La creación de los hombres de maíz, La derrota final de los señores de Xibalbá |
 | Japonesa | 18 | La creación del mundo, La cueva celestial de Amaterasu, El descenso de Ninigi a la tierra |
 | China | 18 | Pangu y la creación del mundo, Houyi derriba nueve soles, La leyenda de la serpiente blanca |
+| Celta | 18 | La llegada de los Tuatha Dé Danann, La segunda batalla de Mag Tuired, Deirdre de las Tristezas |
 
-**Total: 168 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 186 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + momentos clave) son las más importantes para tener primero — funcionan bien
 como portada de cada libro o apertura de la sección de historias en el flipbook.

@@ -266,6 +266,44 @@ function iconoDragon() {
   `;
 }
 
+// ---------------------------------------------------------------
+// CELTA: el triskel (triple espiral celta), el simbolo mas antiguo
+// y reconocible de toda la tradicion celta -- tres brazos espirales
+// identicos con simetria de 120 grados, construidos con el mismo
+// truco de segmentos barridos y grosor decreciente que el dragon
+// chino, pero triplicados por rotacion en vez de enroscados en uno solo.
+function iconoTriskel() {
+  const grosorBase = 17;
+  const vueltas = 0.72;
+  const rMax = 92;
+  const rMin = 12;
+  const pasos = 40;
+  const puntos = [];
+  for (let i = 0; i <= pasos; i++) {
+    const t = i / pasos;
+    const angulo = t * Math.PI * 2 * vueltas;
+    const radio = rMin + (rMax - rMin) * t;
+    puntos.push([radio * Math.cos(angulo), radio * Math.sin(angulo), t]);
+  }
+  let brazo = '';
+  for (let i = 0; i < puntos.length - 1; i++) {
+    const [x0, y0, t0] = puntos[i];
+    const [x1, y1] = puntos[i + 1];
+    const ancho = grosorBase * (1 - t0 * 0.78);
+    brazo += `<line x1="${x0.toFixed(2)}" y1="${y0.toFixed(2)}" x2="${x1.toFixed(2)}" y2="${y1.toFixed(2)}" stroke="${GOLD}" stroke-width="${ancho.toFixed(2)}" stroke-linecap="round" />`;
+  }
+  let brazos = '';
+  for (let k = 0; k < 3; k++) {
+    brazos += `<g transform="rotate(${k * 120})">${brazo}</g>`;
+  }
+  return `
+    <g transform="translate(${CENTER},${CENTER})">
+      ${brazos}
+      <circle cx="0" cy="0" r="10" fill="${GOLD}" stroke="none" />
+    </g>
+  `;
+}
+
 const LIBROS = [
   { slug: 'mitologia-griega', icono: iconoRayo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-hindu', icono: iconoLoto, rMarcas: [96, 108], nMarcas: 28 },
@@ -274,7 +312,8 @@ const LIBROS = [
   { slug: 'mitologia-sumeria', icono: iconoEstrella, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-maya', icono: iconoPiramide, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-japonesa', icono: iconoCrisantemo, rMarcas: [96, 108], nMarcas: 28 },
-  { slug: 'mitologia-china', icono: iconoDragon, rMarcas: [96, 108], nMarcas: 28 }
+  { slug: 'mitologia-china', icono: iconoDragon, rMarcas: [96, 108], nMarcas: 28 },
+  { slug: 'mitologia-celta', icono: iconoTriskel, rMarcas: [96, 108], nMarcas: 28 }
 ];
 
 function construirSvg(libro) {
