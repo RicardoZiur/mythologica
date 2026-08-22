@@ -304,6 +304,52 @@ function iconoTriskel() {
   `;
 }
 
+// ---------------------------------------------------------------
+// MAPUCHE: el kultrun, el tambor ceremonial sagrado de las machis,
+// uno de los simbolos mas reconocibles de la cultura mapuche. Aro
+// solido con la piel tensada (circulo interior) y la cruz de los
+// cuatro puntos cardinales pintada sobre la piel, mas pequenos
+// triangulos (representando montañas/rayos) alrededor del borde.
+function iconoKultrun() {
+  const solido = `fill="${GOLD}" stroke="none"`;
+  const rAro = 86;
+  const grosorAro = 10;
+  const rPiel = rAro - grosorAro / 2 - 2;
+  const rCruzInterior = 16;
+  const rCruzExterior = rPiel - 8;
+  let cruz = '';
+  for (let i = 0; i < 4; i++) {
+    const angulo = (i / 4) * Math.PI * 2;
+    const x0 = rCruzInterior * Math.sin(angulo), y0 = -rCruzInterior * Math.cos(angulo);
+    const x1 = rCruzExterior * Math.sin(angulo), y1 = -rCruzExterior * Math.cos(angulo);
+    cruz += `<line x1="${x0.toFixed(2)}" y1="${y0.toFixed(2)}" x2="${x1.toFixed(2)}" y2="${y1.toFixed(2)}" stroke="${GOLD}" stroke-width="6" stroke-linecap="round" />`;
+  }
+  const N = 16;
+  let dientes = '';
+  for (let i = 0; i < N; i++) {
+    const anguloCentro = (i / N) * 360;
+    const medioAncho = 7;
+    const a0 = (anguloCentro - medioAncho) * Math.PI / 180;
+    const a1 = (anguloCentro + medioAncho) * Math.PI / 180;
+    const aC = anguloCentro * Math.PI / 180;
+    const rBase = rAro + grosorAro / 2;
+    const rTip = rBase + 12;
+    const x0 = (rBase * Math.sin(a0)).toFixed(2), y0 = (-rBase * Math.cos(a0)).toFixed(2);
+    const x1 = (rBase * Math.sin(a1)).toFixed(2), y1 = (-rBase * Math.cos(a1)).toFixed(2);
+    const xp = (rTip * Math.sin(aC)).toFixed(2), yp = (-rTip * Math.cos(aC)).toFixed(2);
+    dientes += `<path d="M ${x0},${y0} L ${xp},${yp} L ${x1},${y1} Z" ${solido} />`;
+  }
+  return `
+    <g transform="translate(${CENTER},${CENTER})">
+      ${dientes}
+      <circle cx="0" cy="0" r="${rAro}" fill="none" stroke="${GOLD}" stroke-width="${grosorAro}" />
+      <circle cx="0" cy="0" r="${rPiel}" fill="${BG}" stroke="${GOLD}" stroke-width="2" />
+      ${cruz}
+      <circle cx="0" cy="0" r="9" ${solido} />
+    </g>
+  `;
+}
+
 const LIBROS = [
   { slug: 'mitologia-griega', icono: iconoRayo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-hindu', icono: iconoLoto, rMarcas: [96, 108], nMarcas: 28 },
@@ -313,7 +359,8 @@ const LIBROS = [
   { slug: 'mitologia-maya', icono: iconoPiramide, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-japonesa', icono: iconoCrisantemo, rMarcas: [96, 108], nMarcas: 28 },
   { slug: 'mitologia-china', icono: iconoDragon, rMarcas: [96, 108], nMarcas: 28 },
-  { slug: 'mitologia-celta', icono: iconoTriskel, rMarcas: [96, 108], nMarcas: 28 }
+  { slug: 'mitologia-celta', icono: iconoTriskel, rMarcas: [96, 108], nMarcas: 28 },
+  { slug: 'mitologia-mapuche', icono: iconoKultrun, rMarcas: [110, 122], nMarcas: 28 }
 ];
 
 function construirSvg(libro) {

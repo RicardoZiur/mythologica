@@ -1258,7 +1258,106 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 
 ---
 
-## 14. Resumen
+## 14. Mitología Mapuche (18 historias)
+
+**Nota:** este libro se ilustra con Gemini, no con Leonardo.ai — no hace falta la configuración
+de la sección 1, solo pega cada prompt completo directo en el chat. Todas las escenas ya piden
+`aspect ratio approximately 21:9` y la acción contenida en una franja horizontal baja desde el
+inicio (ver el aviso sobre el recorte del banner más arriba).
+
+### ⭐ La lucha de Trentren Vilu y Caicai Vilu (cosmogonía) — `la-lucha-de-trentren-vilu-y-caicai-vilu.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic stormy lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, golden earth and dark storm teal and pale foam white color palette, a golden-green serpent coiling low to lift a ridge of hills as a dark serpent churns rising floodwater from the opposite side, tiny figures climbing to safety on the rising slope between them
+```
+
+### El origen de Ngenechen y los cuatro rostros (cosmogonía) — `el-origen-de-ngenechen-y-los-cuatro-rostros.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic radiant dawn lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, radiant gold and pure white and soft earth brown color palette, four translucent figures (an elder man, an elder woman, a young man, a young woman) standing low in a line over a newly formed valley, their forms merging into a single luminous presence at the center
+```
+
+### Antü y Kuyen, el sol y la luna (otro) — `antu-y-kuyen-el-sol-y-la-luna.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic dawn-to-dusk lighting split across the frame, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, warm solar gold and pale lunar silver and deep twilight blue color palette, a radiant sun figure and a pale moon figure passing low over misty hills at the horizon line where day meets night
+```
+
+### El nacimiento de los pillanes (cosmogonía) — `el-nacimiento-de-los-pillanes.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic volcanic lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, molten orange and volcanic black and deep ember red color palette, a great ember-cracked figure low along a mountain range pouring glowing light into a line of distant smoking volcanic peaks
+```
+
+### Meulen contra el wekufe (otro) — `meulen-contra-el-wekufe.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic dawn whirlwind lighting, dynamic composition, a low traditional ruka dwelling, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, pale dust gold and shadow black and soft dawn white color palette, a swirling whirlwind of golden dust sweeping low across a small dwelling, a dissolving shadowy shape being scattered at its edge
+```
+
+### La ira del Cherufe (tragedia) — `la-ira-del-cherufe.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense volcanic lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, molten orange and deep earth brown and pale offering gold color palette, a small community climbing low along a volcanic ridge carrying baskets of fruit and silverwork toward a smoking crater, tense faces lit by distant glowing light
+```
+
+### La llegada del Piuchén (otro) — `la-llegada-del-piuchen.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense night lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, midnight black and sickly pale green and moon silver color palette, a winged serpent silhouette gliding low across a moonlit rural landscape, a small dwelling with a faint protective glow visible below its path
+```
+
+### El origen del Chonchón (otro) — `el-origen-del-chonchon.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic eerie night lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, midnight black and pale moon silver and sickly grey color palette, a severed head with enlarged ear-wings flying low back toward a forest clearing, its hidden headless body already missing from its resting place below
+```
+
+### ⭐ La victoria de Pelantaro en Curalaba (heroica) — `la-victoria-de-pelantaro-en-curalaba.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic dawn battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, dawn gold and deep bronze and storm grey color palette, warriors surging low out of the misty treeline into a sleeping Spanish encampment at dawn, a distant line of colonial forts silhouetted and beginning to fall on the horizon
+```
+
+### El cautiverio y la venganza de Lautaro (heroica) — `el-cautiverio-y-la-venganza-de-lautaro.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense lighting, dynamic composition, a low colonial encampment, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, earthy bronze and deep green and dusty gold color palette, a young captive quietly observing mounted soldiers drilling low across a colonial camp, his watchful eyes the clear focus amid the routine activity around him
+```
+
+### La muerte de Pedro de Valdivia en Tucapel (heroica) — `la-muerte-de-pedro-de-valdivia-en-tucapel.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic exhausting battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, blood bronze and storm grey and dusty gold color palette, successive waves of warriors emerging low from the treeline against an exhausted retreating column of soldiers, a fallen banner trampled in the foreground dust
+```
+
+### La prueba del tronco y la elección de Caupolicán (heroica) — `la-prueba-del-tronco-y-la-eleccion-de-caupolican.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic strained daylight lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, earthy bronze and warm gold and muted green color palette, a lone straining warrior bearing a massive tree trunk low across his shoulders before a watching crowd, an elder gesturing approval from beside him
+```
+
+### El sacrificio de Galvarino (tragedia) — `el-sacrificio-de-galvarino.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic defiant lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep bronze and blood red and storm grey color palette, a warrior with daggers bound to both forearm stumps striding low back onto a battlefield, fellow warriors turning to watch him return with clear astonishment
+```
+
+### La furia de Fresia (tragedia) — `la-furia-de-fresia.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic tense torchlit lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep crimson and bronze and storm grey color palette, a fierce woman thrusting a small child low into the arms of a bound captive warrior, onlookers frozen in shock at the edges of the torchlit scene
+```
+
+### ⭐ La última noche de Lautaro y Guacolda (tragedia) — `la-ultima-noche-de-lautaro-y-guacolda.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic somber dusk lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, dusk purple and dying firelight orange and deep forest green color palette, a couple sitting quietly beside a dying campfire low in a war camp, distant torches of an approaching ambush barely visible through the trees behind them
+```
+
+### Janequeo, la toqui que no se rindió (heroica) — `janequeo-la-toqui-que-no-se-rindio.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic mountain battle lighting, dynamic multi-figure composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, deep bronze and mountain grey and ember orange color palette, a woman warrior directing fighters low along a mountain ridge as a distant fort burns below in the valley
+```
+
+### Millalobo y la Pincoya (amor) — `millalobo-y-la-pincoya.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic soft moonlit lighting, dynamic composition, a low moonlit beach, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, pale gold and soft ocean teal and pearl white color palette, a golden sea king rising low from gentle waves toward a dancing sea maiden on wet sand, schools of fish glimmering faintly in the shallow water between them
+```
+
+### El secreto de la Recta Provincia y el Caleuche (otro) — `el-secreto-de-la-recta-provincia-y-el-caleuche.jpg`
+```
+Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition, aspect ratio approximately 21:9 (much wider than tall), all key figures and action kept within a low horizontal band across the vertical center of the frame, nothing important near the very top or bottom edge, dramatic eerie luminous night lighting, dynamic composition, atmospheric haze, highly detailed digital art, painterly rendering, trending on artstation, no text or writing anywhere in the image, pale spectral gold and deep ocean black and soft mist white color palette, a small fishing boat drifting low toward a glowing ghostly ship on dark channel waters, a lone fisherman reaching toward the light with clear unease
+```
+
+---
+
+## 15. Resumen
 
 | Libro | Historias | Cosmogonías destacadas |
 |---|---|---|
@@ -1272,7 +1371,8 @@ Semi-realistic fantasy digital painting, ultra-wide panoramic banner composition
 | Japonesa | 18 | La creación del mundo, La cueva celestial de Amaterasu, El descenso de Ninigi a la tierra |
 | China | 18 | Pangu y la creación del mundo, Houyi derriba nueve soles, La leyenda de la serpiente blanca |
 | Celta | 18 | La llegada de los Tuatha Dé Danann, La segunda batalla de Mag Tuired, Deirdre de las Tristezas |
+| Mapuche | 18 | La lucha de Trentren Vilu y Caicai Vilu, La victoria de Pelantaro en Curalaba, La última noche de Lautaro y Guacolda |
 
-**Total: 186 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
+**Total: 204 escenas.** Como es mucho volumen, si querés priorizar, las marcadas con ⭐
 (cosmogonías + momentos clave) son las más importantes para tener primero — funcionan bien
 como portada de cada libro o apertura de la sección de historias en el flipbook.
