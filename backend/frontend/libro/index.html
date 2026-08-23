@@ -15,6 +15,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <title>Mythologica — Flipbook</title>
 <meta name="description" content="Lee el libro completo, con todos sus personajes e historias ilustradas. Empieza gratis con la muestra.">
+<!-- Esta misma plantilla se reutiliza para los ~14 libros del catalogo
+     (solo cambia ?libro=<slug>), asi que el HTML de origen es identico
+     en todos los casos -- Search Console lo marcaba como "Duplicada:
+     sin version canonica". No tiene sentido indexar esta vista de
+     lectura por separado; el catalogo (index.html) es la pagina que
+     debe rankear en busqueda. -->
+<meta name="robots" content="noindex, follow">
 <!-- Open Graph / Twitter Card: la tarjeta que se ve al compartir este
      link en WhatsApp, Instagram (bio/mensajes), Facebook, etc. -->
 <meta property="og:type" content="website">
