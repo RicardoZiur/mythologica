@@ -691,13 +691,19 @@ const ALTO_UTIL_HISTORIA_PX = (297 - 8 - 18) * 96 / 25.4;
 // termina recortando de arriba y abajo (no de los costados), tanto
 // mas cuanto mas alta sea la imagen fuente respecto a esa caja. Subir
 // este techo ACERCA la proporcion de la caja a la de la imagen y por
-// lo tanto reduce ese recorte -- 320px (~2.24:1) sigue por debajo del
-// punto de quiebre donde el recorte pasaria a ser lateral en vez de
-// vertical para las imagenes 16:9/21:9 que se generan hoy. Un colchon
-// de 15px de margen de seguridad evita que quede al borde justo por
-// cualquier diferencia minima entre esta medicion y el render final.
+// lo tanto reduce ese recorte. El punto de quiebre exacto donde el
+// recorte pasaria a ser lateral en vez de vertical, para una imagen
+// 21:9 (2.33:1) en esta hoja de 718px de ancho, esta en ~308px de
+// alto (718/2.33) -- 380px (~1.89:1) ya lo cruza, pero solo recorta
+// ~9-10% de cada costado (siempre el centro de la imagen, que es
+// donde los prompts piden la composicion principal), un precio menor
+// comparado con dejar espacio en blanco real en historias de texto
+// corto que igual llegaban al techo viejo de 320px sin usar toda su
+// holgura. Un colchon de 15px de margen de seguridad evita que quede
+// al borde justo por cualquier diferencia minima entre esta medicion
+// y el render final.
 const ALTURA_BANNER_MIN = 150;
-const ALTURA_BANNER_MAX = 320;
+const ALTURA_BANNER_MAX = 380;
 const COLCHON_SEGURIDAD_PX = 15;
 
 async function medirAlturasHistorias(page) {
