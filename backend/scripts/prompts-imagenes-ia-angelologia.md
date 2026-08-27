@@ -60,7 +60,7 @@ fijo, salvo cuando el propio texto los describe con un género predominante.
 
 ### Metatrón — `metatron.jpg`
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), radiant celestial lighting, an androgynous majestic figure seated on a throne beside an even greater unseen radiant light, countless eyes subtly visible within layered wings, a crown inscribed with glowing letters, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, radiant gold and deep celestial blue and pure white color palette, the highest angel closest to the divine throne, vast and serene Save the generated image file as "metatron.jpg".
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), radiant celestial lighting, an androgynous majestic figure seated on a throne beside an even greater unseen radiant light, countless eyes subtly visible within layered wings, a crown inscribed with glowing letters, a glowing golden Metatron's Cube sacred geometry pattern (thirteen circles connected by intersecting lines forming all five Platonic solids) hovering in the air behind him, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, radiant gold and deep celestial blue and pure white color palette, the highest angel closest to the divine throne, vast and serene Save the generated image file as "metatron.jpg".
 ```
 
 ### Sandalfón — `sandalfon.jpg`
