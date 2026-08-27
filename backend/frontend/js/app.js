@@ -366,10 +366,30 @@ function construirPaginaPersonaje(personaje, mapaHistorias) {
   `;
 }
 
+// Envuelve en <strong> cada mencion literal, en "texto", del nombre de
+// alguno de los "personajes" (la misma lista que ya trae cada
+// historia con quienes participan y tienen su propia ficha). Se
+// ordenan por longitud descendente antes de armar el patron para que
+// un nombre compuesto (ej. "Cú Chulainn") se resuelva entero en vez
+// de que su propio nombre corto lo parta primero. El limite de
+// palabra usa \p{L}/\p{N} (no \b) porque \b no reconoce como "letra"
+// los caracteres acentuados fuera del rango ASCII.
+function resaltarPersonajes(texto, personajes) {
+  if (!personajes || personajes.length === 0) return texto;
+  const nombres = personajes
+    .map(p => p.nombre)
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length)
+    .map(n => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  if (nombres.length === 0) return texto;
+  const patron = new RegExp(`(?<![\\p{L}\\p{N}])(${nombres.join('|')})(?![\\p{L}\\p{N}])`, 'gu');
+  return texto.replace(patron, '<strong>$1</strong>');
+}
+
 // Arma la hoja completa de una historia: resumen + texto completo
-// + personajes que participan (clickeables) + fuente clasica.
-// "mapaPersonajes" convierte los nombres de personajes en links.
-function construirPaginaHistoria(historia, mapaPersonajes) {
+// (con los personajes que tienen ficha propia resaltados en negrita)
+// + fuente clasica.
+function construirPaginaHistoria(historia) {
   if (historia.bloqueado) {
     return construirHojaBloqueada(historia.slug, historia.titulo, historia.resumen, historia.tipo);
   }
@@ -380,18 +400,12 @@ function construirPaginaHistoria(historia, mapaPersonajes) {
   const parrafos = historia.texto_completo.split(/\n\s*\n/);
   const primerParrafo = parrafos[0];
   const primeraLetra = primerParrafo.charAt(0);
-  const restoPrimerParrafo = primerParrafo.slice(1);
+  const restoPrimerParrafo = resaltarPersonajes(primerParrafo.slice(1), historia.personajes);
 
   const parrafosHtml = [
     `<p><span class="drop">${primeraLetra}</span>${restoPrimerParrafo}</p>`,
-    ...parrafos.slice(1).map(p => `<p>${p}</p>`)
+    ...parrafos.slice(1).map(p => `<p>${resaltarPersonajes(p, historia.personajes)}</p>`)
   ].join('');
-
-  const personajesHtml = (historia.personajes || []).map(p => {
-    const pagina = mapaPersonajes[p.slug];
-    const atributoPagina = pagina !== undefined ? `data-page="${pagina}"` : '';
-    return `<span class="chip-link" ${atributoPagina}>${p.nombre} <i>(${p.rol})</i></span>`;
-  }).join('');
 
   const fuenteTexto = (historia.fuentes && historia.fuentes.length > 0)
     ? historia.fuentes.map(f => `${f.autor}, ${f.obra}`).join(' · ')
@@ -413,11 +427,6 @@ function construirPaginaHistoria(historia, mapaPersonajes) {
       <div class="page-scroll">
         ${bannerHtml}
         <div class="body-txt">${parrafosHtml}</div>
-
-        ${personajesHtml ? `
-          <div class="divider"><span>Personajes</span></div>
-          <div class="chip-row">${personajesHtml}</div>
-        ` : ''}
       </div>
 
       <div class="footer">${fuenteTexto || '— historia —'}</div>
@@ -588,16 +597,12 @@ async function iniciarLibro() {
 
     const inicioIndice = 1; // pagina 0 = portada
     const inicioHistorias = inicioIndice + numHojasIndice;
-    const inicioPersonajes = inicioHistorias + historiasCompletas.length;
 
-    // 4. Armamos dos "diccionarios" slug -> numero de pagina.
+    // 4. Armamos un "diccionario" slug -> numero de pagina de historias.
     // Esto es lo que permite que, desde la ficha de Medusa, el link
-    // a "Perseo y Medusa" sepa exactamente a que pagina saltar (y viceversa).
+    // a "Perseo y Medusa" sepa exactamente a que pagina saltar.
     const mapaHistorias = {};
     historiasCompletas.forEach((h, i) => { mapaHistorias[h.slug] = inicioHistorias + i; });
-
-    const mapaPersonajes = {};
-    personajesCompletos.forEach((p, i) => { mapaPersonajes[p.slug] = inicioPersonajes + i; });
 
     // 5. Ahora si, construimos el HTML de cada seccion. El indice va
     // TODO junto en una sola lista (historias y personajes sin separar
@@ -619,7 +624,7 @@ async function iniciarLibro() {
     const paginasSinContraportada = [
       construirPortada(libroActual ? libroActual.titulo : null),
       ...hojasIndice,
-      ...historiasCompletas.map(h => construirPaginaHistoria(h, mapaPersonajes)),
+      ...historiasCompletas.map(h => construirPaginaHistoria(h)),
       ...personajesCompletos.map(p => construirPaginaPersonaje(p, mapaHistorias))
     ];
 
@@ -732,10 +737,9 @@ async function iniciarLibro() {
     tocSelect.addEventListener('change', e => pageFlip.flip(parseInt(e.target.value)));
 
     // 9. Hacemos clickeable CUALQUIER elemento con data-page: los nombres
-    // del indice, los chips de "historias relacionadas" en cada personaje,
-    // y los chips de "personajes" en cada historia. Usamos capture:true
-    // para interceptar el click antes que StPageFlip (que tambien
-    // escucha clicks para pasar hoja).
+    // del indice y los chips de "historias relacionadas" en cada
+    // personaje. Usamos capture:true para interceptar el click antes que
+    // StPageFlip (que tambien escucha clicks para pasar hoja).
     document.addEventListener('click', (e) => {
       const item = e.target.closest('[data-page]');
       if (!item) return;

@@ -151,10 +151,32 @@ async function obtenerTodosLosPersonajes(libroId) {
 // tal como pasa en un libro real)
 // ------------------------------------------------------------
 
+const CARACTERES_ESPECIALES_REGEX = /[.*+?^${}()|[\]\\]/g;
+
+// Envuelve en <strong> cada mencion literal, en "texto", del nombre de
+// alguno de los "personajes" (la misma lista que ya trae cada
+// historia con quienes participan y tienen su propia ficha). Se
+// ordenan por longitud descendente antes de armar el patron para que
+// un nombre compuesto (ej. "Cú Chulainn") se resuelva entero en vez
+// de que su propio nombre corto lo parta primero. El limite de
+// palabra usa \p{L}/\p{N} (no \b) porque \b no reconoce como "letra"
+// los caracteres acentuados fuera del rango ASCII.
+function resaltarPersonajes(texto, personajes) {
+  if (!personajes || personajes.length === 0) return texto;
+  const nombres = personajes
+    .map(p => p.nombre)
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length)
+    .map(n => n.replace(CARACTERES_ESPECIALES_REGEX, '\\$&'));
+  if (nombres.length === 0) return texto;
+  const patron = new RegExp(`(?<![\\p{L}\\p{N}])(${nombres.join('|')})(?![\\p{L}\\p{N}])`, 'gu');
+  return texto.replace(patron, '<strong>$1</strong>');
+}
+
 function paginaHistoria(historia, compacta = false, alturaBanner = ALTURA_BANNER_MIN) {
   const parrafos = historia.texto_completo
     .split(/\n\s*\n/)
-    .map(p => `<p>${p}</p>`)
+    .map(p => `<p>${resaltarPersonajes(p, historia.personajes)}</p>`)
     .join('');
 
   // Banner horizontal arriba del texto (si la historia tiene imagen
@@ -168,25 +190,16 @@ function paginaHistoria(historia, compacta = false, alturaBanner = ALTURA_BANNER
     ? `<img class="historia-banner" src="${historia.imagen_url}" style="height:${alturaBanner}px;">`
     : '';
 
-  const personajesHtml = (historia.personajes || [])
-    .map(p => `<span class="chip">${p.nombre} <i>(${p.rol})</i></span>`)
-    .join('');
-
   const fuenteTexto = (historia.fuentes || [])
     .map(f => `${f.autor}, ${f.obra}`)
     .join(' · ');
 
-  // "Personajes" + chips + pie de fuente van juntos en un solo bloque
-  // ("cierre") con break-inside:avoid, para que si no caben en lo que
-  // resta de la pagina, el motor de impresion los mueva TODOS juntos
-  // a la pagina siguiente en vez de dejar el pie de fuente solo y
-  // huerfano (que es justo lo que pasaba antes: el "avoid" en .pie
-  // por si solo no bastaba porque .chips tenia su propio
-  // break-inside:avoid y no habia margen para "tirar" del pie hacia
-  // atras sin partir ese bloque).
+  // El pie de fuente va en su propio bloque con break-inside:avoid,
+  // para que si no cabe en lo que resta de la pagina el motor de
+  // impresion lo mueva entero a la pagina siguiente en vez de
+  // partirlo.
   const cierreHtml = `
     <div class="cierre">
-      ${personajesHtml ? `<div class="divisor">Personajes</div><div class="chips">${personajesHtml}</div>` : ''}
       <div class="pie">${fuenteTexto}</div>
     </div>
   `;
@@ -379,7 +392,7 @@ function construirEstilos(paleta, fondoPortada) {
        en las 20 historias sin excepcion. Todo escopado bajo
        ".pagina-historia" para no afectar el tamaño de letra de las
        paginas de personaje, que comparten las mismas clases (.cuerpo,
-       .divisor, .pie...).
+       .pie...).
        El tamaño de letra del cuerpo, en cambio, NO se achica siempre:
        queda igual que en los personajes (13px/1.6) salvo en las
        historias mas largas, que no entran completas en una hoja ni
@@ -396,7 +409,6 @@ function construirEstilos(paleta, fondoPortada) {
     .pagina-historia .subtitulo { margin-bottom:8px; }
     .pagina-historia .cuerpo { font-size:13px; line-height:1.6; }
     .pagina-historia .cuerpo p { margin:0 0 5px; }
-    .pagina-historia .divisor { margin:8px 0 5px; }
     .pagina-historia .pie { margin-top:8px; }
     .pagina-historia.compacta .cuerpo { font-size:11px; line-height:1.42; }
     /* "clear:both" en lo que sigue del cuerpo asegura que esas secciones
