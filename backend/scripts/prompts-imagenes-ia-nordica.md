@@ -1,4 +1,4 @@
-# Prompts para generar las 36 imágenes de Mitología Nórdica con Leonardo.ai
+# Prompts para generar las 47 imágenes de Mitología Nórdica con Leonardo.ai
 
 Cada personaje trae su **prompt completo ya armado**, listo para copiar y pegar directo en
 el campo de texto de Leonardo.ai — no hace falta combinar piezas a mano.
@@ -153,6 +153,21 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate fabric details, ancient carved wooden hall architecture in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, radiant silver and pale gold and icy white color palette, strikingly beautiful slender giantess whose bare arms seem to glow with light, pale flowing garments, frost and light motifs, serene captivating expression
 ```
 
+#### Ullr (`ullr.jpg`)
+```
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate carved bone and leather details, ancient carved wooden hall architecture dissolving into a snowy mountain in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, pale winter white and iron grey and deep forest green color palette, lean athletic archer god on wooden skis, drawing a longbow, quiver of arrows on his back, snowy mountain slope behind him
+```
+
+#### Eir (`eir.jpg`)
+```
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic soft chiaroscuro lighting, intricate herb-woven garment details, ancient carved wooden hall architecture in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, soft sage green and pale ivory and warm gold color palette, gentle healer goddess with a graceful build, holding a bundle of medicinal herbs, calm compassionate expression, simple flowing robes
+```
+
+#### Vili y Vé (`vili-y-ve.jpg`)
+```
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic primordial chiaroscuro lighting, intricate ancient garment details, ancient carved wooden hall architecture dissolving into swirling primordial mist in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep grey and pale ivory and ancient bronze color palette, TWO god brothers standing side by side beside the dismembered body of a primordial giant, lean powerful builds, solemn foundational expressions
+```
+
 #### Hermod (`hermod.jpg`)
 ```
 Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate fabric details, ancient carved wooden hall architecture in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep violet and silver and storm grey color palette, determined lean young messenger god riding an eight-legged horse, cloak billowing, urgent resolute expression, dark misty underworld path behind him
@@ -179,6 +194,21 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 #### Mímir (`mimir.jpg`)
 ```
 Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved wooden hall architecture with twisted tree roots in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep teal and silver and ancient bronze color palette, wise ancient severed head resting beside a glowing well beneath twisted tree roots, no body, serene knowing expression, faint magical glow
+```
+
+#### Sól (`sol-nordica.jpg`)
+```
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic radiant chiaroscuro lighting, intricate golden jewelry details, ancient carved wooden hall architecture dissolving into a blazing sky in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, radiant gold and pale sky blue and warm amber color palette, radiant sun goddess with a graceful lean build driving a golden chariot pulled by two horses, holding a bright shield before her, a shadowy wolf chasing just behind in the distance
+```
+
+#### Máni (`mani.jpg`)
+```
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate silver jewelry details, ancient carved wooden hall architecture dissolving into a starlit night sky in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, pale silver and deep midnight blue and soft white color palette, moon god with a lean graceful build driving a silver chariot across a starlit sky, two small children faintly visible riding beside him, a shadowy wolf chasing just behind in the distance
+```
+
+#### Nótt (`nott.jpg`)
+```
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate dark fabric details, ancient carved wooden hall architecture dissolving into a starry night sky in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep indigo and pale starlight silver and black color palette, primordial night goddess with a graceful flowing build riding a dark horse, dew-flecked foam dripping from the horse's bridle onto the earth below, stars trailing in her wake
 ```
 
 ### Monstruos
@@ -208,6 +238,16 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved wooden hall architecture in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dull gold and dark green and iron grey color palette, massive dragon coiled protectively over a hoard of gold, scaled hide with a faint humanoid dwarf-like face, greedy malevolent eyes, entirely non-humanoid body
 ```
 
+#### Garmr (`garmr.jpg`)
+```
+Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved wooden hall architecture dissolving into a dark cave mouth in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dark iron grey and dried blood red and black color palette, colossal monstrous hound chained at a cave entrance, bloodstained chest, ferocious glowing eyes, straining against heavy chains, entirely non-humanoid
+```
+
+#### Ratatoskr (`ratatoskr.jpg`)
+```
+Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved wooden hall architecture dissolving into the massive trunk of a cosmic tree in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm bark brown and reddish fur and pale gold color palette, small mischievous squirrel darting along the trunk of a colossal world tree, an eagle silhouette far above and a serpent coiled far below, entirely non-humanoid
+```
+
 ### Semidioses
 
 #### Brynhild (`brynhild.jpg`)
@@ -232,6 +272,16 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate fur and leather details, ancient carved wooden hall architecture dissolving into stormy sea in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, weathered brown and iron grey and deep red color palette, weathered fierce Viking chieftain with a lean rugged build in a distinctive fur garment, longship and stormy sea in the background, defiant unshaken expression
 ```
 
+#### Völund (`volund.jpg`)
+```
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic forge-lit chiaroscuro lighting, intricate forged metal details, ancient carved wooden hall architecture dissolving into a smith's forge in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, forge orange and iron grey and dull gold color palette, lean cunning smith with a pair of handcrafted feathered wings strapped to his back, hamstrung legs, gripping a hammer beside an anvil, gold rings and jewels scattered nearby
+```
+
+#### Starkad (`starkad.jpg`)
+```
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic somber chiaroscuro lighting, intricate weathered armor details, ancient carved wooden hall architecture in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, iron grey and deep red and ash black color palette, weathered warrior with an unnervingly tall gaunt build, ancient tormented eyes, gripping a sword, a willow branch coiled like a noose nearby, burdened sorrowful expression
+```
+
 ### Mortales
 
 #### Ask (`ask.jpg`)
@@ -242,6 +292,11 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 #### Embla (`embla.jpg`)
 ```
 Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate fabric details, ancient carved wooden hall architecture dissolving into a windswept shore in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, soft elm brown and warm green and pale gold color palette, the first woman, a graceful figure with a slightly wooden/bark-like texture to the skin (not ordinary smooth human skin), simple humble garments, standing on a windswept shore beside a fallen tree trunk
+```
+
+#### Gudrun (`gudrun.jpg`)
+```
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic firelit chiaroscuro lighting, intricate ornate garment details, ancient carved wooden hall architecture engulfed in flame in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep crimson and iron grey and ash black color palette, fierce grieving queen with a regal lean build, holding a goblet, a burning great hall collapsing behind her, cold merciless expression
 ```
 
 ---
