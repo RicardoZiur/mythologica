@@ -246,12 +246,12 @@ Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient 
 
 #### Garmr (`garmr.jpg`)
 ```
-Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved wooden hall architecture dissolving into a dark cave mouth in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dark iron grey and dried blood red and black color palette, NOT human, NOT humanoid, colossal monstrous hound chained at a cave entrance, bloodstained chest, ferocious glowing eyes, straining against heavy chains, entirely non-humanoid Save the generated image file as "garmr.jpg".
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, ancient carved wooden hall architecture dissolving into a dark cave mouth in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dark iron grey and dried blood red and black color palette, NOT human, NOT humanoid, colossal monstrous hound chained at a cave entrance, bloodstained chest, ferocious glowing eyes, straining against heavy chains, entirely non-humanoid Save the generated image file as "garmr.jpg".
 ```
 
 #### Ratatoskr (`ratatoskr.jpg`)
 ```
-Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved wooden hall architecture dissolving into the massive trunk of a cosmic tree in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm bark brown and reddish fur and pale gold color palette, NOT human, NOT humanoid, small mischievous squirrel darting along the trunk of a colossal world tree, an eagle silhouette far above and a serpent coiled far below, entirely non-humanoid Save the generated image file as "ratatoskr.jpg".
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, ancient carved wooden hall architecture dissolving into the massive trunk of a cosmic tree in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm bark brown and reddish fur and pale gold color palette, NOT human, NOT humanoid, small mischievous squirrel darting along the trunk of a colossal world tree, an eagle silhouette far above and a serpent coiled far below, entirely non-humanoid Save the generated image file as "ratatoskr.jpg".
 ```
 
 ### Semidioses

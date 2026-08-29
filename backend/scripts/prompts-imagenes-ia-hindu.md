@@ -208,7 +208,7 @@ Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient 
 
 #### Hiranyagarbha (`hiranyagarbha.jpg`)
 ```
-Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved Hindu temple architecture dissolving into primordial cosmic waters in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, radiant gold and deep cosmic indigo and pale starlight color palette, absolutely NOT an ordinary human and NOT a single person: a colossal glowing golden cosmic egg floating on dark primordial waters, faint suggestion of a universe swirling within its translucent golden shell, no human face, no human anatomy, ancient and abstract presence Save the generated image file as "hiranyagarbha.jpg".
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, ancient carved Hindu temple architecture dissolving into primordial cosmic waters in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, radiant gold and deep cosmic indigo and pale starlight color palette, absolutely NOT an ordinary human and NOT a single person: a colossal glowing golden cosmic egg floating on dark primordial waters, faint suggestion of a universe swirling within its translucent golden shell, no human face, no human anatomy, ancient and abstract presence Save the generated image file as "hiranyagarbha.jpg".
 ```
 
 #### Aditi (`aditi.jpg`)
@@ -240,7 +240,7 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 
 #### Vritra (`vritra.jpg`)
 ```
-Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved Hindu temple architecture dissolving into a parched cracked landscape in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dark bronze and dull red and ash grey color palette, NOT human, NOT humanoid, colossal serpentine asura coiled around a vast mountain, trapped waters faintly visible swirling within its immense body, glowing malevolent eyes, entirely non-humanoid Save the generated image file as "vritra.jpg".
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, ancient carved Hindu temple architecture dissolving into a parched cracked landscape in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dark bronze and dull red and ash grey color palette, NOT human, NOT humanoid, colossal serpentine asura coiled around a vast mountain, trapped waters faintly visible swirling within its immense body, glowing malevolent eyes, entirely non-humanoid Save the generated image file as "vritra.jpg".
 ```
 
 #### Putana (`putana.jpg`)
