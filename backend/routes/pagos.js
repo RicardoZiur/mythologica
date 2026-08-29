@@ -366,6 +366,54 @@ router.post('/pedido', requiereSesion, async (req, res) => {
 });
 
 // ------------------------------------------------------------
+// POST /api/pagos/pedido-gratis
+// Requiere sesión. Body: { items: [{libro, nivel_acceso}], codigo_descuento? }
+// Para cuando un código de descuento deja el carrito en $0 -- Mercado
+// Pago ni siquiera acepta cobrar $0, así que en ese caso el pedido
+// nace "aprobado" directo (sin preferencia ni redirect a Mercado
+// Pago) y se otorga el acceso en el momento.
+// El total SIEMPRE se vuelve a calcular acá con "calcularCarrito"
+// (las mismas reglas que /pedido) y se rechaza si no da exactamente
+// $0 -- nunca confiar en que el frontend solo llama a esta ruta
+// cuando corresponde, o cualquiera podría "regalarse" un libro pago
+// mandando este endpoint en vez de /pedido.
+// ------------------------------------------------------------
+router.post('/pedido-gratis', requiereSesion, async (req, res) => {
+  try {
+    const { items, codigo_descuento: codigoDescuento } = req.body;
+    const resultado = await calcularCarrito(req.usuario, items, codigoDescuento);
+    if (resultado.error) return res.status(400).json({ error: resultado.error });
+    if (resultado.total !== 0) {
+      return res.status(400).json({ error: 'Este carrito no está totalmente cubierto por el descuento' });
+    }
+
+    const [resultadoPedido] = await pool.query(
+      `INSERT INTO pedidos (usuario_id, monto_total, moneda, estado)
+       VALUES (?, 0, ?, 'aprobado')`,
+      [req.usuario.id, MONEDA]
+    );
+    const pedidoId = resultadoPedido.insertId;
+
+    for (const item of resultado.items) {
+      await pool.query(
+        `INSERT INTO pagos (usuario_id, libro_id, nivel_acceso, monto, moneda, estado, descuento_id, pedido_id)
+         VALUES (?, ?, ?, 0, ?, 'aprobado', ?, ?)`,
+        [req.usuario.id, item.libroId, item.nivel_acceso, MONEDA, item.descuento_id, pedidoId]
+      );
+    }
+
+    await otorgarAccesos({ id: pedidoId, usuario_id: req.usuario.id, monto_total: 0, moneda: MONEDA });
+
+    res.json({
+      items: resultado.items.map(({ libro, nivel_acceso }) => ({ libro, nivel_acceso }))
+    });
+  } catch (error) {
+    console.error('Error al procesar el pedido gratuito:', error);
+    res.status(500).json({ error: 'No se pudo procesar la descarga gratuita' });
+  }
+});
+
+// ------------------------------------------------------------
 // GET /api/pagos/todos
 // Solo administradores. Alimenta el panel frontend/admin/pagos.html:
 // lista todos los pagos con el nombre/email de quien compró y el
@@ -441,14 +489,58 @@ router.get('/resumen', requiereAdmin, async (req, res) => {
 });
 
 // ------------------------------------------------------------
+// Sube el nivel de acceso de cada item de un pedido YA aprobado (sea
+// porque MercadoPago lo confirmo, o porque el pedido nacio aprobado
+// por ser $0, ver POST /pedido-gratis mas arriba) y manda el email de
+// confirmacion. Nunca BAJA un nivel de acceso: si el usuario ya tenía
+// "completo" de un libro y el pedido incluia "flipbook" para ese
+// mismo libro (por error, o dos pestañas a la vez), el nivel más alto
+// se mantiene.
+// ------------------------------------------------------------
+async function otorgarAccesos(pedido) {
+  const [items] = await pool.query(
+    `SELECT p.libro_id, p.nivel_acceso, l.titulo
+     FROM pagos p JOIN libros l ON l.id = p.libro_id
+     WHERE p.pedido_id = ?`,
+    [pedido.id]
+  );
+
+  for (const item of items) {
+    const [accesoActual] = await pool.query(
+      'SELECT nivel_acceso FROM accesos WHERE usuario_id = ? AND libro_id = ?',
+      [pedido.usuario_id, item.libro_id]
+    );
+    const nivelActual = accesoActual.length > 0 ? accesoActual[0].nivel_acceso : 'ninguno';
+
+    if (JERARQUIA_NIVELES[item.nivel_acceso] > JERARQUIA_NIVELES[nivelActual]) {
+      await pool.query(
+        `INSERT INTO accesos (usuario_id, libro_id, nivel_acceso)
+         VALUES (?, ?, ?)
+         ON DUPLICATE KEY UPDATE nivel_acceso = VALUES(nivel_acceso)`,
+        [pedido.usuario_id, item.libro_id, item.nivel_acceso]
+      );
+    }
+  }
+
+  // El email es un "extra": si falla (proveedor caido, etc.) no
+  // tiene que tirar abajo la confirmacion del pago -- el acceso ya
+  // quedo dado arriba de todas formas.
+  try {
+    const [usuarios] = await pool.query('SELECT nombre, email FROM usuarios WHERE id = ?', [pedido.usuario_id]);
+    if (usuarios.length > 0) {
+      await enviarEmailCompra(usuarios[0], items, pedido.monto_total, pedido.moneda);
+    }
+  } catch (error) {
+    console.error('No se pudo enviar el email de confirmación de compra:', error);
+  }
+}
+
+// ------------------------------------------------------------
 // Procesa el resultado de un PEDIDO ya verificado contra la API de
 // MercadoPago (un pedido puede cubrir varios libros/niveles a la vez,
 // ver POST /pedido mas arriba). Idempotente: si el pedido ya estaba
 // aprobado en nuestra base, no vuelve a tocar nada (el webhook puede
 // llegar más de una vez para el mismo pago).
-// Nunca BAJA un nivel de acceso: si el usuario ya tenía "completo" de
-// un libro y el pedido incluia "flipbook" para ese mismo libro (por
-// error, o dos pestañas a la vez), el nivel más alto se mantiene.
 // ------------------------------------------------------------
 async function procesarResultadoPedido(pedidoId, estadoMercadoPago, mercadopagoPaymentId, statusDetail) {
   const [filas] = await pool.query('SELECT * FROM pedidos WHERE id = ?', [pedidoId]);
@@ -471,41 +563,7 @@ async function procesarResultadoPedido(pedidoId, estadoMercadoPago, mercadopagoP
   );
 
   if (nuevoEstado === 'aprobado') {
-    const [items] = await pool.query(
-      `SELECT p.libro_id, p.nivel_acceso, l.titulo
-       FROM pagos p JOIN libros l ON l.id = p.libro_id
-       WHERE p.pedido_id = ?`,
-      [pedidoId]
-    );
-
-    for (const item of items) {
-      const [accesoActual] = await pool.query(
-        'SELECT nivel_acceso FROM accesos WHERE usuario_id = ? AND libro_id = ?',
-        [pedido.usuario_id, item.libro_id]
-      );
-      const nivelActual = accesoActual.length > 0 ? accesoActual[0].nivel_acceso : 'ninguno';
-
-      if (JERARQUIA_NIVELES[item.nivel_acceso] > JERARQUIA_NIVELES[nivelActual]) {
-        await pool.query(
-          `INSERT INTO accesos (usuario_id, libro_id, nivel_acceso)
-           VALUES (?, ?, ?)
-           ON DUPLICATE KEY UPDATE nivel_acceso = VALUES(nivel_acceso)`,
-          [pedido.usuario_id, item.libro_id, item.nivel_acceso]
-        );
-      }
-    }
-
-    // El email es un "extra": si falla (proveedor caido, etc.) no
-    // tiene que tirar abajo la confirmacion del pago -- el acceso ya
-    // quedo dado arriba de todas formas.
-    try {
-      const [usuarios] = await pool.query('SELECT nombre, email FROM usuarios WHERE id = ?', [pedido.usuario_id]);
-      if (usuarios.length > 0) {
-        await enviarEmailCompra(usuarios[0], items, pedido.monto_total, pedido.moneda);
-      }
-    } catch (error) {
-      console.error('No se pudo enviar el email de confirmación de compra:', error);
-    }
+    await otorgarAccesos(pedido);
   }
 
   return { encontrado: true, pedido: { ...pedido, estado: nuevoEstado } };
