@@ -94,6 +94,55 @@ async function cargarTabla() {
   }
 }
 
+// Pide el PDF de un solo libro y dispara su descarga -- mismo patron
+// que "descargarPdf" en auth.js (el fetch lleva el header de
+// autenticacion porque no se puede poner en un <a href> normal).
+async function descargarPdfLibro(slug) {
+  const respuesta = await fetch(`${API_URL}/pdf?libro=${encodeURIComponent(slug)}`, { headers: window.authHeaders() });
+  if (!respuesta.ok) throw new Error(`No se pudo generar el PDF de "${slug}"`);
+
+  const disposicion = respuesta.headers.get('content-disposition') || '';
+  const coincidencia = disposicion.match(/filename="([^"]+)"/);
+  const nombreArchivo = coincidencia ? coincidencia[1] : `mythologica-${slug}.pdf`;
+
+  const blob = await respuesta.blob();
+  const urlTemporal = URL.createObjectURL(blob);
+  const enlaceTemporal = document.createElement('a');
+  enlaceTemporal.href = urlTemporal;
+  enlaceTemporal.download = nombreArchivo;
+  enlaceTemporal.click();
+  URL.revokeObjectURL(urlTemporal);
+}
+
+// Descarga el PDF de cada libro del catalogo uno por uno (Puppeteer
+// arma cada uno desde cero -- pedirlos todos en paralelo saturaria el
+// servidor sin necesidad). Con un respiro entre una descarga y la
+// siguiente, para que el navegador no las bloquee por disparar varias
+// seguidas sin pausa -- la primera vez puede pedir confirmacion para
+// permitir multiples descargas de este sitio.
+async function descargarTodosLosPdf(libros, boton, estadoEl) {
+  const textoOriginal = boton.textContent;
+  boton.disabled = true;
+  const fallidos = [];
+
+  for (let i = 0; i < libros.length; i++) {
+    const libro = libros[i];
+    estadoEl.textContent = `Descargando ${i + 1}/${libros.length}: ${libro.titulo}...`;
+    try {
+      await descargarPdfLibro(libro.slug);
+    } catch (error) {
+      fallidos.push(libro.titulo);
+    }
+    await new Promise(resolver => setTimeout(resolver, 600));
+  }
+
+  estadoEl.textContent = fallidos.length === 0
+    ? `Listo: se descargaron los ${libros.length} libros.`
+    : `Terminado con errores en: ${fallidos.join(', ')}.`;
+  boton.disabled = false;
+  boton.textContent = textoOriginal;
+}
+
 async function cargarPagina() {
   const contenedor = document.getElementById('adminContenido');
   document.getElementById('adminNav').innerHTML = construirNavAdmin('libros');
@@ -104,9 +153,28 @@ async function cargarPagina() {
     <div class="admin-card admin-form-card">
       <h2>Libros del catálogo</h2>
       <p class="auth-hint">Habilitar un libro lo hace aparecer en el landing y el catálogo público de inmediato. Deshabilitarlo lo vuelve a dejar en borrador, sin borrar nada de su contenido.</p>
+      <button type="button" class="auth-submit" id="btnDescargarTodos">Descargar todos los PDF</button>
+      <p class="auth-hint" id="estadoDescargaTodos"></p>
     </div>
     <div id="tablaLibros"><p class="admin-cargando">Cargando...</p></div>
   `;
+
+  document.getElementById('btnDescargarTodos').addEventListener('click', async (e) => {
+    const boton = e.currentTarget;
+    const estadoEl = document.getElementById('estadoDescargaTodos');
+    try {
+      const respuesta = await fetch(`${API_URL}/libros/todos`, { headers: window.authHeaders() });
+      if (!respuesta.ok) throw new Error('No se pudieron obtener los libros');
+      const libros = await respuesta.json();
+      if (libros.length === 0) {
+        estadoEl.textContent = 'No hay libros para descargar.';
+        return;
+      }
+      await descargarTodosLosPdf(libros, boton, estadoEl);
+    } catch (error) {
+      estadoEl.textContent = 'No se pudo iniciar la descarga.';
+    }
+  });
 
   await cargarTabla();
 }
