@@ -407,10 +407,6 @@ function construirPaginaHistoria(historia) {
     ...parrafos.slice(1).map(p => `<p>${resaltarPersonajes(p, historia.personajes)}</p>`)
   ].join('');
 
-  const fuenteTexto = (historia.fuentes && historia.fuentes.length > 0)
-    ? historia.fuentes.map(f => `${f.autor}, ${f.obra}`).join(' · ')
-    : '';
-
   // Banner horizontal arriba del texto, como portada del capitulo (no
   // todos los libros tienen todavia sus imagenes de historia generadas,
   // por eso el chequeo -- ver scripts/migrar-imagenes-historias.js).
@@ -428,8 +424,6 @@ function construirPaginaHistoria(historia) {
         ${bannerHtml}
         <div class="body-txt">${parrafosHtml}</div>
       </div>
-
-      <div class="footer">${fuenteTexto || '— historia —'}</div>
     </div>
   `;
 }

@@ -332,8 +332,11 @@ body.is-fullscreen .stage-wrap{ max-width:min(92vw, 109vh, 1500px); }
 /* Banner de la historia: a diferencia del retrato de personaje, va a
    todo el ancho y ARRIBA del texto (no flotando al costado) -- se
    busca mostrar la escena completa antes de leer, como la portada de
-   un capitulo. Mismo criterio que ".historia-banner" en el PDF. */
-.historia-banner{ display:block; width:100%; height:210px; object-fit:cover; border-radius:8px; border:1px solid var(--gold-soft); margin-bottom:12px; }
+   un capitulo. Mismo criterio que ".historia-banner" en el PDF.
+   "aspect-ratio:21/9" en vez de una altura fija: las imagenes se
+   generan con ese mismo ratio (ver prompts-imagenes-historias.md), asi
+   que el banner queda del tamaño real de la imagen sin recortarla. */
+.historia-banner{ display:block; width:100%; height:auto; aspect-ratio:21/9; object-fit:cover; border-radius:8px; border:1px solid var(--gold-soft); margin-bottom:12px; }
 
 .body-txt{ font-size:13.5px; line-height:1.7; color:var(--text-dim); text-align:left; margin-bottom:8px; }
 .body-txt .drop{ float:left; font-family:'Fraunces',serif; font-weight:700; font-size:30px; line-height:0.8; color:var(--gold); padding:2px 6px 0 0; }
@@ -659,7 +662,6 @@ body.is-fullscreen .stage-wrap{ max-width:min(92vw, 109vh, 1500px); }
      de escritorio (175px) le comen casi todo el ancho disponible y
      dejan el texto embutido en una columna angostisima. */
   .portrait{ width:110px; height:150px; margin:0 0 8px 12px; }
-  .historia-banner{ height:140px; }
   .cover-title{ font-size:24px; }
   .cover-emblem{ width:110px; height:110px; }
 

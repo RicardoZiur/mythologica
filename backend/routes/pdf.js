@@ -173,7 +173,7 @@ function resaltarPersonajes(texto, personajes) {
   return texto.replace(patron, '<strong>$1</strong>');
 }
 
-function paginaHistoria(historia, compacta = false, alturaBanner = ALTURA_BANNER_MIN) {
+function paginaHistoria(historia, compacta = false) {
   const parrafos = historia.texto_completo
     .split(/\n\s*\n/)
     .map(p => `<p>${resaltarPersonajes(p, historia.personajes)}</p>`)
@@ -181,28 +181,13 @@ function paginaHistoria(historia, compacta = false, alturaBanner = ALTURA_BANNER
 
   // Banner horizontal arriba del texto (si la historia tiene imagen
   // generada -- todavia no todos los libros la tienen, ver
-  // scripts/migrar-imagenes-historias.js). La altura es la mas grande
-  // que entra sin pasarse de una hoja para ESTA historia en particular
-  // (ver "medirHistorias" en el handler de la ruta) -- las que tienen
-  // texto corto de sobra usan un banner mas grande, para aprovechar
-  // ese espacio en vez de dejarlo en blanco.
+  // scripts/migrar-imagenes-historias.js). Sin altura inline: el
+  // tamaño lo fija el CSS (".historia-banner", ver construirEstilos)
+  // con el mismo aspect-ratio real con el que se generan estas
+  // imagenes, para no recortarlas.
   const bannerHtml = historia.imagen_url
-    ? `<img class="historia-banner" src="${historia.imagen_url}" style="height:${alturaBanner}px;">`
+    ? `<img class="historia-banner" src="${historia.imagen_url}">`
     : '';
-
-  const fuenteTexto = (historia.fuentes || [])
-    .map(f => `${f.autor}, ${f.obra}`)
-    .join(' · ');
-
-  // El pie de fuente va en su propio bloque con break-inside:avoid,
-  // para que si no cabe en lo que resta de la pagina el motor de
-  // impresion lo mueva entero a la pagina siguiente en vez de
-  // partirlo.
-  const cierreHtml = `
-    <div class="cierre">
-      <div class="pie">${fuenteTexto}</div>
-    </div>
-  `;
 
   return `
     <section class="pdf-page pagina-historia${compacta ? ' compacta' : ''}" id="hist-${historia.slug}">
@@ -211,7 +196,6 @@ function paginaHistoria(historia, compacta = false, alturaBanner = ALTURA_BANNER
       <div class="subtitulo">${historia.resumen || ''}</div>
       ${bannerHtml}
       <div class="cuerpo">${parrafos}</div>
-      ${cierreHtml}
     </section>
   `;
 }
@@ -307,16 +291,10 @@ function construirEstilos(paleta, fondoPortada) {
   // se corta entre hojas, en vez de tratarlo como una sola caja que
   // solo tiene padding en las puntas.
   //
-  // Las reglas "break-*" / "page-break-*" de aca abajo son la
-  // correccion al problema de "paginas huerfanas": antes, cuando el
-  // contenido de una historia/personaje no cabia completo en una
-  // hoja A4, el salto de pagina podia caer justo antes del pie de
-  // fuente ("Apolodoro, Biblioteca mitologica"), dejandolo solo en
-  // una pagina nueva con el resto en blanco. "break-before: avoid"
-  // en .pie le dice al motor de impresion que prefiera empujar mas
-  // texto del parrafo anterior junto con el pie antes que dejarlo
-  // huerfano; "break-inside: avoid" en los bloques chicos (chips,
-  // info-strip, divisor) evita que esos se corten a la mitad.
+  // Las reglas "break-inside" / "page-break-inside" de aca abajo
+  // evitan que los bloques chicos de una ficha de personaje (chips,
+  // info-strip, divisor) se corten a la mitad si el salto de pagina
+  // cae justo en medio de uno.
   return `
     @page { size: A4; margin: 0; }
     * { box-sizing: border-box; }
@@ -385,31 +363,28 @@ function construirEstilos(paleta, fondoPortada) {
        y ARRIBA del texto (no flotando al costado) -- el objetivo es
        mostrar la escena completa antes de leer, como la portada de un
        capitulo, no acompañar la lectura de costado. */
-    .historia-banner { display:block; width:100%; height:260px; object-fit:cover; border-radius:8px; border:1px solid ${paleta.doradoSuave}; margin:0 0 14px; }
+    /* aspect-ratio:21/9 en vez de una altura fija: las imagenes de
+       historia se generan con ese mismo ratio (ver
+       prompts-imagenes-historias.md), asi que el banner queda del
+       tamaño real de la imagen sin recortarla. */
+    .historia-banner { display:block; width:100%; height:auto; aspect-ratio:21/9; object-fit:cover; border-radius:8px; border:1px solid ${paleta.doradoSuave}; margin:0 0 14px; }
     /* Las historias tienen que entrar SIEMPRE en una sola hoja (a
        diferencia de los personajes, que pueden ocupar 2 si hace
-       falta): banner mas chico y menos aire entre parrafos/secciones,
-       en las 20 historias sin excepcion. Todo escopado bajo
-       ".pagina-historia" para no afectar el tamaño de letra de las
-       paginas de personaje, que comparten las mismas clases (.cuerpo,
-       .pie...).
+       falta). Todo escopado bajo ".pagina-historia" para no afectar el
+       tamaño de letra de las paginas de personaje, que comparten la
+       misma clase ".cuerpo".
        El tamaño de letra del cuerpo, en cambio, NO se achica siempre:
        queda igual que en los personajes (13px/1.6) salvo en las
        historias mas largas, que no entran completas en una hoja ni
-       aun con el banner y los margenes ya reducidos -- esas (medidas
-       en el servidor antes de armar el PDF final, ver
-       "medirHistorias" en el handler de la ruta) reciben ademas
-       la clase ".compacta", que SI achica la letra lo justo y
-       necesario para que quepan. La mayoria de las historias no la
-       necesitan y se leen del mismo tamaño que un personaje. La altura
-       del banner (".historia-banner") NO se toca aca por CSS -- cada
-       historia trae la suya en un estilo inline, calculada en el
-       servidor segun cuanto espacio le sobra a esa historia en
-       particular (ver "medirHistorias" en el handler de la ruta). */
+       aun con los margenes ya reducidos -- esas (medidas en el
+       servidor antes de armar el PDF final, ver "medirHistorias" en el
+       handler de la ruta) reciben ademas la clase ".compacta", que SI
+       achica la letra lo justo y necesario para que quepan. La mayoria
+       de las historias no la necesitan y se leen del mismo tamaño que
+       un personaje. */
     .pagina-historia .subtitulo { margin-bottom:8px; }
     .pagina-historia .cuerpo { font-size:13px; line-height:1.6; }
     .pagina-historia .cuerpo p { margin:0 0 5px; }
-    .pagina-historia .pie { margin-top:8px; }
     .pagina-historia.compacta .cuerpo { font-size:11px; line-height:1.42; }
     /* "clear:both" en lo que sigue del cuerpo asegura que esas secciones
        arranquen siempre DEBAJO del retrato, sin importar si el texto de
@@ -421,8 +396,6 @@ function construirEstilos(paleta, fondoPortada) {
     .info-strip { clear:both; display:flex; flex-wrap:wrap; justify-content:center; gap:8px 24px; margin:12px 0; padding:10px 0; border-top:1px solid ${paleta.linea}; border-bottom:1px solid ${paleta.linea}; font-size:11px; break-inside:avoid; page-break-inside:avoid; }
     .info-item { color:${paleta.textoTenue}; text-align:center; }
     .info-item span { display:block; font-family:'IBM Plex Mono', monospace; font-size:8px; text-transform:uppercase; color:${paleta.salvia}; margin-bottom:2px; }
-    .pie { text-align:center; font-family:'IBM Plex Mono', monospace; font-size:9px; color:${paleta.textoDebil}; margin-top:14px; }
-    .cierre { break-inside:avoid; page-break-inside:avoid; }
     .indice-item { display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px solid ${paleta.linea}; font-size:12px; text-decoration:none; color:${paleta.texto}; }
     .indice-item b { font-weight:500; }
     .indice-item span { font-family:'IBM Plex Mono', monospace; font-size:10px; color:${paleta.dorado}; }
@@ -494,7 +467,7 @@ function paginaAvisoLegal(usuario, libro) {
 // pasada (el borrador que se usa solo para medir) no lo tenemos
 // todavia, asi que el indice sale sin numero -- nadie lo ve, ese PDF
 // se descarta.
-function construirDocumentoCompleto(historias, personajes, usuario, libro, numerosPagina = {}, fondoPortada = null, medidasHistorias = new Map(), fondoEmblema = null) {
+function construirDocumentoCompleto(historias, personajes, usuario, libro, numerosPagina = {}, fondoPortada = null, historiasCompactas = new Set(), fondoEmblema = null) {
   const estilos = construirEstilos(PALETA, fondoPortada);
 
   // Un solo indice continuo (historias primero, personajes despues),
@@ -548,10 +521,7 @@ function construirDocumentoCompleto(historias, personajes, usuario, libro, numer
            No agregan una hoja nueva ni se ven en el libro, solo
            existen para el arbol de marcadores. -->
       <h1 class="marcador-indice">Historias</h1>
-      ${historias.map(h => {
-        const medida = medidasHistorias.get(h.slug);
-        return paginaHistoria(h, medida ? medida.compacta : false, medida ? medida.alturaBanner : ALTURA_BANNER_MIN);
-      }).join('')}
+      ${historias.map(h => paginaHistoria(h, historiasCompactas.has(h.slug))).join('')}
 
       <h1 class="marcador-indice">Personajes</h1>
       ${personajes.map(paginaPersonaje).join('')}
@@ -691,31 +661,12 @@ async function agregarNumerosDePagina(pdfBuffer, libro) {
 // Alto util de una hoja A4 para el contenido de una historia, con el
 // padding actual de ".pdf-page" (8mm arriba, 18mm abajo -- ver
 // construirEstilos). Historias mas altas que esto en su tamaño normal
-// (13px/1.6, igual que los personajes, banner al minimo) no entran en
-// una sola hoja y necesitan la clase ".compacta".
+// (13px/1.6, igual que los personajes, banner a su tamaño real fijo)
+// no entran en una sola hoja y necesitan la clase ".compacta".
 const ALTO_UTIL_HISTORIA_PX = (297 - 8 - 18) * 96 / 25.4;
-// El banner nunca es mas chico que esto (lo justo para que las 4
-// historias "compactas" quepan). El ancho util de la hoja es de
-// ~718px (190mm de contenido a 96dpi): a 260px de alto eso da una
-// caja de ~2.76:1, bastante MAS panoramica que una imagen 16:9 real
-// (~1.78:1) o incluso 21:9 (~2.33:1) -- con object-fit:cover, una
-// caja mas panoramica que la imagen fuente se ajusta por el ANCHO y
-// termina recortando de arriba y abajo (no de los costados), tanto
-// mas cuanto mas alta sea la imagen fuente respecto a esa caja. Subir
-// este techo ACERCA la proporcion de la caja a la de la imagen y por
-// lo tanto reduce ese recorte. El punto de quiebre exacto donde el
-// recorte pasaria a ser lateral en vez de vertical, para una imagen
-// 21:9 (2.33:1) en esta hoja de 718px de ancho, esta en ~308px de
-// alto (718/2.33) -- 380px (~1.89:1) ya lo cruza, pero solo recorta
-// ~9-10% de cada costado (siempre el centro de la imagen, que es
-// donde los prompts piden la composicion principal), un precio menor
-// comparado con dejar espacio en blanco real en historias de texto
-// corto que igual llegaban al techo viejo de 320px sin usar toda su
-// holgura. Un colchon de 15px de margen de seguridad evita que quede
-// al borde justo por cualquier diferencia minima entre esta medicion
-// y el render final.
-const ALTURA_BANNER_MIN = 150;
-const ALTURA_BANNER_MAX = 380;
+// Colchon de seguridad para la decision de ".compacta": evita que una
+// historia quede al borde justo por cualquier diferencia minima entre
+// esta medicion (page.evaluate, sin PDF) y el render final del PDF.
 const COLCHON_SEGURIDAD_PX = 15;
 
 async function medirAlturasHistorias(page) {
@@ -729,59 +680,21 @@ async function medirAlturasHistorias(page) {
 }
 
 // Mide, en un HTML de prueba (sin PDF, mas rapido que renderizar uno),
-// cuanto ocupa cada historia con su tamaño de letra NORMAL y el banner
-// al minimo, y devuelve para cada una si necesita ".compacta" (no
-// entra en una hoja ni asi) y que tan grande puede ser su banner --
-// las que sobran de espacio con letra normal reciben un banner mas
-// grande, para aprovechar ese espacio en vez de dejarlo en blanco. Es
-// una pasada extra ademas de las dos que ya haciamos para el
-// borrador/numeros de pagina (ver mas abajo), pero mucho mas liviana
-// al no llamar a page.pdf().
+// cuanto ocupa cada historia con su tamaño de letra NORMAL (banner a
+// su tamaño real fijo) y devuelve el set de slugs que necesitan
+// ".compacta" para entrar en una sola hoja.
 async function medirHistorias(historias, personajes, usuario, libro, fondoPortada, browser) {
-  const htmlSinCompactar = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada);
+  const html = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada);
   const pageMedicion = await browser.newPage();
   try {
-    await pageMedicion.setContent(htmlSinCompactar, { waitUntil: 'networkidle0' });
+    await pageMedicion.setContent(html, { waitUntil: 'networkidle0' });
     const alturas = await medirAlturasHistorias(pageMedicion);
 
-    const resultado = new Map();
-    const slugsCompactos = [];
+    const compactas = new Set();
     for (const [slug, altura] of Object.entries(alturas)) {
-      if (altura > ALTO_UTIL_HISTORIA_PX) {
-        resultado.set(slug, { compacta: true, alturaBanner: ALTURA_BANNER_MIN });
-        slugsCompactos.push(slug);
-        continue;
-      }
-      const holgura = ALTO_UTIL_HISTORIA_PX - altura - COLCHON_SEGURIDAD_PX;
-      const alturaBanner = Math.min(ALTURA_BANNER_MIN + Math.max(0, holgura), ALTURA_BANNER_MAX);
-      resultado.set(slug, { compacta: false, alturaBanner });
+      if (altura + COLCHON_SEGURIDAD_PX > ALTO_UTIL_HISTORIA_PX) compactas.add(slug);
     }
-
-    // Segunda pasada, SOLO para las que quedaron ".compacta": la letra
-    // mas chica (11px/1.42, ver ".pagina-historia.compacta .cuerpo" en
-    // construirEstilos) libera espacio que la primera pasada nunca
-    // llegaba a medir -- antes, cualquier historia "compacta" se
-    // quedaba SIEMPRE con el banner al minimo sin importar cuanto
-    // sobrara, aunque la letra chica dejara, en varios casos, tanto
-    // espacio libre como una que no necesitaba compactarse. Se vuelve a
-    // renderizar YA con ".compacta" aplicada (pasando "resultado", que
-    // en este punto tiene compacta:true para todas estas) y se repite
-    // el mismo calculo de holgura, ahora sobre la altura real a ese
-    // tamaño de letra.
-    if (slugsCompactos.length > 0) {
-      const htmlCompactado = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada, resultado);
-      await pageMedicion.setContent(htmlCompactado, { waitUntil: 'networkidle0' });
-      const alturasCompactas = await medirAlturasHistorias(pageMedicion);
-
-      for (const slug of slugsCompactos) {
-        const altura = alturasCompactas[slug];
-        const holgura = ALTO_UTIL_HISTORIA_PX - altura - COLCHON_SEGURIDAD_PX;
-        const alturaBanner = Math.min(ALTURA_BANNER_MIN + Math.max(0, holgura), ALTURA_BANNER_MAX);
-        resultado.set(slug, { compacta: true, alturaBanner });
-      }
-    }
-
-    return resultado;
+    return compactas;
   } finally {
     await pageMedicion.close();
   }
@@ -827,9 +740,9 @@ async function generarPdfLibro(libro, usuario) {
     // documento final con todo eso ya resuelto.
     browser = await puppeteer.launch(ARGUMENTOS_LANZAMIENTO_PUPPETEER);
 
-    const medidasHistorias = await medirHistorias(historias, personajes, usuario, libro, fondoPortada, browser);
+    const historiasCompactas = await medirHistorias(historias, personajes, usuario, libro, fondoPortada, browser);
 
-    const htmlBorrador = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada, medidasHistorias, fondoEmblema);
+    const htmlBorrador = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada, historiasCompactas, fondoEmblema);
     const pageBorrador = await browser.newPage();
     await pageBorrador.setContent(htmlBorrador, { waitUntil: 'networkidle0' });
     const pdfBorrador = await pageBorrador.pdf({ format: 'A4', printBackground: true });
@@ -837,7 +750,7 @@ async function generarPdfLibro(libro, usuario) {
 
     const numerosPagina = await encontrarNumerosDePagina(Buffer.from(pdfBorrador), historias, personajes);
 
-    const html = construirDocumentoCompleto(historias, personajes, usuario, libro, numerosPagina, fondoPortada, medidasHistorias, fondoEmblema);
+    const html = construirDocumentoCompleto(historias, personajes, usuario, libro, numerosPagina, fondoPortada, historiasCompactas, fondoEmblema);
     const page = await browser.newPage();
 
     // Le pasamos nuestro HTML directamente (no una URL)
@@ -906,16 +819,16 @@ async function generarHtmlLibro(libro, usuario) {
     const fondoEmblema = await comoDataUriParaPdf(`http://localhost/images/${libro.slug}/portada-emblema.png`, 400, 400);
 
     browser = await puppeteer.launch(ARGUMENTOS_LANZAMIENTO_PUPPETEER);
-    const medidasHistorias = await medirHistorias(historias, personajes, usuario, libro, fondoPortada, browser);
+    const historiasCompactas = await medirHistorias(historias, personajes, usuario, libro, fondoPortada, browser);
 
-    const htmlBorrador = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada, medidasHistorias, fondoEmblema);
+    const htmlBorrador = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada, historiasCompactas, fondoEmblema);
     const pageBorrador = await browser.newPage();
     await pageBorrador.setContent(htmlBorrador, { waitUntil: 'networkidle0' });
     const pdfBorrador = await pageBorrador.pdf({ format: 'A4', printBackground: true });
     await pageBorrador.close();
 
     const numerosPagina = await encontrarNumerosDePagina(Buffer.from(pdfBorrador), historias, personajes);
-    return construirDocumentoCompleto(historias, personajes, usuario, libro, numerosPagina, fondoPortada, medidasHistorias, fondoEmblema);
+    return construirDocumentoCompleto(historias, personajes, usuario, libro, numerosPagina, fondoPortada, historiasCompactas, fondoEmblema);
   } finally {
     if (browser) await browser.close();
   }
