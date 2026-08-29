@@ -23,7 +23,18 @@ const sharp = require('sharp');
 // niega a arrancar como root sin --no-sandbox (ver troubleshooting de
 // Puppeteer: https://pptr.dev/troubleshooting). En local no hace falta,
 // pero no molesta dejarlo siempre.
-const ARGUMENTOS_LANZAMIENTO_PUPPETEER = { args: ['--no-sandbox', '--disable-setuid-sandbox'] };
+// "--disable-dev-shm-usage" es la otra mitad del mismo problema: por
+// defecto Chrome usa /dev/shm (memoria compartida) para sus buffers de
+// renderizado, pero la mayoria de los contenedores (Railway incluido)
+// le dan un /dev/shm chico (64MB tipico) -- con un PDF pesado como los
+// nuestros (decenas de imagenes en base64 embebidas, 3 pasadas de
+// renderizado por libro, ver "generarPdfLibro"), Chrome se queda sin
+// espacio ahi y el proceso entero puede terminar matado por el OOM
+// killer del contenedor (visto en los logs de Railway como "Killed"
+// seguido de un reinicio del servidor). Con este flag Chrome usa disco
+// en vez de memoria compartida para esos buffers -- mas lento, pero no
+// se cae.
+const ARGUMENTOS_LANZAMIENTO_PUPPETEER = { args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };
 const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
 const { requiereNivel } = require('../middleware/auth');
 

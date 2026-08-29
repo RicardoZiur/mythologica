@@ -99,7 +99,7 @@ async function cargarTabla() {
 // autenticacion porque no se puede poner en un <a href> normal).
 async function descargarPdfLibro(slug) {
   const respuesta = await fetch(`${API_URL}/pdf?libro=${encodeURIComponent(slug)}`, { headers: window.authHeaders() });
-  if (!respuesta.ok) throw new Error(`No se pudo generar el PDF de "${slug}"`);
+  if (!respuesta.ok) throw new Error(`No se pudo generar el PDF de "${slug}" (HTTP ${respuesta.status})`);
 
   const disposicion = respuesta.headers.get('content-disposition') || '';
   const coincidencia = disposicion.match(/filename="([^"]+)"/);
@@ -116,10 +116,15 @@ async function descargarPdfLibro(slug) {
 
 // Descarga el PDF de cada libro del catalogo uno por uno (Puppeteer
 // arma cada uno desde cero -- pedirlos todos en paralelo saturaria el
-// servidor sin necesidad). Con un respiro entre una descarga y la
-// siguiente, para que el navegador no las bloquee por disparar varias
-// seguidas sin pausa -- la primera vez puede pedir confirmacion para
-// permitir multiples descargas de este sitio.
+// servidor sin necesidad). El respiro de varios segundos entre una
+// descarga y la siguiente no es solo para que el navegador no bloquee
+// descargas multiples disparadas seguidas (la primera vez puede pedir
+// confirmacion para permitir varias de este sitio) -- Chrome/Puppeteer
+// tarda un rato en soltar del todo la memoria de cada PDF generado
+// (varias imagenes embebidas + 3 pasadas de renderizado por libro, ver
+// "generarPdfLibro" en pdf.js), y pedir el siguiente libro pesado
+// enseguida puede hacer que el servidor se quede sin memoria a mitad
+// de camino.
 async function descargarTodosLosPdf(libros, boton, estadoEl) {
   const textoOriginal = boton.textContent;
   boton.disabled = true;
@@ -131,14 +136,15 @@ async function descargarTodosLosPdf(libros, boton, estadoEl) {
     try {
       await descargarPdfLibro(libro.slug);
     } catch (error) {
+      console.error(error);
       fallidos.push(libro.titulo);
     }
-    await new Promise(resolver => setTimeout(resolver, 600));
+    await new Promise(resolver => setTimeout(resolver, 4000));
   }
 
   estadoEl.textContent = fallidos.length === 0
     ? `Listo: se descargaron los ${libros.length} libros.`
-    : `Terminado con errores en: ${fallidos.join(', ')}.`;
+    : `Terminado con errores en: ${fallidos.join(', ')}. Revisa la consola del navegador para el detalle, y prueba de nuevo -- puede ser que el servidor se haya quedado sin memoria a mitad de la tanda.`;
   boton.disabled = false;
   boton.textContent = textoOriginal;
 }
