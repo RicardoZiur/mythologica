@@ -3,6 +3,12 @@
 Cada personaje trae su **prompt completo ya armado**, listo para copiar y pegar directo en
 el campo de texto de Leonardo.ai — no hace falta combinar piezas a mano.
 
+**Excepción — los 11 personajes agregados para llegar a 47** (Hiranyagarbha, Aditi,
+Vishwakarma, Dhanvantari, Ushas, Bhishma, Nala, Vritra, Putana, Damayanti, Shakuntala) se
+generan con **Gemini**, no Leonardo.ai: pegá el prompt completo directo en el chat, no hace
+falta el negative prompt de la sección 2 ni la configuración de Leonardo — el propio prompt
+ya trae la instrucción de con qué nombre guardar el archivo al final.
+
 ## Qué cambió (y por qué)
 
 Mismo ajuste que se aplicó a los archivos de Grecia y Egipto, por los mismos dos problemas:
@@ -152,17 +158,17 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 
 #### Vishwakarma (`vishwakarma.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and craftsman's tool details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, forge bronze and gold and deep amber color palette, dignified artisan god with a strong steady build, holding a mace and measuring tools, a half-forged glowing discus weapon on an anvil beside him, focused masterful expression
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and craftsman's tool details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, forge bronze and gold and deep amber color palette, dignified artisan god with a strong steady build, holding a mace and measuring tools, a half-forged glowing discus weapon on an anvil beside him, focused masterful expression Save the generated image file as "vishwakarma.jpg".
 ```
 
 #### Dhanvantari (`dhanvantari.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and rich silk garment details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep blue skin and gold and soft white color palette, blue-skinned divine physician with a graceful regal build and four arms, multiple arms, holding a golden pot of nectar, medicinal herbs and a leech, serene healing expression, ocean waves faintly visible behind him
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and rich silk garment details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep blue skin and gold and soft white color palette, blue-skinned divine physician with a graceful regal build and four arms, multiple arms, holding a golden pot of nectar, medicinal herbs and a leech, serene healing expression, ocean waves faintly visible behind him Save the generated image file as "dhanvantari.jpg".
 ```
 
 #### Ushas (`ushas.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic radiant dawn lighting, intricate ornate Indian jewelry and flowing silk garment details, ancient carved Hindu temple architecture dissolving into a rosy dawn sky in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, soft rose gold and pale amber and warm white color palette, radiant dawn goddess with a graceful youthful build driving a shimmering chariot pulled by red-hued cattle, darkness parting before her, eternally youthful serene expression
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic radiant dawn lighting, intricate ornate Indian jewelry and flowing silk garment details, ancient carved Hindu temple architecture dissolving into a rosy dawn sky in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, soft rose gold and pale amber and warm white color palette, radiant dawn goddess with a graceful youthful build driving a shimmering chariot pulled by red-hued cattle, darkness parting before her, eternally youthful serene expression Save the generated image file as "ushas.jpg".
 ```
 
 ### Semidioses
@@ -202,13 +208,12 @@ Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient 
 
 #### Hiranyagarbha (`hiranyagarbha.jpg`)
 ```
-Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved Hindu temple architecture dissolving into primordial cosmic waters in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, radiant gold and deep cosmic indigo and pale starlight color palette, absolutely NOT an ordinary human and NOT a single person: a colossal glowing golden cosmic egg floating on dark primordial waters, faint suggestion of a universe swirling within its translucent golden shell, no human face, no human anatomy, ancient and abstract presence
+Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved Hindu temple architecture dissolving into primordial cosmic waters in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, radiant gold and deep cosmic indigo and pale starlight color palette, absolutely NOT an ordinary human and NOT a single person: a colossal glowing golden cosmic egg floating on dark primordial waters, faint suggestion of a universe swirling within its translucent golden shell, no human face, no human anatomy, ancient and abstract presence Save the generated image file as "hiranyagarbha.jpg".
 ```
-**Negative prompt extra solo para esta imagen** (agrégalo al negative prompt compartido antes de generar): `ordinary human, human woman, human man, single person, human face, human anatomy`
 
 #### Aditi (`aditi.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and rich silk garment details, ancient carved Hindu temple architecture dissolving into a boundless starry sky in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep cosmic blue and gold and soft starlight color palette, majestic primordial mother goddess with a tall serene build, arms open wide as if embracing the infinite sky, faint radiant solar figures gathered around her, boundless nurturing expression
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and rich silk garment details, ancient carved Hindu temple architecture dissolving into a boundless starry sky in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep cosmic blue and gold and soft starlight color palette, majestic primordial mother goddess with a tall serene build, arms open wide as if embracing the infinite sky, faint radiant solar figures gathered around her, boundless nurturing expression Save the generated image file as "aditi.jpg".
 ```
 
 ### Monstruos
@@ -235,12 +240,12 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 
 #### Vritra (`vritra.jpg`)
 ```
-Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved Hindu temple architecture dissolving into a parched cracked landscape in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dark bronze and dull red and ash grey color palette, colossal serpentine asura coiled around a vast mountain, trapped waters faintly visible swirling within its immense body, glowing malevolent eyes, entirely non-humanoid
+Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient carved Hindu temple architecture dissolving into a parched cracked landscape in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dark bronze and dull red and ash grey color palette, NOT human, NOT humanoid, colossal serpentine asura coiled around a vast mountain, trapped waters faintly visible swirling within its immense body, glowing malevolent eyes, entirely non-humanoid Save the generated image file as "vritra.jpg".
 ```
 
 #### Putana (`putana.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic eerie chiaroscuro lighting, intricate fabric details, ancient carved Hindu temple architecture in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, sickly pale green and dark shadow and dull gold color palette, monstrous demoness mid-transformation from a beautiful nurse into a colossal grotesque hag, poisoned breast faintly visible, clawed hands, unsettling deceptive expression
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic eerie chiaroscuro lighting, intricate fabric details, ancient carved Hindu temple architecture in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, sickly pale green and dark shadow and dull gold color palette, monstrous demoness mid-transformation from a beautiful nurse into a colossal grotesque hag, poisoned breast faintly visible, clawed hands, unsettling deceptive expression Save the generated image file as "putana.jpg".
 ```
 
 ### Héroes
@@ -272,12 +277,12 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 
 #### Bhishma (`bhishma.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic somber chiaroscuro lighting, intricate ornate armor details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, iron grey and deep crimson and pale gold color palette, elderly dignified warrior patriarch with a tall gaunt build, long white beard, resting upon a bed of countless embedded arrows, calm resolute expression, Kurukshetra battlefield in the background
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic somber chiaroscuro lighting, intricate ornate armor details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, iron grey and deep crimson and pale gold color palette, elderly dignified warrior patriarch with a tall gaunt build, long white beard, resting upon a bed of countless embedded arrows, calm resolute expression, Kurukshetra battlefield in the background Save the generated image file as "bhishma.jpg".
 ```
 
 #### Nala (`nala.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and royal garment details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep royal blue and gold and dusty amber color palette, noble king with a lean handsome build, a set of dice resting on a table before him, troubled conflicted expression, palace hall fading into a distant forest in the background
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and royal garment details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep royal blue and gold and dusty amber color palette, noble king with a lean handsome build, a set of dice resting on a table before him, troubled conflicted expression, palace hall fading into a distant forest in the background Save the generated image file as "nala.jpg".
 ```
 
 ### Mortales
@@ -294,12 +299,12 @@ Semi-realistic fantasy digital painting, full body portrait, vertical portrait o
 
 #### Damayanti (`damayanti.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and rich silk garment details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep rose red and gold and soft ivory color palette, graceful poised princess in a richly embroidered silk saree, standing before a row of identical suitors, discerning confident expression, ceremonial svayamvara hall in the background
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Indian jewelry and rich silk garment details, ancient carved Hindu temple architecture with stone pillars and lotus motifs in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, deep rose red and gold and soft ivory color palette, graceful poised princess in a richly embroidered silk saree, standing before a row of identical suitors, discerning confident expression, ceremonial svayamvara hall in the background Save the generated image file as "damayanti.jpg".
 ```
 
 #### Shakuntala (`shakuntala.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic soft forest lighting, intricate simple fabric and floral details, ancient carved Hindu temple architecture dissolving into a lush forest hermitage in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, soft forest green and warm gold and gentle rose color palette, graceful young woman in simple forest garments adorned with flowers, a ring glinting on one hand, deer and birds gathered peacefully around her, gentle wistful expression
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic soft forest lighting, intricate simple fabric and floral details, ancient carved Hindu temple architecture dissolving into a lush forest hermitage in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, soft forest green and warm gold and gentle rose color palette, graceful young woman in simple forest garments adorned with flowers, a ring glinting on one hand, deer and birds gathered peacefully around her, gentle wistful expression Save the generated image file as "shakuntala.jpg".
 ```
 
 ---

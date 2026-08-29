@@ -3,6 +3,12 @@
 Cada personaje trae su **prompt completo ya armado**, listo para copiar y pegar directo en
 el campo de texto de Leonardo.ai — no hace falta combinar piezas a mano.
 
+**Excepción — los 7 personajes agregados para llegar a 47** (Heh, Bes, Wadyet, Min,
+Hatshepsut, Ramsés II, Ajej) se generan con **Gemini**, no Leonardo.ai: pegá el prompt
+completo directo en el chat, no hace falta el negative prompt de la sección 2 ni la
+configuración de Leonardo — el propio prompt ya trae la instrucción de con qué nombre
+guardar el archivo al final.
+
 ## Qué cambió (y por qué)
 
 Mismo ajuste que se aplicó al archivo de Grecia, por los mismos dos problemas:
@@ -281,43 +287,43 @@ Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient 
 
 #### Heh (`heh.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dawn gold and pale ivory and soft bronze color palette, kneeling primordial god holding a notched palm rib in each raised hand, calm eternal expression, faint infinite starry void behind him, ancient abstract presence
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, dawn gold and pale ivory and soft bronze color palette, kneeling primordial god holding a notched palm rib in each raised hand, calm eternal expression, faint infinite starry void behind him, ancient abstract presence Save the generated image file as "heh.jpg".
 ```
 
 ### Nuevos dioses (tercera tanda)
 
 #### Bes (`bes.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry and linen garment details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm amber and deep gold and dusty red color palette, dwarf god facing directly forward toward the viewer (not in profile, unlike most Egyptian deities), grotesque leonine mane and protruding tongue, bowed muscular legs, feathered crown, holding a knife in one hand, deliberately fierce comical expression
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry and linen garment details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm amber and deep gold and dusty red color palette, dwarf god facing directly forward toward the viewer (not in profile, unlike most Egyptian deities), grotesque leonine mane and protruding tongue, bowed muscular legs, feathered crown, holding a knife in one hand, deliberately fierce comical expression Save the generated image file as "bes.jpg".
 ```
 
 #### Wadyet (`wadjet.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry and linen garment details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, emerald green and gold and papyrus reed color palette, dignified goddess with a lean poised build wearing a rearing cobra crown, red crown of Lower Egypt, papyrus marshes of the delta in the background, protective fierce expression
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry and linen garment details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, emerald green and gold and papyrus reed color palette, dignified goddess with a lean poised build wearing a rearing cobra crown, red crown of Lower Egypt, papyrus marshes of the delta in the background, protective fierce expression Save the generated image file as "wadjet.jpg".
 ```
 
 #### Min (`min.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, harvest gold and deep black and earthy brown color palette, still mummiform fertility god with a tightly wrapped rigid build (not muscular), one arm raised overhead holding a flail, tall crown of two straight plumes, sheaves of grain nearby
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, harvest gold and deep black and earthy brown color palette, still mummiform fertility god with a tightly wrapped rigid build (not muscular), one arm raised overhead holding a flail, tall crown of two straight plumes, sheaves of grain nearby Save the generated image file as "min.jpg".
 ```
 
 ### Monstruos (tercera tanda)
 
 #### Ajej (`akhekh.jpg`)
 ```
-Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient Egyptian temple columns dissolving into swirling chaos in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, venomous black and dull bronze and ash grey color palette, griffin-like chaos creature with a long serpentine body, sharp bird-of-prey head and wings, clawed talons, coiling menacingly through darkness, entirely non-humanoid
+Semi-realistic fantasy digital painting, dramatic chiaroscuro lighting, ancient Egyptian temple columns dissolving into swirling chaos in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, venomous black and dull bronze and ash grey color palette, NOT human, NOT humanoid, griffin-like chaos creature with a long serpentine body, sharp bird-of-prey head and wings, clawed talons, coiling menacingly through darkness, entirely non-humanoid Save the generated image file as "akhekh.jpg".
 ```
 
 ### Mortales (tercera tanda)
 
 #### Hatshepsut (`hatshepsut.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry and linen garment details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, royal gold and limestone white and deep blue color palette, dignified female pharaoh with a regal poised build wearing full royal regalia and the ceremonial false beard, double crown, calm commanding expression, her own mortuary temple faintly visible in the background
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry and linen garment details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, royal gold and limestone white and deep blue color palette, dignified female pharaoh with a regal poised build wearing full royal regalia and the ceremonial false beard, double crown, calm commanding expression, her own mortuary temple faintly visible in the background Save the generated image file as "hatshepsut.jpg".
 ```
 
 #### Ramsés II (`ramses-ii.jpg`)
 ```
-Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry and linen garment details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm gold and deep bronze and desert red color palette, powerful mature pharaoh with a commanding dignified build wearing full royal war regalia and the blue Khepresh war crown, holding a khopesh sword, colossal seated statues of Abu Simbel faintly visible in the background
+Semi-realistic fantasy digital painting, full body portrait, vertical portrait orientation (taller than wide, aspect ratio approximately 2:3), dramatic chiaroscuro lighting, intricate ornate Egyptian jewelry and linen garment details, ancient Egyptian temple columns with hieroglyphic carvings in the misty background, atmospheric haze, centered symmetrical composition, highly detailed digital art, painterly rendering, trending on artstation, cinematic lighting, warm gold and deep bronze and desert red color palette, powerful mature pharaoh with a commanding dignified build wearing full royal war regalia and the blue Khepresh war crown, holding a khopesh sword, colossal seated statues of Abu Simbel faintly visible in the background Save the generated image file as "ramses-ii.jpg".
 ```
 
 ---
