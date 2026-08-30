@@ -13,6 +13,7 @@
 // ============================================================
 
 const PAGOS_API_URL = '/api/pagos';
+const PDF_URL_CARRITO = '/api/pdf';
 
 const ETIQUETAS_NIVEL = {
   completo: 'Acceso completo + descarga en PDF',
@@ -131,6 +132,13 @@ async function pintarCarrito() {
   }
 
   const itemsHtml = cotizacion.items.map(construirFilaItem).join('');
+  // Con un descuento del 100% el total da $0 -- Mercado Pago ni
+  // siquiera acepta cobrar eso, así que en vez del botón de pago se
+  // ofrece descargar directo (ver POST /pagos/pedido-gratis).
+  const esGratis = cotizacion.total === 0;
+  const botonFinalHtml = esGratis
+    ? `<button type="button" class="pdf-btn carrito-pagar" id="btnDescargarGratis">Descargar gratis</button>`
+    : `<button type="button" class="pdf-btn carrito-pagar" id="btnPagar">Pagar</button>`;
 
   contenedor.innerHTML = `
     <div class="carrito-items">${itemsHtml}</div>
@@ -143,7 +151,7 @@ async function pintarCarrito() {
       <span>Total</span>
       <strong>${formatearMonto(cotizacion.total, cotizacion.moneda)}</strong>
     </div>
-    <button type="button" class="pdf-btn carrito-pagar" id="btnPagar">Pagar</button>
+    ${botonFinalHtml}
   `;
 
   document.querySelectorAll('.carrito-item-quitar').forEach(boton => {
@@ -153,7 +161,11 @@ async function pintarCarrito() {
     });
   });
   document.getElementById('btnAplicarCodigo').addEventListener('click', aplicarCodigo);
-  document.getElementById('btnPagar').addEventListener('click', pagar);
+  if (esGratis) {
+    document.getElementById('btnDescargarGratis').addEventListener('click', descargarGratis);
+  } else {
+    document.getElementById('btnPagar').addEventListener('click', pagar);
+  }
 }
 
 async function aplicarCodigo() {
@@ -189,6 +201,73 @@ async function pagar() {
     alert('No se pudo conectar con el servidor de pagos');
     boton.disabled = false;
     boton.textContent = 'Pagar';
+  }
+}
+
+// Pide el PDF de un libro y dispara su descarga -- mismo patrón que
+// "descargarPdf" en auth.js y "descargarPdfLibro" en admin-libros.js
+// (el fetch lleva el header de autenticación porque no se puede poner
+// en un <a href> normal).
+async function descargarPdfDelCarrito(slug) {
+  const respuesta = await fetch(`${PDF_URL_CARRITO}?libro=${encodeURIComponent(slug)}`, { headers: window.authHeaders() });
+  if (!respuesta.ok) throw new Error(`No se pudo generar el PDF de "${slug}"`);
+
+  const disposicion = respuesta.headers.get('content-disposition') || '';
+  const coincidencia = disposicion.match(/filename="([^"]+)"/);
+  const nombreArchivo = coincidencia ? coincidencia[1] : `mythologica-${slug}.pdf`;
+
+  const blob = await respuesta.blob();
+  const urlTemporal = URL.createObjectURL(blob);
+  const enlaceTemporal = document.createElement('a');
+  enlaceTemporal.href = urlTemporal;
+  enlaceTemporal.download = nombreArchivo;
+  enlaceTemporal.click();
+  URL.revokeObjectURL(urlTemporal);
+}
+
+// Confirma el pedido gratuito (POST /pedido-gratis, ver routes/pagos.js
+// -- ahí se vuelve a validar que el total realmente da $0 antes de
+// otorgar nada) y dispara la descarga del PDF de cada libro que quedó
+// con nivel "completo". Los libros que solo suman nivel "flipbook" no
+// tienen PDF que descargar -- ya quedaron con acceso al sitio, se leen
+// desde "Mi biblioteca".
+async function descargarGratis() {
+  const boton = document.getElementById('btnDescargarGratis');
+  boton.disabled = true;
+  boton.textContent = 'Procesando...';
+
+  try {
+    const respuesta = await fetch(`${PAGOS_API_URL}/pedido-gratis`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...window.authHeaders() },
+      body: JSON.stringify({
+        items: window.obtenerCarrito(),
+        codigo_descuento: window.CODIGO_DESCUENTO_ACTUAL
+      })
+    });
+    const datos = await respuesta.json();
+    if (!respuesta.ok) {
+      alert(datos.error || 'No se pudo procesar la descarga gratuita');
+      boton.disabled = false;
+      boton.textContent = 'Descargar gratis';
+      return;
+    }
+
+    window.vaciarCarrito();
+    window.CODIGO_DESCUENTO_ACTUAL = null;
+
+    const librosConPdf = datos.items.filter(item => item.nivel_acceso === 'completo');
+    boton.textContent = librosConPdf.length > 0 ? 'Generando PDF...' : 'Descargar gratis';
+    for (const item of librosConPdf) {
+      await descargarPdfDelCarrito(item.libro);
+    }
+
+    await cargarSesion(); // definida en auth.js -- refresca el acceso ya otorgado
+    await pintarCarrito();
+  } catch (error) {
+    alert('No se pudo conectar con el servidor');
+    boton.disabled = false;
+    boton.textContent = 'Descargar gratis';
   }
 }
 
