@@ -188,7 +188,7 @@ function construirTarjetaLibro(libro, totalPersonajes, totalHistorias, precios, 
         <span><strong>${totalPersonajes}</strong> personajes</span>
         <span><strong>${totalHistorias}</strong> historias</span>
       </div>
-      <a class="lp-cta-primary" href="libro/index.html?libro=${encodeURIComponent(libro.slug)}">Leer la muestra gratis →</a>
+      <a class="lp-cta-primary" href="/libro/${encodeURIComponent(libro.slug)}">Leer la muestra gratis →</a>
       ${botonesCompraHtml}
     </article>
   `;

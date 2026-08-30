@@ -1,0 +1,116 @@
+/* ============================================================
+   libro-landing.css
+   ------------------------------------------------------------
+   Estilos propios de la pagina de aterrizaje por libro
+   (routes/paginaLibro.js, GET /libro/<slug>). Se carga DESPUES de
+   landing.css -- reusa sus tokens de color/tipografia (:root),
+   ".lp-wrap", ".lp-header", ".lp-brand" y ".lp-cta-primary" tal
+   cual, y solo agrega lo que le falta: el hero con la imagen de
+   portada de fondo y el cuerpo con la descripcion/stats/personajes.
+   ============================================================ */
+
+.ll-hero{
+  background-size:cover;
+  background-position:center;
+  padding:64px 0 56px;
+  border-bottom:1px solid var(--line);
+}
+.ll-hero-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:14px;
+}
+.ll-emblema{
+  width:84px; height:84px; border-radius:50%;
+  border:1px solid var(--gold-soft);
+  object-fit:cover;
+  background:var(--surface-2);
+  margin-bottom:6px;
+}
+.ll-eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--sage);
+}
+.ll-hero-inner h1{
+  font-family:'Fraunces', serif;
+  font-weight:700;
+  font-size:clamp(28px, 5vw, 42px);
+  margin:0;
+  color:var(--text);
+}
+.ll-subtitulo{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  color:var(--gold-soft);
+  max-width:520px;
+  margin:0 0 10px;
+}
+
+.ll-cuerpo{
+  max-width:680px;
+  margin:0 auto;
+  padding:56px 0;
+  text-align:center;
+}
+.ll-descripcion{
+  font-size:15px;
+  line-height:1.75;
+  color:var(--text-dim);
+  margin:0 0 32px;
+}
+.ll-stats{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  margin-bottom:40px;
+}
+.ll-stats strong{
+  display:block;
+  font-family:'Fraunces', serif;
+  font-size:30px;
+  color:var(--gold);
+}
+.ll-stats span{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--text-faint);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+
+.ll-personajes{ margin-bottom:44px; }
+.ll-personajes-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+  color:var(--text-faint);
+  margin-bottom:14px;
+}
+.ll-personajes-lista{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+}
+.ll-personajes-lista span{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  color:var(--text-dim);
+  border:1px solid var(--line-strong);
+  border-radius:10px;
+  padding:5px 12px;
+}
+
+.ll-cta-final{ margin-top:8px; }
+
+@media (max-width:600px){
+  .ll-hero{ padding:48px 0 40px; }
+  .ll-cuerpo{ padding:40px 0; }
+  .ll-stats{ gap:28px; }
+}
