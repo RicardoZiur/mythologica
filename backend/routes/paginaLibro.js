@@ -65,7 +65,7 @@ function paginaNoEncontrada() {
 
 function construirHtmlPaginaLibro(libro, conteos, personajesDestacados) {
   const urlPagina = `${DOMINIO}/libro/${libro.slug}`;
-  const urlLector = `libro/index.html?libro=${encodeURIComponent(libro.slug)}`;
+  const urlLector = `/libro/index.html?libro=${encodeURIComponent(libro.slug)}`;
   const urlEmblema = `${DOMINIO}/images/${libro.slug}/portada-emblema.png`;
   const urlFondo = `${DOMINIO}/images/${libro.slug}/portada-fondo.jpg`;
   const urlOgImage = `${DOMINIO}/images/${libro.slug}/og-image.jpg`;
