@@ -2,6 +2,7 @@ node_modules/
 backend/.env
 backend/backups/
 backend/public/images/
+backend/scripts/_pines-marketing/
 *.log
 .DS_Store
 Thumbs.db
