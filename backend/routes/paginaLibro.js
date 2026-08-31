@@ -139,7 +139,6 @@ function construirHtmlPaginaLibro(libro, conteos, personajesDestacados) {
           <div class="ll-eyebrow">Mitología ilustrada</div>
           <h1>${escaparHtml(libro.titulo)}</h1>
           <p class="ll-subtitulo">${escaparHtml(libro.subtitulo || '')}</p>
-          <a class="lp-cta-primary" href="${urlLector}">Leer la muestra gratis →</a>
         </div>
       </section>
 
