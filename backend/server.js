@@ -77,13 +77,6 @@ app.use(autenticarOpcional);
 // una URL como http://localhost:3001/images/medusa.jpg
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-// Paginas publicas renderizadas en el servidor (HTML con meta tags
-// dinamicos, a diferencia de todo lo demas en frontend/, que es
-// estatico) -- van ANTES de express.static(frontend) para que nada
-// las tape. Ver cada archivo para el detalle de cada una.
-app.use(require('./routes/paginaLibro'));
-app.use(require('./routes/sitemap'));
-
 // Servimos el frontend (landing, flipbook, panel de admin) desde el
 // MISMO servidor/puerto que la API, en vez de necesitar Live Server
 // aparte. Con esto, frontend/js/*.js pueden pedir la API con rutas
@@ -95,6 +88,18 @@ app.use(require('./routes/sitemap'));
 // localhost. http://localhost:3001/ sirve frontend/index.html (el
 // landing) automaticamente.
 app.use(express.static(path.join(__dirname, 'frontend')));
+
+// Paginas publicas renderizadas en el servidor (HTML con meta tags
+// dinamicos, a diferencia de todo lo demas en frontend/, que es
+// estatico) -- van DESPUES de express.static(frontend) a proposito:
+// "GET /libro/:slug" (routes/paginaLibro.js) matchearia tambien
+// "/libro/index.html" (con slug="index.html") si fuera antes,
+// tapando el lector interactivo real para TODOS los libros. Puesta
+// aca, express.static ya intercepto y respondio ese archivo real
+// antes de que esta ruta llegue a evaluarse. Ver cada archivo para
+// el detalle de cada una.
+app.use(require('./routes/paginaLibro'));
+app.use(require('./routes/sitemap'));
 
 // ------------------------------------------------------------
 // RUTAS
