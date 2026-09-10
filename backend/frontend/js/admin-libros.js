@@ -199,27 +199,29 @@ async function cargarPagina() {
   if (!(await esperarSesionAdmin(contenedor))) return;
 
   contenedor.innerHTML = `
-    <div class="admin-card admin-form-card">
-      <h2>Precios</h2>
-      <p class="auth-hint">Valen para todos los libros del catálogo por igual (no hay un precio distinto por libro). En pesos chilenos (CLP).</p>
-      <form id="formPrecios" class="auth-form">
-        <label>Acceso al sitio (flipbook)
-          <input type="number" name="flipbook" min="1" step="1" required>
-        </label>
-        <label>Descarga en PDF
-          <input type="number" name="pdf" min="1" step="1" required>
-        </label>
-        <p class="auth-hint">"Acceso completo" se cobra como la suma de los dos -- si alguien ya compró el acceso al sitio, agregar el PDF después le cuesta solo eso, nunca el paquete entero de nuevo.</p>
-        <p class="auth-error" id="preciosError"></p>
-        <p class="auth-hint" id="preciosMsg"></p>
-        <button type="submit" class="auth-submit">Guardar precios</button>
-      </form>
-    </div>
-    <div class="admin-card admin-form-card">
-      <h2>Libros del catálogo</h2>
-      <p class="auth-hint">Habilitar un libro lo hace aparecer en el landing y el catálogo público de inmediato. Deshabilitarlo lo vuelve a dejar en borrador, sin borrar nada de su contenido.</p>
-      <button type="button" class="auth-submit" id="btnDescargarTodos">Descargar todos los PDF</button>
-      <p class="auth-hint" id="estadoDescargaTodos"></p>
+    <div class="admin-form-row">
+      <div class="admin-card admin-form-card">
+        <h2>Precios</h2>
+        <p class="auth-hint">Valen para todos los libros del catálogo por igual (no hay un precio distinto por libro). En pesos chilenos (CLP).</p>
+        <form id="formPrecios" class="auth-form">
+          <label>Acceso al sitio (flipbook)
+            <input type="number" name="flipbook" min="1" step="1" required>
+          </label>
+          <label>Descarga en PDF
+            <input type="number" name="pdf" min="1" step="1" required>
+          </label>
+          <p class="auth-hint">"Acceso completo" se cobra como la suma de los dos -- si alguien ya compró el acceso al sitio, agregar el PDF después le cuesta solo eso, nunca el paquete entero de nuevo.</p>
+          <p class="auth-error" id="preciosError"></p>
+          <p class="auth-hint" id="preciosMsg"></p>
+          <button type="submit" class="auth-submit">Guardar precios</button>
+        </form>
+      </div>
+      <div class="admin-card admin-form-card">
+        <h2>Libros del catálogo</h2>
+        <p class="auth-hint">Habilitar un libro lo hace aparecer en el landing y el catálogo público de inmediato. Deshabilitarlo lo vuelve a dejar en borrador, sin borrar nada de su contenido.</p>
+        <button type="button" class="auth-submit" id="btnDescargarTodos">Descargar todos los PDF</button>
+        <p class="auth-hint" id="estadoDescargaTodos"></p>
+      </div>
     </div>
     <div id="tablaLibros"><p class="admin-cargando">Cargando...</p></div>
   `;
