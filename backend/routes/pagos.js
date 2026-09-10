@@ -24,20 +24,21 @@ const { requiereSesion, requiereAdmin, tieneNivel, JERARQUIA_NIVELES } = require
 const { calcularDescuentoAplicable } = require('./descuentos');
 const { enviarEmailCompra } = require('../utils/email');
 
-// Precios en pesos chilenos (CLP no usa decimales). Única fuente de
-// verdad: el frontend los pide a GET /precios en vez de tenerlos
-// escritos en dos lugares distintos.
-//
-// Dos componentes, no dos productos fijos: "flipbook" es el acceso al
-// libro en el sitio, "pdf" es la descarga. "completo" (comprado de una
-// sola vez) es la suma de los dos -- pero si el usuario YA tiene
-// "flipbook" y solo le falta el PDF, se le cobra nada más que
-// PRECIOS.pdf (ver precioParaNivel más abajo), nunca la suma completa
-// de nuevo. Así comprarlo en dos partes cuesta exactamente lo mismo
-// que comprarlo junto, nunca más.
-const PRECIOS = { flipbook: 6640, pdf: 9990 };
+// Precios en pesos chilenos (CLP no usa decimales). Son globales (los
+// mismos para todos los libros del catalogo, no uno distinto por
+// libro) y viven en la tabla "precios" (una sola fila, id = 1 -- ver
+// scripts/migrar-precios.js) en vez de hardcodeados aca, para que un
+// admin los pueda cambiar desde frontend/admin/libros.html sin tocar
+// codigo. "obtenerPrecios()" es la unica fuente de verdad para leerlos
+// del lado del servidor; el frontend a su vez los pide siempre a GET
+// /precios en vez de tenerlos escritos por su cuenta.
 const MONEDA = 'CLP';
 const NIVELES_VALIDOS = ['flipbook', 'completo'];
+
+async function obtenerPrecios() {
+  const [[fila]] = await pool.query('SELECT flipbook, pdf FROM precios WHERE id = 1');
+  return { flipbook: fila.flipbook, pdf: fila.pdf };
+}
 
 // Precio real de agregar "nivelAcceso" para alguien que ya tiene
 // "nivelActual" en ese libro ('ninguno' si no tiene nada todavía).
@@ -45,14 +46,21 @@ const NIVELES_VALIDOS = ['flipbook', 'completo'];
 // cobrando es solo el PDF sobre un flipbook ya comprado (para que el
 // carrito y el checkout de MercadoPago lo dejen claro en vez de
 // mostrar "acceso completo" como si fuera la compra desde cero).
-function precioParaNivel(nivelAcceso, nivelActual) {
+//
+// Dos componentes, no dos productos fijos: "flipbook" es el acceso al
+// libro en el sitio, "pdf" es la descarga. "completo" (comprado de una
+// sola vez) es la suma de los dos -- pero si el usuario YA tiene
+// "flipbook" y solo le falta el PDF, se le cobra nada más que
+// precios.pdf, nunca la suma completa de nuevo. Así comprarlo en dos
+// partes cuesta exactamente lo mismo que comprarlo junto, nunca más.
+function precioParaNivel(nivelAcceso, nivelActual, precios) {
   if (nivelAcceso === 'flipbook') {
-    return { precio: PRECIOS.flipbook, esActualizacion: false };
+    return { precio: precios.flipbook, esActualizacion: false };
   }
   if (nivelActual === 'flipbook') {
-    return { precio: PRECIOS.pdf, esActualizacion: true };
+    return { precio: precios.pdf, esActualizacion: true };
   }
-  return { precio: PRECIOS.flipbook + PRECIOS.pdf, esActualizacion: false };
+  return { precio: precios.flipbook + precios.pdf, esActualizacion: false };
 }
 
 function obtenerCliente() {
@@ -125,17 +133,50 @@ async function obtenerPaisDesdeIp(ip) {
 // tienen espacio para mostrar una moneda a la vez.
 // ------------------------------------------------------------
 router.get('/precios', async (req, res) => {
-  const pais = await obtenerPaisDesdeIp(req.ip);
-  const tasa = await obtenerTasaClpAUsd();
+  const [precios, pais, tasa] = await Promise.all([
+    obtenerPrecios(),
+    obtenerPaisDesdeIp(req.ip),
+    obtenerTasaClpAUsd()
+  ]);
 
   const aUsd = (montoClp) => tasa ? Math.round(montoClp * tasa * 100) / 100 : null;
-  const precioCompleto = PRECIOS.flipbook + PRECIOS.pdf;
+  const precioCompleto = precios.flipbook + precios.pdf;
 
   res.json({
-    clp: { flipbook: PRECIOS.flipbook, pdf: PRECIOS.pdf, completo: precioCompleto, moneda: 'CLP' },
-    usd: { flipbook: aUsd(PRECIOS.flipbook), pdf: aUsd(PRECIOS.pdf), completo: aUsd(precioCompleto), moneda: 'USD' },
+    clp: { flipbook: precios.flipbook, pdf: precios.pdf, completo: precioCompleto, moneda: 'CLP' },
+    usd: { flipbook: aUsd(precios.flipbook), pdf: aUsd(precios.pdf), completo: aUsd(precioCompleto), moneda: 'USD' },
     monedaSugerida: (pais && pais !== 'CL' && tasa) ? 'USD' : 'CLP'
   });
+});
+
+// ------------------------------------------------------------
+// PUT /api/pagos/precios
+// Solo administradores. Body: { flipbook, pdf } -- ambos enteros
+// positivos, en pesos chilenos. Cambia el precio para TODOS los
+// libros del catalogo (no hay precio por libro, ver obtenerPrecios
+// mas arriba): lo que se cobra de aca en adelante en /pedido y
+// /pedido-gratis, y lo que devuelve GET /precios.
+// ------------------------------------------------------------
+router.put('/precios', requiereAdmin, async (req, res) => {
+  try {
+    const { flipbook, pdf } = req.body;
+    const flipbookNum = Number(flipbook);
+    const pdfNum = Number(pdf);
+
+    if (!Number.isInteger(flipbookNum) || flipbookNum <= 0 || !Number.isInteger(pdfNum) || pdfNum <= 0) {
+      return res.status(400).json({ error: 'flipbook y pdf deben ser enteros positivos' });
+    }
+
+    await pool.query(
+      'UPDATE precios SET flipbook = ?, pdf = ?, actualizado_por = ? WHERE id = 1',
+      [flipbookNum, pdfNum, req.usuario.id]
+    );
+
+    res.json({ flipbook: flipbookNum, pdf: pdfNum });
+  } catch (error) {
+    console.error('Error al actualizar los precios:', error);
+    res.status(500).json({ error: 'No se pudieron actualizar los precios' });
+  }
 });
 
 // ------------------------------------------------------------
@@ -164,6 +205,8 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
     return { error: 'El carrito está vacío' };
   }
 
+  const precios = await obtenerPrecios();
+
   const items = [];
   for (const itemCarrito of itemsCarrito) {
     const libro = await resolverLibroPorSlug(itemCarrito.libro);
@@ -191,7 +234,7 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
     // si ya tiene "flipbook" y esta agregando "completo", solo se le
     // cobra el PDF (ver precioParaNivel), no el paquete entero de nuevo.
     const nivelActual = (usuario.accesosPorLibro && usuario.accesosPorLibro[libro.id]) || 'ninguno';
-    const { precio: precioBase, esActualizacion } = precioParaNivel(nivelAcceso, nivelActual);
+    const { precio: precioBase, esActualizacion } = precioParaNivel(nivelAcceso, nivelActual, precios);
 
     // Si el codigo no aplica a ESTE libro (esta limitado a otro), el
     // item se queda a precio de lista sin mas -- recien es un error
