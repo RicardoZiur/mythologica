@@ -14,6 +14,7 @@ const fs = require('fs');
 require('dotenv').config();
 
 const { autenticarOpcional } = require('./middleware/auth');
+const pool = require('./config/db');
 
 const app = express(); // creamos la aplicacion Express
 
@@ -34,6 +35,42 @@ const carpetaSemillaImagenes = path.join(__dirname, 'public/images-seed');
 // todavia. Comprobamos el contenido real en vez de solo la carpeta.
 if (fs.existsSync(carpetaSemillaImagenes) && !fs.existsSync(path.join(carpetaImagenes, 'mitologia-griega'))) {
   fs.cpSync(carpetaSemillaImagenes, carpetaImagenes, { recursive: true });
+}
+
+// Mismo criterio que las imagenes de arriba, pero para la tabla
+// "precios" (ver routes/pagos.js y scripts/migrar-precios.js): en vez
+// de depender de que alguien corra la migracion a mano contra la base
+// de produccion antes del deploy, el propio arranque del servidor la
+// deja creada y con su fila semilla si todavia no existe. Es la MISMA
+// migracion, solo que tambien se corre sola aca (ademas de poder
+// correrse a mano con el script, que sigue sirviendo para desarrollo
+// local) -- idempotente, no pisa precios que un admin ya haya
+// cambiado desde el panel.
+async function asegurarTablaPrecios() {
+  const [tablas] = await pool.query(
+    `SELECT COUNT(*) AS total FROM INFORMATION_SCHEMA.TABLES
+     WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'precios'`
+  );
+  if (tablas[0].total === 0) {
+    await pool.query(`
+      CREATE TABLE precios (
+        id INT PRIMARY KEY,
+        flipbook INT NOT NULL,
+        pdf INT NOT NULL,
+        actualizado_por INT NULL,
+        actualizado_en DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (actualizado_por) REFERENCES usuarios(id) ON DELETE SET NULL
+      )
+    `);
+  }
+
+  const [filas] = await pool.query('SELECT id FROM precios WHERE id = 1');
+  if (filas.length === 0) {
+    // Mismos valores que tenia el PRECIOS hardcodeado antes de esto --
+    // el sitio sigue cobrando exactamente lo mismo hasta que un admin
+    // los cambie desde el panel.
+    await pool.query('INSERT INTO precios (id, flipbook, pdf) VALUES (1, 6640, 9990)');
+  }
 }
 
 // Si el servidor corre detras de un proxy/tunel (nginx, ngrok,
@@ -150,6 +187,17 @@ app.use('/api/pdf', pdfRouter);
 // ------------------------------------------------------------
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+// Se espera a que la tabla de precios quede lista ANTES de aceptar
+// conexiones -- asi ninguna peticion a GET /api/pagos/precios (o al
+// carrito) puede llegar a correr antes de que exista. Si esto falla
+// (ej. la base todavia no esta arriba), se loguea y se arranca
+// igual: el resto del sitio depende de la misma base de datos, asi
+// que un problema de conexion ya se va a notar en cualquier otra
+// ruta, no hace falta duplicar el chequeo aca.
+asegurarTablaPrecios()
+  .catch((error) => console.error('No se pudo preparar la tabla de precios:', error))
+  .finally(() => {
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
+  });
