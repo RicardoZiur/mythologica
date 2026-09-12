@@ -149,6 +149,16 @@
    agrega el "select", que ".auth-form input" no cubre. */
 .admin-form-card{ max-width:420px; margin-bottom:32px; }
 .admin-form-card h2{ font-family:'Fraunces',serif; font-size:16px; margin:0 0 16px; color:var(--text); }
+
+/* Pone dos ".admin-form-card" lado a lado (ej. "Precios" y "Libros del
+   catálogo" en frontend/admin/libros.html) en vez de apiladas, asi la
+   pagina no deja todo el resto del ancho vacio con solo dos tarjetas
+   angostas una debajo de la otra. "align-items:flex-start" evita que
+   la mas baja se estire para igualar la altura de la otra. Se apilan
+   solas en pantallas angostas por el "flex-wrap" + el mismo
+   ".admin-form-card{ max-width:100% }" que ya se aplica en mobile. */
+.admin-form-row{ display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start; margin-bottom:32px; }
+.admin-form-row .admin-form-card{ flex:1 1 320px; margin-bottom:0; }
 .auth-form select{
   font-family:'IBM Plex Sans',sans-serif; font-size:13px; padding:9px 10px; border:1px solid var(--line-strong);
   border-radius:6px; background:var(--bg); color:var(--text);
