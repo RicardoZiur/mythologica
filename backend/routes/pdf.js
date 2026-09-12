@@ -38,6 +38,24 @@ const ARGUMENTOS_LANZAMIENTO_PUPPETEER = { args: ['--no-sandbox', '--disable-set
 const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
 const { requiereNivel } = require('../middleware/auth');
 
+// Carpeta donde se cachea el PDF "base" de cada libro -- todo el
+// contenido pesado (historias, personajes, imagenes) menos la unica
+// pagina personalizada por comprador (ver paginaAvisoLegal). Vive en
+// el disco local del contenedor a proposito: NO en el volumen
+// persistente de Railway (donde vive public/images) y NUNCA bajo una
+// carpeta que sirva express.static, para que jamas quede alcanzable
+// por URL -- el costo es que un redeploy la borra, y la primera
+// descarga de cada libro despues de eso vuelve a ser lenta (se
+// regenera sola). Ver "obtenerPdfBaseLibro".
+const CARPETA_CACHE_PDF = path.join(__dirname, '../cache-pdf');
+
+// Evita que dos descargas simultaneas del mismo libro recien editado
+// disparen dos regeneraciones de Puppeteer en paralelo: la segunda
+// peticion espera la misma promesa que ya esta en curso para ese
+// libro en vez de arrancar la suya. Mismo espiritu que CACHE_IMAGENES_PDF
+// de aca abajo (un Map en memoria, se reinicia con el servidor).
+const REGENERACIONES_EN_CURSO = new Map();
+
 // ------------------------------------------------------------
 // IMAGENES: de URL a data URI liviano, ANTES de imprimir
 // ------------------------------------------------------------
@@ -153,6 +171,29 @@ async function obtenerTodosLosPersonajes(libroId) {
   }
 
   return personajes;
+}
+
+// Fecha de la ultima edicion REAL del contenido de un libro (el libro
+// mismo, o cualquiera de sus personajes/historias), sin importar si
+// esa edicion paso por una ruta HTTP del admin o por un UPDATE directo
+// contra la base (el patron mas comun en este proyecto -- ver los
+// scripts sueltos "ampliar-*"/"agregar-*"). Sirve para decidir si el
+// PDF base cacheado de ese libro (ver "obtenerPdfBaseLibro") sigue
+// vigente o hay que regenerarlo: "personajes.actualizado_en" y
+// "libros.actualizado_en" ya tienen "ON UPDATE CURRENT_TIMESTAMP" (se
+// actualizan solos con cualquier UPDATE), y lo mismo "historias.actualizado_en"
+// desde scripts/migrar-historias-timestamp.js.
+async function obtenerUltimaEdicion(libroId) {
+  const [[fila]] = await pool.query(
+    `SELECT GREATEST(
+       l.actualizado_en,
+       COALESCE((SELECT MAX(actualizado_en) FROM personajes WHERE libro_id = l.id), l.actualizado_en),
+       COALESCE((SELECT MAX(actualizado_en) FROM historias WHERE libro_id = l.id), l.actualizado_en)
+     ) AS ultima_edicion
+     FROM libros l WHERE l.id = ?`,
+    [libroId]
+  );
+  return fila.ultima_edicion;
 }
 
 // ------------------------------------------------------------
@@ -717,14 +758,34 @@ async function medirHistorias(historias, personajes, usuario, libro, fondoPortad
 // tambien una variante oscura a juego con el flipbook web, pero se dio
 // de baja para no mantener dos layouts del mismo contenido).
 // ------------------------------------------------------------
-// Arma el PDF completo de un libro y devuelve el Buffer final. Separada
-// del handler de la ruta (que solo se ocupa de autenticacion y de
-// mandar la respuesta HTTP) para poder generar un PDF de prueba desde
-// un script suelto sin tener que pasar por un login real -- ver
-// "module.exports.generarPdfLibro" al final del archivo.
-async function generarPdfLibro(libro, usuario) {
+// Usuario "de mentira" para armar el PDF base cacheado (ver mas
+// abajo): su pagina de aviso legal nunca se ve -- siempre queda
+// tapada por la pagina personal de verdad que arma
+// "generarPaginaAvisoLegalPdf" en cada descarga real. Nombre y email
+// en blanco a proposito (no un nombre inventado tipo "Mythologica"):
+// "drawPage" pinta la pagina real ENCIMA de esta, pero el texto viejo
+// sigue technicamente presente debajo en el PDF (nadie lo ve, pero se
+// puede extraer con copiar/buscar texto) -- mejor que ese resto
+// invisible quede vacio en vez de con un nombre falso.
+const USUARIO_PLACEHOLDER_CACHE = { nombre: '', email: '' };
+
+// Arma TODO el contenido pesado de un libro (historias, personajes,
+// imagenes, indice, numeracion) y lo deja guardado en
+// CARPETA_CACHE_PDF -- exactamente lo que hacia antes "generarPdfLibro"
+// completo, salvo que la pagina de aviso legal queda con un usuario
+// placeholder, porque este PDF es el mismo para CUALQUIER comprador
+// del libro (ver el comentario largo en "obtenerPdfBaseLibro").
+async function generarPdfBaseLibro(libro) {
   let browser;
   try {
+    // Se pide ANTES de traer historias/personajes a proposito: si el
+    // libro se edita justo mientras se esta generando, esta fecha
+    // queda "vieja" respecto a esa edicion y el proximo pedido va a
+    // detectar el cache como desactualizado y regenerar de nuevo --
+    // mejor eso (una regeneracion de mas, rarisima) que marcar como
+    // vigente un cache que en realidad no llego a incluir la edicion.
+    const ultimaEdicionAlGenerar = await obtenerUltimaEdicion(libro.id);
+
     const [historias, personajes] = await Promise.all([
       obtenerTodasLasHistorias(libro.id),
       obtenerTodosLosPersonajes(libro.id)
@@ -751,9 +812,9 @@ async function generarPdfLibro(libro, usuario) {
     // documento final con todo eso ya resuelto.
     browser = await puppeteer.launch(ARGUMENTOS_LANZAMIENTO_PUPPETEER);
 
-    const historiasCompactas = await medirHistorias(historias, personajes, usuario, libro, fondoPortada, browser);
+    const historiasCompactas = await medirHistorias(historias, personajes, USUARIO_PLACEHOLDER_CACHE, libro, fondoPortada, browser);
 
-    const htmlBorrador = construirDocumentoCompleto(historias, personajes, usuario, libro, {}, fondoPortada, historiasCompactas, fondoEmblema);
+    const htmlBorrador = construirDocumentoCompleto(historias, personajes, USUARIO_PLACEHOLDER_CACHE, libro, {}, fondoPortada, historiasCompactas, fondoEmblema);
     const pageBorrador = await browser.newPage();
     await pageBorrador.setContent(htmlBorrador, { waitUntil: 'networkidle0' });
     const pdfBorrador = await pageBorrador.pdf({ format: 'A4', printBackground: true });
@@ -761,7 +822,7 @@ async function generarPdfLibro(libro, usuario) {
 
     const numerosPagina = await encontrarNumerosDePagina(Buffer.from(pdfBorrador), historias, personajes);
 
-    const html = construirDocumentoCompleto(historias, personajes, usuario, libro, numerosPagina, fondoPortada, historiasCompactas, fondoEmblema);
+    const html = construirDocumentoCompleto(historias, personajes, USUARIO_PLACEHOLDER_CACHE, libro, numerosPagina, fondoPortada, historiasCompactas, fondoEmblema);
     const page = await browser.newPage();
 
     // Le pasamos nuestro HTML directamente (no una URL)
@@ -803,11 +864,144 @@ async function generarPdfLibro(libro, usuario) {
     // aviso legal (paginas 1 y 2), como en un libro de verdad.
     const pdfBuffer = await agregarNumerosDePagina(Buffer.from(pdfUint8Array), libro);
 
+    // La fecha de vigencia se guarda en un JSON aparte, NO se compara
+    // contra el mtime del archivo del sistema de archivos -- MySQL y
+    // Node pueden interpretar la zona horaria de un TIMESTAMP de
+    // formas distintas (se detecto un desfase real de unas horas entre
+    // el "actualizado_en" que devuelve mysql2 y la hora real del
+    // sistema), asi que comparar una fecha de la base contra un mtime
+    // del disco da falsos "desactualizado" todo el tiempo. Comparando
+    // SIEMPRE fecha-de-base contra fecha-de-base (ver "obtenerPdfBaseLibro"),
+    // cualquier desfase de interpretacion es el mismo de los dos lados
+    // y se cancela solo.
+    await fs.mkdir(CARPETA_CACHE_PDF, { recursive: true });
+    await fs.writeFile(rutaCachePdf(libro.slug), pdfBuffer);
+    await fs.writeFile(rutaCacheMeta(libro.slug), JSON.stringify({ ultimaEdicion: ultimaEdicionAlGenerar }));
+
     return pdfBuffer;
   } catch (error) {
     if (browser) await browser.close();
     throw error;
   }
+}
+
+function rutaCachePdf(slug) {
+  return path.join(CARPETA_CACHE_PDF, `${slug}.pdf`);
+}
+
+function rutaCacheMeta(slug) {
+  return path.join(CARPETA_CACHE_PDF, `${slug}.json`);
+}
+
+// Devuelve el PDF base de un libro (con la pagina de aviso legal en
+// blanco, ver USUARIO_PLACEHOLDER_CACHE) desde el cache en disco si
+// sigue vigente, o lo regenera si no existe o quedo desactualizado
+// por una edicion real del contenido (ver "obtenerUltimaEdicion" --
+// no importa si esa edicion paso por el admin o por un script suelto
+// contra la base, la deteccion es la misma).
+//
+// Es la pieza central de todo este cambio: antes, CADA descarga de
+// CADA usuario disparaba las tres pasadas de Puppeteer sobre el libro
+// entero (con todas sus imagenes), y eso fue lo que un par de veces
+// dejo sin memoria al servidor (ver el historial de "Killed" en los
+// logs de Railway). Ahora esas tres pasadas solo corren cuando el
+// libro realmente cambio, y el resto de las descargas leen el mismo
+// archivo ya armado del disco.
+async function obtenerPdfBaseLibro(libro) {
+  try {
+    const [ultimaEdicionActual, metaRaw] = await Promise.all([
+      obtenerUltimaEdicion(libro.id),
+      fs.readFile(rutaCacheMeta(libro.slug), 'utf8')
+    ]);
+    const { ultimaEdicion: ultimaEdicionEnCache } = JSON.parse(metaRaw);
+    if (new Date(ultimaEdicionEnCache).getTime() >= new Date(ultimaEdicionActual).getTime()) {
+      return fs.readFile(rutaCachePdf(libro.slug));
+    }
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    // ENOENT: todavia no hay cache para este libro (primera descarga
+    // de siempre, o se borro por un redeploy) -- sigue abajo a generarlo.
+  }
+
+  if (REGENERACIONES_EN_CURSO.has(libro.id)) {
+    return REGENERACIONES_EN_CURSO.get(libro.id);
+  }
+
+  const promesa = generarPdfBaseLibro(libro).finally(() => {
+    REGENERACIONES_EN_CURSO.delete(libro.id);
+  });
+  REGENERACIONES_EN_CURSO.set(libro.id, promesa);
+  return promesa;
+}
+
+// Arma, en su propio Chrome chico y rapido, SOLO la pagina de aviso
+// legal personalizada (nombre/email/fecha del comprador) -- ni
+// historias, ni personajes, ni imagenes, asi que el costo en memoria
+// es minimo comparado con armar el libro entero. Reusa exactamente el
+// mismo CSS que el resto del PDF (construirEstilos) para que se vea
+// identica a como se veia cuando esta pagina salia del render completo.
+async function generarPaginaAvisoLegalPdf(usuario, libro) {
+  const estilos = construirEstilos(PALETA, null);
+  const html = `
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+      <style>${estilos}</style>
+    </head>
+    <body>
+      ${paginaAvisoLegal(usuario, libro)}
+    </body>
+    </html>
+  `;
+
+  const browser = await puppeteer.launch(ARGUMENTOS_LANZAMIENTO_PUPPETEER);
+  try {
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: 'networkidle0' });
+    const pdfUint8Array = await page.pdf({ format: 'A4', printBackground: true });
+    return Buffer.from(pdfUint8Array);
+  } finally {
+    await browser.close();
+  }
+}
+
+// Superpone el contenido de "bufferPersonal" (una sola hoja) sobre la
+// PAGINA 2 de "bufferBase" -- en vez de sacar esa pagina y poner la
+// nueva en su lugar, lo que le cambiaria la identidad como objeto
+// dentro del PDF y podria descuadrar la entrada "Copia personal" del
+// indice de marcadores (que la referencia por objeto, no por numero).
+// Como la pagina base ya tiene el tamaño exacto de una hoja A4 (ver
+// ".pdf-page-fija"), el "estampado" cubre parejo todo el contenido
+// placeholder de abajo sin dejar ningun resto a la vista.
+async function fusionarPaginaPersonal(bufferBase, bufferPersonal) {
+  const pdfBase = await PDFDocument.load(bufferBase);
+  const [paginaEmbebida] = await pdfBase.embedPdf(bufferPersonal);
+  const pagina2 = pdfBase.getPages()[1];
+  pagina2.drawPage(paginaEmbebida, {
+    x: 0,
+    y: 0,
+    width: pagina2.getWidth(),
+    height: pagina2.getHeight()
+  });
+  return Buffer.from(await pdfBase.save());
+}
+
+// Punto de entrada de siempre: arma el PDF completo y personalizado
+// de un libro para un usuario puntual. Separada del handler de la
+// ruta (que solo se ocupa de autenticacion y de mandar la respuesta
+// HTTP) para poder generar un PDF de prueba desde un script suelto
+// sin tener que pasar por un login real -- ver
+// "module.exports.generarPdfLibro" al final del archivo. Por dentro
+// ahora usa el PDF base cacheado (ver "obtenerPdfBaseLibro") en vez
+// de rearmar el libro entero cada vez.
+async function generarPdfLibro(libro, usuario) {
+  const [bufferBase, bufferPersonal] = await Promise.all([
+    obtenerPdfBaseLibro(libro),
+    generarPaginaAvisoLegalPdf(usuario, libro)
+  ]);
+  return fusionarPaginaPersonal(bufferBase, bufferPersonal);
 }
 
 // GET /api/pdf -- genera el PDF completo y lo envia como archivo descargable.
