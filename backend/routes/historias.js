@@ -11,6 +11,13 @@ const router = express.Router();
 const pool = require('../config/db');
 const { tieneNivel, resolverLibro } = require('../middleware/auth');
 
+// Los textos vienen con parrafos separados por doble salto de linea
+// (\n\n, mismo criterio que el frontend usa para renderizarlos como
+// <p> separados) -- para la muestra gratuita alcanza con el primero.
+function primerParrafo(texto) {
+  return (texto || '').split(/\n\s*\n/)[0];
+}
+
 // ------------------------------------------------------------
 // GET /api/historias
 // Lista resumida de todas las historias (para el indice). Soporta un
@@ -54,7 +61,8 @@ router.get('/:slug', async (req, res) => {
     const historia = historiaRows[0];
 
     // Control de acceso: mismo criterio que en personajes.js.
-    if (!historia.es_preview && !tieneNivel(req.usuario, historia.libro_id, 'flipbook')) {
+    const tieneAccesoReal = tieneNivel(req.usuario, historia.libro_id, 'flipbook');
+    if (!historia.es_preview && !tieneAccesoReal) {
       return res.status(403).json({
         error: 'Contenido bloqueado',
         requiere: 'flipbook',
@@ -64,6 +72,17 @@ router.get('/:slug', async (req, res) => {
         tipo: historia.tipo,
         slug: historia.slug
       });
+    }
+
+    // Si llega hasta aca por ser parte de la muestra gratuita (y no
+    // porque el usuario de verdad tenga acceso), se recorta el texto
+    // al primer parrafo -- la muestra gratuita da un adelanto, no la
+    // historia entera. "muestra_limitada" le avisa al frontend que
+    // agregue el aviso/CTA de "sigue leyendo" al final (ver
+    // construirPaginaHistoria en frontend/js/app.js).
+    const muestraLimitada = !tieneAccesoReal;
+    if (muestraLimitada) {
+      historia.texto_completo = primerParrafo(historia.texto_completo);
     }
 
     // Personajes que participan, con su rol (protagonista, antagonista, etc.)
@@ -90,7 +109,8 @@ router.get('/:slug', async (req, res) => {
     res.json({
       ...historia,
       personajes,
-      fuentes
+      fuentes,
+      muestra_limitada: muestraLimitada
     });
   } catch (error) {
     console.error('Error al obtener la historia:', error);

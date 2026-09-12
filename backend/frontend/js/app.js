@@ -296,6 +296,22 @@ function construirAccionesBloqueadas() {
   return `<div class="locked-actions">${botonesHtml}</div>`;
 }
 
+// Aviso + CTA que se agrega DENTRO de una historia/personaje que SI
+// se ve (viene en la muestra gratuita, "es_preview") pero cuyo texto
+// llego recortado al primer parrafo porque el usuario no tiene acceso
+// real (ver "muestra_limitada" en routes/historias.js y
+// routes/personajes.js) -- a diferencia de "construirHojaBloqueada",
+// que reemplaza la hoja entera, esto se inserta a continuacion del
+// parrafo visible, reusando los mismos botones de siempre.
+function construirAvisoMuestraLimitada() {
+  return `
+    <div class="locked-inline">
+      <p class="locked-msg">Esto es solo el comienzo. Inicia sesión o consigue acceso para seguir leyendo.</p>
+      ${construirAccionesBloqueadas()}
+    </div>
+  `;
+}
+
 // Arma una hoja "bloqueada": se usa cuando el backend respondio 403
 // porque el personaje/historia no es parte de la muestra gratuita y
 // el usuario no tiene el nivel de acceso necesario. "titulo" es el
@@ -354,6 +370,7 @@ function construirPaginaPersonaje(personaje, mapaHistorias) {
           <p><span class="drop">${primeraLetra}</span>${restoTexto}</p>
           ${parrafosSiguientesHtml}
         </div>
+        ${personaje.muestra_limitada ? construirAvisoMuestraLimitada() : ''}
 
         ${renderizarInfoAdicional(personaje)}
         ${renderizarSellos(personaje)}
@@ -423,6 +440,7 @@ function construirPaginaHistoria(historia) {
       <div class="page-scroll">
         ${bannerHtml}
         <div class="body-txt">${parrafosHtml}</div>
+        ${historia.muestra_limitada ? construirAvisoMuestraLimitada() : ''}
       </div>
     </div>
   `;

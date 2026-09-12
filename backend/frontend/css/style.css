@@ -610,6 +610,13 @@ body.is-fullscreen .stage-wrap{ max-width:min(92vw, 109vh, 1500px); }
 .locked-cta.secundario:hover{ background:var(--surface-3); }
 .locked-cta s{ opacity:0.6; margin-right:4px; }
 
+/* ---- Aviso de "muestra limitada" DENTRO de una historia/personaje
+   que si se ve (es_preview) pero llego recortada al primer parrafo
+   -- a diferencia de ".locked-face" (reemplaza la hoja entera), esto
+   se inserta a continuacion del texto visible, centrado y separado
+   por una linea, reusando ".locked-msg"/".locked-actions" tal cual. */
+.locked-inline{ display:flex; flex-direction:column; align-items:center; text-align:center; margin-top:18px; padding-top:18px; border-top:1px solid var(--line); }
+
 /* ---- Overlay de "generando PDF" (ver descargarPdf() en auth.js) ---- */
 .pdf-loading-overlay{
   position:fixed; inset:0; background:rgba(6,5,4,0.75); z-index:80;

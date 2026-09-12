@@ -14,6 +14,13 @@ const router = express.Router();       // creamos un router propio para este arc
 const pool = require('../config/db');  // importamos la conexion a MySQL que armamos antes
 const { tieneNivel, resolverLibro } = require('../middleware/auth');
 
+// Los textos vienen con parrafos separados por doble salto de linea
+// (\n\n, mismo criterio que el frontend usa para renderizarlos como
+// <p> separados) -- para la muestra gratuita alcanza con el primero.
+function primerParrafo(texto) {
+  return (texto || '').split(/\n\s*\n/)[0];
+}
+
 // ------------------------------------------------------------
 // Configuracion de multer para la subida de imagenes de personajes.
 // Guarda el archivo en backend/public/images/<slug-del-libro>/ (una
@@ -134,7 +141,8 @@ router.get('/:slug', async (req, res) => {
     // Devolvemos igual los datos basicos (nombre, epitetos, tipo,
     // imagen) para que el frontend pueda mostrar una "hoja bloqueada"
     // con el nombre visible en vez de un error generico.
-    if (!personaje.es_preview && !tieneNivel(req.usuario, personaje.libro_id, 'flipbook')) {
+    const tieneAccesoReal = tieneNivel(req.usuario, personaje.libro_id, 'flipbook');
+    if (!personaje.es_preview && !tieneAccesoReal) {
       return res.status(403).json({
         error: 'Contenido bloqueado',
         requiere: 'flipbook',
@@ -145,6 +153,16 @@ router.get('/:slug', async (req, res) => {
         slug: personaje.slug,
         imagen_principal: personaje.imagen_principal
       });
+    }
+
+    // Si llega hasta aca por ser parte de la muestra gratuita (y no
+    // porque el usuario de verdad tenga acceso), se recorta la
+    // biografia al primer parrafo -- mismo criterio que en
+    // routes/historias.js. "muestra_limitada" le avisa al frontend
+    // que agregue el aviso/CTA de "sigue leyendo" al final.
+    const muestraLimitada = !tieneAccesoReal;
+    if (muestraLimitada) {
+      personaje.descripcion_larga = primerParrafo(personaje.descripcion_larga);
     }
 
     // 2. Simbolos asociados (usamos JOIN para traer el nombre del simbolo,
@@ -205,7 +223,8 @@ router.get('/:slug', async (req, res) => {
       poderes,
       familia,
       historias,
-      imagenes
+      imagenes,
+      muestra_limitada: muestraLimitada
     });
   } catch (error) {
     console.error('Error al obtener el personaje:', error);
