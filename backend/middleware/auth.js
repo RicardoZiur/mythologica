@@ -57,10 +57,16 @@ async function autenticarOpcional(req, res, next) {
     try {
       const payload = jwt.verify(token, process.env.JWT_SECRET);
       const [filas] = await pool.query(
-        'SELECT id, nombre, email, rol, email_verificado FROM usuarios WHERE id = ?',
+        'SELECT id, nombre, email, rol, email_verificado, sesion_version FROM usuarios WHERE id = ?',
         [payload.id]
       );
-      if (filas.length > 0) {
+      // "payload.v" es la version de sesion que tenia el usuario AL
+      // MOMENTO de loguearse (ver generarSesion en routes/auth.js). Si
+      // no coincide con la version actual de la fila, es un token de
+      // una sesion vieja que ya fue invalidada (restablecer la
+      // contraseña incrementa esta columna) -- se trata igual que un
+      // token vencido, en vez de seguir confiando en el.
+      if (filas.length > 0 && filas[0].sesion_version === payload.v) {
         const usuario = filas[0];
         const [accesos] = await pool.query(
           'SELECT libro_id, nivel_acceso FROM accesos WHERE usuario_id = ?',

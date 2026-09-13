@@ -21,7 +21,7 @@ const pool = require('../config/db');
 const { requiereAdmin, requiereSesion, LIBRO_POR_DEFECTO } = require('../middleware/auth');
 const { enviarEmailVerificacion, enviarEmailRecuperacion } = require('../utils/email');
 
-const DURACION_SESION = '30d';
+const DURACION_SESION = '7d';
 const HORAS_VALIDEZ_TOKEN_VERIFICACION = 24;
 const MINUTOS_VALIDEZ_TOKEN_RECUPERACION = 60;
 const INTENTOS_MAXIMOS_LOGIN = 5;
@@ -62,8 +62,20 @@ const limitadorLogin = rateLimit({
 // Un usuario recien registrado no tiene nivel_acceso todavia (recien
 // se crea al pagar/al asignarlo un admin), asi que el token solo
 // necesita el id.
+//
+// "v" (sesion_version) es lo que permite invalidar tokens viejos sin
+// guardar una lista de sesiones activas en el servidor: se compara
+// contra "usuarios.sesion_version" en cada peticion (ver
+// autenticarOpcional en middleware/auth.js), y restablecer la
+// contraseña la incrementa -- asi, si alguien restablece su
+// contraseña porque sospecha que le vieron la sesion, cualquier token
+// viejo (robado o no) deja de servir al instante, en vez de seguir
+// valido hasta que expire solo. Un usuario recien registrado no tiene
+// la columna en el objeto que le pasamos aca (se arma a mano en
+// POST /registro), asi que cae a 1, el default real de la columna
+// para una fila recien insertada.
 function generarSesion(usuario) {
-  const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: DURACION_SESION });
+  const token = jwt.sign({ id: usuario.id, v: usuario.sesion_version || 1 }, process.env.JWT_SECRET, { expiresIn: DURACION_SESION });
 
   return {
     token,
@@ -109,12 +121,18 @@ router.post('/registro', async (req, res) => {
 
     const passwordHash = await bcrypt.hash(password, 12);
     const tokenVerificacion = crypto.randomBytes(32).toString('hex');
-    const tokenExpira = new Date(Date.now() + HORAS_VALIDEZ_TOKEN_VERIFICACION * 60 * 60 * 1000);
 
+    // "NOW() + INTERVAL" en vez de calcular la fecha en Node y mandarla
+    // ya armada: se detecto que el reloj/zona horaria del servidor de
+    // MySQL no coincide con la hora real (~3 horas de diferencia), asi
+    // que una fecha calculada en Node y comparada despues contra el
+    // NOW() de MySQL (ver GET /verificar-email) podia quedar "vencida"
+    // de entrada. Calculando y comparando TODO del lado de MySQL, el
+    // desfase da igual -- nunca se cruza con el reloj de Node.
     const [resultado] = await pool.query(
       `INSERT INTO usuarios (nombre, email, password_hash, rol, token_verificacion, token_verificacion_expira)
-       VALUES (?, ?, ?, 'lector', ?, ?)`,
-      [nombre, email, passwordHash, tokenVerificacion, tokenExpira]
+       VALUES (?, ?, ?, 'lector', ?, NOW() + INTERVAL ? HOUR)`,
+      [nombre, email, passwordHash, tokenVerificacion, HORAS_VALIDEZ_TOKEN_VERIFICACION]
     );
 
     const usuario = {
@@ -188,11 +206,12 @@ router.post('/reenviar-verificacion', requiereSesion, async (req, res) => {
     }
 
     const tokenVerificacion = crypto.randomBytes(32).toString('hex');
-    const tokenExpira = new Date(Date.now() + HORAS_VALIDEZ_TOKEN_VERIFICACION * 60 * 60 * 1000);
 
+    // Mismo criterio que en POST /registro: "NOW() + INTERVAL" del
+    // lado de MySQL, no una fecha calculada en Node.
     await pool.query(
-      'UPDATE usuarios SET token_verificacion = ?, token_verificacion_expira = ? WHERE id = ?',
-      [tokenVerificacion, tokenExpira, req.usuario.id]
+      'UPDATE usuarios SET token_verificacion = ?, token_verificacion_expira = NOW() + INTERVAL ? HOUR WHERE id = ?',
+      [tokenVerificacion, HORAS_VALIDEZ_TOKEN_VERIFICACION, req.usuario.id]
     );
 
     await enviarEmailVerificacion(req.usuario, tokenVerificacion);
@@ -222,11 +241,15 @@ router.post('/olvide-password', limitadorRecuperacion, async (req, res) => {
     if (filas.length > 0) {
       const usuario = filas[0];
       const tokenRecuperacion = crypto.randomBytes(32).toString('hex');
-      const tokenExpira = new Date(Date.now() + MINUTOS_VALIDEZ_TOKEN_RECUPERACION * 60 * 1000);
 
+      // Mismo criterio que en POST /registro: la fecha de vencimiento
+      // se calcula con "NOW() + INTERVAL" del lado de MySQL, no en
+      // Node, para que el desfase de reloj entre Node y el servidor de
+      // MySQL nunca entre en juego (el chequeo de mas abajo,
+      // "token_recuperacion_expira > NOW()", tambien es 100% MySQL).
       await pool.query(
-        'UPDATE usuarios SET token_recuperacion = ?, token_recuperacion_expira = ? WHERE id = ?',
-        [tokenRecuperacion, tokenExpira, usuario.id]
+        'UPDATE usuarios SET token_recuperacion = ?, token_recuperacion_expira = NOW() + INTERVAL ? MINUTE WHERE id = ?',
+        [tokenRecuperacion, MINUTOS_VALIDEZ_TOKEN_RECUPERACION, usuario.id]
       );
 
       await enviarEmailRecuperacion(usuario, tokenRecuperacion);
@@ -266,10 +289,15 @@ router.post('/restablecer-password', async (req, res) => {
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
+    // "sesion_version = sesion_version + 1" invalida de una cualquier
+    // token ya emitido (ver generarSesion mas arriba) -- si alguien
+    // restablece su contraseña porque le robaron la sesion, esa sesion
+    // vieja deja de servir en el acto, en cualquier dispositivo, en
+    // vez de seguir activa hasta que expire sola.
     await pool.query(
       `UPDATE usuarios
        SET password_hash = ?, token_recuperacion = NULL, token_recuperacion_expira = NULL,
-           intentos_fallidos = 0, bloqueado_hasta = NULL
+           intentos_fallidos = 0, bloqueado_hasta = NULL, sesion_version = sesion_version + 1
        WHERE id = ?`,
       [passwordHash, filas[0].id]
     );
@@ -296,15 +324,27 @@ router.post('/login', limitadorLogin, async (req, res) => {
       return res.status(400).json({ error: 'Faltan email y/o password' });
     }
 
-    const [filas] = await pool.query('SELECT * FROM usuarios WHERE email = ?', [email]);
+    // "esta_bloqueado"/"minutos_restantes" se calculan del lado de
+    // MySQL (comparando "bloqueado_hasta" contra su propio NOW()) en
+    // vez de traer la fecha cruda y compararla contra "new Date()" de
+    // Node -- el reloj/zona horaria del servidor de MySQL no coincide
+    // con la hora real (~3 horas de diferencia detectadas), asi que
+    // esa comparacion cruzada podia dejar el bloqueo activo mucho mas
+    // tiempo del que corresponde (o directamente nunca vencer).
+    const [filas] = await pool.query(
+      `SELECT *, (bloqueado_hasta > NOW()) AS esta_bloqueado,
+              TIMESTAMPDIFF(MINUTE, NOW(), bloqueado_hasta) AS minutos_restantes
+       FROM usuarios WHERE email = ?`,
+      [email]
+    );
     if (filas.length === 0) {
       return res.status(401).json({ error: 'Email o contraseña incorrectos' });
     }
 
     const usuario = filas[0];
 
-    if (usuario.bloqueado_hasta && new Date(usuario.bloqueado_hasta) > new Date()) {
-      const minutosRestantes = Math.ceil((new Date(usuario.bloqueado_hasta) - new Date()) / 60000);
+    if (usuario.esta_bloqueado) {
+      const minutosRestantes = Math.max(1, usuario.minutos_restantes);
       return res.status(429).json({
         error: `Demasiados intentos fallidos. Prueba de nuevo en ${minutosRestantes} minuto(s).`
       });
@@ -313,16 +353,16 @@ router.post('/login', limitadorLogin, async (req, res) => {
     const passwordValida = await bcrypt.compare(password, usuario.password_hash);
     if (!passwordValida) {
       const intentos = usuario.intentos_fallidos + 1;
-      const bloqueadoHasta = intentos >= INTENTOS_MAXIMOS_LOGIN
-        ? new Date(Date.now() + MINUTOS_BLOQUEO_LOGIN * 60 * 1000)
-        : null;
+      const seBloqueaAhora = intentos >= INTENTOS_MAXIMOS_LOGIN;
 
+      // Mismo criterio de "NOW() + INTERVAL" del lado de MySQL para la
+      // fecha de desbloqueo -- ver el comentario de mas arriba.
       await pool.query(
-        'UPDATE usuarios SET intentos_fallidos = ?, bloqueado_hasta = ? WHERE id = ?',
-        [intentos, bloqueadoHasta, usuario.id]
+        `UPDATE usuarios SET intentos_fallidos = ?, bloqueado_hasta = ${seBloqueaAhora ? 'NOW() + INTERVAL ? MINUTE' : 'NULL'} WHERE id = ?`,
+        seBloqueaAhora ? [intentos, MINUTOS_BLOQUEO_LOGIN, usuario.id] : [intentos, usuario.id]
       );
 
-      if (bloqueadoHasta) {
+      if (seBloqueaAhora) {
         return res.status(429).json({
           error: `Demasiados intentos fallidos. Prueba de nuevo en ${MINUTOS_BLOQUEO_LOGIN} minutos.`
         });
