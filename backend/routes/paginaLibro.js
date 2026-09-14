@@ -102,6 +102,8 @@ function construirHtmlPaginaLibro(libro, conteos, personajesDestacados) {
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#131217">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${escaparHtml(titulo)}</title>
     <meta name="description" content="${escaparHtml(descripcionCorta)}">
@@ -158,6 +160,7 @@ function construirHtmlPaginaLibro(libro, conteos, personajesDestacados) {
           </div>
         </section>
       </div>
+      <script src="/js/pwa.js"></script>
     </body>
     </html>
   `;
