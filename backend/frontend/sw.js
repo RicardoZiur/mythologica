@@ -17,7 +17,9 @@
 // GET del propio sitio que no sean ni la API ni una pagina dinamica.
 // ============================================================
 
-const CACHE_NOMBRE = 'mythologica-v1';
+// Subir este numero cada vez que cambien JS/CSS: el cache es "primero el cache" y
+// sin un nombre nuevo los visitantes que ya vinieron seguirian con los archivos viejos.
+const CACHE_NOMBRE = 'mythologica-v2';
 
 self.addEventListener('install', () => {
   // No usamos self.skipWaiting()+un precache fijo con cache.addAll():

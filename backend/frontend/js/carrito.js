@@ -69,3 +69,52 @@ window.pintarContadorCarrito = function pintarContadorCarrito() {
 };
 
 document.addEventListener('DOMContentLoaded', window.pintarContadorCarrito);
+
+// ------------------------------------------------------------
+// Codigo de descuento por enlace: "?codigo=LEXICO50" en cualquier
+// pagina lo guarda para que carrito.html lo aplique solo (ver
+// iniciarCarrito en carrito-resumen.js), sin que haya que escribirlo.
+// Es solo una comodidad: el servidor lo valida igual que si se
+// escribiera a mano, y si no sirve se descarta en el carrito.
+// ------------------------------------------------------------
+const CLAVE_CODIGO = 'mythologica_codigo';
+
+window.obtenerCodigoGuardado = function obtenerCodigoGuardado() {
+  try {
+    return localStorage.getItem(CLAVE_CODIGO);
+  } catch (error) {
+    return null;
+  }
+};
+
+window.olvidarCodigoGuardado = function olvidarCodigoGuardado() {
+  try {
+    localStorage.removeItem(CLAVE_CODIGO);
+  } catch (error) {
+    // Sin localStorage no habia nada guardado.
+  }
+};
+
+(function capturarCodigoDeLaUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const codigo = (params.get('codigo') || '').trim().toUpperCase().slice(0, 50);
+  if (!codigo) return;
+
+  try {
+    localStorage.setItem(CLAVE_CODIGO, codigo);
+  } catch (error) {
+    return;
+  }
+  // Se saca de la URL para que no quede en el historial ni se comparta sin querer.
+  params.delete('codigo');
+  const resto = params.toString();
+  window.history.replaceState({}, '', window.location.pathname + (resto ? `?${resto}` : '') + window.location.hash);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const aviso = document.createElement('div');
+    aviso.className = 'pago-aviso';
+    aviso.textContent = `Tu código ${codigo} quedó guardado: se aplicará en el carrito.`;
+    document.body.appendChild(aviso);
+    setTimeout(() => aviso.remove(), 6000);
+  });
+})();

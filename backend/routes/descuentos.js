@@ -44,7 +44,8 @@ async function calcularDescuentoAplicable(libroId, codigoTexto, usuarioId) {
     const [filas] = await pool.query(
       `SELECT * FROM descuentos
        WHERE tipo = 'codigo' AND activo = 1 AND codigo = ?
-         AND (libro_id IS NULL OR libro_id = ?)`,
+         AND (libro_id IS NULL OR libro_id = ?)
+         AND (vence_en IS NULL OR vence_en > NOW())`,
       [String(codigoTexto).trim().toUpperCase(), libroId]
     );
     const descuento = filas[0];
@@ -65,6 +66,7 @@ async function calcularDescuentoAplicable(libroId, codigoTexto, usuarioId) {
     `SELECT * FROM descuentos
      WHERE tipo = 'general' AND activo = 1
        AND (libro_id IS NULL OR libro_id = ?)
+       AND (vence_en IS NULL OR vence_en > NOW())
      ORDER BY porcentaje DESC
      LIMIT 1`,
     [libroId]
@@ -79,8 +81,10 @@ async function calcularDescuentoAplicable(libroId, codigoTexto, usuarioId) {
 router.get('/', requiereAdmin, async (req, res) => {
   try {
     const [filas] = await pool.query(`
-      SELECT d.id, d.tipo, d.codigo, d.porcentaje, d.libro_id, d.activo, d.creado_en,
-             l.titulo AS libro_titulo
+      SELECT d.id, d.tipo, d.codigo, d.porcentaje, d.libro_id, d.max_items, d.vence_en, d.activo, d.creado_en,
+             l.titulo AS libro_titulo,
+             (SELECT COUNT(DISTINCT p.pedido_id) FROM pagos p
+              WHERE p.descuento_id = d.id AND p.estado = 'aprobado') AS compras_aprobadas
       FROM descuentos d
       LEFT JOIN libros l ON l.id = d.libro_id
       ORDER BY d.creado_en DESC
@@ -95,7 +99,8 @@ router.get('/', requiereAdmin, async (req, res) => {
 // ------------------------------------------------------------
 // POST /api/descuentos
 // Solo administradores. Body: { tipo: 'codigo'|'general', codigo?,
-// porcentaje, libro_id? } -- "libro_id" ausente/null = aplica a todos.
+// porcentaje, libro_id?, max_items?, vence_en? } -- "libro_id"
+// ausente/null = aplica a todos.
 // ------------------------------------------------------------
 router.post('/', requiereAdmin, async (req, res) => {
   try {
@@ -122,10 +127,28 @@ router.post('/', requiereAdmin, async (req, res) => {
 
     const libroIdFinal = libroId ? Number(libroId) : null;
 
+    // Limites opcionales (ver scripts/migrar-descuentos-limites.js):
+    // "max_items" vacio = aplica a todos los libros del carrito;
+    // "vence_en" es una fecha (AAAA-MM-DD) y vale hasta el final de ese dia.
+    let maxItems = null;
+    if (req.body.max_items !== undefined && req.body.max_items !== null && req.body.max_items !== '') {
+      maxItems = Number(req.body.max_items);
+      if (!Number.isInteger(maxItems) || maxItems < 1 || maxItems > 50) {
+        return res.status(400).json({ error: 'max_items debe ser un entero entre 1 y 50 (o vacío = sin límite)' });
+      }
+    }
+    let venceEn = null;
+    if (req.body.vence_en) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(String(req.body.vence_en))) {
+        return res.status(400).json({ error: 'vence_en debe ser una fecha AAAA-MM-DD' });
+      }
+      venceEn = `${req.body.vence_en} 23:59:59`;
+    }
+
     const [resultado] = await pool.query(
-      `INSERT INTO descuentos (tipo, codigo, porcentaje, libro_id, creado_por)
-       VALUES (?, ?, ?, ?, ?)`,
-      [tipo, codigo, porcentajeNum, libroIdFinal, req.usuario.id]
+      `INSERT INTO descuentos (tipo, codigo, porcentaje, libro_id, max_items, vence_en, creado_por)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [tipo, codigo, porcentajeNum, libroIdFinal, maxItems, venceEn, req.usuario.id]
     );
 
     res.status(201).json({ id: resultado.insertId });

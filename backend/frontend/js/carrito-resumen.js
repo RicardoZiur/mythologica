@@ -123,6 +123,7 @@ async function pintarCarrito() {
     }
     errorCodigo = error.message;
     window.CODIGO_DESCUENTO_ACTUAL = null;
+    window.olvidarCodigoGuardado(); // si vino por enlace y no sirve, no se reintenta en cada visita
     try {
       cotizacion = await cotizarCarrito();
     } catch (error2) {
@@ -143,7 +144,7 @@ async function pintarCarrito() {
   contenedor.innerHTML = `
     <div class="carrito-items">${itemsHtml}</div>
     <div class="carrito-codigo">
-      <input type="text" id="carritoCodigoInput" placeholder="CÓDIGO DE DESCUENTO" maxlength="50">
+      <input type="text" id="carritoCodigoInput" placeholder="CÓDIGO DE DESCUENTO" maxlength="50" value="${escaparHtml(window.CODIGO_DESCUENTO_ACTUAL || '')}">
       <button type="button" class="locked-cta secundario" id="btnAplicarCodigo">Aplicar</button>
     </div>
     <p class="carrito-codigo-msg" id="carritoCodigoMsg">${errorCodigo ? escaparHtml(errorCodigo) : ''}</p>
@@ -255,6 +256,7 @@ async function descargarGratis() {
 
     window.vaciarCarrito();
     window.CODIGO_DESCUENTO_ACTUAL = null;
+    window.olvidarCodigoGuardado();
 
     const librosConPdf = datos.items.filter(item => item.nivel_acceso === 'completo');
     boton.textContent = librosConPdf.length > 0 ? 'Generando PDF...' : 'Descargar gratis';
@@ -299,6 +301,7 @@ async function confirmarVueltaDePago() {
     if (respuesta.ok && datos.estado === 'aprobado') {
       aviso.textContent = '¡Pago aprobado! Actualizando tu biblioteca...';
       window.vaciarCarrito();
+      window.olvidarCodigoGuardado();
       await cargarSesion(); // definida en auth.js
       setTimeout(() => aviso.remove(), 4000);
       return true;
@@ -327,6 +330,8 @@ async function iniciarCarrito() {
   }
 
   await confirmarVueltaDePago();
+  // Un código que llegó por enlace (?codigo=, ver carrito.js) se aplica solo.
+  window.CODIGO_DESCUENTO_ACTUAL = window.obtenerCodigoGuardado();
   await pintarCarrito();
 }
 

@@ -260,9 +260,38 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
       precio_final: precioFinal,
       es_actualizacion: esActualizacion,
       descuento_id: descuento ? descuento.id : null,
-      descuento_porcentaje: descuento ? descuento.porcentaje : 0
+      descuento_porcentaje: descuento ? descuento.porcentaje : 0,
+      descuento_max_items: descuento ? descuento.max_items : null
     });
   }
+
+  // Un descuento con "max_items" (ver scripts/migrar-descuentos-limites.js)
+  // solo rebaja esa cantidad de libros de la compra: los mas caros,
+  // para que quien lo usa reciba el mayor beneficio posible. El resto
+  // de los items queda como si no se hubiera escrito codigo: con el
+  // descuento general que tenga (si hay) o a precio de lista -- usar el
+  // codigo nunca puede salir mas caro que no usarlo.
+  const itemsPorDescuento = new Map();
+  for (const item of items) {
+    if (!item.descuento_id || !item.descuento_max_items) continue;
+    if (!itemsPorDescuento.has(item.descuento_id)) itemsPorDescuento.set(item.descuento_id, []);
+    itemsPorDescuento.get(item.descuento_id).push(item);
+  }
+  for (const itemsDelDescuento of itemsPorDescuento.values()) {
+    const limite = itemsDelDescuento[0].descuento_max_items;
+    const sobrantes = itemsDelDescuento
+      .sort((a, b) => b.precio_original - a.precio_original)
+      .slice(limite);
+    for (const item of sobrantes) {
+      const general = await calcularDescuentoAplicable(item.libroId, null, usuario.id);
+      item.precio_final = general
+        ? Math.round(item.precio_original * (1 - general.porcentaje / 100))
+        : item.precio_original;
+      item.descuento_id = general ? general.id : null;
+      item.descuento_porcentaje = general ? general.porcentaje : 0;
+    }
+  }
+  items.forEach(item => delete item.descuento_max_items);
 
   // Si se mando un codigo y NINGUN item del carrito lo aprovecho, es
   // que el codigo no aplica a nada de lo que hay en el carrito --

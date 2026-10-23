@@ -37,6 +37,9 @@ function construirTablaDescuentos(descuentos) {
       <td>${d.tipo === 'codigo' ? d.codigo : 'General'}</td>
       <td>${d.porcentaje}%</td>
       <td>${etiquetaLibro(d)}</td>
+      <td>${d.max_items ? `${d.max_items} por compra` : 'Sin límite'}</td>
+      <td>${d.vence_en ? formatearFecha(d.vence_en) : 'No vence'}</td>
+      <td>${d.compras_aprobadas}</td>
       <td><span class="admin-estado ${d.activo ? 'aprobado' : 'rechazado'}">${d.activo ? 'Activo' : 'Inactivo'}</span></td>
       <td>${formatearFecha(d.creado_en)}</td>
       <td><button class="admin-toggle" data-id="${d.id}" data-activo="${d.activo}">${d.activo ? 'Desactivar' : 'Activar'}</button></td>
@@ -51,6 +54,9 @@ function construirTablaDescuentos(descuentos) {
             <th>Código</th>
             <th>%</th>
             <th>Aplica a</th>
+            <th>Libros</th>
+            <th>Vence</th>
+            <th>Compras</th>
             <th>Estado</th>
             <th>Creado</th>
             <th></th>
@@ -106,7 +112,9 @@ async function manejarEnvioFormulario(evento) {
   const cuerpo = {
     tipo,
     porcentaje: Number(form.porcentaje.value),
-    libro_id: form.libro_id.value || null
+    libro_id: form.libro_id.value || null,
+    max_items: form.max_items.value || null,
+    vence_en: form.vence_en.value || null
   };
   if (tipo === 'codigo') cuerpo.codigo = form.codigo.value;
 
@@ -150,6 +158,12 @@ function construirFormulario() {
           <select name="libro_id" id="selLibro">
             <option value="">Todos los libros</option>
           </select>
+        </label>
+        <label>Máximo de libros por compra (opcional)
+          <input type="number" name="max_items" min="1" max="50" placeholder="Vacío = todos los del carrito">
+        </label>
+        <label>Vence el (opcional)
+          <input type="date" name="vence_en">
         </label>
         <p class="auth-error" id="formError"></p>
         <button type="submit" class="auth-submit">Crear descuento</button>
