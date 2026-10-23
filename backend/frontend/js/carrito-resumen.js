@@ -62,7 +62,7 @@ async function cotizarCarrito() {
 function construirFilaItem(item) {
   const emblemaUrl = `/images/${item.libro}/portada-emblema.png`;
   const precioHtml = item.descuento_porcentaje > 0
-    ? `<s>${formatearMonto(item.precio_original, 'CLP')}</s> ${formatearMonto(item.precio_final, 'CLP')} <span class="carrito-item-descuento">-${item.descuento_porcentaje}%</span>`
+    ? `<s>${formatearMonto(item.precio_original, 'CLP')}</s> ${formatearMonto(item.precio_final, 'CLP')} <span class="carrito-item-descuento">-${item.descuento_porcentaje}% · ${item.descuento_codigo ? escaparHtml(item.descuento_codigo) : 'oferta'}</span>`
     : formatearMonto(item.precio_final, 'CLP');
   const etiquetaNivel = item.es_actualizacion ? ETIQUETA_SOLO_PDF : (ETIQUETAS_NIVEL[item.nivel_acceso] || item.nivel_acceso);
 

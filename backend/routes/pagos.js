@@ -261,6 +261,8 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
       es_actualizacion: esActualizacion,
       descuento_id: descuento ? descuento.id : null,
       descuento_porcentaje: descuento ? descuento.porcentaje : 0,
+      // De donde sale la rebaja, para que el carrito lo diga: el codigo escrito, o null si es una oferta general.
+      descuento_codigo: descuento ? descuento.codigo : null,
       descuento_max_items: descuento ? descuento.max_items : null
     });
   }
@@ -289,6 +291,7 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
         : item.precio_original;
       item.descuento_id = general ? general.id : null;
       item.descuento_porcentaje = general ? general.porcentaje : 0;
+      item.descuento_codigo = null;
     }
   }
   items.forEach(item => delete item.descuento_max_items);
@@ -320,8 +323,8 @@ router.post('/cotizar-carrito', requiereSesion, async (req, res) => {
     if (resultado.error) return res.status(400).json({ error: resultado.error });
 
     res.json({
-      items: resultado.items.map(({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje, es_actualizacion }) =>
-        ({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje, es_actualizacion })),
+      items: resultado.items.map(({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje, descuento_codigo, es_actualizacion }) =>
+        ({ libro, titulo, nivel_acceso, precio_original, precio_final, descuento_porcentaje, descuento_codigo, es_actualizacion })),
       total: resultado.total,
       moneda: MONEDA
     });
