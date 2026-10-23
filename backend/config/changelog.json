@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.3.0",
+    "fecha": "2026-10-23",
+    "cambios": [
+      "PDF de los libros unas 7 veces más livianos (por ejemplo, Mitología Egipcia de 35 a 4,8 MB) con la misma calidad de imagen",
+      "Los PDF de todos los libros se preparan solos después de cada actualización del sitio: la primera descarga ya no espera",
+      "El aviso al descargar el PDF explica que incluye una página de copia personal a tu nombre"
+    ]
+  },
+  {
     "version": "1.2.1",
     "fecha": "2026-10-23",
     "cambios": [

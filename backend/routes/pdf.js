@@ -35,7 +35,8 @@ const sharp = require('sharp');
 // en vez de memoria compartida para esos buffers -- mas lento, pero no
 // se cae.
 const ARGUMENTOS_LANZAMIENTO_PUPPETEER = { args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };
-const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
+const { PDFDocument, PDFName, PDFRawStream, StandardFonts, rgb } = require('pdf-lib');
+const zlib = require('zlib');
 const { requiereNivel } = require('../middleware/auth');
 
 // Carpeta donde se cachea el PDF "base" de cada libro -- todo el
@@ -667,6 +668,63 @@ async function encontrarNumerosDePagina(pdfBuffer, historias, personajes) {
 // tambien la ULTIMA (la contraportada, ver paginaContraportada) -- ni
 // la tapa ni la contratapa de un libro impreso llevan numero, y ahi es
 // tambien donde "encontrarNumerosDePagina" empieza/termina de buscar.
+// ------------------------------------------------------------
+// IMAGENES: de "sin perdida" a JPEG, DESPUES de imprimir
+// ------------------------------------------------------------
+// Aun con las imagenes ya achicadas (ver comoDataUriParaPdf), Chrome
+// las guarda dentro del PDF SIN compresion con perdida (FlateDecode,
+// como un PNG): en Mitologia Egipcia eran 62 imagenes = 34,5 de los
+// 35,4 MB del archivo. Aca se vuelven a guardar como JPEG de calidad
+// 92, con el mismo tamaño en pixeles: el libro bajo a 4,8 MB y la
+// diferencia media por pixel quedo por debajo de 1 de 255 (invisible,
+// comparado ampliado al doble antes de aprobarlo). Solo toca fotos
+// RGB de 8 bits sin parametros raros -- cualquier otra imagen (con
+// transparencia, mascaras, otro espacio de color) queda tal cual.
+const CALIDAD_JPEG_PDF = 92;
+
+// Version de "como se arma" el PDF base, guardada junto a cada PDF
+// cacheado (ver obtenerPdfBaseLibro): subirla cuando cambie la forma de
+// generarlo (como esta compresion) hace que los ya guardados se
+// regeneren aunque el libro no se haya editado.
+const VERSION_PDF_BASE = 2;
+
+function canalesDeImagen(pdfDoc, espacioColor) {
+  const nombre = espacioColor?.toString();
+  if (nombre === '/DeviceRGB') return 3;
+  // Chrome etiqueta las fotos con un perfil ICC: [/ICCBased <stream con /N 3>]
+  if (nombre?.startsWith('[ /ICCBased')) {
+    const perfil = pdfDoc.context.lookup(espacioColor.get(1));
+    return Number(perfil?.dict.get(PDFName.of('N'))?.toString()) === 3 ? 3 : 0;
+  }
+  return 0;
+}
+
+async function comprimirImagenesPdf(pdfDoc) {
+  for (const [ref, objeto] of pdfDoc.context.enumerateIndirectObjects()) {
+    if (!(objeto instanceof PDFRawStream)) continue;
+    const dict = objeto.dict;
+    if (dict.get(PDFName.of('Subtype'))?.toString() !== '/Image') continue;
+    if (dict.get(PDFName.of('Filter'))?.toString() !== '/FlateDecode') continue;
+    if (dict.get(PDFName.of('DecodeParms')) || dict.get(PDFName.of('SMask')) || dict.get(PDFName.of('ImageMask'))) continue;
+    if (Number(dict.get(PDFName.of('BitsPerComponent'))?.toString()) !== 8) continue;
+    if (canalesDeImagen(pdfDoc, dict.get(PDFName.of('ColorSpace'))) !== 3) continue;
+
+    const width = Number(dict.get(PDFName.of('Width')).toString());
+    const height = Number(dict.get(PDFName.of('Height')).toString());
+    const pixeles = zlib.inflateSync(Buffer.from(objeto.contents));
+    if (pixeles.length !== width * height * 3) continue;
+
+    const jpeg = await sharp(pixeles, { raw: { width, height, channels: 3 } })
+      .jpeg({ quality: CALIDAD_JPEG_PDF, mozjpeg: true, chromaSubsampling: '4:4:4' })
+      .toBuffer();
+    if (jpeg.length >= objeto.contents.length) continue;
+
+    dict.set(PDFName.of('Filter'), PDFName.of('DCTDecode'));
+    dict.set(PDFName.of('Length'), pdfDoc.context.obj(jpeg.length));
+    pdfDoc.context.assign(ref, PDFRawStream.of(dict, jpeg));
+  }
+}
+
 async function agregarNumerosDePagina(pdfBuffer, libro) {
   const PAGINAS_SIN_NUMERAR = 2;
   const pdfDoc = await PDFDocument.load(pdfBuffer);
@@ -705,6 +763,9 @@ async function agregarNumerosDePagina(pdfBuffer, libro) {
       color
     });
   });
+
+  // Aprovecha que el documento ya esta abierto (un PDF base pesa decenas de MB).
+  await comprimirImagenesPdf(pdfDoc);
 
   const bytesFinal = await pdfDoc.save();
   return Buffer.from(bytesFinal);
@@ -876,7 +937,7 @@ async function generarPdfBaseLibro(libro) {
     // y se cancela solo.
     await fs.mkdir(CARPETA_CACHE_PDF, { recursive: true });
     await fs.writeFile(rutaCachePdf(libro.slug), pdfBuffer);
-    await fs.writeFile(rutaCacheMeta(libro.slug), JSON.stringify({ ultimaEdicion: ultimaEdicionAlGenerar }));
+    await fs.writeFile(rutaCacheMeta(libro.slug), JSON.stringify({ ultimaEdicion: ultimaEdicionAlGenerar, version: VERSION_PDF_BASE }));
 
     return pdfBuffer;
   } catch (error) {
@@ -913,8 +974,8 @@ async function obtenerPdfBaseLibro(libro) {
       obtenerUltimaEdicion(libro.id),
       fs.readFile(rutaCacheMeta(libro.slug), 'utf8')
     ]);
-    const { ultimaEdicion: ultimaEdicionEnCache } = JSON.parse(metaRaw);
-    if (new Date(ultimaEdicionEnCache).getTime() >= new Date(ultimaEdicionActual).getTime()) {
+    const { ultimaEdicion: ultimaEdicionEnCache, version } = JSON.parse(metaRaw);
+    if (version === VERSION_PDF_BASE && new Date(ultimaEdicionEnCache).getTime() >= new Date(ultimaEdicionActual).getTime()) {
       return fs.readFile(rutaCachePdf(libro.slug));
     }
   } catch (error) {
