@@ -1,5 +1,13 @@
 [
   {
+    "version": "1.2.1",
+    "fecha": "2026-10-23",
+    "cambios": [
+      "Las actualizaciones del sitio llegan solas: páginas, JS y CSS se piden primero al servidor (las imágenes siguen saliendo del caché)",
+      "El carrito indica de dónde sale cada descuento (el código o una oferta)"
+    ]
+  },
+  {
     "version": "1.2.0",
     "fecha": "2026-10-23",
     "cambios": [

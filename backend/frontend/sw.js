@@ -4,7 +4,8 @@
 // Objetivo minimo y a proposito conservador: que el sitio sea
 // "instalable" (icono en el celular, se abre en su propia ventana sin
 // la barra del navegador) y que las cosas realmente estaticas (CSS,
-// JS, iconos) carguen mas rapido en visitas repetidas. NO intenta
+// JS, iconos) carguen mas rapido en visitas repetidas (imagenes desde el cache; el
+// codigo, siempre fresco desde la red, ver "esCodigo"). NO intenta
 // hacer que el sitio funcione "offline" de verdad -- el contenido
 // (historias, personajes, el carrito, el catalogo) siempre depende de
 // una sesion y de datos que pueden cambiar, asi que cachearlo traeria
@@ -17,9 +18,10 @@
 // GET del propio sitio que no sean ni la API ni una pagina dinamica.
 // ============================================================
 
-// Subir este numero cada vez que cambien JS/CSS: el cache es "primero el cache" y
-// sin un nombre nuevo los visitantes que ya vinieron seguirian con los archivos viejos.
-const CACHE_NOMBRE = 'mythologica-v2';
+// El codigo (paginas, JS, CSS) va "primero la red" (ver el handler de
+// "fetch"), asi que un deploy nuevo llega solo, sin tocar este nombre.
+// Cambiarlo solo hace falta para tirar a la basura todo lo guardado.
+const CACHE_NOMBRE = 'mythologica-v3';
 
 self.addEventListener('install', () => {
   // No usamos self.skipWaiting()+un precache fijo con cache.addAll():
@@ -58,18 +60,39 @@ self.addEventListener('fetch', (evento) => {
   // pago viejo, o de otra cuenta.
   if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/libro/')) return;
 
-  // El resto (CSS, JS, imagenes, iconos, las paginas estaticas del
-  // catalogo/carrito/admin): cache primero, y si no esta todavia, se
-  // pide a la red y se guarda una copia para la proxima visita.
-  evento.respondWith(
-    caches.open(CACHE_NOMBRE).then((cache) =>
-      cache.match(request).then((respuestaCacheada) => {
-        if (respuestaCacheada) return respuestaCacheada;
-        return fetch(request).then((respuestaRed) => {
-          if (respuestaRed.ok) cache.put(request, respuestaRed.clone());
-          return respuestaRed;
-        });
-      })
-    )
-  );
+  evento.respondWith(esCodigo(request, url) ? primeroLaRed(request) : primeroElCache(request));
 });
+
+// Paginas, JS, CSS y el manifest: lo que cambia con cada deploy.
+function esCodigo(request, url) {
+  return request.mode === 'navigate'
+    || ['document', 'script', 'style', 'manifest'].includes(request.destination)
+    || /\.(html|js|css|json|webmanifest)$/.test(url.pathname);
+}
+
+// Codigo: siempre la version del servidor (asi un deploy llega solo);
+// la copia guardada se usa unicamente si no hay conexion.
+async function primeroLaRed(request) {
+  const cache = await caches.open(CACHE_NOMBRE);
+  try {
+    const respuestaRed = await fetch(request);
+    if (respuestaRed.ok) cache.put(request, respuestaRed.clone());
+    return respuestaRed;
+  } catch (error) {
+    const respuestaCacheada = await cache.match(request);
+    if (respuestaCacheada) return respuestaCacheada;
+    throw error;
+  }
+}
+
+// Imagenes, iconos y fuentes: casi nunca cambian y son lo que mas
+// pesa -- cache primero, y si no esta todavia, se pide a la red y se
+// guarda una copia para la proxima visita.
+async function primeroElCache(request) {
+  const cache = await caches.open(CACHE_NOMBRE);
+  const respuestaCacheada = await cache.match(request);
+  if (respuestaCacheada) return respuestaCacheada;
+  const respuestaRed = await fetch(request);
+  if (respuestaRed.ok) cache.put(request, respuestaRed.clone());
+  return respuestaRed;
+}
