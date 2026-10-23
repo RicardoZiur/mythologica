@@ -1061,6 +1061,31 @@ router.get('/', requiereNivel('completo'), async (req, res) => {
   }
 });
 
+// ------------------------------------------------------------
+// PRECALENTADO: deja listo el PDF base de cada libro publicado
+// ------------------------------------------------------------
+// La cache de PDF base vive en el disco del contenedor y cada deploy
+// la borra (ver CARPETA_CACHE_PDF): sin esto, la primera descarga de
+// cada libro despues de un deploy esperaba varios segundos mientras
+// Puppeteer lo armaba, y si varias llegaban juntas podian juntarse
+// varios Chrome en memoria. Lo llama server.js poco despues de
+// arrancar: genera los libros UNO POR UNO (nunca dos Chrome a la vez)
+// y salta los que ya estan vigentes. Si alguien pide un libro mientras
+// tanto, "obtenerPdfBaseLibro" comparte la generacion en curso.
+async function precalentarPdfs() {
+  const [libros] = await pool.query("SELECT id, slug, titulo FROM libros WHERE estado = 'publicado' ORDER BY id");
+  const inicio = Date.now();
+  for (const libro of libros) {
+    try {
+      await obtenerPdfBaseLibro(libro);
+    } catch (error) {
+      console.error(`Precalentado: no se pudo preparar el PDF de "${libro.slug}":`, error.message);
+    }
+  }
+  console.log(`Precalentado de PDF listo: ${libros.length} libros en ${Math.round((Date.now() - inicio) / 1000)} s`);
+}
+
 module.exports = router;
+module.exports.precalentarPdfs = precalentarPdfs;
 module.exports.generarPdfLibro = generarPdfLibro;
 module.exports.generarHtmlLibro = generarHtmlLibro;

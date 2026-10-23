@@ -199,5 +199,17 @@ asegurarTablaPrecios()
   .finally(() => {
     app.listen(PORT, () => {
       console.log(`Servidor corriendo en http://localhost:${PORT}`);
+
+      // Deja listos los PDF de todos los libros (ver precalentarPdfs en
+      // routes/pdf.js). Solo en Railway (o con PRECALENTAR_PDF=1), y con
+      // un respiro para que el arranque y las primeras visitas no
+      // compitan con Chrome. PRECALENTAR_PDF=0 lo apaga.
+      const precalentar = process.env.PRECALENTAR_PDF === '1'
+        || (process.env.RAILWAY_ENVIRONMENT && process.env.PRECALENTAR_PDF !== '0');
+      if (precalentar) {
+        setTimeout(() => {
+          pdfRouter.precalentarPdfs().catch((error) => console.error('Precalentado de PDF fallo:', error));
+        }, 30 * 1000);
+      }
     });
   });
