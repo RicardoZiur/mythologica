@@ -334,10 +334,11 @@ async function descargarPdf(botonEstado) {
   botonEstado.textContent = 'Generando...';
   const overlay = document.getElementById('pdfLoadingOverlay');
   if (overlay) overlay.hidden = false;
-  // El PDF ya sale con tu nombre/email marcados en cada pagina (ver
-  // backend/routes/pdf.js) -- este aviso es solo para que quede claro
-  // ANTES de que se descargue, no depende de que lo veas.
-  mostrarAviso('Este PDF queda identificado a tu nombre. Es para tu uso personal — no lo compartas ni lo revendas.', 6000);
+  // El PDF lleva una pagina de "Aviso legal · Copia personal" con el
+  // nombre, el email y la fecha de quien lo descarga (la pagina 2, ver
+  // paginaAvisoLegal en backend/routes/pdf.js) -- este aviso es solo
+  // para que quede claro ANTES de que se descargue.
+  mostrarAviso('Este PDF incluye un aviso de copia personal a tu nombre. Es para tu uso personal — no lo compartas ni lo revendas.', 6000);
   try {
     const url = `${PDF_URL}?libro=${encodeURIComponent(window.LIBRO_ACTUAL)}`;
     const respuesta = await fetch(url, { headers: window.authHeaders() });
