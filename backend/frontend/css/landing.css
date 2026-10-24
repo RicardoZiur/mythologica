@@ -751,3 +751,43 @@ a{ color:inherit; }
   .lp-section{ padding:48px 0; }
   .lp-stats{ gap:20px 32px; }
 }
+
+/* ---- Descuentos y promociones (debajo de las tarjetas de precio) ---- */
+.lp-promos{
+  margin-top:40px;
+  padding:26px 22px;
+  border:1px dashed var(--gold-soft);
+  border-radius:12px;
+  text-align:center;
+}
+.lp-promos-titulo{
+  font-family:'Fraunces', serif;
+  font-size:20px;
+  color:var(--text);
+  margin:0 0 20px;
+}
+.lp-promos-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:18px;
+  text-align:left;
+}
+.lp-promo h4{
+  font-size:14px;
+  color:var(--text);
+  margin:0 0 6px;
+}
+.lp-promo p{
+  font-size:13px;
+  line-height:1.6;
+  color:var(--text-dim);
+  margin:0;
+}
+.lp-promo a{ color:var(--gold); }
+.lp-promo .lp-promo-cifra{
+  font-family:'Fraunces', serif;
+  font-weight:700;
+  font-size:24px;
+  color:var(--gold);
+  margin:0 0 4px;
+}
