@@ -80,6 +80,27 @@ function construirTarjeta(libro, nivelAcceso) {
   `;
 }
 
+// Aviso del regalo por la primera compra (codigo personal, ver
+// GET /api/descuentos/mios): se aplica solo en el carrito, pero aca se
+// recuerda cuanto es y hasta cuando vale. Si falla, no se muestra nada.
+async function construirAvisoRegalo() {
+  try {
+    const respuesta = await fetch(`${API_URL}/descuentos/mios`, { headers: window.authHeaders() });
+    if (!respuesta.ok) return '';
+    const [regalo] = await respuesta.json();
+    if (!regalo) return '';
+    const vence = new Date(regalo.vence_en).toLocaleDateString('es-CL', { day: 'numeric', month: 'long' });
+    return `
+      <div class="mislibros-regalo">
+        <strong>🎁 Tienes ${regalo.porcentaje}% de descuento en otro libro</strong>
+        <span>Se aplica solo al pagar, en un libro que todavía no tengas. Vale hasta el ${vence} · código ${escaparHtml(regalo.codigo)}</span>
+      </div>
+    `;
+  } catch (error) {
+    return '';
+  }
+}
+
 async function cargarMisLibros() {
   const contenedor = document.getElementById('misLibrosContenido');
 
@@ -105,7 +126,7 @@ async function cargarMisLibros() {
       return construirTarjeta(libro, nivelAcceso);
     }).join('');
 
-    contenedor.innerHTML = `<div class="mislibros-grid">${tarjetasHtml}</div>`;
+    contenedor.innerHTML = `${await construirAvisoRegalo()}<div class="mislibros-grid">${tarjetasHtml}</div>`;
   } catch (error) {
     console.error('No se pudo cargar la biblioteca:', error);
     contenedor.innerHTML = '<p class="admin-vacio">No se pudo cargar tu biblioteca. Intenta de nuevo más tarde.</p>';

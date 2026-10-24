@@ -28,7 +28,9 @@ async function cargarOpcionesDeLibro() {
 }
 
 function etiquetaLibro(d) {
-  return d.libro_titulo || 'Todos los libros';
+  const libro = d.libro_titulo || 'Todos los libros';
+  // Codigo personal (ver otorgarRecompensaPrimeraCompra en routes/descuentos.js): solo para esa cuenta.
+  return d.usuario_email ? `${libro} · solo ${d.usuario_email}${d.origen === 'primera_compra' ? ' (regalo 1ª compra)' : ''}` : libro;
 }
 
 function construirTablaDescuentos(descuentos) {

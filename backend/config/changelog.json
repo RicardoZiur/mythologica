@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.4.0",
+    "fecha": "2026-10-24",
+    "cambios": [
+      "Regalo por la primera compra pagada: 25% de descuento en otro libro durante 30 días, con un código personal que se aplica solo en el carrito",
+      "El email de compra y Mis libros muestran el regalo y hasta cuándo vale",
+      "Panel de descuentos: los códigos personales muestran a qué cuenta pertenecen"
+    ]
+  },
+  {
     "version": "1.3.0",
     "fecha": "2026-10-23",
     "cambios": [

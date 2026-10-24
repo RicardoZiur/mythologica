@@ -203,7 +203,10 @@ const ETIQUETAS_NIVEL_EMAIL = {
   completo: 'Acceso completo + descarga en PDF'
 };
 
-async function enviarEmailCompra(usuario, items, montoTotal, moneda) {
+// "recompensa" (opcional): el codigo de regalo por la primera compra
+// ({ codigo, porcentaje, vence_en }, ver otorgarRecompensaPrimeraCompra
+// en routes/descuentos.js) -- si viene, el email lo anuncia.
+async function enviarEmailCompra(usuario, items, montoTotal, moneda, recompensa = null) {
   const formatearMonto = (monto) =>
     new Intl.NumberFormat('es-CL', { style: 'currency', currency: moneda, maximumFractionDigits: 0 }).format(monto);
 
@@ -232,11 +235,25 @@ async function enviarEmailCompra(usuario, items, montoTotal, moneda) {
             <td align="right" style="padding-top:10px; border-top:1px solid rgba(255,255,255,0.09); font-size:14px; color:#c9a24c; font-weight:bold;">${formatearMonto(montoTotal)}</td>
           </tr>
         </table>
+        ${recompensa ? bloqueRecompensa(recompensa) : ''}
       `,
       ctaTexto: 'Ir a mis libros',
       ctaUrl: `${process.env.URL_FRONTEND}/mis-libros.html`
     })
   });
+}
+
+function bloqueRecompensa({ codigo, porcentaje, vence_en: venceEn }) {
+  const vence = new Date(venceEn).toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric' });
+  const enlace = `${process.env.URL_FRONTEND}/?codigo=${encodeURIComponent(codigo)}`;
+  return `
+    <div style="margin-top:22px; padding:16px; border:1px dashed #c9a24c; border-radius:10px;">
+      <p style="margin:0 0 6px; font-size:14px; color:#c9a24c; font-weight:bold;">Un regalo por tu primera compra</p>
+      <p style="margin:0 0 10px; font-size:13px; color:#ece8e0;">Tienes <strong>${porcentaje}% de descuento en otro libro</strong> hasta el ${vence}. Se aplica solo en tu carrito; tu código es:</p>
+      <p style="margin:0 0 12px; font-size:18px; letter-spacing:2px; color:#ece8e0; font-weight:bold;">${codigo}</p>
+      <a href="${enlace}" style="font-size:13px; color:#c9a24c;">Elegir mi próximo libro →</a>
+    </div>
+  `;
 }
 
 module.exports = { enviarEmail, enviarEmailVerificacion, enviarEmailRecuperacion, enviarEmailCompra };

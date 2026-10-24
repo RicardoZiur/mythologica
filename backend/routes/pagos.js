@@ -21,7 +21,7 @@ const router = express.Router();
 const pool = require('../config/db');
 const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
 const { requiereSesion, requiereAdmin, tieneNivel, JERARQUIA_NIVELES } = require('../middleware/auth');
-const { calcularDescuentoAplicable } = require('./descuentos');
+const { calcularDescuentoAplicable, otorgarRecompensaPrimeraCompra } = require('./descuentos');
 const { enviarEmailCompra } = require('../utils/email');
 
 // Precios en pesos chilenos (CLP no usa decimales). Son globales (los
@@ -244,7 +244,7 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
     // routes/descuentos.js): si ya lo uso antes, esto tambien devuelve
     // null, y el item queda a precio de lista igual que si el codigo
     // no existiera.
-    const descuento = await calcularDescuentoAplicable(libro.id, codigoDescuento, usuario.id);
+    const descuento = await calcularDescuentoAplicable(libro.id, codigoDescuento, usuario.id, { esActualizacion });
 
     const precioOriginal = precioBase;
     const precioFinal = descuento
@@ -285,7 +285,7 @@ async function calcularCarrito(usuario, itemsCarrito, codigoDescuento) {
       .sort((a, b) => b.precio_original - a.precio_original)
       .slice(limite);
     for (const item of sobrantes) {
-      const general = await calcularDescuentoAplicable(item.libroId, null, usuario.id);
+      const general = await calcularDescuentoAplicable(item.libroId, null, usuario.id, { soloGeneral: true });
       item.precio_final = general
         ? Math.round(item.precio_original * (1 - general.porcentaje / 100))
         : item.precio_original;
@@ -600,10 +600,19 @@ async function otorgarAccesos(pedido) {
   // El email es un "extra": si falla (proveedor caido, etc.) no
   // tiene que tirar abajo la confirmacion del pago -- el acceso ya
   // quedo dado arriba de todas formas.
+  // Regalo por la primera compra pagada (25% en otro libro, 30 dias):
+  // igual que el email, si falla no afecta el acceso ya otorgado.
+  let recompensa = null;
+  try {
+    recompensa = await otorgarRecompensaPrimeraCompra(pedido);
+  } catch (error) {
+    console.error('No se pudo crear el regalo de primera compra:', error);
+  }
+
   try {
     const [usuarios] = await pool.query('SELECT nombre, email FROM usuarios WHERE id = ?', [pedido.usuario_id]);
     if (usuarios.length > 0) {
-      await enviarEmailCompra(usuarios[0], items, pedido.monto_total, pedido.moneda);
+      await enviarEmailCompra(usuarios[0], items, pedido.monto_total, pedido.moneda, recompensa);
     }
   } catch (error) {
     console.error('No se pudo enviar el email de confirmación de compra:', error);
